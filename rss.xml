@@ -1,14 +1,14 @@
 <?xml version="1.0"?>
 <rss version="2.0">
     <channel>
-        <title>ChienI&#39;s Blog</title>
+        <title>Nothing is true, everything is permitted</title>
         <subtitle></subtitle>
         <icon>https://chienikao.github.io/images/favicon.ico</icon>
         <link>https://chienikao.github.io</link>
         <author>
           <name>ChienI Kao</name>
         </author>
-        <description>This is a note blog.</description>
+        <description>This is a note blog</description>
         <language>en</language>
         <pubDate>Wed, 19 Apr 2023 01:13:43 +0800</pubDate>
         <lastBuildDate>Wed, 19 Apr 2023 01:13:43 +0800</lastBuildDate>
