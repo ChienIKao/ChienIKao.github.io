@@ -10,10 +10,71 @@
         </author>
         <description>This is a note blog</description>
         <language>en</language>
-        <pubDate>Wed, 19 Apr 2023 11:45:03 +0800</pubDate>
-        <lastBuildDate>Wed, 19 Apr 2023 11:45:03 +0800</lastBuildDate>
+        <pubDate>Wed, 19 Apr 2023 14:19:27 +0800</pubDate>
+        <lastBuildDate>Wed, 19 Apr 2023 14:19:27 +0800</lastBuildDate>
         <category term="筆記" />
         <category term=" note" />
+        <item>
+            <guid isPermalink="true">https://chienikao.github.io/2023/04/19/uva/star1/uva496%20-%20Simply%20Subsets/</guid>
+            <title>uva 496 - Simply Subsets</title>
+            <link>https://chienikao.github.io/2023/04/19/uva/star1/uva496%20-%20Simply%20Subsets/</link>
+            <category term="UVA" scheme="https://chienikao.github.io/categories/UVA/" />
+            <category term="Star1" scheme="https://chienikao.github.io/categories/UVA/Star1/" />
+            <category term="Star1" scheme="https://chienikao.github.io/tags/Star1/" />
+            <category term="CPE" scheme="https://chienikao.github.io/tags/CPE/" />
+            <category term="UVA" scheme="https://chienikao.github.io/tags/UVA/" />
+            <pubDate>Wed, 19 Apr 2023 14:19:27 +0800</pubDate>
+            <description><![CDATA[ &lt;p&gt;&lt;strong&gt;Time limit: 3.000 seconds&lt;/strong&gt;&lt;/p&gt;
+&lt;h2 id=&#34;題目連結&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#題目連結&#34;&gt;#&lt;/a&gt; 題目連結&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly96ZXJvanVkZ2UudHcvU2hvd1Byb2JsZW0/cHJvYmxlbWlkPWQ2OTE=&#34;&gt;ZeroJudge&lt;/span&gt;&lt;/li&gt;
+&lt;li&gt;&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly9vbmxpbmVqdWRnZS5vcmcvZXh0ZXJuYWwvNC9wNDk2LnBkZg==&#34;&gt;題目連結&lt;/span&gt;&lt;/li&gt;
+&lt;li&gt;&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly9vbmxpbmVqdWRnZS5vcmcvaW5kZXgucGhwP29wdGlvbj1jb21fb25saW5lanVkZ2UmYW1wO0l0ZW1pZD04JmFtcDtjYXRlZ29yeT02JmFtcDtwYWdlPXNob3dfcHJvYmxlbSZhbXA7cHJvYmxlbT00Mzc=&#34;&gt;Online Judge&lt;/span&gt;&lt;/li&gt;
+&lt;li&gt;&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly93d3cudWRlYnVnLmNvbS9VVmEvNDk2&#34;&gt;uDebug&lt;/span&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;題目敘述&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#題目敘述&#34;&gt;#&lt;/a&gt; 題目敘述&lt;/h2&gt;
+&lt;div class=&#34;note default no-icon&#34;&gt;
+&lt;p&gt;在數學的定義中，一個集合裡有 0 或多個元素。  在本問題中要請你判斷 2 個集合的關係。&lt;/p&gt;
+&lt;/div&gt;
+&lt;h2 id=&#34;input&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#input&#34;&gt;#&lt;/a&gt; Input&lt;/h2&gt;
+&lt;div class=&#34;note success no-icon&#34;&gt;
+&lt;p&gt;輸入包含很多組測試資料，每組測試資料有 2 列。 第一列代表第一個集合 A，第二列代表第二個集合 B。 每個集合至多 100 個數字，數字間以一個空格分開。&lt;/p&gt;
+&lt;/div&gt;
+&lt;h2 id=&#34;output&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#output&#34;&gt;#&lt;/a&gt; Output&lt;/h2&gt;
+&lt;div class=&#34;note info no-icon&#34;&gt;
+&lt;p&gt;對每筆輸入資料你應該要輸出以下其中一種情況：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;A is a proper subset of B （A 是 B 的子集合）&lt;/li&gt;
+&lt;li&gt;B is a proper subset of A （B 是 A 的子集合）&lt;/li&gt;
+&lt;li&gt;A equals B （A、B 是相同集合）&lt;/li&gt;
+&lt;li&gt;A and B are disjoint （A、B 完全沒有交集）&lt;/li&gt;
+&lt;li&gt;I’m confused! （A、B 有部分交集）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;h2 id=&#34;sample-input&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#sample-input&#34;&gt;#&lt;/a&gt; Sample Input&lt;/h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;55 27&lt;br&gt;
+55 27&lt;br&gt;
+9 24 1995&lt;br&gt;
+9 24&lt;br&gt;
+1 2 3&lt;br&gt;
+1 2 3 4&lt;br&gt;
+1 2 3&lt;br&gt;
+4 5 6&lt;br&gt;
+1 2&lt;br&gt;
+2 3&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;sample-output&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#sample-output&#34;&gt;#&lt;/a&gt; Sample Output&lt;/h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;A equals B&lt;br&gt;
+B is a proper subset of A&lt;br&gt;
+A is a proper subset of B&lt;br&gt;
+A and B are disjoint&lt;br&gt;
+I’m confused!&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;code&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#code&#34;&gt;#&lt;/a&gt; Code&lt;/h2&gt;
+ ]]></description>
+        </item>
         <item>
             <guid isPermalink="true">https://chienikao.github.io/2023/04/19/algorithm/page/</guid>
             <title>龜兔賽跑算法</title>
@@ -541,10 +602,12 @@ a = \ nS - b
             <title>uva 1587 - Box</title>
             <link>https://chienikao.github.io/2023/04/18/uva/star1/uva%201587%20-%20Box/</link>
             <category term="UVA" scheme="https://chienikao.github.io/categories/UVA/" />
-            <category term="star1" scheme="https://chienikao.github.io/categories/UVA/star1/" />
+            <category term="Star1" scheme="https://chienikao.github.io/categories/UVA/Star1/" />
             <category term="Star1" scheme="https://chienikao.github.io/tags/Star1/" />
+            <category term="CPE" scheme="https://chienikao.github.io/tags/CPE/" />
+            <category term="UVA" scheme="https://chienikao.github.io/tags/UVA/" />
             <pubDate>Tue, 18 Apr 2023 00:00:00 +0800</pubDate>
-            <description><![CDATA[ &lt;h4 id=&#34;time-limit-3000-seconds&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#time-limit-3000-seconds&#34;&gt;#&lt;/a&gt; Time limit: 3.000 seconds&lt;/h4&gt;
+            <description><![CDATA[ &lt;p&gt;&lt;strong&gt;Time limit: 3.000 seconds&lt;/strong&gt;&lt;/p&gt;
 &lt;h2 id=&#34;題目連結&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#題目連結&#34;&gt;#&lt;/a&gt; 題目連結&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly96ZXJvanVkZ2UudHcvU2hvd1Byb2JsZW0/cHJvYmxlbWlkPWU1MzQ=&#34;&gt;ZeroJudge&lt;/span&gt;&lt;/li&gt;
