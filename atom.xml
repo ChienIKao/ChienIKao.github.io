@@ -8,9 +8,105 @@
     <author>
       <name>ChienI Kao</name>
     </author>
-    <updated>2023-05-07T12:27:35.000Z</updated>
+    <updated>2023-05-08T02:08:30.000Z</updated>
     <category term="筆記" />
     <category term=" note" />
+    <entry>
+        <id>https://chienikao.github.io/2023/05/08/Coding/leetcode/Easy/2635%20Apply%20Transform%20Over%20Each%20Element%20in%20Array/</id>
+        <title>2635. Apply Transform Over Each Element in Array</title>
+        <link rel="alternate" href="https://chienikao.github.io/2023/05/08/Coding/leetcode/Easy/2635%20Apply%20Transform%20Over%20Each%20Element%20in%20Array/"/>
+        <content type="html">&lt;p&gt;⭐️&lt;/p&gt;
+&lt;h2 id=&#34;題目敘述&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#題目敘述&#34;&gt;#&lt;/a&gt; &lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly9sZWV0Y29kZS5jb20vcHJvYmxlbXMvYXBwbHktdHJhbnNmb3JtLW92ZXItZWFjaC1lbGVtZW50LWluLWFycmF5Lz91dG1fY2FtcGFpZ249UG9zdEQ0JmFtcDt1dG1fbWVkaXVtPVBvc3QmYW1wO3V0bV9zb3VyY2U9UG9zdCZhbXA7Z2lvX2xpbmtfaWQ9bm9xYk5Pdjk=&#34;&gt;題目敘述&lt;/span&gt;&lt;/h2&gt;
+&lt;p&gt;Given an integer array  &lt;code&gt;arr&lt;/code&gt;  and a mapping function  &lt;code&gt;fn&lt;/code&gt; , return a new array with a transformation applied to each element.&lt;/p&gt;
+&lt;p&gt;The returned array should be created such that  &lt;code&gt;returnedArray[i] = fn(arr[i], i)&lt;/code&gt; .&lt;/p&gt;
+&lt;p&gt;Please solve it without the built-in  &lt;code&gt;Array.map&lt;/code&gt;  method.&lt;/p&gt;
+&lt;h3 id=&#34;example-1&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#example-1&#34;&gt;#&lt;/a&gt; Example 1&lt;/h3&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Input:&lt;/strong&gt; arr = [1,2,3], fn = function plusone(n) { return n + 1; }&lt;br&gt;
+&lt;strong&gt;Output:&lt;/strong&gt; [2,3,4]&lt;br&gt;
+&lt;strong&gt;Explanation:&lt;/strong&gt;&lt;br&gt;
+const newArray = map(arr, plusone); // [2,3,4]&lt;br&gt;
+The function increases each value in the array by one.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3 id=&#34;example-2&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#example-2&#34;&gt;#&lt;/a&gt; Example 2&lt;/h3&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Input:&lt;/strong&gt; arr = [1,2,3], fn = function plusI(n, i) { return n + i; }&lt;br&gt;
+&lt;strong&gt;Output:&lt;/strong&gt; [1,3,5]&lt;br&gt;
+&lt;strong&gt;Explanation:&lt;/strong&gt; The function increases each value by the index it resides in.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3 id=&#34;example-3&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#example-3&#34;&gt;#&lt;/a&gt; Example 3&lt;/h3&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Input:&lt;/strong&gt; arr = [10,20,30], fn = function constant() { return 42; }&lt;br&gt;
+&lt;strong&gt;Output:&lt;/strong&gt; [42,42,42]&lt;br&gt;
+&lt;strong&gt;Explanation:&lt;/strong&gt; The function always returns 42.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;solution&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#solution&#34;&gt;#&lt;/a&gt; Solution&lt;/h2&gt;
+&lt;div class=&#34;tab&#34; data-id=&#34;code&#34; data-title=&#34;Javascript&#34;&gt;
+&lt;figure class=&#34;highlight javascript&#34;&gt;&lt;figcaption data-lang=&#34;javascript&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token comment&#34;&gt;/**&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt; * @param &amp;#123;number[]&amp;#125; arr&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;3&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt; * @param &amp;#123;Function&amp;#125; fn&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;4&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt; * @return &amp;#123;number[]&amp;#125;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;5&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt; */&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;6&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token keyword&#34;&gt;var&lt;/span&gt; &lt;span class=&#34;token function-variable function&#34;&gt;map&lt;/span&gt; &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;token keyword&#34;&gt;function&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token parameter&#34;&gt;arr&lt;span class=&#34;token punctuation&#34;&gt;,&lt;/span&gt; fn&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;&amp;#123;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;7&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token keyword&#34;&gt;return&lt;/span&gt; arr&lt;span class=&#34;token punctuation&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;token function&#34;&gt;map&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token parameter&#34;&gt;val&lt;span class=&#34;token punctuation&#34;&gt;,&lt;/span&gt; idx&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;token operator&#34;&gt;=&gt;&lt;/span&gt; val &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;token function&#34;&gt;fn&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;val&lt;span class=&#34;token punctuation&#34;&gt;,&lt;/span&gt; idx&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;8&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token punctuation&#34;&gt;&amp;#125;&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/div&gt;
+&lt;div class=&#34;tab&#34; data-id=&#34;code&#34; data-title=&#34;Typescript&#34;&gt;
+&lt;figure class=&#34;highlight typescript&#34;&gt;&lt;figcaption data-lang=&#34;typescript&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token keyword&#34;&gt;function&lt;/span&gt; &lt;span class=&#34;token function&#34;&gt;map&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;arr&lt;span class=&#34;token operator&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;token builtin&#34;&gt;number&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;token function-variable function&#34;&gt;fn&lt;/span&gt;&lt;span class=&#34;token operator&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;n&lt;span class=&#34;token operator&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;token builtin&#34;&gt;number&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;,&lt;/span&gt; i&lt;span class=&#34;token operator&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;token builtin&#34;&gt;number&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;token operator&#34;&gt;=&gt;&lt;/span&gt; &lt;span class=&#34;token builtin&#34;&gt;number&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;token operator&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;token builtin&#34;&gt;number&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;&amp;#123;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token keyword&#34;&gt;return&lt;/span&gt; arr&lt;span class=&#34;token punctuation&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;token function&#34;&gt;map&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;val&lt;span class=&#34;token operator&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;token builtin&#34;&gt;number&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;,&lt;/span&gt; idx&lt;span class=&#34;token operator&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;token builtin&#34;&gt;number&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;token operator&#34;&gt;=&gt;&lt;/span&gt; val &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;token function&#34;&gt;fn&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;val&lt;span class=&#34;token punctuation&#34;&gt;,&lt;/span&gt; idx&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;3&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token punctuation&#34;&gt;&amp;#125;&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/div&gt;
+</content>
+        <category term="Coding" scheme="https://chienikao.github.io/categories/Coding/" />
+        <category term="Leetcode" scheme="https://chienikao.github.io/categories/Coding/Leetcode/" />
+        <category term="Easy" scheme="https://chienikao.github.io/categories/Coding/Leetcode/Easy/" />
+        <category term="Leetcode" scheme="https://chienikao.github.io/tags/Leetcode/" />
+        <category term="Easy" scheme="https://chienikao.github.io/tags/Easy/" />
+        <category term="Javascript" scheme="https://chienikao.github.io/tags/Javascript/" />
+        <category term="Typescript" scheme="https://chienikao.github.io/tags/Typescript/" />
+        <updated>2023-05-08T02:08:30.000Z</updated>
+    </entry>
+    <entry>
+        <id>https://chienikao.github.io/2023/05/08/Coding/leetcode/Easy/1572%20Matrix%20Diagonal%20Sum/</id>
+        <title>1572. Matrix Diagonal Sum</title>
+        <link rel="alternate" href="https://chienikao.github.io/2023/05/08/Coding/leetcode/Easy/1572%20Matrix%20Diagonal%20Sum/"/>
+        <content type="html">&lt;p&gt;⭐️&lt;/p&gt;
+&lt;h2 id=&#34;題目敘述&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#題目敘述&#34;&gt;#&lt;/a&gt; &lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly9sZWV0Y29kZS5jb20vcHJvYmxlbXMvbWF0cml4LWRpYWdvbmFsLXN1bS8=&#34;&gt;題目敘述&lt;/span&gt;&lt;/h2&gt;
+&lt;p&gt;Given a square matrix  &lt;code&gt;mat&lt;/code&gt; , return the sum of the matrix diagonals.&lt;/p&gt;
+&lt;p&gt;Only include the sum of all the elements on the primary diagonal and all the elements on the secondary diagonal that are not part of the primary diagonal.&lt;/p&gt;
+&lt;h3 id=&#34;example-1&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#example-1&#34;&gt;#&lt;/a&gt; Example 1&lt;/h3&gt;
+&lt;p&gt;&lt;img data-src=&#34;https://hackmd.io/_uploads/rJ0RgRHVh.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Input:&lt;/strong&gt; mat =&lt;br&gt;
+[[&lt;strong&gt;1&lt;/strong&gt;,2,&lt;strong&gt;3&lt;/strong&gt;],&lt;br&gt;
+[4,&lt;strong&gt;5&lt;/strong&gt;,6],&lt;br&gt;
+[&lt;strong&gt;7&lt;/strong&gt;,8,&lt;strong&gt;9&lt;/strong&gt;]]&lt;br&gt;
+&lt;strong&gt;Output:&lt;/strong&gt; 25&lt;br&gt;
+&lt;strong&gt;Explanation:&lt;/strong&gt; Diagonals sum: 1 + 5 + 9 + 3 + 7 = 25&lt;br&gt;
+Notice that element mat[1][1] = 5 is counted only once.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3 id=&#34;example-2&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#example-2&#34;&gt;#&lt;/a&gt; Example 2&lt;/h3&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Input:&lt;/strong&gt; mat =&lt;br&gt;
+[[&lt;strong&gt;1&lt;/strong&gt;,1,1,&lt;strong&gt;1&lt;/strong&gt;],&lt;br&gt;
+[1,&lt;strong&gt;1&lt;/strong&gt;,&lt;strong&gt;1&lt;/strong&gt;,1],&lt;br&gt;
+[1,&lt;strong&gt;1&lt;/strong&gt;,&lt;strong&gt;1&lt;/strong&gt;,1],&lt;br&gt;
+[&lt;strong&gt;1&lt;/strong&gt;,1,1,&lt;strong&gt;1&lt;/strong&gt;]]&lt;br&gt;
+&lt;strong&gt;Output:&lt;/strong&gt; 8&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3 id=&#34;example-3&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#example-3&#34;&gt;#&lt;/a&gt; Example 3&lt;/h3&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Input:&lt;/strong&gt; mat = [[&lt;strong&gt;5&lt;/strong&gt;]]&lt;br&gt;
+&lt;strong&gt;Output:&lt;/strong&gt; 5&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;solution&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#solution&#34;&gt;#&lt;/a&gt; Solution&lt;/h2&gt;
+&lt;div class=&#34;tab&#34; data-id=&#34;code&#34; data-title=&#34;C++&#34;&gt;
+&lt;figure class=&#34;highlight cpp&#34;&gt;&lt;figcaption data-lang=&#34;C++&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token keyword&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;token class-name&#34;&gt;Solution&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;&amp;#123;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token keyword&#34;&gt;public&lt;/span&gt;&lt;span class=&#34;token operator&#34;&gt;:&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;3&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token keyword&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;token function&#34;&gt;diagonalSum&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;vector&lt;span class=&#34;token operator&#34;&gt;&amp;lt;&lt;/span&gt;vector&lt;span class=&#34;token operator&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;token keyword&#34;&gt;int&lt;/span&gt;&lt;span class=&#34;token operator&#34;&gt;&gt;&gt;&lt;/span&gt;&lt;span class=&#34;token operator&#34;&gt;&amp;amp;&lt;/span&gt; mat&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;&amp;#123;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;4&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;        &lt;span class=&#34;token keyword&#34;&gt;int&lt;/span&gt; res &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;token number&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;5&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;        &lt;span class=&#34;token keyword&#34;&gt;int&lt;/span&gt; n &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; mat&lt;span class=&#34;token punctuation&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;token function&#34;&gt;size&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;6&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;        &lt;span class=&#34;token keyword&#34;&gt;for&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token keyword&#34;&gt;int&lt;/span&gt; i&lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;token number&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt; i&lt;span class=&#34;token operator&#34;&gt;&amp;lt;&lt;/span&gt;n&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt; i&lt;span class=&#34;token operator&#34;&gt;++&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt; res &lt;span class=&#34;token operator&#34;&gt;+=&lt;/span&gt; mat&lt;span class=&#34;token punctuation&#34;&gt;[&lt;/span&gt;i&lt;span class=&#34;token punctuation&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;[&lt;/span&gt;i&lt;span class=&#34;token punctuation&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;7&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;        &lt;span class=&#34;token keyword&#34;&gt;for&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token keyword&#34;&gt;int&lt;/span&gt; i&lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt;n&lt;span class=&#34;token operator&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;token number&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt; i&lt;span class=&#34;token operator&#34;&gt;&gt;=&lt;/span&gt;&lt;span class=&#34;token number&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt; i&lt;span class=&#34;token operator&#34;&gt;--&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt; res &lt;span class=&#34;token operator&#34;&gt;+=&lt;/span&gt; mat&lt;span class=&#34;token punctuation&#34;&gt;[&lt;/span&gt;i&lt;span class=&#34;token punctuation&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;[&lt;/span&gt;n&lt;span class=&#34;token operator&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;token number&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;token operator&#34;&gt;-&lt;/span&gt;i&lt;span class=&#34;token punctuation&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;8&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;        &lt;span class=&#34;token keyword&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;n &lt;span class=&#34;token operator&#34;&gt;%&lt;/span&gt; &lt;span class=&#34;token number&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;token keyword&#34;&gt;return&lt;/span&gt; res &lt;span class=&#34;token operator&#34;&gt;-&lt;/span&gt; mat&lt;span class=&#34;token punctuation&#34;&gt;[&lt;/span&gt;n&lt;span class=&#34;token operator&#34;&gt;/&lt;/span&gt;&lt;span class=&#34;token number&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;[&lt;/span&gt;n&lt;span class=&#34;token operator&#34;&gt;/&lt;/span&gt;&lt;span class=&#34;token number&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;9&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;        &lt;span class=&#34;token keyword&#34;&gt;else&lt;/span&gt; &lt;span class=&#34;token keyword&#34;&gt;return&lt;/span&gt; res&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;10&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token punctuation&#34;&gt;&amp;#125;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;11&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token punctuation&#34;&gt;&amp;#125;&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/div&gt;
+&lt;div class=&#34;tab&#34; data-id=&#34;code&#34; data-title=&#34;Java&#34;&gt;
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div class=&#34;tab&#34; data-id=&#34;code&#34; data-title=&#34;Python&#34;&gt;
+&lt;figure class=&#34;highlight python&#34;&gt;&lt;figcaption data-lang=&#34;python&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token keyword&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;token class-name&#34;&gt;Solution&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;:&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token keyword&#34;&gt;def&lt;/span&gt; &lt;span class=&#34;token function&#34;&gt;diagonalSum&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;self&lt;span class=&#34;token punctuation&#34;&gt;,&lt;/span&gt; mat&lt;span class=&#34;token punctuation&#34;&gt;:&lt;/span&gt; List&lt;span class=&#34;token punctuation&#34;&gt;[&lt;/span&gt;List&lt;span class=&#34;token punctuation&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;token builtin&#34;&gt;int&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;token operator&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;token operator&#34;&gt;&gt;&lt;/span&gt; &lt;span class=&#34;token builtin&#34;&gt;int&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;:&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;3&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;        n &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;token builtin&#34;&gt;len&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;mat&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;4&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;        res &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;token number&#34;&gt;0&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;5&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;        &lt;span class=&#34;token keyword&#34;&gt;for&lt;/span&gt; i &lt;span class=&#34;token keyword&#34;&gt;in&lt;/span&gt; &lt;span class=&#34;token builtin&#34;&gt;range&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token number&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;,&lt;/span&gt; n&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;:&lt;/span&gt; res &lt;span class=&#34;token operator&#34;&gt;+=&lt;/span&gt; mat&lt;span class=&#34;token punctuation&#34;&gt;[&lt;/span&gt;i&lt;span class=&#34;token punctuation&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;[&lt;/span&gt;i&lt;span class=&#34;token punctuation&#34;&gt;]&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;6&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;        &lt;span class=&#34;token keyword&#34;&gt;for&lt;/span&gt; i &lt;span class=&#34;token keyword&#34;&gt;in&lt;/span&gt; &lt;span class=&#34;token builtin&#34;&gt;range&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;n&lt;span class=&#34;token operator&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;token number&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;token operator&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;token number&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;token operator&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;token number&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;:&lt;/span&gt; res &lt;span class=&#34;token operator&#34;&gt;+=&lt;/span&gt; mat&lt;span class=&#34;token punctuation&#34;&gt;[&lt;/span&gt;i&lt;span class=&#34;token punctuation&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;[&lt;/span&gt;n&lt;span class=&#34;token operator&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;token number&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;token operator&#34;&gt;-&lt;/span&gt;i&lt;span class=&#34;token punctuation&#34;&gt;]&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;7&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;        &lt;span class=&#34;token keyword&#34;&gt;if&lt;/span&gt; n &lt;span class=&#34;token operator&#34;&gt;%&lt;/span&gt; &lt;span class=&#34;token number&#34;&gt;2&lt;/span&gt; &lt;span class=&#34;token operator&#34;&gt;==&lt;/span&gt; &lt;span class=&#34;token number&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;token keyword&#34;&gt;return&lt;/span&gt; res &lt;span class=&#34;token operator&#34;&gt;-&lt;/span&gt; mat&lt;span class=&#34;token punctuation&#34;&gt;[&lt;/span&gt;n&lt;span class=&#34;token operator&#34;&gt;//&lt;/span&gt;&lt;span class=&#34;token number&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;[&lt;/span&gt;n&lt;span class=&#34;token operator&#34;&gt;//&lt;/span&gt;&lt;span class=&#34;token number&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;]&lt;/span&gt; &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;8&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;        &lt;span class=&#34;token keyword&#34;&gt;else&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;token keyword&#34;&gt;return&lt;/span&gt; res&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/div&gt;
+</content>
+        <category term="Coding" scheme="https://chienikao.github.io/categories/Coding/" />
+        <category term="Leetcode" scheme="https://chienikao.github.io/categories/Coding/Leetcode/" />
+        <category term="Easy" scheme="https://chienikao.github.io/categories/Coding/Leetcode/Easy/" />
+        <category term="Leetcode" scheme="https://chienikao.github.io/tags/Leetcode/" />
+        <category term="Easy" scheme="https://chienikao.github.io/tags/Easy/" />
+        <category term="Array" scheme="https://chienikao.github.io/tags/Array/" />
+        <category term="Matrix" scheme="https://chienikao.github.io/tags/Matrix/" />
+        <updated>2023-05-08T01:46:44.000Z</updated>
+    </entry>
     <entry>
         <id>https://chienikao.github.io/2023/05/07/Coding/leetcode/Easy/2665%20Counter%20II/</id>
         <title>2665. Counter II</title>
@@ -112,8 +208,8 @@ Number of valid subsequences (63 - 2 = 61).&lt;/p&gt;
         <category term="Array" scheme="https://chienikao.github.io/tags/Array/" />
         <category term="Sorting" scheme="https://chienikao.github.io/tags/Sorting/" />
         <category term="Two Pointers" scheme="https://chienikao.github.io/tags/Two-Pointers/" />
-        <category term="Medium" scheme="https://chienikao.github.io/tags/Medium/" />
         <category term="Binary Search" scheme="https://chienikao.github.io/tags/Binary-Search/" />
+        <category term="Medium" scheme="https://chienikao.github.io/tags/Medium/" />
         <updated>2023-05-07T12:23:22.000Z</updated>
     </entry>
     <entry>
@@ -311,8 +407,8 @@ f({}, null, 42); // “Hello World”&lt;/p&gt;
         <category term="Hard" scheme="https://chienikao.github.io/categories/Coding/Leetcode/Hard/" />
         <category term="Leetcode" scheme="https://chienikao.github.io/tags/Leetcode/" />
         <category term="Array" scheme="https://chienikao.github.io/tags/Array/" />
-        <category term="Binary Search" scheme="https://chienikao.github.io/tags/Binary-Search/" />
         <category term="Hard" scheme="https://chienikao.github.io/tags/Hard/" />
+        <category term="Binary Search" scheme="https://chienikao.github.io/tags/Binary-Search/" />
         <category term="Binary Indexed  Tree" scheme="https://chienikao.github.io/tags/Binary-Indexed-Tree/" />
         <updated>2023-05-07T12:13:05.000Z</updated>
     </entry>
@@ -667,9 +763,9 @@ Average salary excluding minimum and maximum salary is (2000) / 1 = 2000&lt;/p&g
         <category term="String" scheme="https://chienikao.github.io/tags/String/" />
         <category term="Leetcode" scheme="https://chienikao.github.io/tags/Leetcode/" />
         <category term="Array" scheme="https://chienikao.github.io/tags/Array/" />
+        <category term="Hard" scheme="https://chienikao.github.io/tags/Hard/" />
         <category term="Depth-First Search" scheme="https://chienikao.github.io/tags/Depth-First-Search/" />
         <category term="Breadth-First Search" scheme="https://chienikao.github.io/tags/Breadth-First-Search/" />
-        <category term="Hard" scheme="https://chienikao.github.io/tags/Hard/" />
         <updated>2023-04-28T02:36:34.000Z</updated>
     </entry>
     <entry>
@@ -1252,1137 +1348,6 @@ RECORD	RESB	100
         <category term="System Software" scheme="https://chienikao.github.io/categories/System-Software/" />
         <category term="Ch01" scheme="https://chienikao.github.io/categories/System-Software/Ch01/" />
         <category term="System Software" scheme="https://chienikao.github.io/tags/System-Software/" />
-        <updated>2023-04-26T01:33:29.000Z</updated>
-    </entry>
-    <entry>
-        <id>https://chienikao.github.io/2023/04/26/System%20Software/Ch02/Ch02_example/</id>
-        <title>Ch02 - Example</title>
-        <link rel="alternate" href="https://chienikao.github.io/2023/04/26/System%20Software/Ch02/Ch02_example/"/>
-        <content type="html">&lt;h1 id=&#34;ch02-範例程式&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#ch02-範例程式&#34;&gt;#&lt;/a&gt; Ch02 - 範例程式&lt;/h1&gt;
-&lt;h2 id=&#34;example-of-sic-program&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#example-of-sic-program&#34;&gt;#&lt;/a&gt; Example of SIC Program&lt;/h2&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt; &lt;code&gt;,X&lt;/code&gt; &lt;/strong&gt; modifier: &lt;strong&gt;indexed&lt;/strong&gt; addressing mode (Line 160, 225)&lt;/li&gt;
-&lt;li&gt;Lines &lt;strong&gt;beginning with  &lt;code&gt;.&lt;/code&gt; &lt;/strong&gt; contain &lt;strong&gt;comments&lt;/strong&gt; only (Line 110~120, 195~205)&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id=&#34;copy-subroutine&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#copy-subroutine&#34;&gt;#&lt;/a&gt;  &lt;code&gt;COPY&lt;/code&gt;  Subroutine&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;相當於整個程式的主函式
-&lt;ul&gt;
-&lt;li&gt;因為  &lt;code&gt;FIRST&lt;/code&gt;  包含在此 Subroutine 中&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;用來把 input device 的檔案複製到 output device
-&lt;ul&gt;
-&lt;li&gt;透過  &lt;code&gt;RDREC&lt;/code&gt;  讀取檔案中的 record 並存到 buffer&lt;/li&gt;
-&lt;li&gt;透過  &lt;code&gt;WRREC&lt;/code&gt;  把 buffer 中的 record 寫入檔案&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;檔案由多個 records 組成，但不確定有幾個 record…
-&lt;ul&gt;
-&lt;li&gt;所以用迴圈把 record 一個一個讀進來，每讀一個 record 就進行寫入&lt;/li&gt;
-&lt;li&gt;讀到檔案結尾就結束迴圈&lt;/li&gt;
-&lt;li&gt;並且把 ‘E’, ‘O’, ‘F’ &lt;strong&gt;三個字元&lt;/strong&gt;寫入檔案&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;pre&gt;&lt;code&gt;Line 	Loc 	Source statement 		Object code 
-
-5 	1000 	COPY 	START	 1000 		
-10 	1000 	FIRST 	STL	 RETADR 	141033 
-15 	1003 	CLOOP 	JSUB	 RDREC 		482039 
-20 	1006 		LDA 	 LENGTH 	001036 
-25 	1009 		COMP	 ZERO 		281030 
-30 	100C 		JEQ 	 ENDFIL 	301015 
-35 	100F 		JSUB	 WRREC 		482061 
-40 	1012 		J 	 CLOOP 		3C1003 
-45 	1015 	ENDFIL 	LDA 	 EOF 		00102A 
-50 	1018 		STA 	 BUFFER 	0C1039 
-55 	101B 		LDA 	 THREE 		00102D 
-60 	101E 		STA	 LENGTH 	0C1036 
-65 	1021 		JSUB 	 WRREC 		482061 
-70 	1024 		LDL 	 RETADR		081033 
-75 	1027 		RSUB 			4C0000 
-80 	102A 	EOF 	BYTE 	 C&#39;EOF&#39; 	454F46 
-85 	102D 	THREE 	WORD 	 3 		000003 
-90 	1030 	ZERO 	WORD 	 0 		000000 
-95 	1033 	RETADR 	RESW 	 1 		
-100 	1036 	LENGTH 	RESW 	 1 		
-105 	1039 	BUFFER 	RESB 	 4096 		
-&lt;/code&gt;&lt;/pre&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;strong&gt;Buffer&lt;/strong&gt;&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Is &lt;strong&gt;necessary&lt;/strong&gt; because the &lt;strong&gt;I/O rates&lt;/strong&gt; for the two devices may be very different.
-&lt;ul&gt;
-&lt;li&gt;such as a disk and a slow printing terminal&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;宣告在 Line 105，共有 4096 bytes&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;strong&gt;The end of the file to be copied&lt;/strong&gt; ( &lt;code&gt;RDREC&lt;/code&gt;  在讀的檔案的結尾)&lt;br&gt;
-&lt;span class=&#34;katex&#34;&gt;&lt;span class=&#34;katex-mathml&#34;&gt;&lt;math xmlns=&#34;http://www.w3.org/1998/Math/MathML&#34;&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;mo&gt;⇒&lt;/mo&gt;&lt;/mrow&gt;&lt;annotation encoding=&#34;application/x-tex&#34;&gt;\Rightarrow&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;&lt;/span&gt;&lt;span class=&#34;katex-html&#34; aria-hidden=&#34;true&#34;&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:0.36687em;vertical-align:0em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mrel&#34;&gt;⇒&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt; is indicated by a &lt;strong&gt;zero-length record&lt;/strong&gt;&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;code&gt;RDREC&lt;/code&gt;  會把這次讀取到的 record 的長度存在變數  &lt;code&gt;LENGTH&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;Line 20~30: 如果  &lt;code&gt;LENGTH&lt;/code&gt;  等於 0 就結束迴圈&lt;br&gt;
-&lt;span class=&#34;katex&#34;&gt;&lt;span class=&#34;katex-mathml&#34;&gt;&lt;math xmlns=&#34;http://www.w3.org/1998/Math/MathML&#34;&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;mo&gt;⇒&lt;/mo&gt;&lt;/mrow&gt;&lt;annotation encoding=&#34;application/x-tex&#34;&gt;\Rightarrow&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;&lt;/span&gt;&lt;span class=&#34;katex-html&#34; aria-hidden=&#34;true&#34;&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:0.36687em;vertical-align:0em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mrel&#34;&gt;⇒&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt; 如果讀到長度 0 的 record 就停止讀取&lt;br&gt;
-&lt;span class=&#34;katex&#34;&gt;&lt;span class=&#34;katex-mathml&#34;&gt;&lt;math xmlns=&#34;http://www.w3.org/1998/Math/MathML&#34;&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;mo&gt;⇒&lt;/mo&gt;&lt;/mrow&gt;&lt;annotation encoding=&#34;application/x-tex&#34;&gt;\Rightarrow&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;&lt;/span&gt;&lt;span class=&#34;katex-html&#34; aria-hidden=&#34;true&#34;&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:0.36687em;vertical-align:0em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mrel&#34;&gt;⇒&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt; 如果讀到檔案結尾就停止讀取&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;When the &lt;strong&gt;end of file is detected&lt;/strong&gt;&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;The program writes &lt;strong&gt; &lt;code&gt;&amp;quot;EOF&amp;quot;&lt;/code&gt; &lt;/strong&gt; on the output device (Line 45~50)&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Terminates by executing an &lt;strong&gt; &lt;code&gt;RSUB&lt;/code&gt; &lt;/strong&gt; instruction (Line 75)&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;div class=&#34;note info&#34;&gt;
-&lt;ul&gt;
-&lt;li&gt;Line 80 宣告的  &lt;code&gt;EOF&lt;/code&gt;  是三個字元  &lt;code&gt;&#39;E&#39;&lt;/code&gt; ,  &lt;code&gt;&#39;O&#39;&lt;/code&gt; ,  &lt;code&gt;&#39;F&#39;&lt;/code&gt; ，共占用 3 bytes&lt;/li&gt;
-&lt;li&gt;所以可以用  &lt;code&gt;LDA EOF&lt;/code&gt;  一次把三個字元存在 register A 中 (Line 45)&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;STA BUFFER&lt;/code&gt;  會一次把 register A 中 3 bytes 的資料寫入  &lt;code&gt;BUFFER&lt;/code&gt;  的位置中，等同:
-&lt;ul&gt;
-&lt;li&gt;把 register A 中的三個字元依序放到記憶體  &lt;code&gt;BUFFER&lt;/code&gt; ,  &lt;code&gt;BUFFER+1&lt;/code&gt; ,  &lt;code&gt;BUFFER+2&lt;/code&gt;  的三個位置中&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;BUFFER[0] = &#39;E&#39;&lt;/code&gt; ,  &lt;code&gt;BUFFER[1] = &#39;O&#39;&lt;/code&gt; ,  &lt;code&gt;BUFFER[2] = &#39;F&#39;&lt;/code&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;因為最後還要把  &lt;code&gt;BUFFER&lt;/code&gt;  中的三個字元寫到 Output device 中
-&lt;ul&gt;
-&lt;li&gt;&lt;code&gt;LENGTH&lt;/code&gt;  要設為 3 (Line 55~60)&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/div&gt;
-&lt;h4 id=&#34;high-level-pseudo-code&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#high-level-pseudo-code&#34;&gt;#&lt;/a&gt; High-Level Pseudo Code&lt;/h4&gt;
-&lt;figure class=&#34;highlight java&#34;&gt;&lt;figcaption data-lang=&#34;java&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token keyword&#34;&gt;byte&lt;/span&gt; &lt;span class=&#34;token constant&#34;&gt;BUFFER&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;token number&#34;&gt;4096&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token keyword&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;token constant&#34;&gt;LENGTH&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;3&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;4&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token keyword&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;token function&#34;&gt;COPY&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;&amp;#123;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;5&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token keyword&#34;&gt;while&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token number&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;&amp;#123;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;6&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;        &lt;span class=&#34;token function&#34;&gt;RDREC&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;7&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;        &lt;span class=&#34;token keyword&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token constant&#34;&gt;LENGTH&lt;/span&gt; &lt;span class=&#34;token operator&#34;&gt;==&lt;/span&gt; &lt;span class=&#34;token number&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;8&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;            &lt;span class=&#34;token keyword&#34;&gt;break&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;9&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;        &lt;span class=&#34;token function&#34;&gt;WRREC&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;10&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token punctuation&#34;&gt;&amp;#125;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;11&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;12&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token constant&#34;&gt;BUFFER&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;token number&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;token char&#34;&gt;&#39;E&#39;&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;13&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token constant&#34;&gt;BUFFER&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;token number&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;token char&#34;&gt;&#39;O&#39;&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;14&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token constant&#34;&gt;BUFFER&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;token number&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;token char&#34;&gt;&#39;F&#39;&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;15&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token constant&#34;&gt;LENGTH&lt;/span&gt; &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;token number&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;16&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token function&#34;&gt;WRREC&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;17&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token keyword&#34;&gt;return&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;18&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token punctuation&#34;&gt;&amp;#125;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;h3 id=&#34;rdrec-read-records-subroutine&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#rdrec-read-records-subroutine&#34;&gt;#&lt;/a&gt;  &lt;code&gt;RDREC&lt;/code&gt;  - Read Records Subroutine&lt;/h3&gt;
-&lt;pre&gt;&lt;code&gt;Line 	Loc 	Source statement 		Object code 
-110 		.			
-115 		.	SUBROUTINE TO READ RECORD INTO BUFFER 
-120 		.			
-125 	2039 	RDREC 	LDX 	 ZERO 		041030 
-130 	203C 		LDA 	 ZERO 		001030 
-135 	203F 	RLOOP 	TD  	 INPUT 		E0205D 
-140 	2042 		JEQ 	 RLOOP 		30203F 
-145 	2045 		RD 	 INPUT 		D8205D 
-150 	2048 		COMP 	 ZERO 		281030 
-155 	204B 		JEQ  	 EXIT 		302057 
-160 	204E 		STCH 	 BUFFER,X       549039 
-165 	2051 		TIX 	 MAXLEN 	2C205E 
-170 	2054 		JLT 	 RLOOP 		38203F 
-175 	2057 	EXIT 	STX 	 LENGTH 	101036 
-180 	205A 		RSUB 			4C0000 
-185 	205D 	INPUT 	BYTE	 X&#39;F1&#39;		F1 
-190 	205E 	MAXLEN 	WORD 	 4096 		001000 
-&lt;/code&gt;&lt;/pre&gt;
-&lt;ul&gt;
-&lt;li&gt;If a record is longer than the length of the buffer (4096 bytes)&lt;br&gt;
-&lt;span class=&#34;katex&#34;&gt;&lt;span class=&#34;katex-mathml&#34;&gt;&lt;math xmlns=&#34;http://www.w3.org/1998/Math/MathML&#34;&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;mo&gt;⇒&lt;/mo&gt;&lt;/mrow&gt;&lt;annotation encoding=&#34;application/x-tex&#34;&gt;\Rightarrow&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;&lt;/span&gt;&lt;span class=&#34;katex-html&#34; aria-hidden=&#34;true&#34;&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:0.36687em;vertical-align:0em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mrel&#34;&gt;⇒&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt; only the first 4096 bytes are copied.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;div class=&#34;note info&#34;&gt;
-&lt;ul&gt;
-&lt;li&gt;Line 135~140
-&lt;ul&gt;
-&lt;li&gt;迴圈不斷測試 device，直到可以進行 IO&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;Line 145
-&lt;ul&gt;
-&lt;li&gt;讀入一個 byte 的資料&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;Line 150~155
-&lt;ul&gt;
-&lt;li&gt;如果讀入的資料等於 0 就跳出迴圈&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;Line 160
-&lt;ul&gt;
-&lt;li&gt;把讀入的資料存在  &lt;code&gt;BUFFER+X&lt;/code&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;Line 165~170
-&lt;ul&gt;
-&lt;li&gt;如果讀到的資料超過 4096 bytes 就跳出迴圈&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;Line 175
-&lt;ul&gt;
-&lt;li&gt;把讀到的資料長度存在  &lt;code&gt;LENGTH&lt;/code&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/div&gt;
-&lt;h4 id=&#34;high-level-pseudo-code-2&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#high-level-pseudo-code-2&#34;&gt;#&lt;/a&gt; High-Level Pseudo Code&lt;/h4&gt;
-&lt;figure class=&#34;highlight java&#34;&gt;&lt;figcaption data-lang=&#34;java&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token keyword&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;token function&#34;&gt;RDREC&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;&amp;#123;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token class-name&#34;&gt;Device&lt;/span&gt; &lt;span class=&#34;token constant&#34;&gt;INPUT&lt;/span&gt; &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;token keyword&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;token class-name&#34;&gt;Device&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token string&#34;&gt;&#34;F1&#34;&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;3&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token keyword&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;token constant&#34;&gt;MAXLEN&lt;/span&gt; &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;token number&#34;&gt;4096&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;4&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token class-name&#34;&gt;X&lt;/span&gt; &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;token number&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;5&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token constant&#34;&gt;LENGTH&lt;/span&gt; &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;token number&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;6&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token keyword&#34;&gt;while&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token number&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;&amp;#123;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;7&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;        &lt;span class=&#34;token keyword&#34;&gt;while&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token operator&#34;&gt;!&lt;/span&gt; &lt;span class=&#34;token constant&#34;&gt;INPUT&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;token function&#34;&gt;isReady&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;&amp;#123;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;8&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;        &lt;span class=&#34;token punctuation&#34;&gt;&amp;#125;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;9&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;        &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;10&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;        &lt;span class=&#34;token keyword&#34;&gt;char&lt;/span&gt; c &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;token constant&#34;&gt;INPUT&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;token function&#34;&gt;read&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;11&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;        &lt;span class=&#34;token keyword&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;c &lt;span class=&#34;token operator&#34;&gt;==&lt;/span&gt; &lt;span class=&#34;token number&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;12&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;            &lt;span class=&#34;token keyword&#34;&gt;break&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;13&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;        &lt;span class=&#34;token constant&#34;&gt;BUFFER&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;token class-name&#34;&gt;X&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; c&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;14&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;        &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;15&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;        &lt;span class=&#34;token class-name&#34;&gt;X&lt;/span&gt;&lt;span class=&#34;token operator&#34;&gt;++&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;16&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;        &lt;span class=&#34;token keyword&#34;&gt;if&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token class-name&#34;&gt;X&lt;/span&gt; &lt;span class=&#34;token operator&#34;&gt;==&lt;/span&gt; &lt;span class=&#34;token constant&#34;&gt;MAXLEN&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;17&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;            &lt;span class=&#34;token keyword&#34;&gt;break&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;18&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token punctuation&#34;&gt;&amp;#125;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;19&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token constant&#34;&gt;LENGTH&lt;/span&gt; &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;token class-name&#34;&gt;X&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;20&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token keyword&#34;&gt;return&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;21&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token punctuation&#34;&gt;&amp;#125;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;h3 id=&#34;wrrec-write-records-subroutine&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#wrrec-write-records-subroutine&#34;&gt;#&lt;/a&gt;  &lt;code&gt;WRREC&lt;/code&gt;  - Write Records Subroutine&lt;/h3&gt;
-&lt;pre&gt;&lt;code&gt;Line 	Loc 	Source statement 		Object code 
-195 		.	
-200 		.	SUBROUTINE TO WRITE RECORD FROM BUFFER 
-205 		.	
-210 	2061 	WRREC 	LDX 	 ZERO 		041030 
-215 	2064 	WLOOP 	TD 	 OUTPUT 	E02079 
-220 	2067 		JEQ 	 WLOOP 		302064 
-225 	206A 		LDCH 	 BUFFER,X 	509039 
-230 	206D 		WD 	 OUTPUT 	DC2079 
-235 	2070 		TIX 	 LENGTH 	2C1036 
-240 	2073 		JLT 	 WLOOP 		382064 
-245 	2076 		RSUB 			4C0000 
-250 	2079 	OUTPUT 	BYTE 	 X&#39;05&#39; 		05 
-255 			END 	 FIRST 	
-&lt;/code&gt;&lt;/pre&gt;
-&lt;div class=&#34;note info&#34;&gt;
-&lt;ul&gt;
-&lt;li&gt;Line 215~220
-&lt;ul&gt;
-&lt;li&gt;迴圈不斷測試 device，直到可以進行 IO&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;Line 225~20
-&lt;ul&gt;
-&lt;li&gt;把  &lt;code&gt;BUFFER[X]&lt;/code&gt;  寫入 device&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;Line 235~240
-&lt;ul&gt;
-&lt;li&gt;判斷迴圈條件&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/div&gt;
-&lt;h4 id=&#34;high-level-pseudo-code-3&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#high-level-pseudo-code-3&#34;&gt;#&lt;/a&gt; High-Level Pseudo Code&lt;/h4&gt;
-&lt;figure class=&#34;highlight java&#34;&gt;&lt;figcaption data-lang=&#34;java&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token keyword&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;token function&#34;&gt;WRREC&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;&amp;#123;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token class-name&#34;&gt;Device&lt;/span&gt; &lt;span class=&#34;token constant&#34;&gt;OUTPUT&lt;/span&gt; &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;token keyword&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;token class-name&#34;&gt;Device&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token string&#34;&gt;&#34;05&#34;&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;3&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token keyword&#34;&gt;for&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token class-name&#34;&gt;X&lt;/span&gt; &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;token number&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;token class-name&#34;&gt;X&lt;/span&gt; &lt;span class=&#34;token operator&#34;&gt;!=&lt;/span&gt; &lt;span class=&#34;token constant&#34;&gt;LENGTH&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;token class-name&#34;&gt;X&lt;/span&gt;&lt;span class=&#34;token operator&#34;&gt;++&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;&amp;#123;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;4&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;        &lt;span class=&#34;token keyword&#34;&gt;while&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token operator&#34;&gt;!&lt;/span&gt; &lt;span class=&#34;token constant&#34;&gt;OUTPUT&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;token function&#34;&gt;isReady&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;&amp;#123;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;5&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;        &lt;span class=&#34;token punctuation&#34;&gt;&amp;#125;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;6&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;        &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;7&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;        &lt;span class=&#34;token keyword&#34;&gt;char&lt;/span&gt; c &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;token constant&#34;&gt;BUFFER&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;token class-name&#34;&gt;X&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;8&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;        &lt;span class=&#34;token constant&#34;&gt;OUTPUT&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;token function&#34;&gt;write&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;c&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;9&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token punctuation&#34;&gt;&amp;#125;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;10&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token keyword&#34;&gt;return&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;11&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token punctuation&#34;&gt;&amp;#125;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;h2 id=&#34;example-of-sicxe-program&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#example-of-sicxe-program&#34;&gt;#&lt;/a&gt; Example of SIC/XE Program&lt;/h2&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;prefix  &lt;code&gt;@&lt;/code&gt; &lt;/strong&gt;: &lt;font&gt;Indirect&lt;/font&gt; addressing&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;prefix #&lt;/strong&gt;: &lt;font&gt;Immediate&lt;/font&gt; operands&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;prefix #&amp;lt;LABEL&amp;gt;&lt;/strong&gt;: operands = the &lt;strong&gt;address&lt;/strong&gt; of the LABEL&lt;/li&gt;
-&lt;/ul&gt;
-&lt;pre&gt;&lt;code&gt;Line 	Loc 	   Source statement	 	Object code 	 
-
-5 	0000 	COPY 	START 	0 			 
-10 	0000 	FIRST 	STL 	RETADR 		17202D 	 
-12 	0003 		LDB    #LENGTH 	69202D 	 
-13 			BASE 	LENGTH 			 
-15 	0006 	CLOOP  +JSUB 	RDREC 		4B101036 	 
-20 	000A 		LDA 	LENGTH 		032026 	 
-25 	000D 		COMP   #0 		290000 	 
-30 	0010 		JEQ 	ENDFIL 		332007 	 
-35 	0013 	       +JSUB 	WRREC 		4B10105D 	 
-40 	0017 		J 	CLOOP 		3F2FEC 	 
-45 	001A 	ENDFIL 	LDA 	EOF 		032010 	 
-50 	001D 		STA 	BUFFER 		0F2016 	 
-55 	0020 		LDA    #3 		010003 	 
-60 	0023 		STA 	LENGTH 		0F200D 	 
-65 	0026 	       +JSUB	WRREC 		4B10105D 	 
-70 	002A 		J      @RETADR 	3E2003 	 
-80 	002D 	EOF 	BYTE	C&#39;EOF&#39; 		454F46 	 
-95 	0030 	RETADR 	RESW 	1 			 
-100 	0033 	LENGTH 	RESW	1 			 
-105 	0036 	BUFFER 	RESB	4096 			 
-110 		.				 
-115 		.	SUBROUTINE TO READ RECORD INTO BUFFER 	 
-120 		.				 
-125 	1036 	RDREC 	CLEAR 	X 		B410 	 
-130 	1038 		CLEAR 	A 		B400 	 
-132 	103A 		CLEAR 	S 		B440 	 
-133 	103C 	       +LDT    #4096		75101000 	 
-135 	1040 	RLOOP 	TD 	INPUT 		E32019 	 
-140 	1043 		JEQ 	RLOOP 		332FFA 	 
-145 	1046 		RD 	INPUT 		DB2013 	 
-150 	1049 		COMPR 	A,S 		A004 	 
-155 	104B 		JEQ 	EXIT 		332008 	 
-160 	104E 		STCH	BUFFER,X 	57C003 	 
-165 	1051 		TIXR 	T 		B850 	 
-170 	1053 		JLT 	RLOOP 		3B2FEA 	 
-175 	1056 	EXIT 	STX 	LENGTH 		134000 	 
-180 	1059 		RSUB 			4F0000 	 
-185 	105C 	INPUT 	BYTE 	X&#39;F1&#39; 		F1 	 
-195 		.		 
-200 		.	SUBROUTINE TO WRITE RECORD FROM BUFFER 	 
-205 		.		 
-210 	105D 	WRREC 	CLEAR 	X 		B410 	 
-212 	105F 		LDT 	LENGTH 		774000 	 
-215 	1062 	WLOOP 	TD 	OUTPUT 		E32011 	 
-220 	1065 		JEQ 	WLOOP 		332FFA 	 
-225 	1068 		LDCH 	BUFFER,X 	53C003 	 
-230 	106B 		WD 	OUTPUT 		DF2008 	 
-235 	106E 		TIXR 	T 		B850 	 
-240 	1070 		JLT 	WLOOP 		3B2FEF 	 
-245 	1073 		RSUB 			4F0000 	 
-250  	1076    OUTPUT BYTE  	X&#39;05&#39;  		05 	 
-255                    END     FIRST
-&lt;/code&gt;&lt;/pre&gt;
-</content>
-        <category term="System Software" scheme="https://chienikao.github.io/categories/System-Software/" />
-        <category term="Ch02" scheme="https://chienikao.github.io/categories/System-Software/Ch02/" />
-        <category term="System Software" scheme="https://chienikao.github.io/tags/System-Software/" />
-        <category term="Assembler" scheme="https://chienikao.github.io/tags/Assembler/" />
-        <updated>2023-04-26T01:33:29.000Z</updated>
-    </entry>
-    <entry>
-        <id>https://chienikao.github.io/2023/04/26/System%20Software/Ch01/Ch01_Background/</id>
-        <title>Ch01 - Background</title>
-        <link rel="alternate" href="https://chienikao.github.io/2023/04/26/System%20Software/Ch01/Ch01_Background/"/>
-        <content type="html">&lt;h1 id=&#34;chapter-01-background&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#chapter-01-background&#34;&gt;#&lt;/a&gt; Chapter 01 - Background&lt;/h1&gt;
-&lt;h2 id=&#34;introduction&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#introduction&#34;&gt;#&lt;/a&gt; Introduction&lt;/h2&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;strong&gt;Computer System&lt;/strong&gt;&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;Hardware&lt;/strong&gt;&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Software&lt;/strong&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;strong&gt;Software&lt;/strong&gt;&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;Application software&lt;/strong&gt; (domain knowledge)&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;System software&lt;/strong&gt; (machine architecture)&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;&lt;img data-src=&#34;https://i.imgur.com/WDd7TlA.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;System software consists of a veriety of programs that support the operation of a computer.&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Text editor, assembler, macro processor, compiler, loader, linker, debugger, operating system.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2 id=&#34;system-software-and-machine-architecture&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#system-software-and-machine-architecture&#34;&gt;#&lt;/a&gt; System Software and Machine Architecture&lt;/h2&gt;
-&lt;ul&gt;
-&lt;li&gt;System software 與 application software 的決定性差異：
-&lt;ul&gt;
-&lt;li&gt;&lt;mark&gt;&lt;font&gt;Machine-dependent (MD) features&lt;/font&gt;&lt;/mark&gt;.（在不同硬體環境需要改寫 source code）&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;System software 有&lt;strong&gt;部分&lt;/strong&gt; source code 是 machine-independent (MID)，application software 則&lt;strong&gt;全部&lt;/strong&gt;都是 machine-independent。&lt;/li&gt;
-&lt;li&gt;&lt;font&gt;SIC&lt;/font&gt; (simplified instructional computer) with two versions:
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;The standard model&lt;/strong&gt;&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;The XE (extra equipment) version&lt;/strong&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;The two versions have designed to be &lt;strong&gt;upward compatible (向上兼容)&lt;/strong&gt;.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2 id=&#34;sic-machine-architecture&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#sic-machine-architecture&#34;&gt;#&lt;/a&gt; SIC Machine Architecture&lt;/h2&gt;
-&lt;h3 id=&#34;memory&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#memory&#34;&gt;#&lt;/a&gt; &lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly93d3cueW91dHViZS5jb20vd2F0Y2g/dj0ybFN5SFpMek5ZQQ==&#34;&gt;Memory&lt;/span&gt;&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;Byte&lt;/strong&gt;: &lt;strong&gt;8-bit&lt;/strong&gt;&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Word&lt;/strong&gt;: consecutive &lt;strong&gt;3 bytes&lt;/strong&gt; (24 bits).&lt;/li&gt;
-&lt;li&gt;All addresses are &lt;strong&gt;byte addresses&lt;/strong&gt;&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Words&lt;/strong&gt; are &lt;strong&gt;addressed&lt;/strong&gt; by the location of their &lt;strong&gt;lowest numbered byte&lt;/strong&gt;.&lt;/li&gt;
-&lt;li&gt;There are a total of &lt;strong&gt;32768 (&lt;span class=&#34;katex&#34;&gt;&lt;span class=&#34;katex-mathml&#34;&gt;&lt;math xmlns=&#34;http://www.w3.org/1998/Math/MathML&#34;&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;msup&gt;&lt;mn&gt;2&lt;/mn&gt;&lt;mn&gt;15&lt;/mn&gt;&lt;/msup&gt;&lt;/mrow&gt;&lt;annotation encoding=&#34;application/x-tex&#34;&gt;2^{15}&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;&lt;/span&gt;&lt;span class=&#34;katex-html&#34; aria-hidden=&#34;true&#34;&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:0.8141079999999999em;vertical-align:0em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;&lt;span class=&#34;mord&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;msupsub&#34;&gt;&lt;span class=&#34;vlist-t&#34;&gt;&lt;span class=&#34;vlist-r&#34;&gt;&lt;span class=&#34;vlist&#34; style=&#34;height:0.8141079999999999em;&#34;&gt;&lt;span style=&#34;top:-3.063em;margin-right:0.05em;&#34;&gt;&lt;span class=&#34;pstrut&#34; style=&#34;height:2.7em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;sizing reset-size6 size3 mtight&#34;&gt;&lt;span class=&#34;mord mtight&#34;&gt;&lt;span class=&#34;mord mtight&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;mord mtight&#34;&gt;5&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;) bytes&lt;/strong&gt; in the computer memory.
-&lt;ul&gt;
-&lt;li&gt;Address 的範圍: &lt;span class=&#34;katex&#34;&gt;&lt;span class=&#34;katex-mathml&#34;&gt;&lt;math xmlns=&#34;http://www.w3.org/1998/Math/MathML&#34;&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;mn&gt;0&lt;/mn&gt;&lt;/mrow&gt;&lt;annotation encoding=&#34;application/x-tex&#34;&gt;0&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;&lt;/span&gt;&lt;span class=&#34;katex-html&#34; aria-hidden=&#34;true&#34;&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:0.64444em;vertical-align:0em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;0&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt; ~ &lt;span class=&#34;katex&#34;&gt;&lt;span class=&#34;katex-mathml&#34;&gt;&lt;math xmlns=&#34;http://www.w3.org/1998/Math/MathML&#34;&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;msup&gt;&lt;mn&gt;2&lt;/mn&gt;&lt;mn&gt;15&lt;/mn&gt;&lt;/msup&gt;&lt;mo&gt;−&lt;/mo&gt;&lt;mn&gt;1&lt;/mn&gt;&lt;/mrow&gt;&lt;annotation encoding=&#34;application/x-tex&#34;&gt;2^{15} - 1&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;&lt;/span&gt;&lt;span class=&#34;katex-html&#34; aria-hidden=&#34;true&#34;&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:0.897438em;vertical-align:-0.08333em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;&lt;span class=&#34;mord&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;msupsub&#34;&gt;&lt;span class=&#34;vlist-t&#34;&gt;&lt;span class=&#34;vlist-r&#34;&gt;&lt;span class=&#34;vlist&#34; style=&#34;height:0.8141079999999999em;&#34;&gt;&lt;span style=&#34;top:-3.063em;margin-right:0.05em;&#34;&gt;&lt;span class=&#34;pstrut&#34; style=&#34;height:2.7em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;sizing reset-size6 size3 mtight&#34;&gt;&lt;span class=&#34;mord mtight&#34;&gt;&lt;span class=&#34;mord mtight&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;mord mtight&#34;&gt;5&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;mspace&#34; style=&#34;margin-right:0.2222222222222222em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mbin&#34;&gt;−&lt;/span&gt;&lt;span class=&#34;mspace&#34; style=&#34;margin-right:0.2222222222222222em;&#34;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:0.64444em;vertical-align:0em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;1&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id=&#34;registers&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#registers&#34;&gt;#&lt;/a&gt; &lt;mark&gt;Registers&lt;/mark&gt;&lt;/h3&gt;
-&lt;div class=&#34;note danger&#34;&gt;
-&lt;p&gt;Five registers, all of which have special uses. Each register is &lt;strong&gt;24 bits&lt;/strong&gt; in length.&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;A:&lt;/strong&gt; accumulator. 累加器&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;X:&lt;/strong&gt; index register&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;L:&lt;/strong&gt; linkage register; storing the return address after a funciton call.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;PC:&lt;/strong&gt; program counter. 儲存下一條要執行的指令 (在機器語言中) 的記憶體位址&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;SW:&lt;/strong&gt; status word; including a &lt;strong&gt;Condition Code (CC)&lt;/strong&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/div&gt;
-&lt;h3 id=&#34;data-formats&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#data-formats&#34;&gt;#&lt;/a&gt; Data formats&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;strong&gt;Integers&lt;/strong&gt; are stored as &lt;strong&gt;24-bit&lt;/strong&gt; binary &lt;strong&gt;2’s complement&lt;/strong&gt; representation is used for negative values.&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;二補數相較於一補數沒有 +0 與 -0 的問題，可以多表達一個數。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;strong&gt;Characters&lt;/strong&gt; are stored using their &lt;strong&gt;8-bit ASCII codes&lt;/strong&gt;.&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;There is &lt;strong&gt;no floating-point&lt;/strong&gt; hardware on the standard version of SIC.&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id=&#34;instruction-formats&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#instruction-formats&#34;&gt;#&lt;/a&gt; Instruction formats&lt;/h3&gt;
-&lt;p&gt;&lt;img data-src=&#34;https://i.imgur.com/YzynDzE.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;mark&gt;&lt;strong&gt;24-bit&lt;/strong&gt; format&lt;/mark&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;em&gt;&lt;strong&gt;opcode (指令碼):&lt;/strong&gt;&lt;/em&gt; 8bits, 代表要執行的是哪種指令&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;em&gt;&lt;strong&gt;x:&lt;/strong&gt;&lt;/em&gt; 1bit, 用來表示是否為索引定址模式 (&lt;strong&gt;indicated indexed-addressing mode&lt;/strong&gt;)&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;em&gt;&lt;strong&gt;address:&lt;/strong&gt;&lt;/em&gt; 15bits, 因為記憶體大小為&lt;span class=&#34;katex&#34;&gt;&lt;span class=&#34;katex-mathml&#34;&gt;&lt;math xmlns=&#34;http://www.w3.org/1998/Math/MathML&#34;&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;msup&gt;&lt;mn&gt;2&lt;/mn&gt;&lt;mn&gt;15&lt;/mn&gt;&lt;/msup&gt;&lt;/mrow&gt;&lt;annotation encoding=&#34;application/x-tex&#34;&gt;2^{15}&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;&lt;/span&gt;&lt;span class=&#34;katex-html&#34; aria-hidden=&#34;true&#34;&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:0.8141079999999999em;vertical-align:0em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;&lt;span class=&#34;mord&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;msupsub&#34;&gt;&lt;span class=&#34;vlist-t&#34;&gt;&lt;span class=&#34;vlist-r&#34;&gt;&lt;span class=&#34;vlist&#34; style=&#34;height:0.8141079999999999em;&#34;&gt;&lt;span style=&#34;top:-3.063em;margin-right:0.05em;&#34;&gt;&lt;span class=&#34;pstrut&#34; style=&#34;height:2.7em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;sizing reset-size6 size3 mtight&#34;&gt;&lt;span class=&#34;mord mtight&#34;&gt;&lt;span class=&#34;mord mtight&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;mord mtight&#34;&gt;5&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt; bytes, 因此 15 個 bits 就能表示所有記憶體位置，存在此位置的資料就是此指令要使用的資料&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id=&#34;addressing-modes&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#addressing-modes&#34;&gt;#&lt;/a&gt; Addressing modes&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;There are two addressing mode avilable.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Direct&lt;/strong&gt;: x = 0; TA (target address) = address&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Indexed&lt;/strong&gt;: x = 1; TA = address + (X)
-&lt;ul&gt;
-&lt;li&gt;X is the &lt;strong&gt;index register&lt;/strong&gt; (&lt;em&gt;X&lt;/em&gt; register)&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;Parentheses (小括號) are used to indicate the contents of a register or a memory location.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id=&#34;instruction-set&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#instruction-set&#34;&gt;#&lt;/a&gt; Instruction set&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;strong&gt;Load and store registers&lt;/strong&gt;&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;code&gt;LDA&lt;/code&gt; ,  &lt;code&gt;LDX&lt;/code&gt; , … : Load &lt;em&gt;A&lt;/em&gt;, Load &lt;em&gt;X&lt;/em&gt;, etc.&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;STA&lt;/code&gt; ,  &lt;code&gt;STX&lt;/code&gt; , … : Store &lt;em&gt;A&lt;/em&gt;, Store &lt;em&gt;X&lt;/em&gt;, etc.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;strong&gt;Integer arithmetic&lt;/strong&gt; operations&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;code&gt;ADD&lt;/code&gt; ,  &lt;code&gt;SUB&lt;/code&gt; ,  &lt;code&gt;MUL&lt;/code&gt; ,  &lt;code&gt;DIV&lt;/code&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;code&gt;COMP&lt;/code&gt; : &lt;strong&gt;Compares&lt;/strong&gt; the &lt;strong&gt;value in register &lt;em&gt;A&lt;/em&gt;&lt;/strong&gt; with a &lt;strong&gt;word in memory&lt;/strong&gt;&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;font&gt;Setting&lt;/font&gt; a &lt;strong&gt;condition code&lt;/strong&gt; (CC) to indicate the result (&amp;lt;, =, or &amp;gt;)&lt;/li&gt;
-&lt;li&gt;CC is stored in register &lt;em&gt;SW&lt;/em&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;strong&gt;Conditional jump instructions&lt;/strong&gt;&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;code&gt;JLT&lt;/code&gt; : Jump if CC is set to &amp;lt; (&lt;strong&gt;L&lt;/strong&gt;ess &lt;strong&gt;T&lt;/strong&gt;han)&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;JEQ&lt;/code&gt; : Jump if CC is set to = (&lt;strong&gt;EQ&lt;/strong&gt;uals to)&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;JGT&lt;/code&gt; : Jump if CC is set to &amp;gt; (&lt;strong&gt;G&lt;/strong&gt;reater &lt;strong&gt;T&lt;/strong&gt;han)&lt;/li&gt;
-&lt;/ul&gt;
-&lt;div class=&#34;note info&#34;&gt;
-&lt;p&gt;在高階語言中，下列的敘述是: &lt;em&gt;如果 a &amp;gt; b，則向下執行 X 區段，&lt;strong&gt;否則跳到&lt;/strong&gt; Y 區段&lt;/em&gt;&lt;/p&gt;
-&lt;figure class=&#34;highlight cpp&#34;&gt;&lt;figcaption data-lang=&#34;C++&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token keyword&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;a &lt;span class=&#34;token operator&#34;&gt;&gt;&lt;/span&gt; b&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;&amp;#123;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token comment&#34;&gt;/* ===== X 區段 ===== */&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;3&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;        &lt;span class=&#34;token punctuation&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;.&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;4&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token comment&#34;&gt;/* ===== X 區段 ===== */&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;5&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token punctuation&#34;&gt;&amp;#125;&lt;/span&gt; &lt;span class=&#34;token keyword&#34;&gt;else&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;&amp;#123;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;6&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token comment&#34;&gt;/* ===== Y 區段 ===== */&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;7&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;        &lt;span class=&#34;token punctuation&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;.&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;8&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token comment&#34;&gt;/* ===== Y 區段 ===== */&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;9&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token punctuation&#34;&gt;&amp;#125;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;但在低階語言中，JUMP 的指令 ( &lt;code&gt;JLE&lt;/code&gt; ,  &lt;code&gt;JGT&lt;/code&gt; ,  &lt;code&gt;JLT&lt;/code&gt; ) 是&lt;strong&gt;滿足&lt;/strong&gt;某些 condition 才會跳到指定區段，和高階語言的邏輯相反&lt;/p&gt;
-&lt;p&gt;所以編譯器把高階語言轉換成低階語言時，會把上面那段程式碼中，X 和 Y 區段對調，以便用低階語言實作相同的邏輯&lt;/p&gt;
-&lt;p&gt;即，&lt;em&gt;如果 a &amp;gt; b，則跳到 X 區段，否則繼續下向執行 Y 區段&lt;/em&gt;&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;COMP a, b
-JGT X
-/* ===== Y 區段 ===== */
-    ...
-/* ===== Y 區段 ===== */
-
-/* ===== X 區段 ===== */
-    ...
-/* ===== X 區段 ===== */
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;code&gt;JSUB&lt;/code&gt; : jumping to a subroutine (function call)&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;code&gt;RSUB&lt;/code&gt; : returning from a subroutine to the address contained in register &lt;em&gt;L&lt;/em&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id=&#34;input-output&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#input-output&#34;&gt;#&lt;/a&gt; Input &amp;amp; Output&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;在標準版本的 SIC 中，進行 I/O 時會&lt;strong&gt;從 regiter &lt;em&gt;A&lt;/em&gt;&lt;/strong&gt; 的&lt;strong&gt;最右的 8 個 bits&lt;/strong&gt; 開始 (rightmost 8 bits)，&lt;strong&gt;一次搬動一個 byte&lt;/strong&gt;&lt;/li&gt;
-&lt;li&gt;Each device is assigned a unique &lt;strong&gt;8-bit code&lt;/strong&gt;
-&lt;ul&gt;
-&lt;li&gt;10 進位表示:  &lt;code&gt;0&lt;/code&gt;  ~  &lt;code&gt;255&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;16 進位表示:  &lt;code&gt;00&lt;/code&gt;  ~  &lt;code&gt;FF&lt;/code&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;There are three I/O instructions:
-&lt;ul&gt;
-&lt;li&gt;Test Device:  &lt;code&gt;TD&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;Read Data:  &lt;code&gt;RD&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;Write Data:  &lt;code&gt;WD&lt;/code&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;On executing  &lt;code&gt;TD&lt;/code&gt; , the &lt;strong&gt;condition code&lt;/strong&gt; is set to indicate the &lt;strong&gt;result of test&lt;/strong&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;&amp;lt;&lt;/strong&gt; means device is &lt;strong&gt;ready&lt;/strong&gt; to send or receive&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;=&lt;/strong&gt; means device is &lt;strong&gt;not ready&lt;/strong&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2 id=&#34;sicxe-machine-architecture&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#sicxe-machine-architecture&#34;&gt;#&lt;/a&gt; SIC/XE Machine Architecture&lt;/h2&gt;
-&lt;h3 id=&#34;memory-2&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#memory-2&#34;&gt;#&lt;/a&gt; &lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly93d3cueW91dHViZS5jb20vd2F0Y2g/dj1TbFBoTVBuUTU4aw==&#34;&gt;Memory&lt;/span&gt; 👍&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;1 megabyte&lt;/strong&gt; (&lt;span class=&#34;katex&#34;&gt;&lt;span class=&#34;katex-mathml&#34;&gt;&lt;math xmlns=&#34;http://www.w3.org/1998/Math/MathML&#34;&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;msup&gt;&lt;mn&gt;2&lt;/mn&gt;&lt;mn&gt;20&lt;/mn&gt;&lt;/msup&gt;&lt;/mrow&gt;&lt;annotation encoding=&#34;application/x-tex&#34;&gt;2^{20}&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;&lt;/span&gt;&lt;span class=&#34;katex-html&#34; aria-hidden=&#34;true&#34;&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:0.8141079999999999em;vertical-align:0em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;&lt;span class=&#34;mord&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;msupsub&#34;&gt;&lt;span class=&#34;vlist-t&#34;&gt;&lt;span class=&#34;vlist-r&#34;&gt;&lt;span class=&#34;vlist&#34; style=&#34;height:0.8141079999999999em;&#34;&gt;&lt;span style=&#34;top:-3.063em;margin-right:0.05em;&#34;&gt;&lt;span class=&#34;pstrut&#34; style=&#34;height:2.7em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;sizing reset-size6 size3 mtight&#34;&gt;&lt;span class=&#34;mord mtight&#34;&gt;&lt;span class=&#34;mord mtight&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;mord mtight&#34;&gt;0&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt; bytes)&lt;/li&gt;
-&lt;li&gt;Larger memory &lt;span class=&#34;katex&#34;&gt;&lt;span class=&#34;katex-mathml&#34;&gt;&lt;math xmlns=&#34;http://www.w3.org/1998/Math/MathML&#34;&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;mo&gt;⇒&lt;/mo&gt;&lt;/mrow&gt;&lt;annotation encoding=&#34;application/x-tex&#34;&gt;\Rightarrow&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;&lt;/span&gt;&lt;span class=&#34;katex-html&#34; aria-hidden=&#34;true&#34;&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:0.36687em;vertical-align:0em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mrel&#34;&gt;⇒&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt; a change in &lt;strong&gt;instruction formats&lt;/strong&gt; and &lt;strong&gt;addressing&lt;/strong&gt; (需要更多的 bit 來表示記憶體位置)&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id=&#34;registers-2&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#registers-2&#34;&gt;#&lt;/a&gt; &lt;mark&gt;Registers&lt;/mark&gt;&lt;/h3&gt;
-&lt;div class=&#34;note danger&#34;&gt;
-&lt;p&gt;比標準版本&lt;strong&gt;增加&lt;/strong&gt;以下四個暫存器:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;B&lt;/strong&gt;: base register for addressing，基底暫存器，用在定址&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;S&lt;/strong&gt;: general working register&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;T&lt;/strong&gt;: general working register&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;F&lt;/strong&gt;: floating-point accumulator，浮點累加器，用於浮點運算 (&lt;strong&gt;48 bits&lt;/strong&gt;)&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/div&gt;
-&lt;p&gt;&lt;strong&gt;General Working/Purpose Register&lt;/strong&gt;&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;沒有用在任何特殊目的的暫存器&lt;/li&gt;
-&lt;li&gt;可以儲存任意資料&lt;/li&gt;
-&lt;li&gt;用途由程式設計者自行決定&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id=&#34;data-formats-2&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#data-formats-2&#34;&gt;#&lt;/a&gt; Data Formats&lt;/h3&gt;
-&lt;p&gt;整數、字元的資料格式和和標準 SIC 相同&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;In addition&lt;/strong&gt;, there is a &lt;strong&gt;48-bit floating point&lt;/strong&gt; data type:&lt;br&gt;
-&lt;img data-src=&#34;https://i.imgur.com/Qn9UxiC.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;fraction&lt;/strong&gt; (&lt;span class=&#34;katex&#34;&gt;&lt;span class=&#34;katex-mathml&#34;&gt;&lt;math xmlns=&#34;http://www.w3.org/1998/Math/MathML&#34;&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;mi&gt;F&lt;/mi&gt;&lt;/mrow&gt;&lt;annotation encoding=&#34;application/x-tex&#34;&gt;F&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;&lt;/span&gt;&lt;span class=&#34;katex-html&#34; aria-hidden=&#34;true&#34;&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:0.68333em;vertical-align:0em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mord mathnormal&#34; style=&#34;margin-right:0.13889em;&#34;&gt;F&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;)
-&lt;ul&gt;
-&lt;li&gt;The fraction is interpreted as a value between 0 and 1&lt;/li&gt;
-&lt;li&gt;For &lt;strong&gt;normalized&lt;/strong&gt; floating point number, the high-order bit (最左位) of the fraction must be 1&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;exponent&lt;/strong&gt;: (&lt;span class=&#34;katex&#34;&gt;&lt;span class=&#34;katex-mathml&#34;&gt;&lt;math xmlns=&#34;http://www.w3.org/1998/Math/MathML&#34;&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;mi&gt;e&lt;/mi&gt;&lt;/mrow&gt;&lt;annotation encoding=&#34;application/x-tex&#34;&gt;e&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;&lt;/span&gt;&lt;span class=&#34;katex-html&#34; aria-hidden=&#34;true&#34;&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:0.43056em;vertical-align:0em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mord mathnormal&#34;&gt;e&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;)
-&lt;ul&gt;
-&lt;li&gt;the exponent is interpreted as an unsigned binary number between 0 and 2047&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;s&lt;/strong&gt;: the sign of the value
-&lt;ul&gt;
-&lt;li&gt;0: postive&lt;/li&gt;
-&lt;li&gt;1: negative&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;The value of the floating-point number:&lt;p&gt;&lt;span class=&#34;katex-display&#34;&gt;&lt;span class=&#34;katex&#34;&gt;&lt;span class=&#34;katex-mathml&#34;&gt;&lt;math xmlns=&#34;http://www.w3.org/1998/Math/MathML&#34; display=&#34;block&#34;&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;mo stretchy=&#34;false&#34;&gt;(&lt;/mo&gt;&lt;mo&gt;−&lt;/mo&gt;&lt;mn&gt;1&lt;/mn&gt;&lt;msup&gt;&lt;mo stretchy=&#34;false&#34;&gt;)&lt;/mo&gt;&lt;mi&gt;s&lt;/mi&gt;&lt;/msup&gt;&lt;mo&gt;×&lt;/mo&gt;&lt;mn&gt;0.&lt;/mn&gt;&lt;mi&gt;F&lt;/mi&gt;&lt;mo&gt;×&lt;/mo&gt;&lt;msup&gt;&lt;mn&gt;2&lt;/mn&gt;&lt;mrow&gt;&lt;mo stretchy=&#34;false&#34;&gt;(&lt;/mo&gt;&lt;mi&gt;e&lt;/mi&gt;&lt;mo&gt;−&lt;/mo&gt;&lt;mn&gt;1024&lt;/mn&gt;&lt;mo stretchy=&#34;false&#34;&gt;)&lt;/mo&gt;&lt;/mrow&gt;&lt;/msup&gt;&lt;/mrow&gt;&lt;annotation encoding=&#34;application/x-tex&#34;&gt;(-1)^s \times 0.F \times 2^{(e-1024)}
-&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;&lt;/span&gt;&lt;span class=&#34;katex-html&#34; aria-hidden=&#34;true&#34;&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:1em;vertical-align:-0.25em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mopen&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;−&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;mclose&#34;&gt;&lt;span class=&#34;mclose&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;msupsub&#34;&gt;&lt;span class=&#34;vlist-t&#34;&gt;&lt;span class=&#34;vlist-r&#34;&gt;&lt;span class=&#34;vlist&#34; style=&#34;height:0.7143919999999999em;&#34;&gt;&lt;span style=&#34;top:-3.113em;margin-right:0.05em;&#34;&gt;&lt;span class=&#34;pstrut&#34; style=&#34;height:2.7em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;sizing reset-size6 size3 mtight&#34;&gt;&lt;span class=&#34;mord mathnormal mtight&#34;&gt;s&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;mspace&#34; style=&#34;margin-right:0.2222222222222222em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mbin&#34;&gt;×&lt;/span&gt;&lt;span class=&#34;mspace&#34; style=&#34;margin-right:0.2222222222222222em;&#34;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:0.76666em;vertical-align:-0.08333em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;mord mathnormal&#34; style=&#34;margin-right:0.13889em;&#34;&gt;F&lt;/span&gt;&lt;span class=&#34;mspace&#34; style=&#34;margin-right:0.2222222222222222em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mbin&#34;&gt;×&lt;/span&gt;&lt;span class=&#34;mspace&#34; style=&#34;margin-right:0.2222222222222222em;&#34;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:0.938em;vertical-align:0em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;&lt;span class=&#34;mord&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;msupsub&#34;&gt;&lt;span class=&#34;vlist-t&#34;&gt;&lt;span class=&#34;vlist-r&#34;&gt;&lt;span class=&#34;vlist&#34; style=&#34;height:0.938em;&#34;&gt;&lt;span style=&#34;top:-3.113em;margin-right:0.05em;&#34;&gt;&lt;span class=&#34;pstrut&#34; style=&#34;height:2.7em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;sizing reset-size6 size3 mtight&#34;&gt;&lt;span class=&#34;mord mtight&#34;&gt;&lt;span class=&#34;mopen mtight&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mord mathnormal mtight&#34;&gt;e&lt;/span&gt;&lt;span class=&#34;mbin mtight&#34;&gt;−&lt;/span&gt;&lt;span class=&#34;mord mtight&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;mord mtight&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;mord mtight&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;mord mtight&#34;&gt;4&lt;/span&gt;&lt;span class=&#34;mclose mtight&#34;&gt;)&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;A value of 0 is represented by all 0&lt;/li&gt;
-&lt;/ul&gt;
-&lt;div class=&#34;note info&#34;&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;Bit string to value&lt;/strong&gt;&lt;pre&gt;&lt;code&gt;| s |   exponent    |                  fraction                    |
-+---+---------------+----------------------------------------------+
-| 0 | 100 0000 0010 | 1010 0000 0000 0000 0000 0000 0000 0000 0000 |
-&lt;/code&gt;&lt;/pre&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;span class=&#34;katex&#34;&gt;&lt;span class=&#34;katex-mathml&#34;&gt;&lt;math xmlns=&#34;http://www.w3.org/1998/Math/MathML&#34;&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;mi&gt;s&lt;/mi&gt;&lt;/mrow&gt;&lt;annotation encoding=&#34;application/x-tex&#34;&gt;s&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;&lt;/span&gt;&lt;span class=&#34;katex-html&#34; aria-hidden=&#34;true&#34;&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:0.43056em;vertical-align:0em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mord mathnormal&#34;&gt;s&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;: &lt;span class=&#34;katex&#34;&gt;&lt;span class=&#34;katex-mathml&#34;&gt;&lt;math xmlns=&#34;http://www.w3.org/1998/Math/MathML&#34;&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;mn&gt;0&lt;/mn&gt;&lt;mo&gt;⇒&lt;/mo&gt;&lt;/mrow&gt;&lt;annotation encoding=&#34;application/x-tex&#34;&gt;0 \Rightarrow&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;&lt;/span&gt;&lt;span class=&#34;katex-html&#34; aria-hidden=&#34;true&#34;&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:0.64444em;vertical-align:0em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;mspace&#34; style=&#34;margin-right:0.2777777777777778em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mrel&#34;&gt;⇒&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt; postive&lt;/li&gt;
-&lt;li&gt;&lt;span class=&#34;katex&#34;&gt;&lt;span class=&#34;katex-mathml&#34;&gt;&lt;math xmlns=&#34;http://www.w3.org/1998/Math/MathML&#34;&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;mi&gt;e&lt;/mi&gt;&lt;/mrow&gt;&lt;annotation encoding=&#34;application/x-tex&#34;&gt;e&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;&lt;/span&gt;&lt;span class=&#34;katex-html&#34; aria-hidden=&#34;true&#34;&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:0.43056em;vertical-align:0em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mord mathnormal&#34;&gt;e&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;: &lt;span class=&#34;katex&#34;&gt;&lt;span class=&#34;katex-mathml&#34;&gt;&lt;math xmlns=&#34;http://www.w3.org/1998/Math/MathML&#34;&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;mn&gt;1026&lt;/mn&gt;&lt;/mrow&gt;&lt;annotation encoding=&#34;application/x-tex&#34;&gt;1026&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;&lt;/span&gt;&lt;span class=&#34;katex-html&#34; aria-hidden=&#34;true&#34;&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:0.64444em;vertical-align:0em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;6&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/li&gt;
-&lt;li&gt;&lt;span class=&#34;katex&#34;&gt;&lt;span class=&#34;katex-mathml&#34;&gt;&lt;math xmlns=&#34;http://www.w3.org/1998/Math/MathML&#34;&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;mi&gt;F&lt;/mi&gt;&lt;/mrow&gt;&lt;annotation encoding=&#34;application/x-tex&#34;&gt;F&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;&lt;/span&gt;&lt;span class=&#34;katex-html&#34; aria-hidden=&#34;true&#34;&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:0.68333em;vertical-align:0em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mord mathnormal&#34; style=&#34;margin-right:0.13889em;&#34;&gt;F&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;: &lt;span class=&#34;katex&#34;&gt;&lt;span class=&#34;katex-mathml&#34;&gt;&lt;math xmlns=&#34;http://www.w3.org/1998/Math/MathML&#34;&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;mo stretchy=&#34;false&#34;&gt;(&lt;/mo&gt;&lt;mn&gt;0.1010&lt;/mn&gt;&lt;mtext&gt; &lt;/mtext&gt;&lt;mn&gt;0000...&lt;/mn&gt;&lt;msub&gt;&lt;mo stretchy=&#34;false&#34;&gt;)&lt;/mo&gt;&lt;mn&gt;2&lt;/mn&gt;&lt;/msub&gt;&lt;mo&gt;=&lt;/mo&gt;&lt;msup&gt;&lt;mn&gt;2&lt;/mn&gt;&lt;mrow&gt;&lt;mo&gt;−&lt;/mo&gt;&lt;mn&gt;1&lt;/mn&gt;&lt;/mrow&gt;&lt;/msup&gt;&lt;mo&gt;+&lt;/mo&gt;&lt;msup&gt;&lt;mn&gt;2&lt;/mn&gt;&lt;mrow&gt;&lt;mo&gt;−&lt;/mo&gt;&lt;mn&gt;3&lt;/mn&gt;&lt;/mrow&gt;&lt;/msup&gt;&lt;mo&gt;=&lt;/mo&gt;&lt;mn&gt;0.625&lt;/mn&gt;&lt;/mrow&gt;&lt;annotation encoding=&#34;application/x-tex&#34;&gt;(0.1010\ 0000...)_2 = 2^{-1} + 2^{-3} = 0.625&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;&lt;/span&gt;&lt;span class=&#34;katex-html&#34; aria-hidden=&#34;true&#34;&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:1em;vertical-align:-0.25em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mopen&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;mspace&#34;&gt; &lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;mclose&#34;&gt;&lt;span class=&#34;mclose&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;msupsub&#34;&gt;&lt;span class=&#34;vlist-t vlist-t2&#34;&gt;&lt;span class=&#34;vlist-r&#34;&gt;&lt;span class=&#34;vlist&#34; style=&#34;height:0.30110799999999993em;&#34;&gt;&lt;span style=&#34;top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;&#34;&gt;&lt;span class=&#34;pstrut&#34; style=&#34;height:2.7em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;sizing reset-size6 size3 mtight&#34;&gt;&lt;span class=&#34;mord mtight&#34;&gt;2&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;vlist-s&#34;&gt;​&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;vlist-r&#34;&gt;&lt;span class=&#34;vlist&#34; style=&#34;height:0.15em;&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;mspace&#34; style=&#34;margin-right:0.2777777777777778em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mrel&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;mspace&#34; style=&#34;margin-right:0.2777777777777778em;&#34;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:0.897438em;vertical-align:-0.08333em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;&lt;span class=&#34;mord&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;msupsub&#34;&gt;&lt;span class=&#34;vlist-t&#34;&gt;&lt;span class=&#34;vlist-r&#34;&gt;&lt;span class=&#34;vlist&#34; style=&#34;height:0.8141079999999999em;&#34;&gt;&lt;span style=&#34;top:-3.063em;margin-right:0.05em;&#34;&gt;&lt;span class=&#34;pstrut&#34; style=&#34;height:2.7em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;sizing reset-size6 size3 mtight&#34;&gt;&lt;span class=&#34;mord mtight&#34;&gt;&lt;span class=&#34;mord mtight&#34;&gt;−&lt;/span&gt;&lt;span class=&#34;mord mtight&#34;&gt;1&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;mspace&#34; style=&#34;margin-right:0.2222222222222222em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mbin&#34;&gt;+&lt;/span&gt;&lt;span class=&#34;mspace&#34; style=&#34;margin-right:0.2222222222222222em;&#34;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:0.8141079999999999em;vertical-align:0em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;&lt;span class=&#34;mord&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;msupsub&#34;&gt;&lt;span class=&#34;vlist-t&#34;&gt;&lt;span class=&#34;vlist-r&#34;&gt;&lt;span class=&#34;vlist&#34; style=&#34;height:0.8141079999999999em;&#34;&gt;&lt;span style=&#34;top:-3.063em;margin-right:0.05em;&#34;&gt;&lt;span class=&#34;pstrut&#34; style=&#34;height:2.7em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;sizing reset-size6 size3 mtight&#34;&gt;&lt;span class=&#34;mord mtight&#34;&gt;&lt;span class=&#34;mord mtight&#34;&gt;−&lt;/span&gt;&lt;span class=&#34;mord mtight&#34;&gt;3&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;mspace&#34; style=&#34;margin-right:0.2777777777777778em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mrel&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;mspace&#34; style=&#34;margin-right:0.2777777777777778em;&#34;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:0.64444em;vertical-align:0em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;6&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;5&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/li&gt;
-&lt;li&gt;The value of the floating point number\begin{split}
-     &amp;0.625 \times 2^{(1026-1024)} \\
-    =&amp;0.625 \times 2^2 \\
-    =&amp;2.5
-\end{split}
-
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/div&gt;
-&lt;div class=&#34;note info&#34;&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;Value to bit string&lt;/strong&gt;
-&lt;ul&gt;
-&lt;li&gt;7.625 轉浮點數表示&lt;/li&gt;
-&lt;li&gt;轉二進制&lt;p&gt;&lt;span class=&#34;katex-display&#34;&gt;&lt;span class=&#34;katex&#34;&gt;&lt;span class=&#34;katex-mathml&#34;&gt;&lt;math xmlns=&#34;http://www.w3.org/1998/Math/MathML&#34; display=&#34;block&#34;&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;mn&gt;7.625&lt;/mn&gt;&lt;mo&gt;=&lt;/mo&gt;&lt;msup&gt;&lt;mn&gt;2&lt;/mn&gt;&lt;mn&gt;2&lt;/mn&gt;&lt;/msup&gt;&lt;mo&gt;+&lt;/mo&gt;&lt;msup&gt;&lt;mn&gt;2&lt;/mn&gt;&lt;mn&gt;1&lt;/mn&gt;&lt;/msup&gt;&lt;mo&gt;+&lt;/mo&gt;&lt;msup&gt;&lt;mn&gt;2&lt;/mn&gt;&lt;mn&gt;0&lt;/mn&gt;&lt;/msup&gt;&lt;mo&gt;+&lt;/mo&gt;&lt;msup&gt;&lt;mn&gt;2&lt;/mn&gt;&lt;mrow&gt;&lt;mo&gt;−&lt;/mo&gt;&lt;mn&gt;1&lt;/mn&gt;&lt;/mrow&gt;&lt;/msup&gt;&lt;mo&gt;+&lt;/mo&gt;&lt;msup&gt;&lt;mn&gt;2&lt;/mn&gt;&lt;mrow&gt;&lt;mo&gt;−&lt;/mo&gt;&lt;mn&gt;3&lt;/mn&gt;&lt;/mrow&gt;&lt;/msup&gt;&lt;mo&gt;=&lt;/mo&gt;&lt;mo stretchy=&#34;false&#34;&gt;(&lt;/mo&gt;&lt;mn&gt;111.101&lt;/mn&gt;&lt;msub&gt;&lt;mo stretchy=&#34;false&#34;&gt;)&lt;/mo&gt;&lt;mn&gt;2&lt;/mn&gt;&lt;/msub&gt;&lt;/mrow&gt;&lt;annotation encoding=&#34;application/x-tex&#34;&gt;7.625 = 2^2 + 2^1 + 2^0 + 2^{-1} + 2^{-3} = (111.101)_2
-&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;&lt;/span&gt;&lt;span class=&#34;katex-html&#34; aria-hidden=&#34;true&#34;&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:0.64444em;vertical-align:0em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;7&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;6&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;5&lt;/span&gt;&lt;span class=&#34;mspace&#34; style=&#34;margin-right:0.2777777777777778em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mrel&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;mspace&#34; style=&#34;margin-right:0.2777777777777778em;&#34;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:0.9474379999999999em;vertical-align:-0.08333em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;&lt;span class=&#34;mord&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;msupsub&#34;&gt;&lt;span class=&#34;vlist-t&#34;&gt;&lt;span class=&#34;vlist-r&#34;&gt;&lt;span class=&#34;vlist&#34; style=&#34;height:0.8641079999999999em;&#34;&gt;&lt;span style=&#34;top:-3.113em;margin-right:0.05em;&#34;&gt;&lt;span class=&#34;pstrut&#34; style=&#34;height:2.7em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;sizing reset-size6 size3 mtight&#34;&gt;&lt;span class=&#34;mord mtight&#34;&gt;2&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;mspace&#34; style=&#34;margin-right:0.2222222222222222em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mbin&#34;&gt;+&lt;/span&gt;&lt;span class=&#34;mspace&#34; style=&#34;margin-right:0.2222222222222222em;&#34;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:0.9474379999999999em;vertical-align:-0.08333em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;&lt;span class=&#34;mord&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;msupsub&#34;&gt;&lt;span class=&#34;vlist-t&#34;&gt;&lt;span class=&#34;vlist-r&#34;&gt;&lt;span class=&#34;vlist&#34; style=&#34;height:0.8641079999999999em;&#34;&gt;&lt;span style=&#34;top:-3.113em;margin-right:0.05em;&#34;&gt;&lt;span class=&#34;pstrut&#34; style=&#34;height:2.7em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;sizing reset-size6 size3 mtight&#34;&gt;&lt;span class=&#34;mord mtight&#34;&gt;1&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;mspace&#34; style=&#34;margin-right:0.2222222222222222em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mbin&#34;&gt;+&lt;/span&gt;&lt;span class=&#34;mspace&#34; style=&#34;margin-right:0.2222222222222222em;&#34;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:0.9474379999999999em;vertical-align:-0.08333em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;&lt;span class=&#34;mord&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;msupsub&#34;&gt;&lt;span class=&#34;vlist-t&#34;&gt;&lt;span class=&#34;vlist-r&#34;&gt;&lt;span class=&#34;vlist&#34; style=&#34;height:0.8641079999999999em;&#34;&gt;&lt;span style=&#34;top:-3.113em;margin-right:0.05em;&#34;&gt;&lt;span class=&#34;pstrut&#34; style=&#34;height:2.7em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;sizing reset-size6 size3 mtight&#34;&gt;&lt;span class=&#34;mord mtight&#34;&gt;0&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;mspace&#34; style=&#34;margin-right:0.2222222222222222em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mbin&#34;&gt;+&lt;/span&gt;&lt;span class=&#34;mspace&#34; style=&#34;margin-right:0.2222222222222222em;&#34;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:0.947438em;vertical-align:-0.08333em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;&lt;span class=&#34;mord&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;msupsub&#34;&gt;&lt;span class=&#34;vlist-t&#34;&gt;&lt;span class=&#34;vlist-r&#34;&gt;&lt;span class=&#34;vlist&#34; style=&#34;height:0.864108em;&#34;&gt;&lt;span style=&#34;top:-3.113em;margin-right:0.05em;&#34;&gt;&lt;span class=&#34;pstrut&#34; style=&#34;height:2.7em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;sizing reset-size6 size3 mtight&#34;&gt;&lt;span class=&#34;mord mtight&#34;&gt;&lt;span class=&#34;mord mtight&#34;&gt;−&lt;/span&gt;&lt;span class=&#34;mord mtight&#34;&gt;1&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;mspace&#34; style=&#34;margin-right:0.2222222222222222em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mbin&#34;&gt;+&lt;/span&gt;&lt;span class=&#34;mspace&#34; style=&#34;margin-right:0.2222222222222222em;&#34;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:0.864108em;vertical-align:0em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;&lt;span class=&#34;mord&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;msupsub&#34;&gt;&lt;span class=&#34;vlist-t&#34;&gt;&lt;span class=&#34;vlist-r&#34;&gt;&lt;span class=&#34;vlist&#34; style=&#34;height:0.864108em;&#34;&gt;&lt;span style=&#34;top:-3.113em;margin-right:0.05em;&#34;&gt;&lt;span class=&#34;pstrut&#34; style=&#34;height:2.7em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;sizing reset-size6 size3 mtight&#34;&gt;&lt;span class=&#34;mord mtight&#34;&gt;&lt;span class=&#34;mord mtight&#34;&gt;−&lt;/span&gt;&lt;span class=&#34;mord mtight&#34;&gt;3&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;mspace&#34; style=&#34;margin-right:0.2777777777777778em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mrel&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;mspace&#34; style=&#34;margin-right:0.2777777777777778em;&#34;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:1em;vertical-align:-0.25em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mopen&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;mclose&#34;&gt;&lt;span class=&#34;mclose&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;msupsub&#34;&gt;&lt;span class=&#34;vlist-t vlist-t2&#34;&gt;&lt;span class=&#34;vlist-r&#34;&gt;&lt;span class=&#34;vlist&#34; style=&#34;height:0.30110799999999993em;&#34;&gt;&lt;span style=&#34;top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;&#34;&gt;&lt;span class=&#34;pstrut&#34; style=&#34;height:2.7em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;sizing reset-size6 size3 mtight&#34;&gt;&lt;span class=&#34;mord mtight&#34;&gt;2&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;vlist-s&#34;&gt;​&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;vlist-r&#34;&gt;&lt;span class=&#34;vlist&#34; style=&#34;height:0.15em;&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;normalize&lt;p&gt;&lt;span class=&#34;katex-display&#34;&gt;&lt;span class=&#34;katex&#34;&gt;&lt;span class=&#34;katex-mathml&#34;&gt;&lt;math xmlns=&#34;http://www.w3.org/1998/Math/MathML&#34; display=&#34;block&#34;&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;mo stretchy=&#34;false&#34;&gt;(&lt;/mo&gt;&lt;mn&gt;111.101&lt;/mn&gt;&lt;msub&gt;&lt;mo stretchy=&#34;false&#34;&gt;)&lt;/mo&gt;&lt;mn&gt;2&lt;/mn&gt;&lt;/msub&gt;&lt;mo&gt;=&lt;/mo&gt;&lt;mo stretchy=&#34;false&#34;&gt;(&lt;/mo&gt;&lt;mn&gt;0.111101&lt;/mn&gt;&lt;msub&gt;&lt;mo stretchy=&#34;false&#34;&gt;)&lt;/mo&gt;&lt;mn&gt;2&lt;/mn&gt;&lt;/msub&gt;&lt;mo&gt;×&lt;/mo&gt;&lt;msup&gt;&lt;mn&gt;2&lt;/mn&gt;&lt;mn&gt;3&lt;/mn&gt;&lt;/msup&gt;&lt;/mrow&gt;&lt;annotation encoding=&#34;application/x-tex&#34;&gt;(111.101)_2 = (0.111101)_2 \times 2^3
-&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;&lt;/span&gt;&lt;span class=&#34;katex-html&#34; aria-hidden=&#34;true&#34;&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:1em;vertical-align:-0.25em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mopen&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;mclose&#34;&gt;&lt;span class=&#34;mclose&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;msupsub&#34;&gt;&lt;span class=&#34;vlist-t vlist-t2&#34;&gt;&lt;span class=&#34;vlist-r&#34;&gt;&lt;span class=&#34;vlist&#34; style=&#34;height:0.30110799999999993em;&#34;&gt;&lt;span style=&#34;top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;&#34;&gt;&lt;span class=&#34;pstrut&#34; style=&#34;height:2.7em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;sizing reset-size6 size3 mtight&#34;&gt;&lt;span class=&#34;mord mtight&#34;&gt;2&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;vlist-s&#34;&gt;​&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;vlist-r&#34;&gt;&lt;span class=&#34;vlist&#34; style=&#34;height:0.15em;&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;mspace&#34; style=&#34;margin-right:0.2777777777777778em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mrel&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;mspace&#34; style=&#34;margin-right:0.2777777777777778em;&#34;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:1em;vertical-align:-0.25em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mopen&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;mclose&#34;&gt;&lt;span class=&#34;mclose&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;msupsub&#34;&gt;&lt;span class=&#34;vlist-t vlist-t2&#34;&gt;&lt;span class=&#34;vlist-r&#34;&gt;&lt;span class=&#34;vlist&#34; style=&#34;height:0.30110799999999993em;&#34;&gt;&lt;span style=&#34;top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;&#34;&gt;&lt;span class=&#34;pstrut&#34; style=&#34;height:2.7em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;sizing reset-size6 size3 mtight&#34;&gt;&lt;span class=&#34;mord mtight&#34;&gt;2&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;vlist-s&#34;&gt;​&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;vlist-r&#34;&gt;&lt;span class=&#34;vlist&#34; style=&#34;height:0.15em;&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;mspace&#34; style=&#34;margin-right:0.2222222222222222em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mbin&#34;&gt;×&lt;/span&gt;&lt;span class=&#34;mspace&#34; style=&#34;margin-right:0.2222222222222222em;&#34;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:0.8641079999999999em;vertical-align:0em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;&lt;span class=&#34;mord&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;msupsub&#34;&gt;&lt;span class=&#34;vlist-t&#34;&gt;&lt;span class=&#34;vlist-r&#34;&gt;&lt;span class=&#34;vlist&#34; style=&#34;height:0.8641079999999999em;&#34;&gt;&lt;span style=&#34;top:-3.113em;margin-right:0.05em;&#34;&gt;&lt;span class=&#34;pstrut&#34; style=&#34;height:2.7em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;sizing reset-size6 size3 mtight&#34;&gt;&lt;span class=&#34;mord mtight&#34;&gt;3&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;span class=&#34;katex&#34;&gt;&lt;span class=&#34;katex-mathml&#34;&gt;&lt;math xmlns=&#34;http://www.w3.org/1998/Math/MathML&#34;&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;mi&gt;s&lt;/mi&gt;&lt;/mrow&gt;&lt;annotation encoding=&#34;application/x-tex&#34;&gt;s&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;&lt;/span&gt;&lt;span class=&#34;katex-html&#34; aria-hidden=&#34;true&#34;&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:0.43056em;vertical-align:0em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mord mathnormal&#34;&gt;s&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;: Postive &lt;span class=&#34;katex&#34;&gt;&lt;span class=&#34;katex-mathml&#34;&gt;&lt;math xmlns=&#34;http://www.w3.org/1998/Math/MathML&#34;&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;mo&gt;⇒&lt;/mo&gt;&lt;mn&gt;0&lt;/mn&gt;&lt;/mrow&gt;&lt;annotation encoding=&#34;application/x-tex&#34;&gt;\Rightarrow 0&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;&lt;/span&gt;&lt;span class=&#34;katex-html&#34; aria-hidden=&#34;true&#34;&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:0.36687em;vertical-align:0em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mrel&#34;&gt;⇒&lt;/span&gt;&lt;span class=&#34;mspace&#34; style=&#34;margin-right:0.2777777777777778em;&#34;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:0.64444em;vertical-align:0em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;0&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/li&gt;
-&lt;li&gt;&lt;span class=&#34;katex&#34;&gt;&lt;span class=&#34;katex-mathml&#34;&gt;&lt;math xmlns=&#34;http://www.w3.org/1998/Math/MathML&#34;&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;mi&gt;f&lt;/mi&gt;&lt;/mrow&gt;&lt;annotation encoding=&#34;application/x-tex&#34;&gt;f&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;&lt;/span&gt;&lt;span class=&#34;katex-html&#34; aria-hidden=&#34;true&#34;&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:0.8888799999999999em;vertical-align:-0.19444em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mord mathnormal&#34; style=&#34;margin-right:0.10764em;&#34;&gt;f&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;: 取小數點後的部分 &lt;span class=&#34;katex&#34;&gt;&lt;span class=&#34;katex-mathml&#34;&gt;&lt;math xmlns=&#34;http://www.w3.org/1998/Math/MathML&#34;&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;mo&gt;⇒&lt;/mo&gt;&lt;mn&gt;1111&lt;/mn&gt;&lt;mtext&gt; &lt;/mtext&gt;&lt;mn&gt;0100&lt;/mn&gt;&lt;mtext&gt; &lt;/mtext&gt;&lt;mn&gt;0000...&lt;/mn&gt;&lt;/mrow&gt;&lt;annotation encoding=&#34;application/x-tex&#34;&gt;\Rightarrow 1111\ 0100\ 0000...&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;&lt;/span&gt;&lt;span class=&#34;katex-html&#34; aria-hidden=&#34;true&#34;&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:0.36687em;vertical-align:0em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mrel&#34;&gt;⇒&lt;/span&gt;&lt;span class=&#34;mspace&#34; style=&#34;margin-right:0.2777777777777778em;&#34;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:0.64444em;vertical-align:0em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;mspace&#34;&gt; &lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;mspace&#34;&gt; &lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;.&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/li&gt;
-&lt;li&gt;&lt;span class=&#34;katex&#34;&gt;&lt;span class=&#34;katex-mathml&#34;&gt;&lt;math xmlns=&#34;http://www.w3.org/1998/Math/MathML&#34;&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;mi&gt;e&lt;/mi&gt;&lt;/mrow&gt;&lt;annotation encoding=&#34;application/x-tex&#34;&gt;e&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;&lt;/span&gt;&lt;span class=&#34;katex-html&#34; aria-hidden=&#34;true&#34;&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:0.43056em;vertical-align:0em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mord mathnormal&#34;&gt;e&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;: &lt;span class=&#34;katex&#34;&gt;&lt;span class=&#34;katex-mathml&#34;&gt;&lt;math xmlns=&#34;http://www.w3.org/1998/Math/MathML&#34;&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;mn&gt;3&lt;/mn&gt;&lt;mo&gt;+&lt;/mo&gt;&lt;mn&gt;1024&lt;/mn&gt;&lt;mo&gt;=&lt;/mo&gt;&lt;mn&gt;1027&lt;/mn&gt;&lt;mo&gt;⇒&lt;/mo&gt;&lt;mn&gt;100&lt;/mn&gt;&lt;mtext&gt; &lt;/mtext&gt;&lt;mn&gt;0000&lt;/mn&gt;&lt;mtext&gt; &lt;/mtext&gt;&lt;mn&gt;0011&lt;/mn&gt;&lt;/mrow&gt;&lt;annotation encoding=&#34;application/x-tex&#34;&gt;3 + 1024=1027 \Rightarrow 100\ 0000\ 0011&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;&lt;/span&gt;&lt;span class=&#34;katex-html&#34; aria-hidden=&#34;true&#34;&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:0.72777em;vertical-align:-0.08333em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;mspace&#34; style=&#34;margin-right:0.2222222222222222em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mbin&#34;&gt;+&lt;/span&gt;&lt;span class=&#34;mspace&#34; style=&#34;margin-right:0.2222222222222222em;&#34;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:0.64444em;vertical-align:0em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;4&lt;/span&gt;&lt;span class=&#34;mspace&#34; style=&#34;margin-right:0.2777777777777778em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mrel&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;mspace&#34; style=&#34;margin-right:0.2777777777777778em;&#34;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:0.64444em;vertical-align:0em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;7&lt;/span&gt;&lt;span class=&#34;mspace&#34; style=&#34;margin-right:0.2777777777777778em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mrel&#34;&gt;⇒&lt;/span&gt;&lt;span class=&#34;mspace&#34; style=&#34;margin-right:0.2777777777777778em;&#34;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:0.64444em;vertical-align:0em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;mspace&#34;&gt; &lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;mspace&#34;&gt; &lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;1&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;pre&gt;&lt;code&gt;| s |   exponent    |                  fraction                    |
-+---+---------------+----------------------------------------------+
-| 0 | 100 0000 0011 | 1111 0100 0000 0000 0000 0000 0000 0000 0000 |
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/div&gt;
-&lt;h3 id=&#34;instruction-formats-2&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#instruction-formats-2&#34;&gt;#&lt;/a&gt; Instruction Formats&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;strong&gt;Format 1&lt;/strong&gt; (1 byte)&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;不用指定運算元的指令，如特定暫存器 + 1&lt;br&gt;
-&lt;img data-src=&#34;https://i.imgur.com/Qfl6718.png&#34; alt=&#34;&#34;&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;strong&gt;Format 2&lt;/strong&gt; (2 byte)&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;指定暫存器 address 進行運算&lt;br&gt;
-&lt;img data-src=&#34;https://i.imgur.com/oeO2joD.png&#34; alt=&#34;&#34;&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;strong&gt;Format 3&lt;/strong&gt; (3 byte)&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;大多數指令為此格式&lt;/li&gt;
-&lt;li&gt;Relative addressing mode 一定是 format 3&lt;/li&gt;
-&lt;li&gt;Immediate/Directed addressing mode 時，如果數值 / 地址不超過 disp 的表示範圍 (12 bits)，則使用 format 3&lt;br&gt;
-&lt;img data-src=&#34;https://i.imgur.com/GUppSLD.png&#34; alt=&#34;&#34;&gt;&lt;br&gt;
-&lt;em&gt;disp: &lt;u&gt;displacement&lt;/u&gt;&lt;/em&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;strong&gt;Format 4&lt;/strong&gt; (4 byte)&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;在 Immediate/Directed addressing mode，如果數值 / 地址無法用 12-bits 表示，則會使用 format 4&lt;br&gt;
-&lt;img data-src=&#34;https://i.imgur.com/qfjydIc.png&#34; alt=&#34;&#34;&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;Bit &lt;em&gt;e&lt;/em&gt; is used to &lt;strong&gt;distinguish between Format 3 and 4&lt;/strong&gt;&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;0: format 3&lt;/li&gt;
-&lt;li&gt;1: format 4&lt;/li&gt;
-&lt;/ul&gt;
-&lt;hr&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;n&lt;/strong&gt;: indirect addressing flag&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;i&lt;/strong&gt;: immediate addressing flag&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;x&lt;/strong&gt;: indexed addressing flag&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;b&lt;/strong&gt;: base address relative flag&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;p&lt;/strong&gt;: program counter relative flag&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;e&lt;/strong&gt;: format 4 instruction flag&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id=&#34;addressing-modes-2&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#addressing-modes-2&#34;&gt;#&lt;/a&gt; Addressing Modes&lt;/h3&gt;
-&lt;p&gt;&lt;strong&gt;Format 3&lt;/strong&gt;&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;Two new &lt;strong&gt;relative&lt;/strong&gt; addressing modes&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;strong&gt;Base relative&lt;/strong&gt;: &lt;mark&gt;b=1, p=0&lt;/mark&gt;, TA=(B)+disp&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;span class=&#34;katex&#34;&gt;&lt;span class=&#34;katex-mathml&#34;&gt;&lt;math xmlns=&#34;http://www.w3.org/1998/Math/MathML&#34;&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;mn&gt;0&lt;/mn&gt;&lt;mo&gt;≤&lt;/mo&gt;&lt;mtext&gt;disp&lt;/mtext&gt;&lt;mo&gt;≤&lt;/mo&gt;&lt;mn&gt;4095&lt;/mn&gt;&lt;/mrow&gt;&lt;annotation encoding=&#34;application/x-tex&#34;&gt;0 \le \text{disp} \le 4095&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;&lt;/span&gt;&lt;span class=&#34;katex-html&#34; aria-hidden=&#34;true&#34;&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:0.78041em;vertical-align:-0.13597em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;mspace&#34; style=&#34;margin-right:0.2777777777777778em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mrel&#34;&gt;≤&lt;/span&gt;&lt;span class=&#34;mspace&#34; style=&#34;margin-right:0.2777777777777778em;&#34;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:0.8888799999999999em;vertical-align:-0.19444em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mord text&#34;&gt;&lt;span class=&#34;mord&#34;&gt;disp&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;mspace&#34; style=&#34;margin-right:0.2777777777777778em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mrel&#34;&gt;≤&lt;/span&gt;&lt;span class=&#34;mspace&#34; style=&#34;margin-right:0.2777777777777778em;&#34;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:0.64444em;vertical-align:0em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;4&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;9&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;5&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;strong&gt;Program-Counter relative&lt;/strong&gt;: &lt;mark&gt;b=0, p=1&lt;/mark&gt;, TA=(PC)+disp&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;span class=&#34;katex&#34;&gt;&lt;span class=&#34;katex-mathml&#34;&gt;&lt;math xmlns=&#34;http://www.w3.org/1998/Math/MathML&#34;&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;mo&gt;−&lt;/mo&gt;&lt;mn&gt;2048&lt;/mn&gt;&lt;mo&gt;≤&lt;/mo&gt;&lt;mtext&gt;disp&lt;/mtext&gt;&lt;mo&gt;≤&lt;/mo&gt;&lt;mn&gt;2047&lt;/mn&gt;&lt;/mrow&gt;&lt;annotation encoding=&#34;application/x-tex&#34;&gt;-2048 \le \text{disp} \le 2047&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;&lt;/span&gt;&lt;span class=&#34;katex-html&#34; aria-hidden=&#34;true&#34;&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:0.78041em;vertical-align:-0.13597em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;−&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;4&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;8&lt;/span&gt;&lt;span class=&#34;mspace&#34; style=&#34;margin-right:0.2777777777777778em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mrel&#34;&gt;≤&lt;/span&gt;&lt;span class=&#34;mspace&#34; style=&#34;margin-right:0.2777777777777778em;&#34;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:0.8888799999999999em;vertical-align:-0.19444em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mord text&#34;&gt;&lt;span class=&#34;mord&#34;&gt;disp&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;mspace&#34; style=&#34;margin-right:0.2777777777777778em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mrel&#34;&gt;≤&lt;/span&gt;&lt;span class=&#34;mspace&#34; style=&#34;margin-right:0.2777777777777778em;&#34;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:0.64444em;vertical-align:0em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;4&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;7&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt; using 2’s complement notation&lt;/li&gt;
-&lt;li&gt;因為程式執行可能會有像迴圈要往回跳的狀況，所以需要負數&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;strong&gt;Direct addressing&lt;/strong&gt;: If &lt;mark&gt;b=0, p=0&lt;/mark&gt;, TA=disp&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;&lt;strong&gt;Format 4&lt;/strong&gt;&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;bits b and p are normally set to 0
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;Direct addressing&lt;/strong&gt;: TA=address&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;Any of above addressing modes can also be combined with indexed addressing&lt;/p&gt;
-&lt;hr&gt;
-&lt;p&gt;&lt;strong&gt;Format 3/4 通用&lt;/strong&gt;&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;If bit &lt;mark&gt;i=1, n=0&lt;/mark&gt;, the &lt;strong&gt;target address&lt;/strong&gt; itself is used as the &lt;strong&gt;operand value&lt;/strong&gt;&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;font&gt;Immediate addressing&lt;/font&gt;&lt;/li&gt;
-&lt;li&gt;算出來的 TA 本身就是資料，而不是地址&lt;/li&gt;
-&lt;li&gt;常用在&lt;strong&gt;資料是常數&lt;/strong&gt;的時候&lt;/li&gt;
-&lt;li&gt;No memory reference is performed&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;If bit &lt;mark&gt;i=0, n=1&lt;/mark&gt;, word at the location given by the target address is fetched&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;font&gt;Indirect addressing&lt;/font&gt;&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;The value&lt;/strong&gt; contained in this word is then taken as &lt;strong&gt;the address of the operand value&lt;/strong&gt;&lt;/li&gt;
-&lt;li&gt;類似 C 語言裡面的對指標取值&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;If bit &lt;mark&gt;i=0, n=0&lt;/mark&gt; or &lt;mark&gt;i=1, b=1&lt;/mark&gt;, the target address is taken as the location of the operand&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;font&gt;simple addressing&lt;/font&gt;&lt;/li&gt;
-&lt;li&gt;最一般的使用方法，存放在記憶體 TA 位置的資料即運算元&lt;/li&gt;
-&lt;li&gt;SIC/XE instructions that specify neither immediate nor indirect addressing are assembled with &lt;strong&gt;bits &lt;em&gt;n&lt;/em&gt; and &lt;em&gt;i&lt;/em&gt; both set to 1&lt;/strong&gt;. (for upward compatibility)&lt;/li&gt;
-&lt;li&gt;Assemblers for the standard version of SIC will set the bits in both of these positions to 0. This is because the 8-bit binary codes for all the SIC instructions end in 00.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;For SIC/XE, if bits n and i are both 0, then bits b, p, and e are considered to be part of the address field of the instruction.&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;This makes Instruction Format 3 identical to the format used on the standard version of SIC, providing the desired compatibility.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;div class=&#34;note danger&#34;&gt;
-&lt;ul&gt;
-&lt;li&gt;當&lt;strong&gt; n = 0; i = 0:&lt;/strong&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;SIC/XE&lt;/strong&gt; 為了向上相容，會改變為&lt;strong&gt; SIC&lt;/strong&gt; 的形式，此時的&lt;em&gt;&lt;strong&gt; b,p,e&lt;/strong&gt;&lt;/em&gt; 會和&lt;em&gt;&lt;strong&gt; disp&lt;/strong&gt;&lt;/em&gt; 合併為 15 個 bits&lt;/li&gt;
-&lt;li&gt;因為會轉變為&lt;strong&gt; SIC&lt;/strong&gt; 的形式，所以&lt;strong&gt; format 4&lt;/strong&gt; 裡&lt;em&gt;&lt;strong&gt; n, i&lt;/strong&gt;&lt;/em&gt; 不會同時為 0&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;當&lt;strong&gt; n = 1; i = 1:&lt;/strong&gt;
-&lt;ul&gt;
-&lt;li&gt;仍會去判斷&lt;em&gt;&lt;strong&gt; b,p,e&lt;/strong&gt;&lt;/em&gt; 的樣式&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/div&gt;
-&lt;div class=&#34;note info&#34;&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;Relative&lt;/strong&gt;/&lt;strong&gt;Direct&lt;/strong&gt; Addressing Mode 定義如何求出 &lt;em&gt;TA&lt;/em&gt;&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Immediate&lt;/strong&gt;/&lt;strong&gt;Indirect&lt;/strong&gt;/&lt;strong&gt;Simple&lt;/strong&gt; Addressing Mode 定義求出 &lt;em&gt;TA&lt;/em&gt; 後，如何得到運算元&lt;/li&gt;
-&lt;li&gt;上面兩種模式是同時存在的，所以一共有 6 種組合，以下舉例三種
-&lt;ul&gt;
-&lt;li&gt;一條 format3 指令是 Direct+Simple
-&lt;ul&gt;
-&lt;li&gt;TA = disp&lt;/li&gt;
-&lt;li&gt;代表運算元是存在記憶體位置 disp 上的資料&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;一條 format3 指令是 Direct+Immediate
-&lt;ul&gt;
-&lt;li&gt;TA = disp&lt;/li&gt;
-&lt;li&gt;代表運算元是 disp&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;一條 format3 指令是 Relative+Immediate
-&lt;ul&gt;
-&lt;li&gt;TA = (B) + disp&lt;/li&gt;
-&lt;li&gt;代表運算元是 (B) + disp&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/div&gt;
-&lt;h3 id=&#34;instruction-set-2&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#instruction-set-2&#34;&gt;#&lt;/a&gt; Instruction Set&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;Load/Store&lt;/strong&gt;:  &lt;code&gt;LDB&lt;/code&gt; ,  &lt;code&gt;STB&lt;/code&gt; , …&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Floating-Point Number Arithmetic&lt;/strong&gt;:  &lt;code&gt;ADDF&lt;/code&gt; ,  &lt;code&gt;SUBF&lt;/code&gt; ,  &lt;code&gt;MULF&lt;/code&gt; ,  &lt;code&gt;DIVF&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Register Move&lt;/strong&gt;:  &lt;code&gt;RMO&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Register-to-Register Arithmetic&lt;/strong&gt;:  &lt;code&gt;ADDR&lt;/code&gt; ,  &lt;code&gt;SUBR&lt;/code&gt; ,  &lt;code&gt;MULR&lt;/code&gt; ,  &lt;code&gt;DIVR&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Supervisor call instruction&lt;/strong&gt;:  &lt;code&gt;SVC&lt;/code&gt;
-&lt;ul&gt;
-&lt;li&gt;generating an &lt;strong&gt;interrupt&lt;/strong&gt; that can be used for &lt;strong&gt;communication with the OS&lt;/strong&gt;.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id=&#34;input-and-output&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#input-and-output&#34;&gt;#&lt;/a&gt; Input and Output&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;There are &lt;strong&gt;I/O channels&lt;/strong&gt; that can be used to perform input and output while the CPU is executing other instructions.&lt;/li&gt;
-&lt;li&gt;This allow overlap of computing and I/O, resulting in more efficient system operation.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Instructions&lt;/strong&gt;:
-&lt;ul&gt;
-&lt;li&gt;Start I/O:  &lt;code&gt;SIO&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;Test I/O:  &lt;code&gt;TIO&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;Halt I/O:  &lt;code&gt;HIO&lt;/code&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2 id=&#34;sic-programming-examples&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#sic-programming-examples&#34;&gt;#&lt;/a&gt; SIC Programming Examples&lt;/h2&gt;
-&lt;h3 id=&#34;&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#&#34;&gt;#&lt;/a&gt; &lt;a href=&#34;./Appendix%20A.md&#34;&gt;&lt;strong&gt;附錄 A - 組合語言補充&lt;/strong&gt;&lt;/a&gt;&lt;/h3&gt;
-&lt;h3 id=&#34;-2&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#-2&#34;&gt;#&lt;/a&gt; &lt;a href=&#34;./Ch01%20-%20%E7%AF%84%E4%BE%8B%E7%A8%8B%E5%BC%8F%E5%88%86%E6%9E%90.md&#34;&gt;&lt;strong&gt;範例程式分析&lt;/strong&gt;&lt;/a&gt;&lt;/h3&gt;
-&lt;h2 id=&#34;cisc-複雜指令集架構&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#cisc-複雜指令集架構&#34;&gt;#&lt;/a&gt; CISC (&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly96aC53aWtpcGVkaWEub3JnL3poLXR3LyVFOCVBNCU4NyVFOSU5QiU5QyVFNiU4QyU4NyVFNCVCQiVBNCVFOSU5QiU4NiVFOSU5QiVCQiVFOCU4NSVBNg==&#34;&gt;複雜指令集架構&lt;/span&gt;)&lt;/h2&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;CISC: Complex Instruction Set Computers&lt;/strong&gt;&lt;/li&gt;
-&lt;li&gt;Implementation of such an architecture in &lt;strong&gt;hardware tends to be complex&lt;/strong&gt;.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2 id=&#34;vax-virtual-address-extension-architecture&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#vax-virtual-address-extension-architecture&#34;&gt;#&lt;/a&gt; VAX (Virtual Address eXtension) Architecture&lt;/h2&gt;
-&lt;h3 id=&#34;memory-3&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#memory-3&#34;&gt;#&lt;/a&gt; Memory&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;8-bit bytes&lt;/li&gt;
-&lt;li&gt;Byte Addresses&lt;/li&gt;
-&lt;li&gt;&lt;font&gt;Word&lt;/font&gt;: 2 bytes&lt;/li&gt;
-&lt;li&gt;&lt;font&gt;Long Word&lt;/font&gt;: 4 bytes&lt;/li&gt;
-&lt;li&gt;&lt;font&gt;Quadword&lt;/font&gt;: 8 bytes&lt;/li&gt;
-&lt;li&gt;&lt;font&gt;Octaword&lt;/font&gt;: 16 bytes&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;Some operations are more efficient when operands are &lt;strong&gt;aligned in a particular way&lt;/strong&gt;&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;For example, a &lt;strong&gt;longword&lt;/strong&gt; operand that &lt;strong&gt;begins at a byte address&lt;/strong&gt; that is a &lt;strong&gt;multiple of 4&lt;/strong&gt;.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;&lt;font&gt;Virtual address space&lt;/font&gt;: &lt;span class=&#34;katex&#34;&gt;&lt;span class=&#34;katex-mathml&#34;&gt;&lt;math xmlns=&#34;http://www.w3.org/1998/Math/MathML&#34;&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;msup&gt;&lt;mn&gt;2&lt;/mn&gt;&lt;mn&gt;32&lt;/mn&gt;&lt;/msup&gt;&lt;/mrow&gt;&lt;annotation encoding=&#34;application/x-tex&#34;&gt;2^{32}&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;&lt;/span&gt;&lt;span class=&#34;katex-html&#34; aria-hidden=&#34;true&#34;&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:0.8141079999999999em;vertical-align:0em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;&lt;span class=&#34;mord&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;msupsub&#34;&gt;&lt;span class=&#34;vlist-t&#34;&gt;&lt;span class=&#34;vlist-r&#34;&gt;&lt;span class=&#34;vlist&#34; style=&#34;height:0.8141079999999999em;&#34;&gt;&lt;span style=&#34;top:-3.063em;margin-right:0.05em;&#34;&gt;&lt;span class=&#34;pstrut&#34; style=&#34;height:2.7em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;sizing reset-size6 size3 mtight&#34;&gt;&lt;span class=&#34;mord mtight&#34;&gt;&lt;span class=&#34;mord mtight&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;mord mtight&#34;&gt;2&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt; bytes&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;One &lt;strong&gt;half&lt;/strong&gt; of the VAX virtual address space is called &lt;font&gt;system space&lt;/font&gt;, which &lt;strong&gt;contains the operating system&lt;/strong&gt;, and is &lt;strong&gt;shared by all programs&lt;/strong&gt;.&lt;/li&gt;
-&lt;li&gt;The other half of the address space is called &lt;font&gt;process space&lt;/font&gt;, and is defined separately for each program.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id=&#34;registers-3&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#registers-3&#34;&gt;#&lt;/a&gt; Registers&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;16 &lt;strong&gt;general-purpose registers&lt;/strong&gt;: &lt;em&gt;R0&lt;/em&gt;~&lt;em&gt;R15&lt;/em&gt;, &lt;strong&gt;32 bits&lt;/strong&gt; in length.&lt;/li&gt;
-&lt;li&gt;&lt;em&gt;R15&lt;/em&gt;: program counter&lt;/li&gt;
-&lt;li&gt;&lt;em&gt;R14&lt;/em&gt;: stack pointer&lt;/li&gt;
-&lt;li&gt;&lt;em&gt;R13&lt;/em&gt;: frame pointer&lt;/li&gt;
-&lt;li&gt;&lt;em&gt;R12&lt;/em&gt;: argument pointer&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Processor status longword&lt;/strong&gt; (&lt;em&gt;&lt;strong&gt;PSL&lt;/strong&gt;&lt;/em&gt;), which contains state variables and flags associated with a process.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id=&#34;data-formats-3&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#data-formats-3&#34;&gt;#&lt;/a&gt; Data Formats&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;2’s complement&lt;/strong&gt; representation is used for negative values.&lt;/li&gt;
-&lt;li&gt;Characters are stored using their &lt;strong&gt;8-bit ASCII codes&lt;/strong&gt;.&lt;/li&gt;
-&lt;li&gt;There are four different &lt;strong&gt;floating-point&lt;/strong&gt; data formats, ranging in length &lt;strong&gt;from 4 to 16 bytes&lt;/strong&gt;.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Packed decimal format&lt;/strong&gt;: each byte represents two decimal digits.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Numeric format&lt;/strong&gt;: one digit per byte.&lt;/li&gt;
-&lt;li&gt;Support &lt;strong&gt;queues&lt;/strong&gt; and &lt;strong&gt;variable-length bit strings&lt;/strong&gt;.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id=&#34;instruction-formats-3&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#instruction-formats-3&#34;&gt;#&lt;/a&gt; Instruction Formats&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;A &lt;strong&gt;variable-length instruction format&lt;/strong&gt;.&lt;/li&gt;
-&lt;li&gt;Each instruction consists of &lt;strong&gt;an operation code&lt;/strong&gt; (1 or 2 bytes) followed by &lt;strong&gt;up to six operand specifiers&lt;/strong&gt;.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id=&#34;addressing-modes-3&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#addressing-modes-3&#34;&gt;#&lt;/a&gt; Addressing Modes&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;Immediate mode&lt;/li&gt;
-&lt;li&gt;Register mode&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Register deferred&lt;/strong&gt; mode&lt;/li&gt;
-&lt;li&gt;Autoincrement and autodecrement  modes (register content)&lt;/li&gt;
-&lt;li&gt;Several base relative addressing modes&lt;/li&gt;
-&lt;li&gt;May also include an index register&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id=&#34;instruction-set-3&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#instruction-set-3&#34;&gt;#&lt;/a&gt; Instruction Set&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;Instruction mnemonics are formed by combining the following elements:
-&lt;ol&gt;
-&lt;li&gt;A &lt;strong&gt;prefix&lt;/strong&gt; that specifies the &lt;strong&gt;type of operation&lt;/strong&gt;&lt;/li&gt;
-&lt;li&gt;A &lt;strong&gt;suffix&lt;/strong&gt; that specifies the &lt;strong&gt;data type of the operands&lt;/strong&gt;&lt;/li&gt;
-&lt;li&gt;A &lt;strong&gt;modifier&lt;/strong&gt; (on some instructions) that gives the &lt;strong&gt;number of operands&lt;/strong&gt; involved.&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/li&gt;
-&lt;li&gt;Examples:
-&lt;ul&gt;
-&lt;li&gt;&lt;code&gt;ADDW2&lt;/code&gt; : &lt;strong&gt;ADD&lt;/strong&gt; &lt;strong&gt;W&lt;/strong&gt;ord, &lt;strong&gt;2&lt;/strong&gt; operands&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;MULL3&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;CVTWL&lt;/code&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;There are number of operations that are much more complex than the machine instructions found on most computers.&lt;/p&gt;
-&lt;p&gt;These operations are hardware realizations of frequently occurring &lt;strong&gt;sequences of code&lt;/strong&gt;. They are &lt;strong&gt;implemented as single instructions&lt;/strong&gt; for efficiency and speed.&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Load and store multiple registers&lt;/li&gt;
-&lt;li&gt;Manipulate queues and variable-length bit fields.&lt;/li&gt;
-&lt;li&gt;Calling and returning from procedures: a single instruction saves a designated set of registers, passes a list of arguments to the procedure, &lt;strong&gt;maintains the stack, frame, and argument pointers&lt;/strong&gt;, and sets a mask to enable error traps for arithmetic operations.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id=&#34;inputoutput&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#inputoutput&#34;&gt;#&lt;/a&gt; Input/Output&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;Each I/O device controller has a set of &lt;strong&gt;control/status and data registers&lt;/strong&gt;, which are &lt;strong&gt;assigned locations in the physical address space&lt;/strong&gt;.&lt;/li&gt;
-&lt;li&gt;The portion of the address space into which the device controller registers are mapped is called &lt;font&gt;I/O space&lt;/font&gt;.&lt;/li&gt;
-&lt;li&gt;No special instructions are required to access registers in I/O space.&lt;/li&gt;
-&lt;li&gt;An I/O device &lt;strong&gt;driver&lt;/strong&gt; issues commands to the device controller by &lt;strong&gt;storing values into the appropriate registers&lt;/strong&gt;.&lt;/li&gt;
-&lt;li&gt;Software routines may read these registers to obtain status information.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2 id=&#34;x86-architecture&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#x86-architecture&#34;&gt;#&lt;/a&gt; x86 Architecture&lt;/h2&gt;
-&lt;h3 id=&#34;memory-4&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#memory-4&#34;&gt;#&lt;/a&gt; Memory&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;At the &lt;strong&gt;physical level&lt;/strong&gt;, memory consists of 8-bit bytes.&lt;/li&gt;
-&lt;li&gt;Byte addresses.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Word&lt;/strong&gt;: two consecutive bytes&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Double-word (dword)&lt;/strong&gt;: four bytes&lt;/li&gt;
-&lt;li&gt;Some operations are more efficient when operands are aligned in a particular way.&lt;/li&gt;
-&lt;li&gt;However, programmers usually view the x86 memory as a collection of &lt;font&gt;segments&lt;/font&gt;.
-&lt;ul&gt;
-&lt;li&gt;From this point of view, an &lt;strong&gt;address&lt;/strong&gt; consists of two parts
-&lt;ul&gt;
-&lt;li&gt;a &lt;strong&gt;segment number&lt;/strong&gt;&lt;/li&gt;
-&lt;li&gt;an &lt;strong&gt;offset&lt;/strong&gt; that points to a byte within the segment.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;Segments can be of &lt;strong&gt;different sizes&lt;/strong&gt;, and are often used for different purposes.
-&lt;ul&gt;
-&lt;li&gt;For example, &lt;strong&gt;code segment&lt;/strong&gt; and &lt;strong&gt;data segment&lt;/strong&gt;.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;It is not necessary for all of the segments used by a program to be in physical memory.&lt;/li&gt;
-&lt;li&gt;A segment can also be &lt;strong&gt;divided into pages&lt;/strong&gt;.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id=&#34;registers-4&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#registers-4&#34;&gt;#&lt;/a&gt; Registers&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;Each &lt;strong&gt;general-purpose register&lt;/strong&gt; is &lt;strong&gt;32 bits&lt;/strong&gt; long.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;EIP&lt;/strong&gt;: program counter.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;FLAGS&lt;/strong&gt;&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;16-bit segment registers&lt;/strong&gt;:
-&lt;ul&gt;
-&lt;li&gt;&lt;em&gt;CS&lt;/em&gt; for code segment&lt;/li&gt;
-&lt;li&gt;SS for stack segment&lt;/li&gt;
-&lt;li&gt;&lt;em&gt;DS&lt;/em&gt;, &lt;em&gt;ES&lt;/em&gt;, &lt;em&gt;FS&lt;/em&gt;, &lt;em&gt;GS&lt;/em&gt; for data segments.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Floating-point unit&lt;/strong&gt; (FPU) contains eight &lt;strong&gt;80-bit&lt;/strong&gt; data registers.&lt;/li&gt;
-&lt;li&gt;There are also a number of registers that are &lt;strong&gt;used only by system programs&lt;/strong&gt; such as the operating system.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id=&#34;data-formats-4&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#data-formats-4&#34;&gt;#&lt;/a&gt; Data Formats&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;Integers, floating-point values, characters, and strings.&lt;/li&gt;
-&lt;li&gt;The least significant part of a numeric value is stored at the lowest-numbered address: &lt;font&gt;little-endian&lt;/font&gt;.&lt;/li&gt;
-&lt;li&gt;Unpacked and packed &lt;strong&gt;BCD formats&lt;/strong&gt;.&lt;/li&gt;
-&lt;li&gt;Three different floating-point data formats:
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;single-precision&lt;/strong&gt; with 32 bits (24+7+1)&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;double-precision&lt;/strong&gt; with 64 bits (53+10+1)&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;extended-precision&lt;/strong&gt; with 80 bits (64+15+1)&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id=&#34;instruction-formats-4&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#instruction-formats-4&#34;&gt;#&lt;/a&gt; Instruction Formats&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;Prefix&lt;/strong&gt;: containing &lt;strong&gt;flags&lt;/strong&gt; that &lt;strong&gt;modify the operation&lt;/strong&gt; of the instruction.
-&lt;ul&gt;
-&lt;li&gt;For example, a repetition count of the instruction (e.g. string manipulation), specifying a segment register.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;opcode&lt;/strong&gt;: 1 or 2 bytes. Some operations have different opcodes, each specifying a different variant of the operation.&lt;/li&gt;
-&lt;li&gt;A number of bytes that specify the &lt;strong&gt;operands&lt;/strong&gt; and &lt;strong&gt;addressing modes&lt;/strong&gt; to be used.&lt;/li&gt;
-&lt;li&gt;The &lt;strong&gt;opcode&lt;/strong&gt; is the only element that is &lt;font&gt;always present&lt;/font&gt; in every instruction.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id=&#34;addressing-modes-4&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#addressing-modes-4&#34;&gt;#&lt;/a&gt; Addressing Modes&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;Immediate mode&lt;/strong&gt;: data in the instruction&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Register mode&lt;/strong&gt;: data in register&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Direct mode&lt;/strong&gt;: address of data in the instruction&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Relative mode&lt;/strong&gt;: displacement in the instruction, relative to EIP
-&lt;ul&gt;
-&lt;li&gt;TA=(base register) + (index register)*(scale factor) + displacement&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id=&#34;instruction-set-4&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#instruction-set-4&#34;&gt;#&lt;/a&gt; Instruction Set&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;More than 400 machine instructions.&lt;/li&gt;
-&lt;li&gt;An instruction may have &lt;strong&gt;0~3 operands&lt;/strong&gt;.&lt;/li&gt;
-&lt;li&gt;There are:
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;register-to-register&lt;/strong&gt; instructions&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;register-to-memory&lt;/strong&gt; instructions&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;memory-to-memory&lt;/strong&gt; instructions&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;Some &lt;strong&gt;special-purpose instructions&lt;/strong&gt; to perform operations &lt;strong&gt;frequently required in high-level programming languages&lt;/strong&gt;
-&lt;ul&gt;
-&lt;li&gt;For example, entering and leaving procedures and checking subscript values against the bounds of an array.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id=&#34;io&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#io&#34;&gt;#&lt;/a&gt; I/O&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;Repetition prefixes allow I/O instructions to transfer an entire string in a single operation.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2 id=&#34;risc-machines&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#risc-machines&#34;&gt;#&lt;/a&gt; RISC Machines&lt;/h2&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;Reduced Instruction Set Computer&lt;/strong&gt;&lt;/li&gt;
-&lt;li&gt;This &lt;strong&gt;simplified design&lt;/strong&gt; can result in
-&lt;ul&gt;
-&lt;li&gt;faster and less expensive processor development&lt;/li&gt;
-&lt;li&gt;greater reliability&lt;/li&gt;
-&lt;li&gt;faster instruction fetching, decoding, and execution times.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;In general, a RISC system is characterized by
-&lt;ul&gt;
-&lt;li&gt;a standard, &lt;strong&gt;fixed instruction length&lt;/strong&gt;
-&lt;ul&gt;
-&lt;li&gt;usually equal to &lt;strong&gt;one machine word&lt;/strong&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;single-cycle execution of most instructions&lt;/strong&gt;.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;Memory access is usually done by &lt;strong&gt;load&lt;/strong&gt; and &lt;strong&gt;store&lt;/strong&gt; instructions only.&lt;/li&gt;
-&lt;li&gt;All instructions except for load and store are &lt;strong&gt;register-to-register operations&lt;/strong&gt;.&lt;/li&gt;
-&lt;li&gt;There are typically a relatively &lt;strong&gt;large number of general-purpose registers&lt;/strong&gt;.&lt;/li&gt;
-&lt;li&gt;The number of machine instructions, instruction formats, and addressing modes is relatively small.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2 id=&#34;ultrasparc-scalable-processor-architecture-architecture&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#ultrasparc-scalable-processor-architecture-architecture&#34;&gt;#&lt;/a&gt; UltraSPARC (Scalable Processor ARChitecture) Architecture&lt;/h2&gt;
-&lt;h3 id=&#34;memory-5&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#memory-5&#34;&gt;#&lt;/a&gt; Memory&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;font&gt;Halfword&lt;/font&gt;: two consecutive bytes&lt;/li&gt;
-&lt;li&gt;&lt;font&gt;Word&lt;/font&gt;: four bytes&lt;/li&gt;
-&lt;li&gt;&lt;font&gt;Doubleword&lt;/font&gt;: eight bytes&lt;/li&gt;
-&lt;li&gt;Data are stored in memory with alignment&lt;/li&gt;
-&lt;li&gt;Virtual address space of &lt;span class=&#34;katex&#34;&gt;&lt;span class=&#34;katex-mathml&#34;&gt;&lt;math xmlns=&#34;http://www.w3.org/1998/Math/MathML&#34;&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;msup&gt;&lt;mn&gt;2&lt;/mn&gt;&lt;mn&gt;64&lt;/mn&gt;&lt;/msup&gt;&lt;/mrow&gt;&lt;annotation encoding=&#34;application/x-tex&#34;&gt;2^{64}&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;&lt;/span&gt;&lt;span class=&#34;katex-html&#34; aria-hidden=&#34;true&#34;&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:0.8141079999999999em;vertical-align:0em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;&lt;span class=&#34;mord&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;msupsub&#34;&gt;&lt;span class=&#34;vlist-t&#34;&gt;&lt;span class=&#34;vlist-r&#34;&gt;&lt;span class=&#34;vlist&#34; style=&#34;height:0.8141079999999999em;&#34;&gt;&lt;span style=&#34;top:-3.063em;margin-right:0.05em;&#34;&gt;&lt;span class=&#34;pstrut&#34; style=&#34;height:2.7em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;sizing reset-size6 size3 mtight&#34;&gt;&lt;span class=&#34;mord mtight&#34;&gt;&lt;span class=&#34;mord mtight&#34;&gt;6&lt;/span&gt;&lt;span class=&#34;mord mtight&#34;&gt;4&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt; bytes&lt;/li&gt;
-&lt;li&gt;The address space is divided into pages. Multiple page size are supported.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id=&#34;registers-5&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#registers-5&#34;&gt;#&lt;/a&gt; Registers&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;A large &lt;strong&gt;register file&lt;/strong&gt; that usually contains more than 100 general-purpose register.&lt;/li&gt;
-&lt;li&gt;However, any procedure can access only 32 registers.&lt;/li&gt;
-&lt;li&gt;The &lt;strong&gt;first eight&lt;/strong&gt; of these registers are &lt;strong&gt;global&lt;/strong&gt; — accessed by all procedures on the system.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Register &lt;em&gt;r0&lt;/em&gt; always contains the value zero.&lt;/strong&gt;&lt;/li&gt;
-&lt;li&gt;The other 24 registers available to a procedure can be visualized as a &lt;strong&gt;window&lt;/strong&gt; through which part of the register file can be seen.&lt;/li&gt;
-&lt;li&gt;These windows overlap, so some registers in the register file are shared between procedures. This facilitates the passing of parameters.&lt;/li&gt;
-&lt;li&gt;If a set of concurrently running procedures needs more windows than are physically available, a “window overflow” interrupt occurs. The operating system must then save the contents of some registes in the file (and restore them later) to provide the additional windows that are needed.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id=&#34;data-format&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#data-format&#34;&gt;#&lt;/a&gt; Data Format&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;Integers&lt;/strong&gt;, &lt;strong&gt;floating-point&lt;/strong&gt; values, and &lt;strong&gt;characters&lt;/strong&gt;.&lt;/li&gt;
-&lt;li&gt;Support both big-endian and little-endian byte orderings.&lt;/li&gt;
-&lt;li&gt;Three different floating-point data formats.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id=&#34;instruction-formats-5&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#instruction-formats-5&#34;&gt;#&lt;/a&gt; Instruction Formats&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;There are three basic instruction formats. All of these formats are &lt;strong&gt;32 bits&lt;/strong&gt; long. &lt;strong&gt;The first 2 bits of the instruction word identify which format is being used&lt;/strong&gt;.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Format 1&lt;/strong&gt; is used for the &lt;strong&gt;Call instruction&lt;/strong&gt;.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Format 2&lt;/strong&gt; is used for &lt;strong&gt;branch instruction&lt;/strong&gt; (and one special instruction that enters a value into a register)&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Format 3&lt;/strong&gt; is used by the &lt;strong&gt;remaining instructions&lt;/strong&gt;, including &lt;strong&gt;register loads&lt;/strong&gt; and &lt;strong&gt;stores&lt;/strong&gt;, and &lt;strong&gt;three-operand arithmetic operations&lt;/strong&gt;.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id=&#34;addressing-modes-5&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#addressing-modes-5&#34;&gt;#&lt;/a&gt; Addressing Modes&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;Immediate mode&lt;/strong&gt;&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Register direct mode&lt;/strong&gt;&lt;/li&gt;
-&lt;li&gt;Operands in memory are addressd using one of the following three modes:
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;&lt;em&gt;PC-relative&lt;/em&gt;: TA = (PC) + displacement {30 bits, signed}&lt;/strong&gt;&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;&lt;em&gt;Register indirect with displacement&lt;/em&gt;: TA = (register) + displacement {13 bits, signed}&lt;/strong&gt;&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;&lt;em&gt;Register indirect indexed&lt;/em&gt;: TA = (register1) + (register2)&lt;/strong&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;PC-relative mode is used only for branch instructions.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id=&#34;instruction-set-5&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#instruction-set-5&#34;&gt;#&lt;/a&gt; Instruction Set&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;The basic SPARC architechture has fewer than 100 machine instructions.&lt;/li&gt;
-&lt;li&gt;Instruction execution on a &lt;strong&gt;SPARC&lt;/strong&gt; system is &lt;font&gt;pipeline&lt;/font&gt;: fetching_and_decoding, execution&lt;/li&gt;
-&lt;li&gt;However, an ordinary branch instruction might cause the process to “stall”. The instruction following the branch would have to be dicarded without being executed.&lt;/li&gt;
-&lt;li&gt;To make the pipeline work more efficiently, SPARC branch instructions (including subroutine calls) are &lt;font&gt;delayed branch&lt;/font&gt;. This means that the instruction immediately following the branch instruction is actually executed before the branch is taken.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2 id=&#34;powerpc-architecture&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#powerpc-architecture&#34;&gt;#&lt;/a&gt; PowerPC Architecture&lt;/h2&gt;
-&lt;ul&gt;
-&lt;li&gt;IBM first introduced the POWER architecture early in 1990 with the RS/6000.&lt;/li&gt;
-&lt;li&gt;POWER is an acronym for Performance Optimization With Enhanced RISC.&lt;/li&gt;
-&lt;li&gt;It was soon realized that this architecture could form the basis for a new family of powerful and low-cost microprocessors.&lt;/li&gt;
-&lt;li&gt;In October 1991, IBM, Apple, and Motorola formed an alliance to develop and market such microprocessors, which were named PowerPC.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id=&#34;memory-6&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#memory-6&#34;&gt;#&lt;/a&gt; Memory&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;Two consecutive bytes: halfword&lt;/li&gt;
-&lt;li&gt;Four bytes: word&lt;/li&gt;
-&lt;li&gt;Eight bytes: doubleword&lt;/li&gt;
-&lt;li&gt;Sixteen bytes: quadword&lt;/li&gt;
-&lt;li&gt;Virtual address space: &lt;span class=&#34;katex&#34;&gt;&lt;span class=&#34;katex-mathml&#34;&gt;&lt;math xmlns=&#34;http://www.w3.org/1998/Math/MathML&#34;&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;msup&gt;&lt;mn&gt;2&lt;/mn&gt;&lt;mn&gt;64&lt;/mn&gt;&lt;/msup&gt;&lt;/mrow&gt;&lt;annotation encoding=&#34;application/x-tex&#34;&gt;2^{64}&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;&lt;/span&gt;&lt;span class=&#34;katex-html&#34; aria-hidden=&#34;true&#34;&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:0.8141079999999999em;vertical-align:0em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;&lt;span class=&#34;mord&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;msupsub&#34;&gt;&lt;span class=&#34;vlist-t&#34;&gt;&lt;span class=&#34;vlist-r&#34;&gt;&lt;span class=&#34;vlist&#34; style=&#34;height:0.8141079999999999em;&#34;&gt;&lt;span style=&#34;top:-3.063em;margin-right:0.05em;&#34;&gt;&lt;span class=&#34;pstrut&#34; style=&#34;height:2.7em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;sizing reset-size6 size3 mtight&#34;&gt;&lt;span class=&#34;mord mtight&#34;&gt;&lt;span class=&#34;mord mtight&#34;&gt;6&lt;/span&gt;&lt;span class=&#34;mord mtight&#34;&gt;4&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt; bytes&lt;/li&gt;
-&lt;li&gt;The address space is divided into fixed-length segments: 256 megabytes long.&lt;/li&gt;
-&lt;li&gt;Each segment is divided into pages: 4096 bytes long.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id=&#34;registers-6&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#registers-6&#34;&gt;#&lt;/a&gt; Registers&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;32 general-purpose registers: 64 bits long.&lt;/li&gt;
-&lt;li&gt;32 floating-point registers for FPU: 64 bits&lt;/li&gt;
-&lt;li&gt;A 32-bit condition register&lt;/li&gt;
-&lt;li&gt;Link Register (LR) and Count Register (CR) used by some branch instructions&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id=&#34;data-formats-5&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#data-formats-5&#34;&gt;#&lt;/a&gt; Data formats&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;Integers are stored as 8-, 16-, 32-, or 64-bit binary numbers.&lt;/li&gt;
-&lt;li&gt;Big-endian byte ordering by default.&lt;/li&gt;
-&lt;li&gt;It is possible to select little-endian byte ordering by setting a bit in a control register.&lt;/li&gt;
-&lt;li&gt;There are two different floating-point data formats.&lt;/li&gt;
-&lt;li&gt;Single-precision format is 32 bits long (23+8+1)&lt;/li&gt;
-&lt;li&gt;Double-precision format is 64 bits long (52+11+1)&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id=&#34;instruction-format&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#instruction-format&#34;&gt;#&lt;/a&gt; Instruction format&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;There are seven basic instruction formats, some of which have subforms.&lt;/li&gt;
-&lt;li&gt;All of these formats are 32 bits long&lt;/li&gt;
-&lt;li&gt;Instructions must be aligned beginning at a word boundary&lt;/li&gt;
-&lt;li&gt;The first 6 bits of the instruction word always specify the opcode; some instruction formats also have an additional “extended code” field.&lt;/li&gt;
-&lt;li&gt;The fixed instruction length in the PowerPC architecture is typical of RISC systems, making instruction decoding faster and simpler than on CISC systems.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id=&#34;addressing-modes-6&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#addressing-modes-6&#34;&gt;#&lt;/a&gt; Addressing modes&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;Immediate mode&lt;/li&gt;
-&lt;li&gt;Register direct mode&lt;/li&gt;
-&lt;li&gt;The only instructions that address memory are load and store operations, and branch instructions.&lt;/li&gt;
-&lt;li&gt;Load and store operations use one of the following three addressing modes.&lt;/li&gt;
-&lt;li&gt;Register indirect mode: TA=(register)&lt;/li&gt;
-&lt;li&gt;Register indirect with index: TA=(register1)+(register2)&lt;/li&gt;
-&lt;li&gt;Register indirect with immediate index: TA=(register)+displacement&lt;/li&gt;
-&lt;li&gt;The register numbers and displacement are encoded as part of the instruction.&lt;/li&gt;
-&lt;li&gt;Branch instructions use one of the following three addressing modes.&lt;/li&gt;
-&lt;li&gt;Absolute: TA = actual address&lt;/li&gt;
-&lt;li&gt;Relative: TA = current instruction address + displacement&lt;/li&gt;
-&lt;li&gt;Link Register: TA = (LR)&lt;/li&gt;
-&lt;li&gt;Count Register: TA = (CR)&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id=&#34;instruction-set-6&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#instruction-set-6&#34;&gt;#&lt;/a&gt; Instruction set&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;Approximately 200 machine instructions&lt;/li&gt;
-&lt;li&gt;Floating-point “multiply and add” instructions&lt;/li&gt;
-&lt;li&gt;Using more powerful instructions, so fewer instructions are required to perform a task vs. keeping instructions simple so they can be executed as fast as possible.&lt;/li&gt;
-&lt;li&gt;Instruction execution on a PowerPC system is pipelined. However, the pipelining is more sophisticated than on the original SPARC systems, with branch prediction used to speed execution. As a result, the delayed branch technique we described for SPARC is not used on PowerPC and most other modern architectures.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id=&#34;input-and-output-2&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#input-and-output-2&#34;&gt;#&lt;/a&gt; Input and Output&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;Segments in the virtual address space are mapped onto an external address space (typically an I/O bus)&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2 id=&#34;cray-t3e-architecture&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#cray-t3e-architecture&#34;&gt;#&lt;/a&gt; Cray T3E Architecture&lt;/h2&gt;
-&lt;ul&gt;
-&lt;li&gt;Supercomputer&lt;/li&gt;
-&lt;li&gt;A massively parallel processing (MPP) system&lt;/li&gt;
-&lt;li&gt;For use on technical applications in scientific computing.&lt;/li&gt;
-&lt;li&gt;Containing a large number of processing elements (PE), arranged in a three-dimensional network as illustrated in Fig. 1.8.
-&lt;ul&gt;
-&lt;li&gt;The interconnection network is circular in each dimension.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;Each PE consists of a DEC Alpha EV5 RISC microprocessor, local memory, and performance-accelerating control logic developed by Cray.&lt;/li&gt;
-&lt;li&gt;A T3E system may contain from 16 to 2048 processing elements.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id=&#34;memory-7&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#memory-7&#34;&gt;#&lt;/a&gt; Memory&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;Each PE in the T3E has its own local memory with a capacity of from 64 megabytes to 2 gigabytes.&lt;/li&gt;
-&lt;li&gt;The local memory within each PE is part of a physically distributed, logically shared memory system.&lt;/li&gt;
-&lt;li&gt;Two consecutive bytes: word&lt;/li&gt;
-&lt;li&gt;Four bytes: long word&lt;/li&gt;
-&lt;li&gt;Eight bytes: quadword&lt;/li&gt;
-&lt;li&gt;64-bit virtual address&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id=&#34;registers-7&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#registers-7&#34;&gt;#&lt;/a&gt; Registers&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;32 general-purpose registers: 64 bits long&lt;/li&gt;
-&lt;li&gt;32 floating-point registers: 64 bits long&lt;/li&gt;
-&lt;li&gt;64-bit program counter&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id=&#34;data-formats-6&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#data-formats-6&#34;&gt;#&lt;/a&gt; Data formats&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;Integers are stored as longwords or quadwords&lt;/li&gt;
-&lt;li&gt;There are two different types of floating-point data formats. One group of three formats is included for compatibility with the VAX architecture. The other group consists of four IEEE standard formats, which are compatible with those used on most modern systems.&lt;/li&gt;
-&lt;li&gt;There are no byte load or store operations. Only longwords and quadwords can be transferred between a register and memory. As a consequence, characters that are to be manipulated separately are usually stored one per longword.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id=&#34;instruction-formats-6&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#instruction-formats-6&#34;&gt;#&lt;/a&gt; Instruction formats&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;There are five basic instruction formats, some of which have subforms.&lt;/li&gt;
-&lt;li&gt;All of these formats are 32 bits long.&lt;/li&gt;
-&lt;li&gt;The first 6 bits of the instruction word always specify the opcode; some instruction formats also have an additional “function” field.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id=&#34;addressing-modes-7&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#addressing-modes-7&#34;&gt;#&lt;/a&gt; Addressing modes&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;Immediate mode&lt;/li&gt;
-&lt;li&gt;Register direct mode&lt;/li&gt;
-&lt;li&gt;PC-relative: TA = (PC) + displacement (for conditional and unconditional branches)&lt;/li&gt;
-&lt;li&gt;Register indirect with displacement: TA = (register) + displacement (for load and store operations and for subroutine jumps)&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id=&#34;instruction-set-7&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#instruction-set-7&#34;&gt;#&lt;/a&gt; Instruction Set&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;Approximately 130 machine instructions&lt;/li&gt;
-&lt;li&gt;The instruction set is designed so that an implementation of the architecture can be as fast as possible. For example, there are no byte or word load and store instructions. This means that the memory access interface does not need to include shift-and-mask operations.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id=&#34;input-and-output-3&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#input-and-output-3&#34;&gt;#&lt;/a&gt; Input and Output&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;Performing I/O through multiple ports into one or more I/O channels.&lt;/li&gt;
-&lt;li&gt;These channels are integrated into the network that interconnects the processing nodes.&lt;/li&gt;
-&lt;li&gt;A system may be configured with up to one I/O channel for every eight PEs.&lt;/li&gt;
-&lt;li&gt;All channels are accessible and controllable from all PEs.&lt;/li&gt;
-&lt;/ul&gt;
-</content>
-        <category term="System Software" scheme="https://chienikao.github.io/categories/System-Software/" />
-        <category term="Ch01" scheme="https://chienikao.github.io/categories/System-Software/Ch01/" />
-        <category term="System Software" scheme="https://chienikao.github.io/tags/System-Software/" />
-        <category term="Assembler" scheme="https://chienikao.github.io/tags/Assembler/" />
         <updated>2023-04-26T01:33:29.000Z</updated>
     </entry>
 </feed>
