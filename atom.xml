@@ -8,9 +8,157 @@
     <author>
       <name>ChienI Kao</name>
     </author>
-    <updated>2023-05-08T02:08:30.000Z</updated>
+    <updated>2023-05-09T02:37:25.000Z</updated>
     <category term="筆記" />
     <category term=" note" />
+    <entry>
+        <id>https://chienikao.github.io/2023/05/09/Coding/leetcode/Medium/54%20Spiral%20Matrix/</id>
+        <title>54. Spiral Matrix</title>
+        <link rel="alternate" href="https://chienikao.github.io/2023/05/09/Coding/leetcode/Medium/54%20Spiral%20Matrix/"/>
+        <content type="html">&lt;p&gt;⭐️⭐️&lt;/p&gt;
+&lt;h2 id=&#34;題目敘述&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#題目敘述&#34;&gt;#&lt;/a&gt; &lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly9sZWV0Y29kZS5jb20vcHJvYmxlbXMvc3BpcmFsLW1hdHJpeC8=&#34;&gt;題目敘述&lt;/span&gt;&lt;/h2&gt;
+&lt;p&gt;Given an  &lt;code&gt;m x n&lt;/code&gt;   &lt;code&gt;matrix&lt;/code&gt; , return &lt;em&gt;all elements of the  &lt;code&gt;matrix&lt;/code&gt;  in spiral order.&lt;/em&gt;&lt;/p&gt;
+&lt;h3 id=&#34;example-1&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#example-1&#34;&gt;#&lt;/a&gt; Example 1&lt;/h3&gt;
+&lt;p&gt;&lt;img data-src=&#34;https://hackmd.io/_uploads/rJiuimwNh.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Input&lt;/strong&gt;: matrix = [[1,2,3],[4,5,6],[7,8,9]]&lt;br&gt;
+&lt;strong&gt;Output&lt;/strong&gt;: [1,2,3,6,9,8,7,4,5]&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3 id=&#34;example-2&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#example-2&#34;&gt;#&lt;/a&gt; Example 2&lt;/h3&gt;
+&lt;p&gt;&lt;img data-src=&#34;https://hackmd.io/_uploads/rJgtsmDVn.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Input&lt;/strong&gt;: matrix = [[1,2,3,4],[5,6,7,8],[9,10,11,12]]&lt;br&gt;
+&lt;strong&gt;Output&lt;/strong&gt;: [1,2,3,4,8,12,11,10,9,5,6,7]&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;solution&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#solution&#34;&gt;#&lt;/a&gt; Solution&lt;/h2&gt;
+&lt;div class=&#34;tab&#34; data-id=&#34;code&#34; data-title=&#34;C++&#34;&gt;
+&lt;figure class=&#34;highlight cpp&#34;&gt;&lt;figcaption data-lang=&#34;C++&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token keyword&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;token class-name&#34;&gt;Solution&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;&amp;#123;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token keyword&#34;&gt;public&lt;/span&gt;&lt;span class=&#34;token operator&#34;&gt;:&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;3&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    vector&lt;span class=&#34;token operator&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;token keyword&#34;&gt;int&lt;/span&gt;&lt;span class=&#34;token operator&#34;&gt;&gt;&lt;/span&gt; &lt;span class=&#34;token function&#34;&gt;spiralOrder&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;vector&lt;span class=&#34;token operator&#34;&gt;&amp;lt;&lt;/span&gt;vector&lt;span class=&#34;token operator&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;token keyword&#34;&gt;int&lt;/span&gt;&lt;span class=&#34;token operator&#34;&gt;&gt;&gt;&lt;/span&gt;&lt;span class=&#34;token operator&#34;&gt;&amp;amp;&lt;/span&gt; matrix&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;&amp;#123;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;4&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;        vector&lt;span class=&#34;token operator&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;token keyword&#34;&gt;int&lt;/span&gt;&lt;span class=&#34;token operator&#34;&gt;&gt;&lt;/span&gt; res&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;5&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;        &lt;span class=&#34;token keyword&#34;&gt;int&lt;/span&gt; m &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; matrix&lt;span class=&#34;token punctuation&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;token function&#34;&gt;size&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;token operator&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;token number&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;6&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;        &lt;span class=&#34;token keyword&#34;&gt;int&lt;/span&gt; n &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; matrix&lt;span class=&#34;token punctuation&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;token number&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;token function&#34;&gt;size&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;token operator&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;token number&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;7&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;8&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;        &lt;span class=&#34;token keyword&#34;&gt;int&lt;/span&gt; left &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;token number&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;,&lt;/span&gt; right &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; n&lt;span class=&#34;token punctuation&#34;&gt;,&lt;/span&gt; up &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;token number&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;,&lt;/span&gt; down &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; m&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;9&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;        &lt;span class=&#34;token keyword&#34;&gt;while&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;left &lt;span class=&#34;token operator&#34;&gt;&amp;lt;=&lt;/span&gt; right &lt;span class=&#34;token operator&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; up &lt;span class=&#34;token operator&#34;&gt;&amp;lt;=&lt;/span&gt; down&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;&amp;#123;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;10&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;            &lt;span class=&#34;token keyword&#34;&gt;for&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token keyword&#34;&gt;int&lt;/span&gt; j&lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt;left&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt; j&lt;span class=&#34;token operator&#34;&gt;&amp;lt;=&lt;/span&gt;right&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt; j&lt;span class=&#34;token operator&#34;&gt;++&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt; res&lt;span class=&#34;token punctuation&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;token function&#34;&gt;push_back&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;matrix&lt;span class=&#34;token punctuation&#34;&gt;[&lt;/span&gt;up&lt;span class=&#34;token punctuation&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;[&lt;/span&gt;j&lt;span class=&#34;token punctuation&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;11&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;            up&lt;span class=&#34;token operator&#34;&gt;++&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;12&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;            &lt;span class=&#34;token keyword&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;up &lt;span class=&#34;token operator&#34;&gt;&gt;&lt;/span&gt; down&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;token keyword&#34;&gt;break&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;13&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;14&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;            &lt;span class=&#34;token keyword&#34;&gt;for&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token keyword&#34;&gt;int&lt;/span&gt; i&lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt;up&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt; i&lt;span class=&#34;token operator&#34;&gt;&amp;lt;=&lt;/span&gt;down&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt; i&lt;span class=&#34;token operator&#34;&gt;++&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt; res&lt;span class=&#34;token punctuation&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;token function&#34;&gt;push_back&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;matrix&lt;span class=&#34;token punctuation&#34;&gt;[&lt;/span&gt;i&lt;span class=&#34;token punctuation&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;[&lt;/span&gt;right&lt;span class=&#34;token punctuation&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;15&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;            right&lt;span class=&#34;token operator&#34;&gt;--&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;16&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;            &lt;span class=&#34;token keyword&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;left &lt;span class=&#34;token operator&#34;&gt;&gt;&lt;/span&gt; right&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;token keyword&#34;&gt;break&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;17&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;18&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;            &lt;span class=&#34;token keyword&#34;&gt;for&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token keyword&#34;&gt;int&lt;/span&gt; j&lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt;right&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt; j&lt;span class=&#34;token operator&#34;&gt;&gt;=&lt;/span&gt;left&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt; j&lt;span class=&#34;token operator&#34;&gt;--&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt; res&lt;span class=&#34;token punctuation&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;token function&#34;&gt;push_back&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;matrix&lt;span class=&#34;token punctuation&#34;&gt;[&lt;/span&gt;down&lt;span class=&#34;token punctuation&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;[&lt;/span&gt;j&lt;span class=&#34;token punctuation&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;19&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;            down&lt;span class=&#34;token operator&#34;&gt;--&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;20&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;            &lt;span class=&#34;token keyword&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;up &lt;span class=&#34;token operator&#34;&gt;&gt;&lt;/span&gt; down&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;token keyword&#34;&gt;break&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;21&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;22&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;            &lt;span class=&#34;token keyword&#34;&gt;for&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token keyword&#34;&gt;int&lt;/span&gt; i&lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt;down&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt; i&lt;span class=&#34;token operator&#34;&gt;&gt;=&lt;/span&gt;up&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt; i&lt;span class=&#34;token operator&#34;&gt;--&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt; res&lt;span class=&#34;token punctuation&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;token function&#34;&gt;push_back&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;matrix&lt;span class=&#34;token punctuation&#34;&gt;[&lt;/span&gt;i&lt;span class=&#34;token punctuation&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;[&lt;/span&gt;left&lt;span class=&#34;token punctuation&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;23&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;            left&lt;span class=&#34;token operator&#34;&gt;++&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;  &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;24&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;            &lt;span class=&#34;token keyword&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;left &lt;span class=&#34;token operator&#34;&gt;&gt;&lt;/span&gt; right&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;token keyword&#34;&gt;break&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;25&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;        &lt;span class=&#34;token punctuation&#34;&gt;&amp;#125;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;26&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;        &lt;span class=&#34;token keyword&#34;&gt;return&lt;/span&gt; res&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;27&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token punctuation&#34;&gt;&amp;#125;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;28&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token punctuation&#34;&gt;&amp;#125;&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/div&gt;
+&lt;div class=&#34;tab&#34; data-id=&#34;code&#34; data-title=&#34;Java&#34;&gt;
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div class=&#34;tab&#34; data-id=&#34;code&#34; data-title=&#34;Python&#34;&gt;
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+</content>
+        <category term="Coding" scheme="https://chienikao.github.io/categories/Coding/" />
+        <category term="Leetcode" scheme="https://chienikao.github.io/categories/Coding/Leetcode/" />
+        <category term="Medium" scheme="https://chienikao.github.io/categories/Coding/Leetcode/Medium/" />
+        <category term="Leetcode" scheme="https://chienikao.github.io/tags/Leetcode/" />
+        <category term="Array" scheme="https://chienikao.github.io/tags/Array/" />
+        <category term="Matrix" scheme="https://chienikao.github.io/tags/Matrix/" />
+        <category term="Simulation" scheme="https://chienikao.github.io/tags/Simulation/" />
+        <category term="Medium" scheme="https://chienikao.github.io/tags/Medium/" />
+        <updated>2023-05-09T02:37:25.000Z</updated>
+    </entry>
+    <entry>
+        <id>https://chienikao.github.io/2023/05/09/Coding/leetcode/Easy/2634%20Filter%20Elements%20from%20Array/</id>
+        <title>2634. Filter Elements from Array</title>
+        <link rel="alternate" href="https://chienikao.github.io/2023/05/09/Coding/leetcode/Easy/2634%20Filter%20Elements%20from%20Array/"/>
+        <content type="html">&lt;p&gt;⭐️&lt;/p&gt;
+&lt;h2 id=&#34;題目敘述&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#題目敘述&#34;&gt;#&lt;/a&gt; &lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly9sZWV0Y29kZS5jb20vcHJvYmxlbXMvZmlsdGVyLWVsZW1lbnRzLWZyb20tYXJyYXkvZGVzY3JpcHRpb24vP3V0bV9jYW1wYWlnbj1Qb3N0RDUmYW1wO3V0bV9tZWRpdW09UG9zdCZhbXA7dXRtX3NvdXJjZT1Qb3N0JmFtcDtnaW9fbGlua19pZD1hOWE1VlpyOQ==&#34;&gt;題目敘述&lt;/span&gt;&lt;/h2&gt;
+&lt;p&gt;Given an integer array  &lt;code&gt;arr&lt;/code&gt;  and a filtering function  &lt;code&gt;fn&lt;/code&gt; , return a new array with a fewer or equal number of elements.&lt;/p&gt;
+&lt;p&gt;The returned array should only contain elements where  &lt;code&gt;fn(arr[i], i)&lt;/code&gt;  evaluated to a truthy value.&lt;/p&gt;
+&lt;p&gt;Please solve it without the built-in  &lt;code&gt;Array.filter&lt;/code&gt;  method.&lt;/p&gt;
+&lt;h3 id=&#34;example-1&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#example-1&#34;&gt;#&lt;/a&gt; Example 1&lt;/h3&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Input&lt;/strong&gt;: arr = [0,10,20,30], fn = function greaterThan10(n) { return n &amp;gt; 10; }&lt;br&gt;
+&lt;strong&gt;Output&lt;/strong&gt;: [20,30]&lt;br&gt;
+&lt;strong&gt;Explanation&lt;/strong&gt;:&lt;br&gt;
+const newArray = filter(arr, fn); // [20, 30]&lt;br&gt;
+The function filters out values that are not greater than 10&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3 id=&#34;example-2&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#example-2&#34;&gt;#&lt;/a&gt; Example 2&lt;/h3&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Input&lt;/strong&gt;: arr = [1,2,3], fn = function firstIndex(n, i) { return i === 0; }&lt;br&gt;
+&lt;strong&gt;Output&lt;/strong&gt;: [1]&lt;br&gt;
+&lt;strong&gt;Explanation&lt;/strong&gt;:&lt;br&gt;
+fn can also accept the index of each element&lt;br&gt;
+In this case, the function removes elements not at index 0&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3 id=&#34;example-3&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#example-3&#34;&gt;#&lt;/a&gt; Example 3&lt;/h3&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Input&lt;/strong&gt;: arr = [-2,-1,0,1,2], fn = function plusOne(n) { return n + 1 }&lt;br&gt;
+&lt;strong&gt;Output&lt;/strong&gt;: [-2,0,1,2]&lt;br&gt;
+&lt;strong&gt;Explanation&lt;/strong&gt;:&lt;br&gt;
+Falsey values such as 0 should be filtered out&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;solution&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#solution&#34;&gt;#&lt;/a&gt; Solution&lt;/h2&gt;
+&lt;div class=&#34;tab&#34; data-id=&#34;code&#34; data-title=&#34;Javascript&#34;&gt;
+&lt;figure class=&#34;highlight javascript&#34;&gt;&lt;figcaption data-lang=&#34;javascript&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token comment&#34;&gt;/**&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt; * @param &amp;#123;number[]&amp;#125; arr&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;3&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt; * @param &amp;#123;Function&amp;#125; fn&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;4&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt; * @return &amp;#123;number[]&amp;#125;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;5&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt; */&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;6&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token keyword&#34;&gt;var&lt;/span&gt; &lt;span class=&#34;token function-variable function&#34;&gt;filter&lt;/span&gt; &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;token keyword&#34;&gt;function&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token parameter&#34;&gt;arr&lt;span class=&#34;token punctuation&#34;&gt;,&lt;/span&gt; fn&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;&amp;#123;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;7&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token keyword&#34;&gt;const&lt;/span&gt; res &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;8&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token keyword&#34;&gt;for&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token keyword&#34;&gt;let&lt;/span&gt; i&lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;token number&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt; i&lt;span class=&#34;token operator&#34;&gt;&amp;lt;&lt;/span&gt;arr&lt;span class=&#34;token punctuation&#34;&gt;.&lt;/span&gt;length&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt; i&lt;span class=&#34;token operator&#34;&gt;++&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;&amp;#123;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;9&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;        &lt;span class=&#34;token keyword&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token function&#34;&gt;fn&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;arr&lt;span class=&#34;token punctuation&#34;&gt;[&lt;/span&gt;i&lt;span class=&#34;token punctuation&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;,&lt;/span&gt; i&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt; res&lt;span class=&#34;token punctuation&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;token function&#34;&gt;push&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;arr&lt;span class=&#34;token punctuation&#34;&gt;[&lt;/span&gt;i&lt;span class=&#34;token punctuation&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;10&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token punctuation&#34;&gt;&amp;#125;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;11&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token keyword&#34;&gt;return&lt;/span&gt; res&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;12&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token punctuation&#34;&gt;&amp;#125;&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/div&gt;
+&lt;div class=&#34;tab&#34; data-id=&#34;code&#34; data-title=&#34;Typescript&#34;&gt;
+&lt;pre&gt;&lt;code class=&#34;language-Typescript&#34;&gt;function filter(arr: number[], fn: (n: number, i: number) =&amp;gt; any): number[] &amp;#123;
+    const res = [];
+    for (let i=0; i&amp;lt;arr.length; i++) &amp;#123;
+        if (fn(arr[i], i)) res.push(arr[i]);
+    &amp;#125;
+    return res;
+&amp;#125;;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+</content>
+        <category term="Coding" scheme="https://chienikao.github.io/categories/Coding/" />
+        <category term="Leetcode" scheme="https://chienikao.github.io/categories/Coding/Leetcode/" />
+        <category term="Easy" scheme="https://chienikao.github.io/categories/Coding/Leetcode/Easy/" />
+        <category term="Javascript" scheme="https://chienikao.github.io/tags/Javascript/" />
+        <category term="Leetcode" scheme="https://chienikao.github.io/tags/Leetcode/" />
+        <category term="Easy" scheme="https://chienikao.github.io/tags/Easy/" />
+        <category term="Typescript" scheme="https://chienikao.github.io/tags/Typescript/" />
+        <updated>2023-05-09T02:05:43.000Z</updated>
+    </entry>
+    <entry>
+        <id>https://chienikao.github.io/2023/05/08/Web/Svelte/%E5%89%8D%E7%AB%AF%E6%A1%86%E6%9E%B6%E4%BB%8B%E7%B4%B9/</id>
+        <title>前端框架介紹</title>
+        <link rel="alternate" href="https://chienikao.github.io/2023/05/08/Web/Svelte/%E5%89%8D%E7%AB%AF%E6%A1%86%E6%9E%B6%E4%BB%8B%E7%B4%B9/"/>
+        <content type="html">&lt;h2 id=&#34;dom&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#dom&#34;&gt;#&lt;/a&gt; DOM&lt;/h2&gt;
+&lt;h3 id=&#34;簡介&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#簡介&#34;&gt;#&lt;/a&gt; 簡介&lt;/h3&gt;
+&lt;p&gt;DOM (document object model，文件物件模型) 由  &lt;strong&gt;W3C&lt;/strong&gt; (world wide web consortium) 定義，DOM 將 HTML 內的所有 element 定義成&lt;strong&gt;物件&lt;/strong&gt;，並以&lt;strong&gt;樹狀結構&lt;/strong&gt;表示。&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;https://www.w3schools.com/js/pic_htmltree.gif&#34; alt=&#34;DOM 樹狀結構&#34;&gt;&lt;br&gt;
+ DOM 樹狀結構 &lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly93d3cudzNzY2hvb2xzLmNvbS9qcy9qc19odG1sZG9tLmFzcA==&#34;&gt;source&lt;/span&gt;&lt;/p&gt;
+&lt;h3 id=&#34;結構&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#結構&#34;&gt;#&lt;/a&gt; 結構&lt;/h3&gt;
+&lt;p&gt;DOM 的節點大致分為四類：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Document&lt;/strong&gt;: HTML 文件本身，也就是 root node。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Element&lt;/strong&gt;: 文件裡的標籤，如  &lt;code&gt;&amp;lt;head&amp;gt;&lt;/code&gt; 、 &lt;code&gt;&amp;lt;body&amp;gt;&lt;/code&gt; 、 &lt;code&gt;&amp;lt;div&amp;gt;&lt;/code&gt;  等。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Text&lt;/strong&gt;: 被 element 包起來的文字。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Attribute&lt;/strong&gt;: element 內的屬性。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;將上圖的樹狀結構轉回 HTML 後如下：&lt;/p&gt;
+&lt;figure class=&#34;highlight html&#34;&gt;&lt;figcaption data-lang=&#34;HTML&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token tag&#34;&gt;&lt;span class=&#34;token tag&#34;&gt;&lt;span class=&#34;token punctuation&#34;&gt;&amp;lt;&lt;/span&gt;html&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;&gt;&lt;/span&gt;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token tag&#34;&gt;&lt;span class=&#34;token tag&#34;&gt;&lt;span class=&#34;token punctuation&#34;&gt;&amp;lt;&lt;/span&gt;head&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;&gt;&lt;/span&gt;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;3&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;        &lt;span class=&#34;token tag&#34;&gt;&lt;span class=&#34;token tag&#34;&gt;&lt;span class=&#34;token punctuation&#34;&gt;&amp;lt;&lt;/span&gt;title&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;&gt;&lt;/span&gt;&lt;/span&gt;My title&lt;span class=&#34;token tag&#34;&gt;&lt;span class=&#34;token tag&#34;&gt;&lt;span class=&#34;token punctuation&#34;&gt;&amp;lt;/&lt;/span&gt;title&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;&gt;&lt;/span&gt;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;4&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token tag&#34;&gt;&lt;span class=&#34;token tag&#34;&gt;&lt;span class=&#34;token punctuation&#34;&gt;&amp;lt;/&lt;/span&gt;head&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;&gt;&lt;/span&gt;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;5&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token tag&#34;&gt;&lt;span class=&#34;token tag&#34;&gt;&lt;span class=&#34;token punctuation&#34;&gt;&amp;lt;&lt;/span&gt;body&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;&gt;&lt;/span&gt;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;6&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;        &lt;span class=&#34;token tag&#34;&gt;&lt;span class=&#34;token tag&#34;&gt;&lt;span class=&#34;token punctuation&#34;&gt;&amp;lt;&lt;/span&gt;a&lt;/span&gt; &lt;span class=&#34;token attr-name&#34;&gt;href&lt;/span&gt;&lt;span class=&#34;token attr-value&#34;&gt;&lt;span class=&#34;token punctuation attr-equals&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;&#34;&lt;/span&gt;url&lt;span class=&#34;token punctuation&#34;&gt;&#34;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;&gt;&lt;/span&gt;&lt;/span&gt;My link&lt;span class=&#34;token tag&#34;&gt;&lt;span class=&#34;token tag&#34;&gt;&lt;span class=&#34;token punctuation&#34;&gt;&amp;lt;/&lt;/span&gt;a&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;&gt;&lt;/span&gt;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;7&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;        &lt;span class=&#34;token tag&#34;&gt;&lt;span class=&#34;token tag&#34;&gt;&lt;span class=&#34;token punctuation&#34;&gt;&amp;lt;&lt;/span&gt;h1&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;&gt;&lt;/span&gt;&lt;/span&gt;My header&lt;span class=&#34;token tag&#34;&gt;&lt;span class=&#34;token tag&#34;&gt;&lt;span class=&#34;token punctuation&#34;&gt;&amp;lt;/&lt;/span&gt;h1&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;&gt;&lt;/span&gt;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;8&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token tag&#34;&gt;&lt;span class=&#34;token tag&#34;&gt;&lt;span class=&#34;token punctuation&#34;&gt;&amp;lt;/&lt;/span&gt;body&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;&gt;&lt;/span&gt;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;9&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token tag&#34;&gt;&lt;span class=&#34;token tag&#34;&gt;&lt;span class=&#34;token punctuation&#34;&gt;&amp;lt;/&lt;/span&gt;html&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;&gt;&lt;/span&gt;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;h2 id=&#34;reflow-repaint&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#reflow-repaint&#34;&gt;#&lt;/a&gt; Reflow &amp;amp; Repaint&lt;/h2&gt;
+&lt;p&gt;瀏覽器在呈現出畫面之前，會先解析 HTML 與 CSS 檔並產生 render tree，而 &lt;strong&gt;reflow&lt;/strong&gt; 這個步驟會遍歷 render tree 並計算所有 element 的位置、大小及其他&lt;strong&gt;屬性&lt;/strong&gt;，會消耗大量效能。&lt;strong&gt;Repaint&lt;/strong&gt; 步驟則是將 reflow 計算好的結果輸出到螢幕上，任何可見元素的更改都需要 repaint。&lt;/p&gt;
+&lt;p&gt;可以發現影響效能的關鍵在於 reflow，因此框架的效能優化主要在於減少 reflow 的次數及範圍。&lt;/p&gt;
+&lt;h2 id=&#34;沒有框架的日子&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#沒有框架的日子&#34;&gt;#&lt;/a&gt; 沒有框架的日子&lt;/h2&gt;
+&lt;p&gt;隨著專案規模逐漸增大，程式複雜度不斷上升，直接操作 DOM 的缺點也就逐漸浮出檯面：&lt;/p&gt;
+&lt;h3 id=&#34;難以維護&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#難以維護&#34;&gt;#&lt;/a&gt; 難以維護&lt;/h3&gt;
+&lt;p&gt;HTML、CSS、JavaScript 無法維持原先的各司其職，因為需要透過 JavaScript 處理互動內容，勢必要將結構、樣式寫到 JavaScript 的部份中，也就因此造成架構耦合度提高，程式碼管理困難。&lt;/p&gt;
+&lt;h3 id=&#34;效能低落&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#效能低落&#34;&gt;#&lt;/a&gt; 效能低落&lt;/h3&gt;
+&lt;p&gt;當 DOM 被改變，勢必要觸發整個 Reflow &amp;amp; Repaint 的流程，頻繁的改動觸發重複渲染，便會讓頁面效能被消耗殆盡。&lt;/p&gt;
+&lt;h2 id=&#34;框架的功能&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#框架的功能&#34;&gt;#&lt;/a&gt; 框架的功能&lt;/h2&gt;
+&lt;h3 id=&#34;資料與-ui-分離&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#資料與-ui-分離&#34;&gt;#&lt;/a&gt; 資料與 UI 分離&lt;/h3&gt;
+&lt;p&gt;資料不必寫死在結構裡，可以根據資料變化而改變輸出內容。&lt;/p&gt;
+&lt;h3 id=&#34;模組化的-ui&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#模組化的-ui&#34;&gt;#&lt;/a&gt; 模組化的 UI&lt;/h3&gt;
+&lt;p&gt;一個網站總是會有一些重複出現的元素，例如按鈕、輸入表單、表格、對話框等等，而在現代框架的概念中，我們會把這些重複出現的元素稱為 &lt;strong&gt;組件（Components）&lt;/strong&gt;，每個組件內包含了組件自己需要用的結構、樣式、邏輯。&lt;/p&gt;
+&lt;p&gt;這樣一來，各組件只需要處理組件內的事，外部引用的組件來決定怎麼使用、提供什麼資料給組件，藉由簡單的切分權責，加上前述的由資料決定畫面，就能讓各個組件的任務單一，並且能被重複使用。&lt;/p&gt;
+&lt;h3 id=&#34;提升渲染效能&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#提升渲染效能&#34;&gt;#&lt;/a&gt; 提升渲染效能&lt;/h3&gt;
+&lt;p&gt;如同前述，在複雜的頁面中，如果頻繁透過操作 DOM 的方式改變畫面，可能會造成全頁面的 Reflow 及 Repaint；不過在使用框架時，開發者不用太擔心這個問題。&lt;/p&gt;
+&lt;p&gt;原因是在各主流框架的實作中，幾乎都包含了 Virtual Dom 的概念，也就是用 JavaScript 物件來表達當前的頁面結構；藉由與 UI 分離的資料及 Virtual Dom 之間的關係，當資料變動時，事先計算好這次畫面需要變動的地方，如此一來便能抵銷掉無意義的更動，並重複利用已存在的 DOM 元素；當真的要進行 DOM 更新時，也會一次將所有需要更新的局部組件更新，讓效能的耗損盡可能降低。&lt;/p&gt;
+&lt;h3 id=&#34;豐富的開發者生態圈&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#豐富的開發者生態圈&#34;&gt;#&lt;/a&gt; 豐富的開發者生態圈&lt;/h3&gt;
+&lt;p&gt;選用熱門框架的優點，包含了能參與豐富的開發者生態圈；各大主流框架，在 GitHub 上都能輕鬆的找到數以千計的眾多套件，從基本組件、互動效果，到快速建立整個專案的模板，你想解決的問題也許剛好有別人早已經解決過，如果合適，自然可以從中擷取前人的智慧，更進一步的增進開發效率&lt;/p&gt;
+&lt;h2 id=&#34;參考資料&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#參考資料&#34;&gt;#&lt;/a&gt; 參考資料&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly9pdGhlbHAuaXRob21lLmNvbS50dy9hcnRpY2xlcy8xMDIyNDQxNw==&#34;&gt;為什麼現在的前端都在用「框架」？&lt;/span&gt;&lt;/li&gt;
+&lt;li&gt;&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly9qaHRudC5ub3Rpb24uc2l0ZS9lODJlNDY0MGY4NGE0OGE5YmQyYjljOGNhMzFmN2UzNA==&#34;&gt;前端框架簡介&lt;/span&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+        <category term="Web" scheme="https://chienikao.github.io/categories/Web/" />
+        <category term="Svelte" scheme="https://chienikao.github.io/categories/Web/Svelte/" />
+        <category term="Web" scheme="https://chienikao.github.io/tags/Web/" />
+        <category term="Svelte" scheme="https://chienikao.github.io/tags/Svelte/" />
+        <category term="Framework" scheme="https://chienikao.github.io/tags/Framework/" />
+        <category term="Javascript" scheme="https://chienikao.github.io/tags/Javascript/" />
+        <updated>2023-05-08T06:53:28.000Z</updated>
+    </entry>
     <entry>
         <id>https://chienikao.github.io/2023/05/08/Coding/leetcode/Easy/2635%20Apply%20Transform%20Over%20Each%20Element%20in%20Array/</id>
         <title>2635. Apply Transform Over Each Element in Array</title>
@@ -49,9 +197,9 @@ The function increases each value in the array by one.&lt;/p&gt;
         <category term="Coding" scheme="https://chienikao.github.io/categories/Coding/" />
         <category term="Leetcode" scheme="https://chienikao.github.io/categories/Coding/Leetcode/" />
         <category term="Easy" scheme="https://chienikao.github.io/categories/Coding/Leetcode/Easy/" />
+        <category term="Javascript" scheme="https://chienikao.github.io/tags/Javascript/" />
         <category term="Leetcode" scheme="https://chienikao.github.io/tags/Leetcode/" />
         <category term="Easy" scheme="https://chienikao.github.io/tags/Easy/" />
-        <category term="Javascript" scheme="https://chienikao.github.io/tags/Javascript/" />
         <category term="Typescript" scheme="https://chienikao.github.io/tags/Typescript/" />
         <updated>2023-05-08T02:08:30.000Z</updated>
     </entry>
@@ -151,9 +299,9 @@ counter.reset(); // 0&lt;/p&gt;
         <category term="Coding" scheme="https://chienikao.github.io/categories/Coding/" />
         <category term="Leetcode" scheme="https://chienikao.github.io/categories/Coding/Leetcode/" />
         <category term="Easy" scheme="https://chienikao.github.io/categories/Coding/Leetcode/Easy/" />
+        <category term="Javascript" scheme="https://chienikao.github.io/tags/Javascript/" />
         <category term="Leetcode" scheme="https://chienikao.github.io/tags/Leetcode/" />
         <category term="Easy" scheme="https://chienikao.github.io/tags/Easy/" />
-        <category term="Javascript" scheme="https://chienikao.github.io/tags/Javascript/" />
         <category term="Typescript" scheme="https://chienikao.github.io/tags/Typescript/" />
         <updated>2023-05-07T12:27:35.000Z</updated>
     </entry>
@@ -247,9 +395,9 @@ n = -2&lt;br&gt;
         <category term="Coding" scheme="https://chienikao.github.io/categories/Coding/" />
         <category term="Leetcode" scheme="https://chienikao.github.io/categories/Coding/Leetcode/" />
         <category term="Easy" scheme="https://chienikao.github.io/categories/Coding/Leetcode/Easy/" />
+        <category term="Javascript" scheme="https://chienikao.github.io/tags/Javascript/" />
         <category term="Leetcode" scheme="https://chienikao.github.io/tags/Leetcode/" />
         <category term="Easy" scheme="https://chienikao.github.io/tags/Easy/" />
-        <category term="Javascript" scheme="https://chienikao.github.io/tags/Javascript/" />
         <category term="Typescript" scheme="https://chienikao.github.io/tags/Typescript/" />
         <updated>2023-05-07T12:21:30.000Z</updated>
     </entry>
@@ -287,9 +435,9 @@ f({}, null, 42); // “Hello World”&lt;/p&gt;
         <category term="Coding" scheme="https://chienikao.github.io/categories/Coding/" />
         <category term="Leetcode" scheme="https://chienikao.github.io/categories/Coding/Leetcode/" />
         <category term="Easy" scheme="https://chienikao.github.io/categories/Coding/Leetcode/Easy/" />
+        <category term="Javascript" scheme="https://chienikao.github.io/tags/Javascript/" />
         <category term="Leetcode" scheme="https://chienikao.github.io/tags/Leetcode/" />
         <category term="Easy" scheme="https://chienikao.github.io/tags/Easy/" />
-        <category term="Javascript" scheme="https://chienikao.github.io/tags/Javascript/" />
         <category term="Typescript" scheme="https://chienikao.github.io/tags/Typescript/" />
         <updated>2023-05-07T12:19:25.000Z</updated>
     </entry>
@@ -720,8 +868,8 @@ Average salary excluding minimum and maximum salary is (2000) / 1 = 2000&lt;/p&g
 </content>
         <category term="Algorithm" scheme="https://chienikao.github.io/categories/Algorithm/" />
         <category term="Algorithm" scheme="https://chienikao.github.io/tags/Algorithm/" />
-        <category term="Data Structure" scheme="https://chienikao.github.io/tags/Data-Structure/" />
         <category term="Union Find" scheme="https://chienikao.github.io/tags/Union-Find/" />
+        <category term="Data Structure" scheme="https://chienikao.github.io/tags/Data-Structure/" />
         <updated>2023-04-28T02:43:29.000Z</updated>
     </entry>
     <entry>
@@ -813,541 +961,5 @@ So you should return 1 because there is only one bulb is on.&lt;/p&gt;
         <category term="Medium" scheme="https://chienikao.github.io/tags/Medium/" />
         <category term="Brainteaser" scheme="https://chienikao.github.io/tags/Brainteaser/" />
         <updated>2023-04-27T07:16:09.000Z</updated>
-    </entry>
-    <entry>
-        <id>https://chienikao.github.io/2023/04/26/Coding/uva/Star1/uva%20706/</id>
-        <title>uva 706 - LC-Display</title>
-        <link rel="alternate" href="https://chienikao.github.io/2023/04/26/Coding/uva/Star1/uva%20706/"/>
-        <content type="html">&lt;p&gt;⭐️&lt;/p&gt;
-&lt;h2 id=&#34;題目連結&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#題目連結&#34;&gt;#&lt;/a&gt; 題目連結&lt;/h2&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly96ZXJvanVkZ2UudHcvU2hvd1Byb2JsZW0/cHJvYmxlbWlkPWMxMzU=&#34;&gt;ZeroJudge&lt;/span&gt;&lt;/li&gt;
-&lt;li&gt;&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly9vbmxpbmVqdWRnZS5vcmcvZXh0ZXJuYWwvNy9wNzA2LnBkZg==&#34;&gt;題目連結&lt;/span&gt;&lt;/li&gt;
-&lt;li&gt;&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly9vbmxpbmVqdWRnZS5vcmcvaW5kZXgucGhwP29wdGlvbj1jb21fb25saW5lanVkZ2UmYW1wO0l0ZW1pZD04JmFtcDtjYXRlZ29yeT05JmFtcDtwYWdlPXNob3dfcHJvYmxlbSZhbXA7cHJvYmxlbT02NDc=&#34;&gt;Online Judge&lt;/span&gt;&lt;/li&gt;
-&lt;li&gt;&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly93d3cudWRlYnVnLmNvbS9VVmEvNzA2&#34;&gt;uDebug&lt;/span&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2 id=&#34;題目敘述&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#題目敘述&#34;&gt;#&lt;/a&gt; 題目敘述&lt;/h2&gt;
-&lt;p&gt;A friend of you has just bought a new computer. Until now, the most powerful computer he ever used has been a pocket calculator. Now, looking at his new computer, he is a bit disappointed, because he liked the LC-display of his calculator so much. So you decide to write a program that displays numbers in an LC-display-like style on his computer.&lt;/p&gt;
-&lt;h2 id=&#34;input&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#input&#34;&gt;#&lt;/a&gt; Input&lt;/h2&gt;
-&lt;p&gt;The input file contains several lines, one for each number to be displayed. Each line contains two integers  &lt;code&gt;s&lt;/code&gt; ,  &lt;code&gt;n&lt;/code&gt;  ( &lt;code&gt;1 ≤ s ≤ 10&lt;/code&gt; ,  &lt;code&gt;0 ≤ n ≤ 99 999 999&lt;/code&gt; ), where  &lt;code&gt;n&lt;/code&gt;  is the number to be displayed and  &lt;code&gt;s&lt;/code&gt;  is the size in which it shall be displayed.&lt;/p&gt;
-&lt;p&gt;The input file will be terminated by a line containing two zeros. This line should not be processed.&lt;/p&gt;
-&lt;h2 id=&#34;output&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#output&#34;&gt;#&lt;/a&gt; Output&lt;/h2&gt;
-&lt;p&gt;Output the numbers given in the input file in an LC-display-style using  &lt;code&gt;s&lt;/code&gt;  ‘-’ signs for the horizontal segments and  &lt;code&gt;s&lt;/code&gt;  ‘|’ signs for the vertical ones. Each digit occupies exactly  &lt;code&gt;s + 2&lt;/code&gt;  columns and  &lt;code&gt;2s + 3&lt;/code&gt;  rows. (Be sure to fill all the white space occupied by the digits with blanks, also for the last digit.) &lt;em&gt;There has to be exactly one column of blanks between two digits&lt;/em&gt;.&lt;/p&gt;
-&lt;p&gt;&lt;em&gt;Output a blank line after each number&lt;/em&gt;. (You will find a sample of each digit in the sample output.)&lt;/p&gt;
-&lt;h2 id=&#34;sample-input&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#sample-input&#34;&gt;#&lt;/a&gt; Sample Input&lt;/h2&gt;
-&lt;blockquote&gt;
-&lt;p&gt;2 12345&lt;br&gt;
-3 67890&lt;br&gt;
-0 0&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h2 id=&#34;sample-output&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#sample-output&#34;&gt;#&lt;/a&gt; Sample Output&lt;/h2&gt;
-&lt;p&gt;&lt;img data-src=&#34;https://i.imgur.com/1yA2BuX.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
-&lt;h2 id=&#34;solution&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#solution&#34;&gt;#&lt;/a&gt; Solution&lt;/h2&gt;
-&lt;figure class=&#34;highlight c&#34;&gt;&lt;figcaption data-lang=&#34;c&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token macro property&#34;&gt;&lt;span class=&#34;token directive-hash&#34;&gt;#&lt;/span&gt;&lt;span class=&#34;token directive keyword&#34;&gt;include&lt;/span&gt; &lt;span class=&#34;token string&#34;&gt;&amp;lt;bits/stdc++.h&gt;&lt;/span&gt;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;3&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;using namespace std&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;4&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;5&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token keyword&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;token function&#34;&gt;main&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;&amp;#123;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;6&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token keyword&#34;&gt;int&lt;/span&gt; s&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;7&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    string str&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;8&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    map&lt;span class=&#34;token operator&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;token keyword&#34;&gt;char&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;,&lt;/span&gt; vector&lt;span class=&#34;token operator&#34;&gt;&amp;lt;&lt;/span&gt;bool&lt;span class=&#34;token operator&#34;&gt;&gt;&gt;&lt;/span&gt; mp&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;9&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    mp&lt;span class=&#34;token punctuation&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;token char&#34;&gt;&#39;0&#39;&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;&amp;#123;&lt;/span&gt;true&lt;span class=&#34;token punctuation&#34;&gt;,&lt;/span&gt; true&lt;span class=&#34;token punctuation&#34;&gt;,&lt;/span&gt; true&lt;span class=&#34;token punctuation&#34;&gt;,&lt;/span&gt; false&lt;span class=&#34;token punctuation&#34;&gt;,&lt;/span&gt; true&lt;span class=&#34;token punctuation&#34;&gt;,&lt;/span&gt; true&lt;span class=&#34;token punctuation&#34;&gt;,&lt;/span&gt; true&lt;span class=&#34;token punctuation&#34;&gt;&amp;#125;&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;10&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    mp&lt;span class=&#34;token punctuation&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;token char&#34;&gt;&#39;1&#39;&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;&amp;#123;&lt;/span&gt;false&lt;span class=&#34;token punctuation&#34;&gt;,&lt;/span&gt; false&lt;span class=&#34;token punctuation&#34;&gt;,&lt;/span&gt; true&lt;span class=&#34;token punctuation&#34;&gt;,&lt;/span&gt; false&lt;span class=&#34;token punctuation&#34;&gt;,&lt;/span&gt; false&lt;span class=&#34;token punctuation&#34;&gt;,&lt;/span&gt; true&lt;span class=&#34;token punctuation&#34;&gt;,&lt;/span&gt; false&lt;span class=&#34;token punctuation&#34;&gt;&amp;#125;&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;11&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    mp&lt;span class=&#34;token punctuation&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;token char&#34;&gt;&#39;2&#39;&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;&amp;#123;&lt;/span&gt;true&lt;span class=&#34;token punctuation&#34;&gt;,&lt;/span&gt; false&lt;span class=&#34;token punctuation&#34;&gt;,&lt;/span&gt; true&lt;span class=&#34;token punctuation&#34;&gt;,&lt;/span&gt; true&lt;span class=&#34;token punctuation&#34;&gt;,&lt;/span&gt; true&lt;span class=&#34;token punctuation&#34;&gt;,&lt;/span&gt; false&lt;span class=&#34;token punctuation&#34;&gt;,&lt;/span&gt; true&lt;span class=&#34;token punctuation&#34;&gt;&amp;#125;&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;12&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    mp&lt;span class=&#34;token punctuation&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;token char&#34;&gt;&#39;3&#39;&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;&amp;#123;&lt;/span&gt;true&lt;span class=&#34;token punctuation&#34;&gt;,&lt;/span&gt; false&lt;span class=&#34;token punctuation&#34;&gt;,&lt;/span&gt; true&lt;span class=&#34;token punctuation&#34;&gt;,&lt;/span&gt; true&lt;span class=&#34;token punctuation&#34;&gt;,&lt;/span&gt; false&lt;span class=&#34;token punctuation&#34;&gt;,&lt;/span&gt; true&lt;span class=&#34;token punctuation&#34;&gt;,&lt;/span&gt; true&lt;span class=&#34;token punctuation&#34;&gt;&amp;#125;&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;13&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    mp&lt;span class=&#34;token punctuation&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;token char&#34;&gt;&#39;4&#39;&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;&amp;#123;&lt;/span&gt;false&lt;span class=&#34;token punctuation&#34;&gt;,&lt;/span&gt; true&lt;span class=&#34;token punctuation&#34;&gt;,&lt;/span&gt; true&lt;span class=&#34;token punctuation&#34;&gt;,&lt;/span&gt; true&lt;span class=&#34;token punctuation&#34;&gt;,&lt;/span&gt; false&lt;span class=&#34;token punctuation&#34;&gt;,&lt;/span&gt; true&lt;span class=&#34;token punctuation&#34;&gt;,&lt;/span&gt; false&lt;span class=&#34;token punctuation&#34;&gt;&amp;#125;&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;14&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    mp&lt;span class=&#34;token punctuation&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;token char&#34;&gt;&#39;5&#39;&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;&amp;#123;&lt;/span&gt;true&lt;span class=&#34;token punctuation&#34;&gt;,&lt;/span&gt; true&lt;span class=&#34;token punctuation&#34;&gt;,&lt;/span&gt; false&lt;span class=&#34;token punctuation&#34;&gt;,&lt;/span&gt; true&lt;span class=&#34;token punctuation&#34;&gt;,&lt;/span&gt; false&lt;span class=&#34;token punctuation&#34;&gt;,&lt;/span&gt; true&lt;span class=&#34;token punctuation&#34;&gt;,&lt;/span&gt; true&lt;span class=&#34;token punctuation&#34;&gt;&amp;#125;&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;15&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    mp&lt;span class=&#34;token punctuation&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;token char&#34;&gt;&#39;6&#39;&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;&amp;#123;&lt;/span&gt;true&lt;span class=&#34;token punctuation&#34;&gt;,&lt;/span&gt; true&lt;span class=&#34;token punctuation&#34;&gt;,&lt;/span&gt; false&lt;span class=&#34;token punctuation&#34;&gt;,&lt;/span&gt; true&lt;span class=&#34;token punctuation&#34;&gt;,&lt;/span&gt; true&lt;span class=&#34;token punctuation&#34;&gt;,&lt;/span&gt; true&lt;span class=&#34;token punctuation&#34;&gt;,&lt;/span&gt; true&lt;span class=&#34;token punctuation&#34;&gt;&amp;#125;&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;16&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    mp&lt;span class=&#34;token punctuation&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;token char&#34;&gt;&#39;7&#39;&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;&amp;#123;&lt;/span&gt;true&lt;span class=&#34;token punctuation&#34;&gt;,&lt;/span&gt; false&lt;span class=&#34;token punctuation&#34;&gt;,&lt;/span&gt; true&lt;span class=&#34;token punctuation&#34;&gt;,&lt;/span&gt; false&lt;span class=&#34;token punctuation&#34;&gt;,&lt;/span&gt; false&lt;span class=&#34;token punctuation&#34;&gt;,&lt;/span&gt; true&lt;span class=&#34;token punctuation&#34;&gt;,&lt;/span&gt; false&lt;span class=&#34;token punctuation&#34;&gt;&amp;#125;&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;17&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    mp&lt;span class=&#34;token punctuation&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;token char&#34;&gt;&#39;8&#39;&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;&amp;#123;&lt;/span&gt;true&lt;span class=&#34;token punctuation&#34;&gt;,&lt;/span&gt; true&lt;span class=&#34;token punctuation&#34;&gt;,&lt;/span&gt; true&lt;span class=&#34;token punctuation&#34;&gt;,&lt;/span&gt; true&lt;span class=&#34;token punctuation&#34;&gt;,&lt;/span&gt; true&lt;span class=&#34;token punctuation&#34;&gt;,&lt;/span&gt; true&lt;span class=&#34;token punctuation&#34;&gt;,&lt;/span&gt; true&lt;span class=&#34;token punctuation&#34;&gt;&amp;#125;&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;18&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    mp&lt;span class=&#34;token punctuation&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;token char&#34;&gt;&#39;9&#39;&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;&amp;#123;&lt;/span&gt;true&lt;span class=&#34;token punctuation&#34;&gt;,&lt;/span&gt; true&lt;span class=&#34;token punctuation&#34;&gt;,&lt;/span&gt; true&lt;span class=&#34;token punctuation&#34;&gt;,&lt;/span&gt; true&lt;span class=&#34;token punctuation&#34;&gt;,&lt;/span&gt; false&lt;span class=&#34;token punctuation&#34;&gt;,&lt;/span&gt; true&lt;span class=&#34;token punctuation&#34;&gt;,&lt;/span&gt; true&lt;span class=&#34;token punctuation&#34;&gt;&amp;#125;&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;19&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token keyword&#34;&gt;while&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;cin &lt;span class=&#34;token operator&#34;&gt;&gt;&gt;&lt;/span&gt; s &lt;span class=&#34;token operator&#34;&gt;&gt;&gt;&lt;/span&gt; str&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;&amp;#123;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;20&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;        &lt;span class=&#34;token keyword&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;s &lt;span class=&#34;token operator&#34;&gt;==&lt;/span&gt; &lt;span class=&#34;token number&#34;&gt;0&lt;/span&gt; &lt;span class=&#34;token operator&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; str &lt;span class=&#34;token operator&#34;&gt;==&lt;/span&gt; &lt;span class=&#34;token string&#34;&gt;&#34;0&#34;&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;token keyword&#34;&gt;break&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;21&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;        string l1 &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;token string&#34;&gt;&#34;&#34;&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;,&lt;/span&gt; l2 &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;token string&#34;&gt;&#34;&#34;&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;,&lt;/span&gt; l3 &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;token string&#34;&gt;&#34;&#34;&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;,&lt;/span&gt; l4 &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;token string&#34;&gt;&#34;&#34;&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;,&lt;/span&gt; l5 &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;token string&#34;&gt;&#34;&#34;&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;22&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;        &lt;span class=&#34;token keyword&#34;&gt;for&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token keyword&#34;&gt;int&lt;/span&gt; j&lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;token number&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt; j&lt;span class=&#34;token operator&#34;&gt;&amp;lt;&lt;/span&gt;str&lt;span class=&#34;token punctuation&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;token function&#34;&gt;size&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt; j&lt;span class=&#34;token operator&#34;&gt;++&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;&amp;#123;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;23&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;            &lt;span class=&#34;token keyword&#34;&gt;char&lt;/span&gt; c &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; str&lt;span class=&#34;token punctuation&#34;&gt;[&lt;/span&gt;j&lt;span class=&#34;token punctuation&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;24&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;            vector&lt;span class=&#34;token operator&#34;&gt;&amp;lt;&lt;/span&gt;bool&lt;span class=&#34;token operator&#34;&gt;&gt;&lt;/span&gt; tmp &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; mp&lt;span class=&#34;token punctuation&#34;&gt;[&lt;/span&gt;c&lt;span class=&#34;token punctuation&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;25&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;            l1 &lt;span class=&#34;token operator&#34;&gt;+=&lt;/span&gt; &lt;span class=&#34;token string&#34;&gt;&#34; &#34;&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;26&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;            &lt;span class=&#34;token keyword&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;tmp&lt;span class=&#34;token punctuation&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;token number&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;token operator&#34;&gt;==&lt;/span&gt; true&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;token keyword&#34;&gt;for&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token keyword&#34;&gt;int&lt;/span&gt; i&lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;token number&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt; i&lt;span class=&#34;token operator&#34;&gt;&amp;lt;=&lt;/span&gt;s&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt; i&lt;span class=&#34;token operator&#34;&gt;++&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt; l1 &lt;span class=&#34;token operator&#34;&gt;+=&lt;/span&gt; &lt;span class=&#34;token string&#34;&gt;&#34;-&#34;&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;27&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;            &lt;span class=&#34;token keyword&#34;&gt;else&lt;/span&gt; &lt;span class=&#34;token keyword&#34;&gt;for&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token keyword&#34;&gt;int&lt;/span&gt; i&lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;token number&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt; i&lt;span class=&#34;token operator&#34;&gt;&amp;lt;=&lt;/span&gt;s&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt; i&lt;span class=&#34;token operator&#34;&gt;++&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt; l1 &lt;span class=&#34;token operator&#34;&gt;+=&lt;/span&gt; &lt;span class=&#34;token string&#34;&gt;&#34; &#34;&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;28&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;            l1 &lt;span class=&#34;token operator&#34;&gt;+=&lt;/span&gt; &lt;span class=&#34;token string&#34;&gt;&#34; &#34;&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;29&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;30&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;            &lt;span class=&#34;token keyword&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;tmp&lt;span class=&#34;token punctuation&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;token number&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;token operator&#34;&gt;==&lt;/span&gt; true&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt; l2 &lt;span class=&#34;token operator&#34;&gt;+=&lt;/span&gt; &lt;span class=&#34;token string&#34;&gt;&#34;|&#34;&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;31&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;            &lt;span class=&#34;token keyword&#34;&gt;else&lt;/span&gt; l2 &lt;span class=&#34;token operator&#34;&gt;+=&lt;/span&gt; &lt;span class=&#34;token string&#34;&gt;&#34; &#34;&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;32&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;            &lt;span class=&#34;token keyword&#34;&gt;for&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token keyword&#34;&gt;int&lt;/span&gt; i&lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;token number&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt; i&lt;span class=&#34;token operator&#34;&gt;&amp;lt;=&lt;/span&gt;s&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt; i&lt;span class=&#34;token operator&#34;&gt;++&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt; l2 &lt;span class=&#34;token operator&#34;&gt;+=&lt;/span&gt; &lt;span class=&#34;token string&#34;&gt;&#34; &#34;&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;33&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;            &lt;span class=&#34;token keyword&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;tmp&lt;span class=&#34;token punctuation&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;token number&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;token operator&#34;&gt;==&lt;/span&gt; true&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt; l2 &lt;span class=&#34;token operator&#34;&gt;+=&lt;/span&gt; &lt;span class=&#34;token string&#34;&gt;&#34;|&#34;&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;34&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;            &lt;span class=&#34;token keyword&#34;&gt;else&lt;/span&gt; l2 &lt;span class=&#34;token operator&#34;&gt;+=&lt;/span&gt; &lt;span class=&#34;token string&#34;&gt;&#34; &#34;&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;35&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;36&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;            l3 &lt;span class=&#34;token operator&#34;&gt;+=&lt;/span&gt; &lt;span class=&#34;token string&#34;&gt;&#34; &#34;&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;37&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;            &lt;span class=&#34;token keyword&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;tmp&lt;span class=&#34;token punctuation&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;token number&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;token operator&#34;&gt;==&lt;/span&gt; true&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;token keyword&#34;&gt;for&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token keyword&#34;&gt;int&lt;/span&gt; i&lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;token number&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt; i&lt;span class=&#34;token operator&#34;&gt;&amp;lt;=&lt;/span&gt;s&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt; i&lt;span class=&#34;token operator&#34;&gt;++&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt; l3 &lt;span class=&#34;token operator&#34;&gt;+=&lt;/span&gt; &lt;span class=&#34;token string&#34;&gt;&#34;-&#34;&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;38&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;            &lt;span class=&#34;token keyword&#34;&gt;else&lt;/span&gt; &lt;span class=&#34;token keyword&#34;&gt;for&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token keyword&#34;&gt;int&lt;/span&gt; i&lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;token number&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt; i&lt;span class=&#34;token operator&#34;&gt;&amp;lt;=&lt;/span&gt;s&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt; i&lt;span class=&#34;token operator&#34;&gt;++&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt; l3 &lt;span class=&#34;token operator&#34;&gt;+=&lt;/span&gt; &lt;span class=&#34;token string&#34;&gt;&#34; &#34;&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;39&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;            l3 &lt;span class=&#34;token operator&#34;&gt;+=&lt;/span&gt; &lt;span class=&#34;token string&#34;&gt;&#34; &#34;&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;40&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;41&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;            &lt;span class=&#34;token keyword&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;tmp&lt;span class=&#34;token punctuation&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;token number&#34;&gt;4&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;token operator&#34;&gt;==&lt;/span&gt; true&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt; l4 &lt;span class=&#34;token operator&#34;&gt;+=&lt;/span&gt; &lt;span class=&#34;token string&#34;&gt;&#34;|&#34;&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;42&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;            &lt;span class=&#34;token keyword&#34;&gt;else&lt;/span&gt; l4 &lt;span class=&#34;token operator&#34;&gt;+=&lt;/span&gt; &lt;span class=&#34;token string&#34;&gt;&#34; &#34;&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;43&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;            &lt;span class=&#34;token keyword&#34;&gt;for&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token keyword&#34;&gt;int&lt;/span&gt; i&lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;token number&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt; i&lt;span class=&#34;token operator&#34;&gt;&amp;lt;=&lt;/span&gt;s&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt; i&lt;span class=&#34;token operator&#34;&gt;++&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt; l4 &lt;span class=&#34;token operator&#34;&gt;+=&lt;/span&gt; &lt;span class=&#34;token string&#34;&gt;&#34; &#34;&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;44&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;            &lt;span class=&#34;token keyword&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;tmp&lt;span class=&#34;token punctuation&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;token number&#34;&gt;5&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;token operator&#34;&gt;==&lt;/span&gt; true&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt; l4 &lt;span class=&#34;token operator&#34;&gt;+=&lt;/span&gt; &lt;span class=&#34;token string&#34;&gt;&#34;|&#34;&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;45&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;            &lt;span class=&#34;token keyword&#34;&gt;else&lt;/span&gt; l4 &lt;span class=&#34;token operator&#34;&gt;+=&lt;/span&gt; &lt;span class=&#34;token string&#34;&gt;&#34; &#34;&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;46&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;47&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;            l5 &lt;span class=&#34;token operator&#34;&gt;+=&lt;/span&gt; &lt;span class=&#34;token string&#34;&gt;&#34; &#34;&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;48&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;            &lt;span class=&#34;token keyword&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;tmp&lt;span class=&#34;token punctuation&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;token number&#34;&gt;6&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;token operator&#34;&gt;==&lt;/span&gt; true&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;token keyword&#34;&gt;for&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token keyword&#34;&gt;int&lt;/span&gt; i&lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;token number&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt; i&lt;span class=&#34;token operator&#34;&gt;&amp;lt;=&lt;/span&gt;s&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt; i&lt;span class=&#34;token operator&#34;&gt;++&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt; l5 &lt;span class=&#34;token operator&#34;&gt;+=&lt;/span&gt; &lt;span class=&#34;token string&#34;&gt;&#34;-&#34;&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;49&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;            &lt;span class=&#34;token keyword&#34;&gt;else&lt;/span&gt; &lt;span class=&#34;token keyword&#34;&gt;for&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token keyword&#34;&gt;int&lt;/span&gt; i&lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;token number&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt; i&lt;span class=&#34;token operator&#34;&gt;&amp;lt;=&lt;/span&gt;s&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt; i&lt;span class=&#34;token operator&#34;&gt;++&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt; l5 &lt;span class=&#34;token operator&#34;&gt;+=&lt;/span&gt; &lt;span class=&#34;token string&#34;&gt;&#34; &#34;&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;50&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;            l5 &lt;span class=&#34;token operator&#34;&gt;+=&lt;/span&gt; &lt;span class=&#34;token string&#34;&gt;&#34; &#34;&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;51&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;52&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;            &lt;span class=&#34;token keyword&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;j &lt;span class=&#34;token operator&#34;&gt;!=&lt;/span&gt; str&lt;span class=&#34;token punctuation&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;token function&#34;&gt;size&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;token operator&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;token number&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;&amp;#123;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;53&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;                l1 &lt;span class=&#34;token operator&#34;&gt;+=&lt;/span&gt; &lt;span class=&#34;token string&#34;&gt;&#34; &#34;&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt; l2 &lt;span class=&#34;token operator&#34;&gt;+=&lt;/span&gt; &lt;span class=&#34;token string&#34;&gt;&#34; &#34;&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt; l3 &lt;span class=&#34;token operator&#34;&gt;+=&lt;/span&gt; &lt;span class=&#34;token string&#34;&gt;&#34; &#34;&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt; l4 &lt;span class=&#34;token operator&#34;&gt;+=&lt;/span&gt; &lt;span class=&#34;token string&#34;&gt;&#34; &#34;&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt; l5 &lt;span class=&#34;token operator&#34;&gt;+=&lt;/span&gt; &lt;span class=&#34;token string&#34;&gt;&#34; &#34;&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;54&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;            &lt;span class=&#34;token punctuation&#34;&gt;&amp;#125;&lt;/span&gt; &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;55&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;                &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;56&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;        &lt;span class=&#34;token punctuation&#34;&gt;&amp;#125;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;57&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;58&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;        cout &lt;span class=&#34;token operator&#34;&gt;&amp;lt;&amp;lt;&lt;/span&gt; l1 &lt;span class=&#34;token operator&#34;&gt;&amp;lt;&amp;lt;&lt;/span&gt; endl&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;59&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;        &lt;span class=&#34;token keyword&#34;&gt;for&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token keyword&#34;&gt;int&lt;/span&gt; i&lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;token number&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt; i&lt;span class=&#34;token operator&#34;&gt;&amp;lt;=&lt;/span&gt;s&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt; i&lt;span class=&#34;token operator&#34;&gt;++&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt; cout &lt;span class=&#34;token operator&#34;&gt;&amp;lt;&amp;lt;&lt;/span&gt; l2 &lt;span class=&#34;token operator&#34;&gt;&amp;lt;&amp;lt;&lt;/span&gt; endl&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;60&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;        cout &lt;span class=&#34;token operator&#34;&gt;&amp;lt;&amp;lt;&lt;/span&gt; l3 &lt;span class=&#34;token operator&#34;&gt;&amp;lt;&amp;lt;&lt;/span&gt; endl&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;61&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;        &lt;span class=&#34;token keyword&#34;&gt;for&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token keyword&#34;&gt;int&lt;/span&gt; i&lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;token number&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt; i&lt;span class=&#34;token operator&#34;&gt;&amp;lt;=&lt;/span&gt;s&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt; i&lt;span class=&#34;token operator&#34;&gt;++&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt; cout &lt;span class=&#34;token operator&#34;&gt;&amp;lt;&amp;lt;&lt;/span&gt; l4 &lt;span class=&#34;token operator&#34;&gt;&amp;lt;&amp;lt;&lt;/span&gt; endl&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;62&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;        cout &lt;span class=&#34;token operator&#34;&gt;&amp;lt;&amp;lt;&lt;/span&gt; l5 &lt;span class=&#34;token operator&#34;&gt;&amp;lt;&amp;lt;&lt;/span&gt; endl &lt;span class=&#34;token operator&#34;&gt;&amp;lt;&amp;lt;&lt;/span&gt; endl&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;63&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token punctuation&#34;&gt;&amp;#125;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;64&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token keyword&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;token number&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;65&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token punctuation&#34;&gt;&amp;#125;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;</content>
-        <category term="Coding" scheme="https://chienikao.github.io/categories/Coding/" />
-        <category term="UVA" scheme="https://chienikao.github.io/categories/Coding/UVA/" />
-        <category term="Star1" scheme="https://chienikao.github.io/categories/Coding/UVA/Star1/" />
-        <category term="Star1" scheme="https://chienikao.github.io/tags/Star1/" />
-        <category term="CPE" scheme="https://chienikao.github.io/tags/CPE/" />
-        <category term="UVA" scheme="https://chienikao.github.io/tags/UVA/" />
-        <updated>2023-04-26T02:42:29.000Z</updated>
-    </entry>
-    <entry>
-        <id>https://chienikao.github.io/2023/04/26/System%20Software/Ch01/Appendix_A/</id>
-        <title>Appendix A</title>
-        <link rel="alternate" href="https://chienikao.github.io/2023/04/26/System%20Software/Ch01/Appendix_A/"/>
-        <content type="html">&lt;h1 id=&#34;appendix-a&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#appendix-a&#34;&gt;#&lt;/a&gt; Appendix A&lt;/h1&gt;
-&lt;p&gt;&lt;img data-src=&#34;https://i.imgur.com/Jg7aXIF.png&#34; alt=&#34;&#34;&gt;&lt;br&gt;
-&lt;img data-src=&#34;https://i.imgur.com/tgx79gp.png&#34; alt=&#34;&#34;&gt;&lt;br&gt;
-&lt;img data-src=&#34;https://i.imgur.com/FvmdzSQ.png&#34; alt=&#34;&#34;&gt;&lt;br&gt;
-&lt;img data-src=&#34;https://i.imgur.com/CVWEW1r.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
-</content>
-        <category term="System Software" scheme="https://chienikao.github.io/categories/System-Software/" />
-        <category term="Ch01" scheme="https://chienikao.github.io/categories/System-Software/Ch01/" />
-        <category term="System Software" scheme="https://chienikao.github.io/tags/System-Software/" />
-        <updated>2023-04-26T01:33:29.000Z</updated>
-    </entry>
-    <entry>
-        <id>https://chienikao.github.io/2023/04/26/System%20Software/Ch01/Ch01_example/</id>
-        <title>Ch01 - Example</title>
-        <link rel="alternate" href="https://chienikao.github.io/2023/04/26/System%20Software/Ch01/Ch01_example/"/>
-        <content type="html">&lt;style&gt;
-    font {
-        color: red;
-        font-weight: bold;
-    }
-&lt;/style&gt;
-&lt;h1 id=&#34;ch01-範例程式分析&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#ch01-範例程式分析&#34;&gt;#&lt;/a&gt; Ch01 - 範例程式分析&lt;/h1&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;./Appendix%20A.md&#34;&gt;Appendix A&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;High Level Language 的部分是 pseudo-code
-&lt;ul&gt;
-&lt;li&gt;僅能代表大概相同的邏輯&lt;/li&gt;
-&lt;li&gt;不保證這段 code 編譯成組合語言會和範例完全一樣&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;div class=&#34;note info&#34;&gt;
-&lt;p&gt;&lt;strong&gt;判斷 format 的方法&lt;/strong&gt;&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;Relative Addressing&lt;/strong&gt;: 必為 format 3&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Immediate Addressing&lt;/strong&gt;: 看常數大小
-&lt;ul&gt;
-&lt;li&gt;因為 format 3 的 disp 欄位有 12 bits，僅能表示 &lt;span class=&#34;katex&#34;&gt;&lt;span class=&#34;katex-mathml&#34;&gt;&lt;math xmlns=&#34;http://www.w3.org/1998/Math/MathML&#34;&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;mo&gt;−&lt;/mo&gt;&lt;msup&gt;&lt;mn&gt;2&lt;/mn&gt;&lt;mn&gt;12&lt;/mn&gt;&lt;/msup&gt;&lt;/mrow&gt;&lt;annotation encoding=&#34;application/x-tex&#34;&gt;-2^{12}&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;&lt;/span&gt;&lt;span class=&#34;katex-html&#34; aria-hidden=&#34;true&#34;&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:0.897438em;vertical-align:-0.08333em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;−&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;&lt;span class=&#34;mord&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;msupsub&#34;&gt;&lt;span class=&#34;vlist-t&#34;&gt;&lt;span class=&#34;vlist-r&#34;&gt;&lt;span class=&#34;vlist&#34; style=&#34;height:0.8141079999999999em;&#34;&gt;&lt;span style=&#34;top:-3.063em;margin-right:0.05em;&#34;&gt;&lt;span class=&#34;pstrut&#34; style=&#34;height:2.7em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;sizing reset-size6 size3 mtight&#34;&gt;&lt;span class=&#34;mord mtight&#34;&gt;&lt;span class=&#34;mord mtight&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;mord mtight&#34;&gt;2&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt; ~ &lt;span class=&#34;katex&#34;&gt;&lt;span class=&#34;katex-mathml&#34;&gt;&lt;math xmlns=&#34;http://www.w3.org/1998/Math/MathML&#34;&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;msup&gt;&lt;mn&gt;2&lt;/mn&gt;&lt;mn&gt;12&lt;/mn&gt;&lt;/msup&gt;&lt;mo&gt;−&lt;/mo&gt;&lt;mn&gt;1&lt;/mn&gt;&lt;/mrow&gt;&lt;annotation encoding=&#34;application/x-tex&#34;&gt;2^{12}-1&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;&lt;/span&gt;&lt;span class=&#34;katex-html&#34; aria-hidden=&#34;true&#34;&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:0.897438em;vertical-align:-0.08333em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;&lt;span class=&#34;mord&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;msupsub&#34;&gt;&lt;span class=&#34;vlist-t&#34;&gt;&lt;span class=&#34;vlist-r&#34;&gt;&lt;span class=&#34;vlist&#34; style=&#34;height:0.8141079999999999em;&#34;&gt;&lt;span style=&#34;top:-3.063em;margin-right:0.05em;&#34;&gt;&lt;span class=&#34;pstrut&#34; style=&#34;height:2.7em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;sizing reset-size6 size3 mtight&#34;&gt;&lt;span class=&#34;mord mtight&#34;&gt;&lt;span class=&#34;mord mtight&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;mord mtight&#34;&gt;2&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;mspace&#34; style=&#34;margin-right:0.2222222222222222em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mbin&#34;&gt;−&lt;/span&gt;&lt;span class=&#34;mspace&#34; style=&#34;margin-right:0.2222222222222222em;&#34;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:0.64444em;vertical-align:0em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;1&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Memory Access&lt;/strong&gt;:  通常是 format 3&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Operation 前有加號&lt;/strong&gt;：通常是 format 4&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/div&gt;
-&lt;div class=&#34;note info&#34;&gt;
-&lt;p&gt;&lt;strong&gt;判斷是否存取記憶體的方法&lt;/strong&gt;&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;在語法描述中， &lt;code&gt;m&lt;/code&gt;  表記憶體位置， &lt;code&gt;(m)&lt;/code&gt;  是此位置的資料
-&lt;ul&gt;
-&lt;li&gt;所以如果描述中有  &lt;code&gt;(m)&lt;/code&gt;  表示有 memory access&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/div&gt;
-&lt;h2 id=&#34;12-simple-data-movement&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#12-simple-data-movement&#34;&gt;#&lt;/a&gt; 1.2 Simple Data Movement&lt;/h2&gt;
-&lt;ul&gt;
-&lt;li&gt;There are &lt;strong&gt;no memory-to-memory move instructions&lt;/strong&gt;&lt;/li&gt;
-&lt;li&gt;All data movement must be &lt;strong&gt;done using registers&lt;/strong&gt;.
-&lt;ul&gt;
-&lt;li&gt;先用 Load 指令把資料從某段記憶體寫入 register&lt;/li&gt;
-&lt;li&gt;再用 Store 指令把資料從 register 寫入目標記憶體位置&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;There are four different ways of defining storage for data items in the SIC assembler language:  &lt;code&gt;WORD&lt;/code&gt; ,  &lt;code&gt;RESW&lt;/code&gt; ,  &lt;code&gt;BYTE&lt;/code&gt; ,  &lt;code&gt;RESB&lt;/code&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id=&#34;sic&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#sic&#34;&gt;#&lt;/a&gt; SIC&lt;/h3&gt;
-&lt;pre&gt;&lt;code class=&#34;language-=&#34;&gt;	LDA 	FIVE
-	STA 	ALPHA
-	LDCH	CHARZ
-	STCH	C1
-	 .
-	 .
-	 .
-ALPHA	RESW	1	//宣告變數，長度沒有限制
-FIVE	WORD	5	//宣告常數
-CHARZ	BYTE	C&#39;Z&#39;	//宣告byte
-C1	RESB	1
-&lt;/code&gt;&lt;/pre&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;Memory usage&lt;/strong&gt;: // 記憶體使用多少 byte (空間)
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;Data&lt;/strong&gt;: 2 words + 2 bytes = 6 + 2 bytes = 8 bytes&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Instruction&lt;/strong&gt;: 4 * 3(24 bits) = 12 bytes&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Total&lt;/strong&gt;: 8 + 12 bytes = 20 bytes&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;# of memory access&lt;/strong&gt;: // 記憶體存取幾次 (速度)
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;Data Access&lt;/strong&gt;: 4&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Instruction Fetch&lt;/strong&gt;: 4&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Total&lt;/strong&gt;: 8&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id=&#34;sicxe&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#sicxe&#34;&gt;#&lt;/a&gt; SIC/XE&lt;/h3&gt;
-&lt;pre&gt;&lt;code class=&#34;language-=&#34;&gt;	LDA	 #5
-	STA	 ALPHA
-	LDA	 #90
-	STCH	 C1
-	 .
-	 .
-	 .
-ALPHA	RESW	1
-C1	RESB	1
-&lt;/code&gt;&lt;/pre&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;Memory usage&lt;/strong&gt;:
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;Data&lt;/strong&gt;: 1 word + 1 bytes = 3 + 1 bytes = 4 bytes&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Instruction&lt;/strong&gt;: 3 + 3 + 3 + 3 = 12 bytes&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Total&lt;/strong&gt;: 16 bytes&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;# of memory access&lt;/strong&gt;:
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;Data Access&lt;/strong&gt;: 2&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Instruction Fetch&lt;/strong&gt;: 4&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Total&lt;/strong&gt;: 6&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id=&#34;high-level-language&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#high-level-language&#34;&gt;#&lt;/a&gt; High Level Language&lt;/h3&gt;
-&lt;figure class=&#34;highlight c&#34;&gt;&lt;figcaption data-lang=&#34;c&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token keyword&#34;&gt;int&lt;/span&gt; ALPHA&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token keyword&#34;&gt;char&lt;/span&gt; C1&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;3&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;4&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;ALPHA &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;token number&#34;&gt;5&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;5&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;C1 &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;token char&#34;&gt;&#39;Z&#39;&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;h2 id=&#34;13-simple-arithmetic-operation&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#13-simple-arithmetic-operation&#34;&gt;#&lt;/a&gt; 1.3 Simple Arithmetic Operation&lt;/h2&gt;
-&lt;h3 id=&#34;sic-2&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#sic-2&#34;&gt;#&lt;/a&gt; SIC&lt;/h3&gt;
-&lt;pre&gt;&lt;code class=&#34;language-=&#34;&gt;	LDA	ALPHA
-	ADD	INCR
-	SUB 	ONE
-	STA	BETA
-	LDA	GAMMA
-	ADD 	INCR
-	SUB	ONE
-	STA	DELTA
-	 .
-	 .
-	 .
-ONE	WORD	1
-         .
-ALPHA	RESW	1
-BETA	RESW	1
-GAMMA	RESW	1
-DELTA	RESW	1
-INCR	RESW	1 
-&lt;/code&gt;&lt;/pre&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;Memory usage&lt;/strong&gt;:
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;Data&lt;/strong&gt;: 6 words(3 bytes) = 18 bytes&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Instruction&lt;/strong&gt;: 8 * 3 = 24 bytes&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Total&lt;/strong&gt;: 42 bytes&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;# of memory access&lt;/strong&gt;:
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;Data Access&lt;/strong&gt;: 8&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Instruction Fetch&lt;/strong&gt;: 8&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Total&lt;/strong&gt;: 16&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id=&#34;sicxe-2&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#sicxe-2&#34;&gt;#&lt;/a&gt; SIC/XE&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;font&gt; &lt;code&gt;ADDR&lt;/code&gt; &lt;/font&gt; is used to &lt;strong&gt;avoid having to fetch&lt;/strong&gt;  &lt;code&gt;INCR&lt;/code&gt;  from memory each time it is used in a calculation, which may make the program more efficient.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;pre&gt;&lt;code class=&#34;language-=&#34;&gt;	LDS	 INCR
-	LDA	 ALPHA
-	ADDR	 S,A
-	SUB	 #1
-	STA 	 BETA
-	LDA	 GAMMA
-	ADDR	 S,A
-	SUB	 #1
-	STA	 DELTA
-	 .
-	 .
-	 .
-	 .
-ALPHA	RESW	1
-BETA	RESW	1
-GAMMA	RESW	1
-DELTA	RESW	1
-INCR	RESW	1 
-&lt;/code&gt;&lt;/pre&gt;
-&lt;div class=&#34;note success&#34;&gt;
-&lt;p&gt;&lt;strong&gt;Q:&lt;/strong&gt;  &lt;code&gt;LDS&lt;/code&gt;  和  &lt;code&gt;LDA&lt;/code&gt;  load 兩個變數存進 register 有沒有好處？&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;A:&lt;/strong&gt; 是有的，因為  &lt;code&gt;INCR&lt;/code&gt;  在整個程式中使用超過一次，所以先 load 到 register 裡面可以減少 memory access 的次數&lt;/p&gt;
-&lt;/div&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;Memory usage&lt;/strong&gt;:
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;Data&lt;/strong&gt;: 5 words = 15 bytes&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Instruction&lt;/strong&gt;: 2 byte( &lt;code&gt;ADDR&lt;/code&gt; ) * 2 + 3 * 7 = 25 bytes&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Total&lt;/strong&gt;: 40 bytes&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;# of memory access&lt;/strong&gt;:
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;Data Access&lt;/strong&gt;: 5&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Instruction Fetch&lt;/strong&gt;: 9&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Total&lt;/strong&gt;: 14&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id=&#34;high-level-language-2&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#high-level-language-2&#34;&gt;#&lt;/a&gt; High Level Language&lt;/h3&gt;
-&lt;figure class=&#34;highlight c&#34;&gt;&lt;figcaption data-lang=&#34;c&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token keyword&#34;&gt;int&lt;/span&gt; BETA &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; ALPHA &lt;span class=&#34;token operator&#34;&gt;+&lt;/span&gt; INCR &lt;span class=&#34;token operator&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;token number&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token keyword&#34;&gt;int&lt;/span&gt; DELTA &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; GAMMA &lt;span class=&#34;token operator&#34;&gt;+&lt;/span&gt; INCR &lt;span class=&#34;token operator&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;token number&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;h2 id=&#34;14-simple-looping-and-indexing-operations&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#14-simple-looping-and-indexing-operations&#34;&gt;#&lt;/a&gt; 1.4 Simple Looping and Indexing Operations&lt;/h2&gt;
-&lt;h3 id=&#34;sic-3&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#sic-3&#34;&gt;#&lt;/a&gt; SIC&lt;/h3&gt;
-&lt;pre&gt;&lt;code class=&#34;language-=&#34;&gt;	LDX	ZERO
-MOVECH	LDCH	STR1,X
-	STCH	STR2,X
-	TIX	ELEVEN
-	JLT	MOVECH
-	 .
-	 .
-	 .
-STR1	BYTE	C&#39;TEST STRING&#39;
-STR2 	RESB	11
-.
-ZERO	WORD	0
-ELEVEN	WORD	11
-&lt;/code&gt;&lt;/pre&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;Memory usage&lt;/strong&gt;:
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;Data&lt;/strong&gt;: 2 words + 11 * 2 bytes = 6 + 22 bytes = 28 bytes&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Instruction&lt;/strong&gt;: 3 * 5 = 15 bytes&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Total&lt;/strong&gt;: 43 bytes&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;# of memory access&lt;/strong&gt;:
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;Data Access&lt;/strong&gt;: 1 + 3 * 11 = 34&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Instruction Fetch&lt;/strong&gt;: 1 + 4 * 11 = 45&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Total&lt;/strong&gt;: 79&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id=&#34;sicxe-3&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#sicxe-3&#34;&gt;#&lt;/a&gt; SIC/XE&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;code&gt;TIXR&lt;/code&gt;  makes the loop &lt;strong&gt;more efficient&lt;/strong&gt;&lt;/li&gt;
-&lt;li&gt;Because the value does not have to be fetched from memory each time the loop is executed.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;pre&gt;&lt;code class=&#34;language-=&#34;&gt;	LDT	#11
-	LDX	#0
-MOVECH	LDCH	STR1,X
-	STCH	STR2,X
-	TIXR	T
-	JLT	MOVECH
-	 .
-	 .
-	 .
-STR1	BYTE	C&#39;TEST STRING&#39;
-STR2 	RESB	11
-&lt;/code&gt;&lt;/pre&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;Memory usage&lt;/strong&gt;:
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;Data&lt;/strong&gt;: 11 * 2 bytes = 22 bytes&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Instruction&lt;/strong&gt;: &lt;mark&gt;2 ( &lt;code&gt;TIXR&lt;/code&gt; )&lt;/mark&gt; + 5 * 3 bytes= 17 bytes&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Total&lt;/strong&gt;: 39 bytes&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;# of memory access&lt;/strong&gt;:
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;Data Access&lt;/strong&gt;: 2 * 11 = 2 + 22 = 24&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Instruction Fetch&lt;/strong&gt;: 4 * 11 = 44&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Total&lt;/strong&gt;: 68&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id=&#34;high-level-language-3&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#high-level-language-3&#34;&gt;#&lt;/a&gt; High Level Language&lt;/h3&gt;
-&lt;figure class=&#34;highlight c&#34;&gt;&lt;figcaption data-lang=&#34;c&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token keyword&#34;&gt;char&lt;/span&gt; STR1 &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;token string&#34;&gt;&#34;TEST STRING&#34;&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token keyword&#34;&gt;char&lt;/span&gt; STR2&lt;span class=&#34;token punctuation&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;token number&#34;&gt;11&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;3&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token keyword&#34;&gt;int&lt;/span&gt; X &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;token number&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;4&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;5&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token keyword&#34;&gt;do&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;&amp;#123;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;6&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    STR2&lt;span class=&#34;token punctuation&#34;&gt;[&lt;/span&gt;X&lt;span class=&#34;token punctuation&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; STR1&lt;span class=&#34;token punctuation&#34;&gt;[&lt;/span&gt;X&lt;span class=&#34;token punctuation&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt; &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;7&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    X&lt;span class=&#34;token operator&#34;&gt;++&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;8&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token punctuation&#34;&gt;&amp;#125;&lt;/span&gt;&lt;span class=&#34;token keyword&#34;&gt;while&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;X &lt;span class=&#34;token operator&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;token number&#34;&gt;11&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;h2 id=&#34;15-sample-indexing-and-looping-operations&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#15-sample-indexing-and-looping-operations&#34;&gt;#&lt;/a&gt; 1.5 Sample Indexing and Looping Operations&lt;/h2&gt;
-&lt;ul&gt;
-&lt;li&gt;The value in the index register must be &lt;strong&gt;incremented by 3&lt;/strong&gt; for each iteration of this loop
-&lt;ul&gt;
-&lt;li&gt;Because each iteration &lt;strong&gt;processes a 3-byte element&lt;/strong&gt; of the arrays&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id=&#34;sic-4&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#sic-4&#34;&gt;#&lt;/a&gt; SIC&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;The  &lt;code&gt;TIX&lt;/code&gt;  instruction always &lt;strong&gt;adds 1 to register X&lt;/strong&gt;, so it is &lt;font&gt;not suitable&lt;/font&gt; for this program fragment.&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;因為一個 word 占用 3bytes，所以 X 每次要跳三個位置 (X 每次加 3)，才能正確的讀取每一個 word&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;pre&gt;&lt;code class=&#34;language-=&#34;&gt;	LDA	ZERO
-	STA	INDEX
-ADDLP	LDX	INDEX
-	LDA	ALPHA,X
-	ADD	BETA,X
-	STA	GAMMA,X
-	LDA	INDEX
-	ADD	THREE
-	STA	INDEX
-	COMP	K300
-	JLT	ADDLP
-	 .
-	 .
-	 .
-INDEX	RESW	1
-	 .
-ALPHA	RESW	100
-BETA	RESW	100
-GAMMA	RESW	100
-	 .
-ZERO	WORD	0
-K300	WORD	300
-THREE	WORD	3
-&lt;/code&gt;&lt;/pre&gt;
-&lt;div class=&#34;note danger&#34;&gt;
-&lt;p&gt;&lt;strong&gt;Q:&lt;/strong&gt; 為什麼程式碼 7 ~ 10 不用  &lt;code&gt;TIX&lt;/code&gt;  ?&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;A:&lt;/strong&gt; 因為這裡的變數宣告是 word，而不是 byte，要找到下一個資料位置，要加 3 bytes (one word)，而  &lt;code&gt;TIX&lt;/code&gt;  裡面的內容是，加 1 並比較。&lt;/p&gt;
-&lt;/div&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;Memory usage&lt;/strong&gt;:
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;Data&lt;/strong&gt;: 1 + 100*3 + 3 words = 304 words = 912 bytes&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Instruction&lt;/strong&gt;: 11 * 3 = 33 bytes&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Total&lt;/strong&gt;: 945 bytes&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;# of memory access&lt;/strong&gt;:
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;Data Access&lt;/strong&gt;: 2 + 8 * 100 = 802&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Instruction Fetch&lt;/strong&gt;: 2 + 9 * 100 = 902&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Total&lt;/strong&gt;: 1704&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id=&#34;sicxe-4&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#sicxe-4&#34;&gt;#&lt;/a&gt; SIC/XE&lt;/h3&gt;
-&lt;pre&gt;&lt;code class=&#34;language-=&#34;&gt;	LDS	#3
-	LDT	#300
-	LDX	#0
-ADDLP	LDA	ALPHA,X
-	ADD	BETA,X
-	STA	GAMMA,X
-	ADDR	S,X
-	COMPR 	X,T
-	JLT	ADDLP
-	 .
-	 .
-	 .
-	 .
-ALPHA	RESW	100
-BETA	RESW	100
-GAMMA	RESW	100
-&lt;/code&gt;&lt;/pre&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;Memory usage&lt;/strong&gt;:
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;Data&lt;/strong&gt;: 3 * 100 words = 300 words = 900 bytes&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Instruction&lt;/strong&gt;: &lt;mark&gt;2( &lt;code&gt;ADDR&lt;/code&gt; )&lt;/mark&gt; + &lt;mark&gt;2( &lt;code&gt;COMPR&lt;/code&gt; )&lt;/mark&gt; + 7 * 3 = 25&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Total&lt;/strong&gt;: 925 bytes&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;# of memory access&lt;/strong&gt;:
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;Data Access&lt;/strong&gt;: 3 * 100 = 300&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Instruction Fetch&lt;/strong&gt;: 3 + 6 * 100 = 603&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Total&lt;/strong&gt;: 903&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id=&#34;high-level-language-4&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#high-level-language-4&#34;&gt;#&lt;/a&gt; High Level Language&lt;/h3&gt;
-&lt;figure class=&#34;highlight c&#34;&gt;&lt;figcaption data-lang=&#34;c&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token keyword&#34;&gt;int&lt;/span&gt; ALPHA&lt;span class=&#34;token punctuation&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;token number&#34;&gt;100&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token keyword&#34;&gt;int&lt;/span&gt; BETA&lt;span class=&#34;token punctuation&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;token number&#34;&gt;100&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;3&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token keyword&#34;&gt;int&lt;/span&gt; GAMMA&lt;span class=&#34;token punctuation&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;token number&#34;&gt;100&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;4&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;5&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token keyword&#34;&gt;for&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;X &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;token number&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt; X &lt;span class=&#34;token operator&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;token number&#34;&gt;100&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt; X&lt;span class=&#34;token operator&#34;&gt;++&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;&amp;#123;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;6&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    GAMMA&lt;span class=&#34;token punctuation&#34;&gt;[&lt;/span&gt;X&lt;span class=&#34;token punctuation&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; ALPHA&lt;span class=&#34;token punctuation&#34;&gt;[&lt;/span&gt;X&lt;span class=&#34;token punctuation&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;token operator&#34;&gt;+&lt;/span&gt; BETA&lt;span class=&#34;token punctuation&#34;&gt;[&lt;/span&gt;X&lt;span class=&#34;token punctuation&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;7&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token punctuation&#34;&gt;&amp;#125;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;h2 id=&#34;16-simple-io-operations&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#16-simple-io-operations&#34;&gt;#&lt;/a&gt; 1.6 Simple I/O Operations&lt;/h2&gt;
-&lt;h3 id=&#34;sic-5&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#sic-5&#34;&gt;#&lt;/a&gt; SIC&lt;/h3&gt;
-&lt;pre&gt;&lt;code class=&#34;language-=&#34;&gt;INLOOP	 TD 	INDEV
-	 JEQ	INLOOP
-	 RD	INDEV
-	 STCH	DATA
-	  .
-	  .
-	  .
-OUTLP	 TD	OUTDEV
-	 JEQ	OUTLP
-	 LDCH	DATA
-	 WD	OUTDEV
-	  .
-	  .
-	  .
-INDEV	 BYTE	X&#39;F1&#39;	// X 代表使用16進位, &#39;F1&#39; 是給此裝置的編號
-OUTDEV	 BYTE	X&#39;05&#39;
-DATA	 RESB	1
-&lt;/code&gt;&lt;/pre&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;Memory usage&lt;/strong&gt;:
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;Data&lt;/strong&gt;: 3 bytes&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Instruction&lt;/strong&gt;: (4 + 4) * 3 = 24 bytes&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Total&lt;/strong&gt;: 27 bytes&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;br&gt;
-&lt;blockquote&gt;
-&lt;p&gt;國展表示這邊 access 不用算 //TD RD WD&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;# of memory access&lt;/strong&gt;:
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;Data Access&lt;/strong&gt;: 2&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Instruction Fetch&lt;/strong&gt;: 2n + 2m + 4 (n, m: 測試 device 的次數)&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Total&lt;/strong&gt;: 2n + 2m + 6&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id=&#34;high-level-language-5&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#high-level-language-5&#34;&gt;#&lt;/a&gt; High Level Language&lt;/h3&gt;
-&lt;figure class=&#34;highlight cpp&#34;&gt;&lt;figcaption data-lang=&#34;C++&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;Device INDEV &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;token function&#34;&gt;Device&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token string&#34;&gt;&#34;F1&#34;&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;Device OUTDEV &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;token function&#34;&gt;Device&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token string&#34;&gt;&#34;05&#34;&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;3&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;4&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token keyword&#34;&gt;char&lt;/span&gt; DATA&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;5&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;6&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token comment&#34;&gt;// 不能使用就繼續測試&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;7&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token keyword&#34;&gt;while&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token operator&#34;&gt;!&lt;/span&gt; INDEV&lt;span class=&#34;token punctuation&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;token function&#34;&gt;isReady&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;&amp;#123;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;8&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token punctuation&#34;&gt;&amp;#125;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;9&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;DATA &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; INDEV&lt;span class=&#34;token punctuation&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;token function&#34;&gt;read&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;10&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;11&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token punctuation&#34;&gt;.&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;12&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token punctuation&#34;&gt;.&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;13&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token punctuation&#34;&gt;.&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;14&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;15&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token keyword&#34;&gt;while&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token operator&#34;&gt;!&lt;/span&gt; OUTDEV&lt;span class=&#34;token punctuation&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;token function&#34;&gt;isReady&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;&amp;#123;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;16&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token punctuation&#34;&gt;&amp;#125;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;17&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;OUTDEV&lt;span class=&#34;token punctuation&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;token function&#34;&gt;write&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;DATA&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;h2 id=&#34;17-sample-subroutine-call-and-record-input-operations&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#17-sample-subroutine-call-and-record-input-operations&#34;&gt;#&lt;/a&gt; 1.7 Sample Subroutine Call and Record Input Operations&lt;/h2&gt;
-&lt;h3 id=&#34;sic-6&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#sic-6&#34;&gt;#&lt;/a&gt; SIC&lt;/h3&gt;
-&lt;pre&gt;&lt;code class=&#34;language-=&#34;&gt;	JSUB	READ
-	 .
-	 .
-	 .
-READ	LDX	ZERO
-RLOOP	TD	INDEV
-	JEQ	RLOOP
-	RD	INDEV
-	STCH	RECORD,X
-	TIX	K100
-	JLT	RLOOP
-	RSUB
-	 .
-	 .	
-	 .
-INDEV	BYTE	X&#39;F1&#39;
-RECORD	RESB	100
-	 .	
-ZERO	WORD	0
-K100	WORD	100
-&lt;/code&gt;&lt;/pre&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;Memory usage&lt;/strong&gt;:
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;Data&lt;/strong&gt;: (1 + 100) bytes + 2 words = 107 bytes&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Instruction&lt;/strong&gt;: 9 * 3 = 27 bytes&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Total&lt;/strong&gt;: 134 bytes&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;blockquote&gt;
-&lt;p&gt;國展表示這邊 access 不用算 //TD RD WD&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;# of memory access&lt;/strong&gt;:
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;Data Access&lt;/strong&gt;: 1 + 2 * 100 = 201&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Instruction Fetch&lt;/strong&gt;: 1 + 1 + 2n + 5 * 100 + 1 (n: 測試 device 的次數)&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Total&lt;/strong&gt;: 2n + 704&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id=&#34;sicxe-5&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#sicxe-5&#34;&gt;#&lt;/a&gt; SIC/XE&lt;/h3&gt;
-&lt;pre&gt;&lt;code class=&#34;language-=&#34;&gt;	JSUB	READ
-	 .
-	 .
-	 .
-READ	LDX	#0
-	LDT	#100
-RLOOP	TD	 INDEV
-	JEQ	 RLOOP
-	RD	 INDEV
-	STCH	 RECORD,X
-	TIXR	 T
-	JLT	 RLOOP
-	RSUB
-	 .
-	 .
-	 .
-INDEV	BYTE	X&#39;F1&#39;
-RECORD	RESB	100
-&lt;/code&gt;&lt;/pre&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;Memory usage&lt;/strong&gt;:
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;Data&lt;/strong&gt;: (1 + 100) bytes = 101 bytes&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Instruction&lt;/strong&gt;: &lt;mark&gt;2( &lt;code&gt;TIXR&lt;/code&gt; )&lt;/mark&gt; + 3 * 9 = 29 bytes&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Total&lt;/strong&gt;: 130 bytes&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;blockquote&gt;
-&lt;p&gt;國展表示這邊 access 不用算 //TD RD WD&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;Memory Access&lt;/strong&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id=&#34;high-level-language-6&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#high-level-language-6&#34;&gt;#&lt;/a&gt; High Level Language&lt;/h3&gt;
-&lt;figure class=&#34;highlight cpp&#34;&gt;&lt;figcaption data-lang=&#34;C++&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;Device INDEV &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;token function&#34;&gt;Device&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token string&#34;&gt;&#34;F1&#34;&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token keyword&#34;&gt;char&lt;/span&gt; RECORD&lt;span class=&#34;token punctuation&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;token number&#34;&gt;100&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;3&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;4&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token function&#34;&gt;READ&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;5&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;6&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token keyword&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;token function&#34;&gt;READ&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;&amp;#123;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;7&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token keyword&#34;&gt;for&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;X &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;token number&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt; X &lt;span class=&#34;token operator&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;token number&#34;&gt;100&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt; X&lt;span class=&#34;token operator&#34;&gt;++&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;&amp;#123;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;8&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;        &lt;span class=&#34;token keyword&#34;&gt;while&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token operator&#34;&gt;!&lt;/span&gt; INDEV&lt;span class=&#34;token punctuation&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;token function&#34;&gt;isReady&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;&amp;#123;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;9&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;        &lt;span class=&#34;token punctuation&#34;&gt;&amp;#125;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;10&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;        RECORD&lt;span class=&#34;token punctuation&#34;&gt;[&lt;/span&gt;X&lt;span class=&#34;token punctuation&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; INDEV&lt;span class=&#34;token punctuation&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;token function&#34;&gt;read&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;11&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token punctuation&#34;&gt;&amp;#125;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;12&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token punctuation&#34;&gt;&amp;#125;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;</content>
-        <category term="System Software" scheme="https://chienikao.github.io/categories/System-Software/" />
-        <category term="Ch01" scheme="https://chienikao.github.io/categories/System-Software/Ch01/" />
-        <category term="System Software" scheme="https://chienikao.github.io/tags/System-Software/" />
-        <updated>2023-04-26T01:33:29.000Z</updated>
     </entry>
 </feed>
