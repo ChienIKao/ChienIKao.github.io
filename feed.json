@@ -18,9 +18,9 @@
                 "Medium",
                 "Leetcode",
                 "Array",
+                "Medium",
                 "Matrix",
-                "Simulation",
-                "Medium"
+                "Simulation"
             ]
         },
         {
@@ -81,8 +81,8 @@
                 "Leetcode",
                 "Easy",
                 "Leetcode",
-                "Easy",
                 "Array",
+                "Easy",
                 "Matrix"
             ]
         },
@@ -114,10 +114,10 @@
                 "Medium",
                 "Leetcode",
                 "Array",
-                "Sorting",
-                "Two Pointers",
                 "Binary Search",
-                "Medium"
+                "Medium",
+                "Sorting",
+                "Two Pointers"
             ]
         },
         {
@@ -179,8 +179,8 @@
                 "Leetcode",
                 "Hard",
                 "Leetcode",
-                "Array",
                 "Hard",
+                "Array",
                 "Binary Search",
                 "Binary Indexed  Tree"
             ]
@@ -224,8 +224,8 @@
                 "Leetcode",
                 "Easy",
                 "Leetcode",
-                "Easy",
                 "Array",
+                "Easy",
                 "Hash Table"
             ]
         },
@@ -240,8 +240,8 @@
                 "Leetcode",
                 "Easy",
                 "Leetcode",
-                "Easy",
                 "Array",
+                "Easy",
                 "Math"
             ]
         },
@@ -256,8 +256,8 @@
                 "Leetcode",
                 "Easy",
                 "Leetcode",
-                "Easy",
                 "Array",
+                "Easy",
                 "Sorting"
             ]
         },
@@ -303,8 +303,8 @@
                 "Union Find",
                 "String",
                 "Leetcode",
-                "Array",
                 "Hard",
+                "Array",
                 "Depth-First Search",
                 "Breadth-First Search"
             ]
@@ -319,8 +319,8 @@
                 "Coding",
                 "Leetcode",
                 "Leetcode",
-                "Math",
                 "Medium",
+                "Math",
                 "Brainteaser"
             ]
         }
