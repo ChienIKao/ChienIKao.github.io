@@ -8,13 +8,66 @@
     <author>
       <name>ChienI Kao</name>
     </author>
-    <updated>2023-05-10T14:40:49.000Z</updated>
+    <updated>2023-05-11T01:51:30.000Z</updated>
     <category term="筆記" />
     <category term=" note" />
     <entry>
-        <id>https://chienikao.github.io/2023/05/10/Coding/leetcode/Medium/page/</id>
+        <id>https://chienikao.github.io/2023/05/11/Coding/leetcode/Easy/2629%20Function%20Composition/</id>
+        <title>2629. Function Composition</title>
+        <link rel="alternate" href="https://chienikao.github.io/2023/05/11/Coding/leetcode/Easy/2629%20Function%20Composition/"/>
+        <content type="html">&lt;p&gt;⭐️&lt;/p&gt;
+&lt;h2 id=&#34;題目敘述&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#題目敘述&#34;&gt;#&lt;/a&gt; &lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly9sZWV0Y29kZS5jb20vcHJvYmxlbXMvZnVuY3Rpb24tY29tcG9zaXRpb24vZGVzY3JpcHRpb24vP3V0bV9jYW1wYWlnbj1Qb3N0RDcmYW1wO3V0bV9tZWRpdW09UG9zdCZhbXA7dXRtX3NvdXJjZT1Qb3N0JmFtcDtnaW9fbGlua19pZD00UFk3d1pNOQ==&#34;&gt;題目敘述&lt;/span&gt;&lt;/h2&gt;
+&lt;p&gt;Given an array of functions  &lt;code&gt;[f1, f2, f3, ..., fn]&lt;/code&gt; , return a new function  &lt;code&gt;fn&lt;/code&gt;  that is the &lt;strong&gt;function composition&lt;/strong&gt; of the array of functions.&lt;/p&gt;
+&lt;p&gt;The &lt;strong&gt;function composition&lt;/strong&gt; of  &lt;code&gt;[f(x), g(x), h(x)]&lt;/code&gt;  is  &lt;code&gt;fn(x) = f(g(h(x)))&lt;/code&gt; .&lt;/p&gt;
+&lt;p&gt;The &lt;strong&gt;function composition&lt;/strong&gt; of an empty list of functions is the &lt;strong&gt;identity function&lt;/strong&gt;  &lt;code&gt;f(x) = x&lt;/code&gt; .&lt;/p&gt;
+&lt;p&gt;You may assume each function in the array accepts one integer as input and returns one integer as output.&lt;/p&gt;
+&lt;h3 id=&#34;example-1&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#example-1&#34;&gt;#&lt;/a&gt; Example 1&lt;/h3&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Input&lt;/strong&gt;: functions = [x =&amp;gt; x + 1, x =&amp;gt; x * x, x =&amp;gt; 2 * x], x = 4&lt;br&gt;
+&lt;strong&gt;Output&lt;/strong&gt;: 65&lt;br&gt;
+&lt;strong&gt;Explanation&lt;/strong&gt;:&lt;br&gt;
+Evaluating from right to left …&lt;br&gt;
+Starting with x = 4.&lt;br&gt;
+2 * (4) = 8&lt;br&gt;
+(8) * (8) = 64&lt;br&gt;
+(64) + 1 = 65&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3 id=&#34;example-2&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#example-2&#34;&gt;#&lt;/a&gt; Example 2&lt;/h3&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Input&lt;/strong&gt;: functions = [x =&amp;gt; 10 * x, x =&amp;gt; 10 * x, x =&amp;gt; 10 * x], x = 1&lt;br&gt;
+&lt;strong&gt;Output&lt;/strong&gt;: 1000&lt;br&gt;
+&lt;strong&gt;Explanation&lt;/strong&gt;:&lt;br&gt;
+Evaluating from right to left …&lt;br&gt;
+10 * (1) = 10&lt;br&gt;
+10 * (10) = 100&lt;br&gt;
+10 * (100) = 1000&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3 id=&#34;example-3&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#example-3&#34;&gt;#&lt;/a&gt; Example 3&lt;/h3&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Input&lt;/strong&gt;: functions = [], x = 42&lt;br&gt;
+&lt;strong&gt;Output&lt;/strong&gt;: 42&lt;br&gt;
+&lt;strong&gt;Explanation&lt;/strong&gt;:&lt;br&gt;
+The composition of zero functions is the identity function&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;solution&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#solution&#34;&gt;#&lt;/a&gt; Solution&lt;/h2&gt;
+&lt;div class=&#34;tab&#34; data-id=&#34;code&#34; data-title=&#34;Javascript&#34;&gt;
+&lt;figure class=&#34;highlight javascript&#34;&gt;&lt;figcaption data-lang=&#34;javascript&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token comment&#34;&gt;/**&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt; * @param &amp;#123;Function[]&amp;#125; functions&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;3&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt; * @return &amp;#123;Function&amp;#125;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;4&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt; */&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;5&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token keyword&#34;&gt;var&lt;/span&gt; &lt;span class=&#34;token function-variable function&#34;&gt;compose&lt;/span&gt; &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;token keyword&#34;&gt;function&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token parameter&#34;&gt;functions&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;&amp;#123;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;6&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;	&lt;span class=&#34;token keyword&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;token keyword&#34;&gt;function&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token parameter&#34;&gt;x&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;&amp;#123;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;7&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;        functions&lt;span class=&#34;token punctuation&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;token function&#34;&gt;reverse&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;token function&#34;&gt;forEach&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token parameter&#34;&gt;fn&lt;/span&gt; &lt;span class=&#34;token operator&#34;&gt;=&gt;&lt;/span&gt; x &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;token function&#34;&gt;fn&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;x&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;8&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;        &lt;span class=&#34;token keyword&#34;&gt;return&lt;/span&gt; x&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;9&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token punctuation&#34;&gt;&amp;#125;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;10&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token punctuation&#34;&gt;&amp;#125;&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;11&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;12&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token comment&#34;&gt;/**&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;13&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt; * const fn = compose([x =&gt; x + 1, x =&gt; 2 * x])&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;14&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt; * fn(4) // 9&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;15&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt; */&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/div&gt;
+&lt;div class=&#34;tab&#34; data-id=&#34;code&#34; data-title=&#34;Typescript&#34;&gt;
+&lt;figure class=&#34;highlight typescript&#34;&gt;&lt;figcaption data-lang=&#34;typescript&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token keyword&#34;&gt;type&lt;/span&gt; &lt;span class=&#34;token class-name&#34;&gt;&lt;span class=&#34;token constant&#34;&gt;F&lt;/span&gt;&lt;/span&gt; &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;x&lt;span class=&#34;token operator&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;token builtin&#34;&gt;number&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;token operator&#34;&gt;=&gt;&lt;/span&gt; &lt;span class=&#34;token builtin&#34;&gt;number&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;3&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token keyword&#34;&gt;function&lt;/span&gt; &lt;span class=&#34;token function&#34;&gt;compose&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;functions&lt;span class=&#34;token operator&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;token constant&#34;&gt;F&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;token operator&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;token constant&#34;&gt;F&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;&amp;#123;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;4&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;	&lt;span class=&#34;token keyword&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;token keyword&#34;&gt;function&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;x&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;&amp;#123;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;5&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;        functions&lt;span class=&#34;token punctuation&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;token function&#34;&gt;reverse&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;token function&#34;&gt;forEach&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;fn &lt;span class=&#34;token operator&#34;&gt;=&gt;&lt;/span&gt; x &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;token function&#34;&gt;fn&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;x&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;6&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;        &lt;span class=&#34;token keyword&#34;&gt;return&lt;/span&gt; x&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;7&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token punctuation&#34;&gt;&amp;#125;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;8&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token punctuation&#34;&gt;&amp;#125;&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;9&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;10&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token comment&#34;&gt;/**&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;11&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt; * const fn = compose([x =&gt; x + 1, x =&gt; 2 * x])&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;12&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt; * fn(4) // 9&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;13&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt; */&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/div&gt;
+</content>
+        <category term="Coding" scheme="https://chienikao.github.io/categories/Coding/" />
+        <category term="Leetcode" scheme="https://chienikao.github.io/categories/Coding/Leetcode/" />
+        <category term="Easy" scheme="https://chienikao.github.io/categories/Coding/Leetcode/Easy/" />
+        <category term="Javascript" scheme="https://chienikao.github.io/tags/Javascript/" />
+        <category term="Leetcode" scheme="https://chienikao.github.io/tags/Leetcode/" />
+        <category term="Easy" scheme="https://chienikao.github.io/tags/Easy/" />
+        <category term="Typescript" scheme="https://chienikao.github.io/tags/Typescript/" />
+        <updated>2023-05-11T01:51:30.000Z</updated>
+    </entry>
+    <entry>
+        <id>https://chienikao.github.io/2023/05/10/Coding/leetcode/Medium/59%20Spiral%20Matrix%20II/</id>
         <title>59. Spiral Matrix II</title>
-        <link rel="alternate" href="https://chienikao.github.io/2023/05/10/Coding/leetcode/Medium/page/"/>
+        <link rel="alternate" href="https://chienikao.github.io/2023/05/10/Coding/leetcode/Medium/59%20Spiral%20Matrix%20II/"/>
         <content type="html">&lt;p&gt;⭐️⭐️&lt;/p&gt;
 &lt;h2 id=&#34;題目敘述&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#題目敘述&#34;&gt;#&lt;/a&gt; &lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly9sZWV0Y29kZS5jb20vcHJvYmxlbXMvc3BpcmFsLW1hdHJpeC1paS8=&#34;&gt;題目敘述&lt;/span&gt;&lt;/h2&gt;
 &lt;p&gt;Given a positive integer  &lt;code&gt;n&lt;/code&gt; , generate an  &lt;code&gt;n x n&lt;/code&gt;   &lt;code&gt;matrix&lt;/code&gt;  filled with elements from  &lt;code&gt;1&lt;/code&gt;  to  &lt;code&gt;n^2&lt;/code&gt;  in spiral order.&lt;/p&gt;
@@ -657,8 +710,8 @@ f({}, null, 42); // “Hello World”&lt;/p&gt;
         <category term="Hard" scheme="https://chienikao.github.io/categories/Coding/Leetcode/Hard/" />
         <category term="Leetcode" scheme="https://chienikao.github.io/tags/Leetcode/" />
         <category term="Array" scheme="https://chienikao.github.io/tags/Array/" />
-        <category term="Binary Search" scheme="https://chienikao.github.io/tags/Binary-Search/" />
         <category term="Hard" scheme="https://chienikao.github.io/tags/Hard/" />
+        <category term="Binary Search" scheme="https://chienikao.github.io/tags/Binary-Search/" />
         <category term="Binary Indexed  Tree" scheme="https://chienikao.github.io/tags/Binary-Indexed-Tree/" />
         <updated>2023-05-07T12:13:05.000Z</updated>
     </entry>
@@ -1043,56 +1096,5 @@ Average salary excluding minimum and maximum salary is (2000) / 1 = 2000&lt;/p&g
         <category term="Hard" scheme="https://chienikao.github.io/tags/Hard/" />
         <category term="Graph" scheme="https://chienikao.github.io/tags/Graph/" />
         <updated>2023-04-30T04:42:38.000Z</updated>
-    </entry>
-    <entry>
-        <id>https://chienikao.github.io/2023/04/28/Algorithm/Union%20Find/</id>
-        <title>Union Find</title>
-        <link rel="alternate" href="https://chienikao.github.io/2023/04/28/Algorithm/Union%20Find/"/>
-        <content type="html">&lt;p&gt;&lt;strong&gt;Union-Find data structure&lt;/strong&gt; 又稱 &lt;strong&gt;Disjoint-set data structure&lt;/strong&gt;，用於&lt;strong&gt;處理不相交集合 (disjoint set) 的合併 (Union) 與查詢 (Find) 問題。&lt;/strong&gt;&lt;/p&gt;
-&lt;h2 id=&#34;disjoint-set&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#disjoint-set&#34;&gt;#&lt;/a&gt; Disjoint Set&lt;/h2&gt;
-&lt;p&gt;&lt;em&gt;&lt;strong&gt;Disjoint set&lt;/strong&gt;&lt;/em&gt; 表示數個 set 之間，擁有的元素都不相同，彼此&lt;strong&gt;互斥 (disjoint)&lt;/strong&gt;。&lt;/p&gt;
-&lt;p&gt;可以去看看這篇文章 - &lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly9oYWNrbWQuaW8vQENMS08vcmtSVlNfby00P3R5cGU9dmlldw==&#34;&gt;disjoint set&lt;/span&gt;&lt;/p&gt;
-&lt;h2 id=&#34;union-find-algorithm&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#union-find-algorithm&#34;&gt;#&lt;/a&gt; Union Find Algorithm&lt;/h2&gt;
-&lt;!-- 補forest資料結構 --&gt;
-&lt;p&gt;Union-Find Data Structure 是一種 &lt;a href=&#34;&#34;&gt;&lt;strong&gt;forest&lt;/strong&gt;&lt;/a&gt; 結構，forest 是一種 N-way Tree 結構，互相連通的節點放在同一個 set，任意選擇其中一個節點作為 root。&lt;/p&gt;
-&lt;p&gt;&lt;img data-src=&#34;https://i.imgur.com/606kd33.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
-&lt;p&gt;Union Find 提供以下兩種操作:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;strong&gt;Find:&lt;/strong&gt; 找到 input 節點的 root，可以藉此確定 input 節點屬於哪個子集。&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Find 函數能夠找到節點的 root。&lt;/li&gt;
-&lt;li&gt;如果要確認兩個節點是否為同一子集，只要分別找兩個節點的 root ，如果一樣，即屬於同一子集 (為 connected component)。&lt;/li&gt;
-&lt;li&gt;Find 的時間複雜度最差就是遍歷整棵樹，時間複雜度為 O (n)。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;strong&gt;Union:&lt;/strong&gt; 將兩個子集合併為同一子集。&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Union 能夠將兩個所屬的子集進行合併。&lt;/li&gt;
-&lt;li&gt;最簡單的方法就是將一個子集的 root 直接作為另一子集 root 的子節點即可&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;&lt;img data-src=&#34;https://i.imgur.com/Z3V1vnw.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Union 的實踐需要依靠 find，因此時間複雜度最差為 O (n)。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;以上圖的兩個樹來說，以 0 為 root 的樹大於以 2 為 root 的樹，如果將後者合併到前者下，合併過後的樹高度會比較小，根據這個觀察可以歸納出，如果兩個子集要合併，應該讓&lt;strong&gt;高度較小的子集合併到高度比較大的子集下&lt;/strong&gt;，可以避免樹的不平衡。&lt;/p&gt;
-&lt;h2 id=&#34;find-with-path-compression&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#find-with-path-compression&#34;&gt;#&lt;/a&gt; Find with Path Compression&lt;/h2&gt;
-&lt;p&gt;Path compression 是一個優化技巧，也有人稱為 set collapsing, &lt;strong&gt;讓每個節點直接連到它的 root 節點&lt;/strong&gt;，這樣 Find 跟 Union 操作的時間複雜度可以降到 O (1)。&lt;/p&gt;
-&lt;p&gt;&lt;img data-src=&#34;https://i.imgur.com/0Nl0hMt.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
-&lt;p&gt;但要如何有效地讓所有節點 parent node 都指向 root 呢？&lt;br&gt;
- 答案就是透過&lt;strong&gt;遞迴&lt;/strong&gt;，透過遞迴找到 root， 再依序回傳更新為每個走訪過的 parent。&lt;/p&gt;
-&lt;figure class=&#34;highlight cpp&#34;&gt;&lt;figcaption data-lang=&#34;C++&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token keyword&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;token function&#34;&gt;find&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token keyword&#34;&gt;int&lt;/span&gt; x&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;&amp;#123;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token keyword&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;x &lt;span class=&#34;token operator&#34;&gt;==&lt;/span&gt; root&lt;span class=&#34;token punctuation&#34;&gt;[&lt;/span&gt;x&lt;span class=&#34;token punctuation&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;token keyword&#34;&gt;return&lt;/span&gt; x&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;3&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token keyword&#34;&gt;return&lt;/span&gt; root&lt;span class=&#34;token punctuation&#34;&gt;[&lt;/span&gt;x&lt;span class=&#34;token punctuation&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;token function&#34;&gt;find&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;root&lt;span class=&#34;token punctuation&#34;&gt;[&lt;/span&gt;x&lt;span class=&#34;token punctuation&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;4&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token punctuation&#34;&gt;&amp;#125;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;h2 id=&#34;union-by-sizerank&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#union-by-sizerank&#34;&gt;#&lt;/a&gt; Union by Size/Rank&lt;/h2&gt;
-&lt;p&gt;應用 &lt;em&gt;&lt;strong&gt;path compression&lt;/strong&gt;&lt;/em&gt; 後的樹可以盡可能縮減樹的高度 ，若要再 Union 兩個壓縮後的子集，可以採取 &lt;em&gt;&lt;strong&gt;union by size&lt;/strong&gt;&lt;/em&gt; 技巧，&lt;strong&gt;將子節點比較少的 root 加入比較大的子集。&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;依照 rank 來排序，起初每個點的 rank 均為 0 ，依據 rank 大小來決定如何合併，&lt;strong&gt;rank 大的子集合併小的，合併別人的子集其 rank 往上增加。&lt;/strong&gt;&lt;/p&gt;
-&lt;figure class=&#34;highlight cpp&#34;&gt;&lt;figcaption data-lang=&#34;C++&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token keyword&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;token function&#34;&gt;unionSet&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token keyword&#34;&gt;int&lt;/span&gt; x&lt;span class=&#34;token punctuation&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;token keyword&#34;&gt;int&lt;/span&gt; y&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;&amp;#123;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token keyword&#34;&gt;int&lt;/span&gt; root_x &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;token function&#34;&gt;find&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;x&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;3&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token keyword&#34;&gt;int&lt;/span&gt; root_y &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;token function&#34;&gt;find&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;y&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;4&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token keyword&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;root_x &lt;span class=&#34;token operator&#34;&gt;==&lt;/span&gt; root_y&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;token keyword&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;5&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token keyword&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;rank&lt;span class=&#34;token punctuation&#34;&gt;[&lt;/span&gt;root_x&lt;span class=&#34;token punctuation&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;token operator&#34;&gt;&gt;&lt;/span&gt; rank&lt;span class=&#34;token punctuation&#34;&gt;[&lt;/span&gt;root_y&lt;span class=&#34;token punctuation&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt; root&lt;span class=&#34;token punctuation&#34;&gt;[&lt;/span&gt;root_y&lt;span class=&#34;token punctuation&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; root_x&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;6&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token keyword&#34;&gt;else&lt;/span&gt; &lt;span class=&#34;token keyword&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;rank&lt;span class=&#34;token punctuation&#34;&gt;[&lt;/span&gt;root_x&lt;span class=&#34;token punctuation&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;token operator&#34;&gt;&amp;lt;&lt;/span&gt; rank&lt;span class=&#34;token punctuation&#34;&gt;[&lt;/span&gt;root_y&lt;span class=&#34;token punctuation&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt; root&lt;span class=&#34;token punctuation&#34;&gt;[&lt;/span&gt;root_x&lt;span class=&#34;token punctuation&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; root_y&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;7&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token keyword&#34;&gt;else&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;&amp;#123;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;8&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;        root&lt;span class=&#34;token punctuation&#34;&gt;[&lt;/span&gt;root_y&lt;span class=&#34;token punctuation&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; root_x&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;9&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;        rank&lt;span class=&#34;token punctuation&#34;&gt;[&lt;/span&gt;root_x&lt;span class=&#34;token punctuation&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;token operator&#34;&gt;++&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;10&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token punctuation&#34;&gt;&amp;#125;&lt;/span&gt;  &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;11&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token punctuation&#34;&gt;&amp;#125;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;一開始每個點的  &lt;code&gt;rank&lt;/code&gt;  都為 0 ，有一點特別容易寫出 bug ，在比較彼此  &lt;code&gt;rank&lt;/code&gt;  或是更新  &lt;code&gt;rank&lt;/code&gt;  時候，需要以  &lt;code&gt;find()&lt;/code&gt;  所找出的  &lt;code&gt;root&lt;/code&gt;  來比，不是各個節點本身的  &lt;code&gt;rank&lt;/code&gt;  。&lt;/p&gt;
-</content>
-        <category term="Algorithm" scheme="https://chienikao.github.io/categories/Algorithm/" />
-        <category term="Algorithm" scheme="https://chienikao.github.io/tags/Algorithm/" />
-        <category term="Union Find" scheme="https://chienikao.github.io/tags/Union-Find/" />
-        <category term="Data Structure" scheme="https://chienikao.github.io/tags/Data-Structure/" />
-        <updated>2023-04-28T02:43:29.000Z</updated>
     </entry>
 </feed>
