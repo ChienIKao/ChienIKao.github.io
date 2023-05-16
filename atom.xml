@@ -8,9 +8,128 @@
     <author>
       <name>ChienI Kao</name>
     </author>
-    <updated>2023-05-15T03:30:56.000Z</updated>
+    <updated>2023-05-16T02:43:22.000Z</updated>
     <category term="筆記" />
     <category term=" note" />
+    <entry>
+        <id>https://chienikao.github.io/2023/05/16/Coding/leetcode/Medium/24%20Swap%20Nodes%20in%20Pairs/</id>
+        <title>24. Swap Nodes in Pairs</title>
+        <link rel="alternate" href="https://chienikao.github.io/2023/05/16/Coding/leetcode/Medium/24%20Swap%20Nodes%20in%20Pairs/"/>
+        <content type="html">&lt;p&gt;⭐️⭐️&lt;/p&gt;
+&lt;h2 id=&#34;題目敘述&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#題目敘述&#34;&gt;#&lt;/a&gt; &lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly9sZWV0Y29kZS5jb20vcHJvYmxlbXMvc3dhcC1ub2Rlcy1pbi1wYWlycy9kZXNjcmlwdGlvbi8=&#34;&gt;題目敘述&lt;/span&gt;&lt;/h2&gt;
+&lt;p&gt;Given a linked list, swap every two adjacent nodes and return its head. You must solve the problem without modifying the values in the list’s nodes (i.e., only nodes themselves may be changed.)&lt;/p&gt;
+&lt;h3 id=&#34;example-1&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#example-1&#34;&gt;#&lt;/a&gt; Example 1&lt;/h3&gt;
+&lt;p&gt;&lt;img data-src=&#34;https://imgur.com/HJxT8bR.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Input&lt;/strong&gt;: head = [1,2,3,4]&lt;br&gt;
+&lt;strong&gt;Output&lt;/strong&gt;: [2,1,4,3]&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3 id=&#34;example-2&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#example-2&#34;&gt;#&lt;/a&gt; Example 2&lt;/h3&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Input&lt;/strong&gt;: head = []&lt;br&gt;
+&lt;strong&gt;Output&lt;/strong&gt;: []&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3 id=&#34;example-3&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#example-3&#34;&gt;#&lt;/a&gt; Example 3&lt;/h3&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Input&lt;/strong&gt;: head = [1]&lt;br&gt;
+&lt;strong&gt;Output&lt;/strong&gt;: [1]&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;solution&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#solution&#34;&gt;#&lt;/a&gt; Solution&lt;/h2&gt;
+&lt;div class=&#34;tab&#34; data-id=&#34;code&#34; data-title=&#34;C++&#34;&gt;
+&lt;figure class=&#34;highlight cpp&#34;&gt;&lt;figcaption data-lang=&#34;C++&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token comment&#34;&gt;/**&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt; * Definition for singly-linked list.&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;3&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt; * struct ListNode &amp;#123;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;4&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt; *     int val;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;5&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt; *     ListNode *next;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;6&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt; *     ListNode() : val(0), next(nullptr) &amp;#123;&amp;#125;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;7&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt; *     ListNode(int x) : val(x), next(nullptr) &amp;#123;&amp;#125;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;8&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt; *     ListNode(int x, ListNode *next) : val(x), next(next) &amp;#123;&amp;#125;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;9&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt; * &amp;#125;;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;10&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt; */&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;11&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token keyword&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;token class-name&#34;&gt;Solution&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;&amp;#123;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;12&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token keyword&#34;&gt;public&lt;/span&gt;&lt;span class=&#34;token operator&#34;&gt;:&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;13&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    ListNode&lt;span class=&#34;token operator&#34;&gt;*&lt;/span&gt; &lt;span class=&#34;token function&#34;&gt;swapPairs&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;ListNode&lt;span class=&#34;token operator&#34;&gt;*&lt;/span&gt; head&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;&amp;#123;&lt;/span&gt;        &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;14&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;        ListNode&lt;span class=&#34;token operator&#34;&gt;*&lt;/span&gt; first &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; head&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;        &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;15&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;        &lt;span class=&#34;token keyword&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;first&lt;span class=&#34;token operator&#34;&gt;==&lt;/span&gt;&lt;span class=&#34;token constant&#34;&gt;NULL&lt;/span&gt; &lt;span class=&#34;token operator&#34;&gt;||&lt;/span&gt; first&lt;span class=&#34;token operator&#34;&gt;-&gt;&lt;/span&gt;next&lt;span class=&#34;token operator&#34;&gt;==&lt;/span&gt;&lt;span class=&#34;token constant&#34;&gt;NULL&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;token keyword&#34;&gt;return&lt;/span&gt; head&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;        &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;16&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;        ListNode&lt;span class=&#34;token operator&#34;&gt;*&lt;/span&gt; second &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; head&lt;span class=&#34;token operator&#34;&gt;-&gt;&lt;/span&gt;next&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;        &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;17&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;        &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;18&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;        &lt;span class=&#34;token keyword&#34;&gt;while&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;second &lt;span class=&#34;token operator&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; second&lt;span class=&#34;token operator&#34;&gt;-&gt;&lt;/span&gt;next&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;&amp;#123;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;19&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;            &lt;span class=&#34;token keyword&#34;&gt;int&lt;/span&gt; temp &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; first&lt;span class=&#34;token operator&#34;&gt;-&gt;&lt;/span&gt;val&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;20&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;            first&lt;span class=&#34;token operator&#34;&gt;-&gt;&lt;/span&gt;val &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; second&lt;span class=&#34;token operator&#34;&gt;-&gt;&lt;/span&gt;val&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;21&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;            second&lt;span class=&#34;token operator&#34;&gt;-&gt;&lt;/span&gt;val &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; temp&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;22&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;            &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;23&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;            first &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; first&lt;span class=&#34;token operator&#34;&gt;-&gt;&lt;/span&gt;next&lt;span class=&#34;token operator&#34;&gt;-&gt;&lt;/span&gt;next&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;24&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;            second &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; second&lt;span class=&#34;token operator&#34;&gt;-&gt;&lt;/span&gt;next&lt;span class=&#34;token operator&#34;&gt;-&gt;&lt;/span&gt;next&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;25&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;        &lt;span class=&#34;token punctuation&#34;&gt;&amp;#125;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;26&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;        &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;27&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;        &lt;span class=&#34;token keyword&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;second&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;&amp;#123;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;28&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;            &lt;span class=&#34;token keyword&#34;&gt;int&lt;/span&gt; temp &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; first&lt;span class=&#34;token operator&#34;&gt;-&gt;&lt;/span&gt;val&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;29&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;            first&lt;span class=&#34;token operator&#34;&gt;-&gt;&lt;/span&gt;val &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; second&lt;span class=&#34;token operator&#34;&gt;-&gt;&lt;/span&gt;val&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;30&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;            second&lt;span class=&#34;token operator&#34;&gt;-&gt;&lt;/span&gt;val &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; temp&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;31&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;        &lt;span class=&#34;token punctuation&#34;&gt;&amp;#125;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;32&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;        &lt;span class=&#34;token keyword&#34;&gt;return&lt;/span&gt; head&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;33&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token punctuation&#34;&gt;&amp;#125;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;34&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token punctuation&#34;&gt;&amp;#125;&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/div&gt;
+&lt;div class=&#34;tab&#34; data-id=&#34;code&#34; data-title=&#34;Java&#34;&gt;
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div class=&#34;tab&#34; data-id=&#34;code&#34; data-title=&#34;Python&#34;&gt;
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+</content>
+        <category term="Coding" scheme="https://chienikao.github.io/categories/Coding/" />
+        <category term="Leetcode" scheme="https://chienikao.github.io/categories/Coding/Leetcode/" />
+        <category term="Medium" scheme="https://chienikao.github.io/categories/Coding/Leetcode/Medium/" />
+        <category term="Leetcode" scheme="https://chienikao.github.io/tags/Leetcode/" />
+        <category term="Medium" scheme="https://chienikao.github.io/tags/Medium/" />
+        <category term="Linked List" scheme="https://chienikao.github.io/tags/Linked-List/" />
+        <category term="Recursion" scheme="https://chienikao.github.io/tags/Recursion/" />
+        <updated>2023-05-16T02:43:22.000Z</updated>
+    </entry>
+    <entry>
+        <id>https://chienikao.github.io/2023/05/16/Coding/leetcode/Easy/2637%20Promise%20Time%20Limit/</id>
+        <title>2637. Promise Time Limit</title>
+        <link rel="alternate" href="https://chienikao.github.io/2023/05/16/Coding/leetcode/Easy/2637%20Promise%20Time%20Limit/"/>
+        <content type="html">&lt;p&gt;⭐️&lt;/p&gt;
+&lt;h2 id=&#34;題目敘述&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#題目敘述&#34;&gt;#&lt;/a&gt; &lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly9sZWV0Y29kZS5jb20vcHJvYmxlbXMvcHJvbWlzZS10aW1lLWxpbWl0Lz91dG1fY2FtcGFpZ249UG9zdEQxMiZhbXA7dXRtX21lZGl1bT1Qb3N0JmFtcDt1dG1fc291cmNlPVBvc3QmYW1wO2dpb19saW5rX2lkPW5vbWJONVo5&#34;&gt;題目敘述&lt;/span&gt;&lt;/h2&gt;
+&lt;p&gt;Given an asyncronous function  &lt;code&gt;fn&lt;/code&gt;  and a time  &lt;code&gt;t&lt;/code&gt;  in milliseconds, return a new &lt;strong&gt;time limited&lt;/strong&gt; version of the input function.&lt;/p&gt;
+&lt;p&gt;A &lt;strong&gt;time limited&lt;/strong&gt; function is a function that is identical to the original unless it takes longer than  &lt;code&gt;t&lt;/code&gt;  milliseconds to fullfill. In that case, it will reject with  &lt;code&gt;&amp;quot;Time Limit Exceeded&amp;quot;&lt;/code&gt; .  Note that it should reject with a string, not an  &lt;code&gt;Error&lt;/code&gt; .&lt;/p&gt;
+&lt;h3 id=&#34;example-1&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#example-1&#34;&gt;#&lt;/a&gt; Example 1&lt;/h3&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Input&lt;/strong&gt;:&lt;br&gt;
+fn = async (n) =&amp;gt; {&lt;br&gt;
+await new Promise(res =&amp;gt; setTimeout(res, 100));&lt;br&gt;
+return n * n;&lt;br&gt;
+}&lt;br&gt;
+inputs = [5]&lt;br&gt;
+t = 50&lt;br&gt;
+&lt;strong&gt;Output&lt;/strong&gt;: {“rejected”:“Time Limit Exceeded”,“time”:50}&lt;br&gt;
+&lt;strong&gt;Explanation&lt;/strong&gt;:&lt;br&gt;
+The provided function is set to resolve after 100ms. However, the time limit is set to 50ms. It rejects at t=50ms because the time limit was reached.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3 id=&#34;example-2&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#example-2&#34;&gt;#&lt;/a&gt; Example 2&lt;/h3&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Input&lt;/strong&gt;:&lt;br&gt;
+fn = async (n) =&amp;gt; {&lt;br&gt;
+await new Promise(res =&amp;gt; setTimeout(res, 100));&lt;br&gt;
+return n * n;&lt;br&gt;
+}&lt;br&gt;
+inputs = [5]&lt;br&gt;
+t = 150&lt;br&gt;
+&lt;strong&gt;Output&lt;/strong&gt;: {“resolved”:25,“time”:100}&lt;br&gt;
+&lt;strong&gt;Explanation&lt;/strong&gt;:&lt;br&gt;
+The function resolved 5 * 5 = 25 at t=100ms. The time limit is never reached.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3 id=&#34;example-3&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#example-3&#34;&gt;#&lt;/a&gt; Example 3&lt;/h3&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Input&lt;/strong&gt;:&lt;br&gt;
+fn = async (a, b) =&amp;gt; {&lt;br&gt;
+await new Promise(res =&amp;gt; setTimeout(res, 120));&lt;br&gt;
+return a + b;&lt;br&gt;
+}&lt;br&gt;
+inputs = [5,10]&lt;br&gt;
+t = 150&lt;br&gt;
+&lt;strong&gt;Output&lt;/strong&gt;: {“resolved”:15,“time”:120}&lt;br&gt;
+&lt;strong&gt;Explanation&lt;/strong&gt;:&lt;br&gt;
+The function resolved 5 + 10 = 15 at t=120ms. The time limit is never reached.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3 id=&#34;example-4&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#example-4&#34;&gt;#&lt;/a&gt; Example 4&lt;/h3&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Input&lt;/strong&gt;:&lt;br&gt;
+fn = async () =&amp;gt; {&lt;br&gt;
+throw “Error”;&lt;br&gt;
+}&lt;br&gt;
+inputs = []&lt;br&gt;
+t = 1000&lt;br&gt;
+&lt;strong&gt;Output&lt;/strong&gt;: {“rejected”:“Error”,“time”:0}&lt;br&gt;
+&lt;strong&gt;Explanation&lt;/strong&gt;:&lt;br&gt;
+The function immediately throws an error.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;solution&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#solution&#34;&gt;#&lt;/a&gt; Solution&lt;/h2&gt;
+&lt;div class=&#34;tab&#34; data-id=&#34;code&#34; data-title=&#34;Javascript&#34;&gt;
+&lt;figure class=&#34;highlight javascript&#34;&gt;&lt;figcaption data-lang=&#34;javascript&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token comment&#34;&gt;/**&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt; * @param &amp;#123;Function&amp;#125; fn&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;3&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt; * @param &amp;#123;number&amp;#125; t&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;4&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt; * @return &amp;#123;Function&amp;#125;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;5&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt; */&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;6&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token keyword&#34;&gt;var&lt;/span&gt; &lt;span class=&#34;token function-variable function&#34;&gt;timeLimit&lt;/span&gt; &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;token keyword&#34;&gt;function&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token parameter&#34;&gt;fn&lt;span class=&#34;token punctuation&#34;&gt;,&lt;/span&gt; t&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;&amp;#123;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;7&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;	&lt;span class=&#34;token keyword&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;token keyword&#34;&gt;async&lt;/span&gt; &lt;span class=&#34;token keyword&#34;&gt;function&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token parameter&#34;&gt;&lt;span class=&#34;token operator&#34;&gt;...&lt;/span&gt;args&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;&amp;#123;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;8&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;        &lt;span class=&#34;token keyword&#34;&gt;const&lt;/span&gt; orgfn &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;token function&#34;&gt;fn&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token operator&#34;&gt;...&lt;/span&gt;args&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;9&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;        &lt;span class=&#34;token keyword&#34;&gt;const&lt;/span&gt; timeoutfn &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;token keyword&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;token class-name&#34;&gt;Promise&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token parameter&#34;&gt;resolved&lt;span class=&#34;token punctuation&#34;&gt;,&lt;/span&gt; reject&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;token operator&#34;&gt;=&gt;&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;&amp;#123;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;10&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;            &lt;span class=&#34;token function&#34;&gt;setTimeout&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;token operator&#34;&gt;=&gt;&lt;/span&gt; &lt;span class=&#34;token function&#34;&gt;reject&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token string&#34;&gt;&#34;Time Limit Exceeded&#34;&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;,&lt;/span&gt; t&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;11&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;        &lt;span class=&#34;token punctuation&#34;&gt;&amp;#125;&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;12&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;        &lt;span class=&#34;token keyword&#34;&gt;return&lt;/span&gt; Promise&lt;span class=&#34;token punctuation&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;token function&#34;&gt;race&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;[&lt;/span&gt;orgfn&lt;span class=&#34;token punctuation&#34;&gt;,&lt;/span&gt; timeoutfn&lt;span class=&#34;token punctuation&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;13&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token punctuation&#34;&gt;&amp;#125;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;14&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token punctuation&#34;&gt;&amp;#125;&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;15&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;16&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token comment&#34;&gt;/**&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;17&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt; * const limited = timeLimit((t) =&gt; new Promise(res =&gt; setTimeout(res, t)), 100);&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;18&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt; * limited(150).catch(console.log) // &#34;Time Limit Exceeded&#34; at t=100ms&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;19&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt; */&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/div&gt;
+&lt;div class=&#34;tab&#34; data-id=&#34;code&#34; data-title=&#34;Typescript&#34;&gt;
+&lt;figure class=&#34;highlight typescript&#34;&gt;&lt;figcaption data-lang=&#34;typescript&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token keyword&#34;&gt;type&lt;/span&gt; &lt;span class=&#34;token class-name&#34;&gt;Fn&lt;/span&gt; &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token operator&#34;&gt;...&lt;/span&gt;params&lt;span class=&#34;token operator&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;token builtin&#34;&gt;any&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;token operator&#34;&gt;=&gt;&lt;/span&gt; &lt;span class=&#34;token builtin&#34;&gt;Promise&lt;/span&gt;&lt;span class=&#34;token operator&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;token builtin&#34;&gt;any&lt;/span&gt;&lt;span class=&#34;token operator&#34;&gt;&gt;&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;3&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token keyword&#34;&gt;function&lt;/span&gt; &lt;span class=&#34;token function&#34;&gt;timeLimit&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;fn&lt;span class=&#34;token operator&#34;&gt;:&lt;/span&gt; Fn&lt;span class=&#34;token punctuation&#34;&gt;,&lt;/span&gt; t&lt;span class=&#34;token operator&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;token builtin&#34;&gt;number&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;token operator&#34;&gt;:&lt;/span&gt; Fn &lt;span class=&#34;token punctuation&#34;&gt;&amp;#123;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;4&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;	&lt;span class=&#34;token keyword&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;token keyword&#34;&gt;async&lt;/span&gt; &lt;span class=&#34;token keyword&#34;&gt;function&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token operator&#34;&gt;...&lt;/span&gt;args&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;&amp;#123;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;5&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;        &lt;span class=&#34;token keyword&#34;&gt;const&lt;/span&gt; orgfn &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;token function&#34;&gt;fn&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token operator&#34;&gt;...&lt;/span&gt;args&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;6&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;        &lt;span class=&#34;token keyword&#34;&gt;const&lt;/span&gt; timeoutfn &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;token keyword&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;token class-name&#34;&gt;&lt;span class=&#34;token builtin&#34;&gt;Promise&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;resolve&lt;span class=&#34;token punctuation&#34;&gt;,&lt;/span&gt; reject&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;token operator&#34;&gt;=&gt;&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;&amp;#123;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;7&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;            &lt;span class=&#34;token function&#34;&gt;setTimeout&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;token operator&#34;&gt;=&gt;&lt;/span&gt; &lt;span class=&#34;token function&#34;&gt;reject&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token string&#34;&gt;&#34;Time Limit Exceeded&#34;&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;,&lt;/span&gt; t&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;8&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;        &lt;span class=&#34;token punctuation&#34;&gt;&amp;#125;&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;9&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;        &lt;span class=&#34;token keyword&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;token builtin&#34;&gt;Promise&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;token function&#34;&gt;race&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;[&lt;/span&gt;orgfn&lt;span class=&#34;token punctuation&#34;&gt;,&lt;/span&gt; timeoutfn&lt;span class=&#34;token punctuation&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;10&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token punctuation&#34;&gt;&amp;#125;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;11&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token punctuation&#34;&gt;&amp;#125;&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;12&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;13&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token comment&#34;&gt;/**&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;14&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt; * const limited = timeLimit((t) =&gt; new Promise(res =&gt; setTimeout(res, t)), 100);&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;15&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt; * limited(150).catch(console.log) // &#34;Time Limit Exceeded&#34; at t=100ms&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;16&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt; */&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/div&gt;
+</content>
+        <category term="Coding" scheme="https://chienikao.github.io/categories/Coding/" />
+        <category term="Leetcode" scheme="https://chienikao.github.io/categories/Coding/Leetcode/" />
+        <category term="Easy" scheme="https://chienikao.github.io/categories/Coding/Leetcode/Easy/" />
+        <category term="Leetcode" scheme="https://chienikao.github.io/tags/Leetcode/" />
+        <category term="Easy" scheme="https://chienikao.github.io/tags/Easy/" />
+        <category term="Typescript" scheme="https://chienikao.github.io/tags/Typescript/" />
+        <category term="Promise" scheme="https://chienikao.github.io/tags/Promise/" />
+        <category term="Javasscript" scheme="https://chienikao.github.io/tags/Javasscript/" />
+        <updated>2023-05-16T02:35:48.000Z</updated>
+    </entry>
     <entry>
         <id>https://chienikao.github.io/2023/05/15/Coding/leetcode/Medium/1721%20Swapping%20Nodes%20in%20a%20Linked%20List/</id>
         <title>1721. Swapping Nodes in a Linked List</title>
@@ -44,8 +163,8 @@
         <category term="Leetcode" scheme="https://chienikao.github.io/categories/Coding/Leetcode/" />
         <category term="Medium" scheme="https://chienikao.github.io/categories/Coding/Leetcode/Medium/" />
         <category term="Leetcode" scheme="https://chienikao.github.io/tags/Leetcode/" />
-        <category term="Medium" scheme="https://chienikao.github.io/tags/Medium/" />
         <category term="Two Pointers" scheme="https://chienikao.github.io/tags/Two-Pointers/" />
+        <category term="Medium" scheme="https://chienikao.github.io/tags/Medium/" />
         <category term="Linked List" scheme="https://chienikao.github.io/tags/Linked-List/" />
         <updated>2023-05-15T03:30:56.000Z</updated>
     </entry>
@@ -83,8 +202,8 @@ console.log(Date.now() - t); // 100&lt;br&gt;
         <category term="Easy" scheme="https://chienikao.github.io/categories/Coding/Leetcode/Easy/" />
         <category term="Javascript" scheme="https://chienikao.github.io/tags/Javascript/" />
         <category term="Leetcode" scheme="https://chienikao.github.io/tags/Leetcode/" />
-        <category term="Typescript" scheme="https://chienikao.github.io/tags/Typescript/" />
         <category term="Easy" scheme="https://chienikao.github.io/tags/Easy/" />
+        <category term="Typescript" scheme="https://chienikao.github.io/tags/Typescript/" />
         <category term="Promise" scheme="https://chienikao.github.io/tags/Promise/" />
         <updated>2023-05-15T03:29:29.000Z</updated>
     </entry>
@@ -149,8 +268,8 @@ curriedLife() === 42&lt;/p&gt;
         <category term="Medium" scheme="https://chienikao.github.io/categories/Coding/Leetcode/Medium/" />
         <category term="Javascript" scheme="https://chienikao.github.io/tags/Javascript/" />
         <category term="Leetcode" scheme="https://chienikao.github.io/tags/Leetcode/" />
-        <category term="Medium" scheme="https://chienikao.github.io/tags/Medium/" />
         <category term="Typescript" scheme="https://chienikao.github.io/tags/Typescript/" />
+        <category term="Medium" scheme="https://chienikao.github.io/tags/Medium/" />
         <updated>2023-05-15T03:26:49.000Z</updated>
     </entry>
     <entry>
@@ -225,8 +344,8 @@ fib(5) = 8&lt;br&gt;
         <category term="Medium" scheme="https://chienikao.github.io/categories/Coding/Leetcode/Medium/" />
         <category term="Javascript" scheme="https://chienikao.github.io/tags/Javascript/" />
         <category term="Leetcode" scheme="https://chienikao.github.io/tags/Leetcode/" />
-        <category term="Medium" scheme="https://chienikao.github.io/tags/Medium/" />
         <category term="Typescript" scheme="https://chienikao.github.io/tags/Typescript/" />
+        <category term="Medium" scheme="https://chienikao.github.io/tags/Medium/" />
         <updated>2023-05-15T03:10:27.000Z</updated>
     </entry>
     <entry>
@@ -270,8 +389,8 @@ onceFn(4, 6, 8); // undefined, fn was not called&lt;/p&gt;
         <category term="Easy" scheme="https://chienikao.github.io/categories/Coding/Leetcode/Easy/" />
         <category term="Javascript" scheme="https://chienikao.github.io/tags/Javascript/" />
         <category term="Leetcode" scheme="https://chienikao.github.io/tags/Leetcode/" />
-        <category term="Typescript" scheme="https://chienikao.github.io/tags/Typescript/" />
         <category term="Easy" scheme="https://chienikao.github.io/tags/Easy/" />
+        <category term="Typescript" scheme="https://chienikao.github.io/tags/Typescript/" />
         <updated>2023-05-15T03:08:46.000Z</updated>
     </entry>
     <entry>
@@ -328,9 +447,9 @@ Total points earned: 2 + 5 = 7. There is no other way to earn 7 or more points.&
         <category term="Leetcode" scheme="https://chienikao.github.io/categories/Coding/Leetcode/" />
         <category term="Medium" scheme="https://chienikao.github.io/categories/Coding/Leetcode/Medium/" />
         <category term="Leetcode" scheme="https://chienikao.github.io/tags/Leetcode/" />
+        <category term="Array" scheme="https://chienikao.github.io/tags/Array/" />
         <category term="Medium" scheme="https://chienikao.github.io/tags/Medium/" />
         <category term="Dynamic Programming" scheme="https://chienikao.github.io/tags/Dynamic-Programming/" />
-        <category term="Array" scheme="https://chienikao.github.io/tags/Array/" />
         <updated>2023-05-15T03:05:17.000Z</updated>
     </entry>
     <entry>
@@ -391,9 +510,9 @@ We cannot draw 3 uncrossed lines, because the line from nums1[1] = 4 to nums2[2]
         <category term="Leetcode" scheme="https://chienikao.github.io/categories/Coding/Leetcode/" />
         <category term="Medium" scheme="https://chienikao.github.io/categories/Coding/Leetcode/Medium/" />
         <category term="Leetcode" scheme="https://chienikao.github.io/tags/Leetcode/" />
+        <category term="Array" scheme="https://chienikao.github.io/tags/Array/" />
         <category term="Medium" scheme="https://chienikao.github.io/tags/Medium/" />
         <category term="Dynamic Programming" scheme="https://chienikao.github.io/tags/Dynamic-Programming/" />
-        <category term="Array" scheme="https://chienikao.github.io/tags/Array/" />
         <updated>2023-05-15T03:01:25.000Z</updated>
     </entry>
     <entry>
@@ -466,8 +585,8 @@ The composition of zero functions is the identity function&lt;/p&gt;
         <category term="Easy" scheme="https://chienikao.github.io/categories/Coding/Leetcode/Easy/" />
         <category term="Javascript" scheme="https://chienikao.github.io/tags/Javascript/" />
         <category term="Leetcode" scheme="https://chienikao.github.io/tags/Leetcode/" />
-        <category term="Typescript" scheme="https://chienikao.github.io/tags/Typescript/" />
         <category term="Easy" scheme="https://chienikao.github.io/tags/Easy/" />
+        <category term="Typescript" scheme="https://chienikao.github.io/tags/Typescript/" />
         <updated>2023-05-11T01:51:30.000Z</updated>
     </entry>
     <entry>
@@ -502,10 +621,10 @@ The composition of zero functions is the identity function&lt;/p&gt;
         <category term="Leetcode" scheme="https://chienikao.github.io/categories/Coding/Leetcode/" />
         <category term="Medium" scheme="https://chienikao.github.io/categories/Coding/Leetcode/Medium/" />
         <category term="Leetcode" scheme="https://chienikao.github.io/tags/Leetcode/" />
-        <category term="Medium" scheme="https://chienikao.github.io/tags/Medium/" />
         <category term="Array" scheme="https://chienikao.github.io/tags/Array/" />
         <category term="Matrix" scheme="https://chienikao.github.io/tags/Matrix/" />
         <category term="Simulation" scheme="https://chienikao.github.io/tags/Simulation/" />
+        <category term="Medium" scheme="https://chienikao.github.io/tags/Medium/" />
         <updated>2023-05-10T14:40:49.000Z</updated>
     </entry>
     <entry>
@@ -568,8 +687,8 @@ init = 25&lt;br&gt;
         <category term="Easy" scheme="https://chienikao.github.io/categories/Coding/Leetcode/Easy/" />
         <category term="Javascript" scheme="https://chienikao.github.io/tags/Javascript/" />
         <category term="Leetcode" scheme="https://chienikao.github.io/tags/Leetcode/" />
-        <category term="Typescript" scheme="https://chienikao.github.io/tags/Typescript/" />
         <category term="Easy" scheme="https://chienikao.github.io/tags/Easy/" />
+        <category term="Typescript" scheme="https://chienikao.github.io/tags/Typescript/" />
         <updated>2023-05-10T14:38:35.000Z</updated>
     </entry>
     <entry>
@@ -607,10 +726,10 @@ init = 25&lt;br&gt;
         <category term="Leetcode" scheme="https://chienikao.github.io/categories/Coding/Leetcode/" />
         <category term="Medium" scheme="https://chienikao.github.io/categories/Coding/Leetcode/Medium/" />
         <category term="Leetcode" scheme="https://chienikao.github.io/tags/Leetcode/" />
-        <category term="Medium" scheme="https://chienikao.github.io/tags/Medium/" />
         <category term="Array" scheme="https://chienikao.github.io/tags/Array/" />
         <category term="Matrix" scheme="https://chienikao.github.io/tags/Matrix/" />
         <category term="Simulation" scheme="https://chienikao.github.io/tags/Simulation/" />
+        <category term="Medium" scheme="https://chienikao.github.io/tags/Medium/" />
         <updated>2023-05-09T02:37:25.000Z</updated>
     </entry>
     <entry>
@@ -664,8 +783,8 @@ Falsey values such as 0 should be filtered out&lt;/p&gt;
         <category term="Easy" scheme="https://chienikao.github.io/categories/Coding/Leetcode/Easy/" />
         <category term="Javascript" scheme="https://chienikao.github.io/tags/Javascript/" />
         <category term="Leetcode" scheme="https://chienikao.github.io/tags/Leetcode/" />
-        <category term="Typescript" scheme="https://chienikao.github.io/tags/Typescript/" />
         <category term="Easy" scheme="https://chienikao.github.io/tags/Easy/" />
+        <category term="Typescript" scheme="https://chienikao.github.io/tags/Typescript/" />
         <updated>2023-05-09T02:05:43.000Z</updated>
     </entry>
     <entry>
@@ -760,8 +879,8 @@ The function increases each value in the array by one.&lt;/p&gt;
         <category term="Easy" scheme="https://chienikao.github.io/categories/Coding/Leetcode/Easy/" />
         <category term="Javascript" scheme="https://chienikao.github.io/tags/Javascript/" />
         <category term="Leetcode" scheme="https://chienikao.github.io/tags/Leetcode/" />
-        <category term="Typescript" scheme="https://chienikao.github.io/tags/Typescript/" />
         <category term="Easy" scheme="https://chienikao.github.io/tags/Easy/" />
+        <category term="Typescript" scheme="https://chienikao.github.io/tags/Typescript/" />
         <updated>2023-05-08T02:08:30.000Z</updated>
     </entry>
     <entry>
@@ -811,9 +930,9 @@ Notice that element mat[1][1] = 5 is counted only once.&lt;/p&gt;
         <category term="Leetcode" scheme="https://chienikao.github.io/categories/Coding/Leetcode/" />
         <category term="Easy" scheme="https://chienikao.github.io/categories/Coding/Leetcode/Easy/" />
         <category term="Leetcode" scheme="https://chienikao.github.io/tags/Leetcode/" />
+        <category term="Easy" scheme="https://chienikao.github.io/tags/Easy/" />
         <category term="Array" scheme="https://chienikao.github.io/tags/Array/" />
         <category term="Matrix" scheme="https://chienikao.github.io/tags/Matrix/" />
-        <category term="Easy" scheme="https://chienikao.github.io/tags/Easy/" />
         <updated>2023-05-08T01:46:44.000Z</updated>
     </entry>
     <entry>
@@ -862,104 +981,8 @@ counter.reset(); // 0&lt;/p&gt;
         <category term="Easy" scheme="https://chienikao.github.io/categories/Coding/Leetcode/Easy/" />
         <category term="Javascript" scheme="https://chienikao.github.io/tags/Javascript/" />
         <category term="Leetcode" scheme="https://chienikao.github.io/tags/Leetcode/" />
-        <category term="Typescript" scheme="https://chienikao.github.io/tags/Typescript/" />
         <category term="Easy" scheme="https://chienikao.github.io/tags/Easy/" />
+        <category term="Typescript" scheme="https://chienikao.github.io/tags/Typescript/" />
         <updated>2023-05-07T12:27:35.000Z</updated>
-    </entry>
-    <entry>
-        <id>https://chienikao.github.io/2023/05/07/Coding/leetcode/Medium/1498%20Number%20of%20Subsequences%20That%20Satisfy%20the%20Given%20Sum%20Condition/</id>
-        <title>1498. Number of Subsequences That Satisfy the Given Sum Condition</title>
-        <link rel="alternate" href="https://chienikao.github.io/2023/05/07/Coding/leetcode/Medium/1498%20Number%20of%20Subsequences%20That%20Satisfy%20the%20Given%20Sum%20Condition/"/>
-        <content type="html">&lt;p&gt;⭐️⭐️&lt;/p&gt;
-&lt;h2 id=&#34;題目敘述&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#題目敘述&#34;&gt;#&lt;/a&gt; &lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly9sZWV0Y29kZS5jb20vcHJvYmxlbXMvbnVtYmVyLW9mLXN1YnNlcXVlbmNlcy10aGF0LXNhdGlzZnktdGhlLWdpdmVuLXN1bS1jb25kaXRpb24v&#34;&gt;題目敘述&lt;/span&gt;&lt;/h2&gt;
-&lt;p&gt;You are given an array of integers  &lt;code&gt;nums&lt;/code&gt;  and an integer  &lt;code&gt;target&lt;/code&gt; .&lt;/p&gt;
-&lt;p&gt;Return &lt;em&gt;the number of non-empty subsequences of  &lt;code&gt;nums&lt;/code&gt;  such that the sum of the minimum and maximum element on it is less or equal to  &lt;code&gt;target&lt;/code&gt; &lt;/em&gt;. Since the answer may be too large, return it &lt;strong&gt;modulo&lt;/strong&gt;  &lt;code&gt;10^9 + 7&lt;/code&gt; .&lt;/p&gt;
-&lt;h3 id=&#34;example-1&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#example-1&#34;&gt;#&lt;/a&gt; Example 1&lt;/h3&gt;
-&lt;blockquote&gt;
-&lt;p&gt;&lt;strong&gt;Input:&lt;/strong&gt; nums = [3,5,6,7], target = 9&lt;br&gt;
-&lt;strong&gt;Output:&lt;/strong&gt; 4&lt;br&gt;
-&lt;strong&gt;Explanation:&lt;/strong&gt; There are 4 subsequences that satisfy the condition.&lt;br&gt;
-[3] -&amp;gt; Min value + max value &amp;lt;= target (3 + 3 &amp;lt;= 9)&lt;br&gt;
-[3,5] -&amp;gt; (3 + 5 &amp;lt;= 9)&lt;br&gt;
-[3,5,6] -&amp;gt; (3 + 6 &amp;lt;= 9)&lt;br&gt;
-[3,6] -&amp;gt; (3 + 6 &amp;lt;= 9)&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h3 id=&#34;example-2&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#example-2&#34;&gt;#&lt;/a&gt; Example 2&lt;/h3&gt;
-&lt;blockquote&gt;
-&lt;p&gt;&lt;strong&gt;Input:&lt;/strong&gt; nums = [3,3,6,8], target = 10&lt;br&gt;
-&lt;strong&gt;Output:&lt;/strong&gt; 6&lt;br&gt;
-&lt;strong&gt;Explanation:&lt;/strong&gt; There are 6 subsequences that satisfy the condition. (nums can have repeated numbers).&lt;br&gt;
-[3] , [3] , [3,3], [3,6] , [3,6] , [3,3,6]&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h3 id=&#34;example-3&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#example-3&#34;&gt;#&lt;/a&gt; Example 3&lt;/h3&gt;
-&lt;blockquote&gt;
-&lt;p&gt;&lt;strong&gt;Input:&lt;/strong&gt; nums = [2,3,3,4,6,7], target = 12&lt;br&gt;
-&lt;strong&gt;Output:&lt;/strong&gt; 61&lt;br&gt;
-&lt;strong&gt;Explanation:&lt;/strong&gt; There are 63 non-empty subsequences, two of them do not satisfy the condition ([6,7], [7]).&lt;br&gt;
-Number of valid subsequences (63 - 2 = 61).&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h2 id=&#34;solution&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#solution&#34;&gt;#&lt;/a&gt; Solution&lt;/h2&gt;
-&lt;div class=&#34;tab&#34; data-id=&#34;code&#34; data-title=&#34;C++&#34;&gt;
-&lt;pre&gt;&lt;code class=&#34;language-cpp&#34;&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;div class=&#34;tab&#34; data-id=&#34;code&#34; data-title=&#34;Java&#34;&gt;
-&lt;figure class=&#34;highlight java&#34;&gt;&lt;figcaption data-lang=&#34;java&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token keyword&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;token import&#34;&gt;&lt;span class=&#34;token namespace&#34;&gt;java&lt;span class=&#34;token punctuation&#34;&gt;.&lt;/span&gt;util&lt;span class=&#34;token punctuation&#34;&gt;.&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;token class-name&#34;&gt;Arrays&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;3&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token keyword&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;token class-name&#34;&gt;Solution&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;&amp;#123;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;4&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token keyword&#34;&gt;public&lt;/span&gt; &lt;span class=&#34;token keyword&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;token function&#34;&gt;numSubseq&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token keyword&#34;&gt;int&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;]&lt;/span&gt; nums&lt;span class=&#34;token punctuation&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;token keyword&#34;&gt;int&lt;/span&gt; target&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;&amp;#123;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;5&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;        &lt;span class=&#34;token keyword&#34;&gt;int&lt;/span&gt; n &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; nums&lt;span class=&#34;token punctuation&#34;&gt;.&lt;/span&gt;length&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;6&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;        &lt;span class=&#34;token keyword&#34;&gt;int&lt;/span&gt; mod &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;token number&#34;&gt;1000000007&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;7&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;        &lt;span class=&#34;token keyword&#34;&gt;int&lt;/span&gt; ans &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;token number&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;8&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;        &lt;span class=&#34;token class-name&#34;&gt;Arrays&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;token function&#34;&gt;sort&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;nums&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;9&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;10&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;        &lt;span class=&#34;token keyword&#34;&gt;int&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;]&lt;/span&gt; count &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;token keyword&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;token keyword&#34;&gt;int&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;[&lt;/span&gt;n&lt;span class=&#34;token punctuation&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;11&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;        count&lt;span class=&#34;token punctuation&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;token number&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;token number&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;12&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;        &lt;span class=&#34;token keyword&#34;&gt;for&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token keyword&#34;&gt;int&lt;/span&gt; i &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;token number&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt; i &lt;span class=&#34;token operator&#34;&gt;&amp;lt;&lt;/span&gt; n&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt; i&lt;span class=&#34;token operator&#34;&gt;++&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;&amp;#123;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;13&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;            count&lt;span class=&#34;token punctuation&#34;&gt;[&lt;/span&gt;i&lt;span class=&#34;token punctuation&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;count&lt;span class=&#34;token punctuation&#34;&gt;[&lt;/span&gt;i &lt;span class=&#34;token operator&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;token number&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;token operator&#34;&gt;*&lt;/span&gt; &lt;span class=&#34;token number&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;token operator&#34;&gt;%&lt;/span&gt; mod&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;14&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;        &lt;span class=&#34;token punctuation&#34;&gt;&amp;#125;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;15&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;16&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;        &lt;span class=&#34;token keyword&#34;&gt;int&lt;/span&gt; left &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;token number&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;,&lt;/span&gt; right &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; n &lt;span class=&#34;token operator&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;token number&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;17&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;        &lt;span class=&#34;token keyword&#34;&gt;while&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;left &lt;span class=&#34;token operator&#34;&gt;&amp;lt;=&lt;/span&gt; right&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;&amp;#123;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;18&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;            &lt;span class=&#34;token keyword&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;nums&lt;span class=&#34;token punctuation&#34;&gt;[&lt;/span&gt;left&lt;span class=&#34;token punctuation&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;token operator&#34;&gt;+&lt;/span&gt; nums&lt;span class=&#34;token punctuation&#34;&gt;[&lt;/span&gt;right&lt;span class=&#34;token punctuation&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;token operator&#34;&gt;&amp;lt;=&lt;/span&gt; target&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;&amp;#123;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;19&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;                ans &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;ans &lt;span class=&#34;token operator&#34;&gt;+&lt;/span&gt; count&lt;span class=&#34;token punctuation&#34;&gt;[&lt;/span&gt;right &lt;span class=&#34;token operator&#34;&gt;-&lt;/span&gt; left&lt;span class=&#34;token punctuation&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;token operator&#34;&gt;%&lt;/span&gt; mod&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;20&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;                left&lt;span class=&#34;token operator&#34;&gt;++&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;21&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;            &lt;span class=&#34;token punctuation&#34;&gt;&amp;#125;&lt;/span&gt; &lt;span class=&#34;token keyword&#34;&gt;else&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;&amp;#123;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;22&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;                right&lt;span class=&#34;token operator&#34;&gt;--&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;23&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;            &lt;span class=&#34;token punctuation&#34;&gt;&amp;#125;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;24&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;        &lt;span class=&#34;token punctuation&#34;&gt;&amp;#125;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;25&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;        &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;26&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;        &lt;span class=&#34;token keyword&#34;&gt;return&lt;/span&gt; ans&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;27&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token punctuation&#34;&gt;&amp;#125;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;28&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token punctuation&#34;&gt;&amp;#125;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/div&gt;
-&lt;div class=&#34;tab&#34; data-id=&#34;code&#34; data-title=&#34;Python&#34;&gt;
-&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-</content>
-        <category term="Coding" scheme="https://chienikao.github.io/categories/Coding/" />
-        <category term="Leetcode" scheme="https://chienikao.github.io/categories/Coding/Leetcode/" />
-        <category term="Medium" scheme="https://chienikao.github.io/categories/Coding/Leetcode/Medium/" />
-        <category term="Sorting" scheme="https://chienikao.github.io/tags/Sorting/" />
-        <category term="Leetcode" scheme="https://chienikao.github.io/tags/Leetcode/" />
-        <category term="Medium" scheme="https://chienikao.github.io/tags/Medium/" />
-        <category term="Array" scheme="https://chienikao.github.io/tags/Array/" />
-        <category term="Two Pointers" scheme="https://chienikao.github.io/tags/Two-Pointers/" />
-        <category term="Binary Search" scheme="https://chienikao.github.io/tags/Binary-Search/" />
-        <updated>2023-05-07T12:23:22.000Z</updated>
-    </entry>
-    <entry>
-        <id>https://chienikao.github.io/2023/05/07/Coding/leetcode/Easy/2620%20Counter/</id>
-        <title>2620. Counter</title>
-        <link rel="alternate" href="https://chienikao.github.io/2023/05/07/Coding/leetcode/Easy/2620%20Counter/"/>
-        <content type="html">&lt;p&gt;⭐️&lt;/p&gt;
-&lt;h2 id=&#34;題目敘述&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#題目敘述&#34;&gt;#&lt;/a&gt; &lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly9sZWV0Y29kZS5jb20vcHJvYmxlbXMvY291bnRlci8/dXRtX2NhbXBhaWduPVBvc3REMiZhbXA7dXRtX21lZGl1bT1Qb3N0JmFtcDt1dG1fc291cmNlPVBvc3QmYW1wO2dpb19saW5rX2lkPXhvZ2tWcUJv&#34;&gt;題目敘述&lt;/span&gt;&lt;/h2&gt;
-&lt;p&gt;Given an integer  &lt;code&gt;n&lt;/code&gt; , return a  &lt;code&gt;counter&lt;/code&gt;  function. This counter function initially returns  &lt;code&gt;n&lt;/code&gt;  and then returns 1 more than the previous value every subsequent time it is called ( &lt;code&gt;n&lt;/code&gt; ,  &lt;code&gt;n + 1&lt;/code&gt; ,  &lt;code&gt;n + 2&lt;/code&gt; , etc).&lt;/p&gt;
-&lt;h3 id=&#34;example-1&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#example-1&#34;&gt;#&lt;/a&gt; Example 1&lt;/h3&gt;
-&lt;blockquote&gt;
-&lt;p&gt;&lt;strong&gt;Input:&lt;/strong&gt;&lt;br&gt;
-n = 10&lt;br&gt;
-[“call”,“call”,“call”]&lt;br&gt;
-&lt;strong&gt;Output:&lt;/strong&gt; [10,11,12]&lt;br&gt;
-&lt;strong&gt;Explanation:&lt;/strong&gt;&lt;br&gt;
-counter() = 10 // The first time counter() is called, it returns n.&lt;br&gt;
-counter() = 11 // Returns 1 more than the previous time.&lt;br&gt;
-counter() = 12 // Returns 1 more than the previous time.&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h3 id=&#34;example-2&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#example-2&#34;&gt;#&lt;/a&gt; Example 2&lt;/h3&gt;
-&lt;blockquote&gt;
-&lt;p&gt;&lt;strong&gt;Input:&lt;/strong&gt;&lt;br&gt;
-n = -2&lt;br&gt;
-[“call”,“call”,“call”,“call”,“call”]&lt;br&gt;
-&lt;strong&gt;Output:&lt;/strong&gt; [-2,-1,0,1,2]&lt;br&gt;
-&lt;strong&gt;Explanation:&lt;/strong&gt; counter() initially returns -2. Then increases after each sebsequent call.&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h2 id=&#34;solution&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#solution&#34;&gt;#&lt;/a&gt; Solution&lt;/h2&gt;
-&lt;div class=&#34;tab&#34; data-id=&#34;code&#34; data-title=&#34;Javascript&#34;&gt;
-&lt;figure class=&#34;highlight javascript&#34;&gt;&lt;figcaption data-lang=&#34;javascript&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token comment&#34;&gt;/**&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt; * @param &amp;#123;number&amp;#125; n&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;3&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt; * @return &amp;#123;Function&amp;#125; counter&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;4&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt; */&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;5&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token keyword&#34;&gt;var&lt;/span&gt; &lt;span class=&#34;token function-variable function&#34;&gt;createCounter&lt;/span&gt; &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;token keyword&#34;&gt;function&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token parameter&#34;&gt;n&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;&amp;#123;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;6&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token keyword&#34;&gt;let&lt;/span&gt; counter &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; n &lt;span class=&#34;token operator&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;token number&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;7&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token keyword&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;token keyword&#34;&gt;function&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;&amp;#123;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;8&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;        counter &lt;span class=&#34;token operator&#34;&gt;+=&lt;/span&gt; &lt;span class=&#34;token number&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;9&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;        &lt;span class=&#34;token keyword&#34;&gt;return&lt;/span&gt; counter&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;10&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token punctuation&#34;&gt;&amp;#125;&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;11&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token punctuation&#34;&gt;&amp;#125;&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;12&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;13&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token comment&#34;&gt;/** &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;14&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt; * const counter = createCounter(10)&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;15&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt; * counter() // 10&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;16&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt; * counter() // 11&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;17&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt; * counter() // 12&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;18&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt; */&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/div&gt;
-&lt;div class=&#34;tab&#34; data-id=&#34;code&#34; data-title=&#34;Typescript&#34;&gt;
-&lt;figure class=&#34;highlight typescript&#34;&gt;&lt;figcaption data-lang=&#34;typescript&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token keyword&#34;&gt;function&lt;/span&gt; &lt;span class=&#34;token function&#34;&gt;createCounter&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;n&lt;span class=&#34;token operator&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;token builtin&#34;&gt;number&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;token operator&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;token operator&#34;&gt;=&gt;&lt;/span&gt; &lt;span class=&#34;token builtin&#34;&gt;number&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;&amp;#123;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token keyword&#34;&gt;let&lt;/span&gt; counter &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; n &lt;span class=&#34;token operator&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;token number&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;3&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token keyword&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;token keyword&#34;&gt;function&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;&amp;#123;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;4&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;        counter &lt;span class=&#34;token operator&#34;&gt;+=&lt;/span&gt; &lt;span class=&#34;token number&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;5&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;        &lt;span class=&#34;token keyword&#34;&gt;return&lt;/span&gt; counter&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;6&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token punctuation&#34;&gt;&amp;#125;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;7&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token punctuation&#34;&gt;&amp;#125;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;8&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;9&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;10&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token comment&#34;&gt;/** &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;11&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt; * const counter = createCounter(10)&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;12&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt; * counter() // 10&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;13&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt; * counter() // 11&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;14&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt; * counter() // 12&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;15&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt; */&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/div&gt;
-</content>
-        <category term="Coding" scheme="https://chienikao.github.io/categories/Coding/" />
-        <category term="Leetcode" scheme="https://chienikao.github.io/categories/Coding/Leetcode/" />
-        <category term="Easy" scheme="https://chienikao.github.io/categories/Coding/Leetcode/Easy/" />
-        <category term="Javascript" scheme="https://chienikao.github.io/tags/Javascript/" />
-        <category term="Leetcode" scheme="https://chienikao.github.io/tags/Leetcode/" />
-        <category term="Typescript" scheme="https://chienikao.github.io/tags/Typescript/" />
-        <category term="Easy" scheme="https://chienikao.github.io/tags/Easy/" />
-        <updated>2023-05-07T12:21:30.000Z</updated>
     </entry>
 </feed>
