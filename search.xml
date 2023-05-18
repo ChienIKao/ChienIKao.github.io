@@ -393,7 +393,7 @@
       <link href="/2023/05/11/Algorithm/Ch07%20Sorting/"/>
       <url>/2023/05/11/Algorithm/Ch07%20Sorting/</url>
       
-        <content type="html"><![CDATA[<h2 id="insertion-sort"><a class="anchor" href="#insertion-sort">#</a> Insertion Sort</h2><p>原理是逐一將原始資料加入已排序好資料中，並逐一與已排序好的資料作比較，找到對的位置插入。<br><span class="red">平均時間複雜度為: O (n²)</span></p><figure class="highlight c"><figcaption data-lang="c"><span>PseudoCode</span></figcaption><table><tr><td data-num="1"></td><td><pre><span class="token keyword">void</span> <span class="token function">insertionsort</span> <span class="token punctuation">(</span><span class="token keyword">int</span> n<span class="token punctuation">,</span> keytype S<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="2"></td><td><pre>    index i<span class="token punctuation">,</span> j<span class="token punctuation">;</span></pre></td></tr><tr><td data-num="3"></td><td><pre>    keytype x<span class="token punctuation">;</span></pre></td></tr><tr><td data-num="4"></td><td><pre>    <span class="token keyword">for</span> <span class="token punctuation">(</span>i<span class="token operator">=</span><span class="token number">2</span><span class="token punctuation">;</span> i<span class="token operator">&lt;=</span>n<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="5"></td><td><pre>        x <span class="token operator">=</span> S<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="6"></td><td><pre>        j <span class="token operator">=</span> i<span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="7"></td><td><pre>        <span class="token keyword">while</span> <span class="token punctuation">(</span>j <span class="token operator">></span> <span class="token number">0</span> <span class="token operator">&amp;&amp;</span> S<span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">></span> x<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="8"></td><td><pre>            S<span class="token punctuation">[</span>j<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">=</span> S<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="9"></td><td><pre>            j<span class="token operator">--</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="10"></td><td><pre>        <span class="token punctuation">&#125;</span></pre></td></tr><tr><td data-num="11"></td><td><pre>        S<span class="token punctuation">[</span>j<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">=</span> x<span class="token punctuation">;</span></pre></td></tr><tr><td data-num="12"></td><td><pre>    <span class="token punctuation">&#125;</span></pre></td></tr><tr><td data-num="13"></td><td><pre><span class="token punctuation">&#125;</span></pre></td></tr></table></figure><p><img data-src="https://miro.medium.com/v2/resize:fit:1012/1*JP-wURjwf4k23U2G3GNQDw.gif" alt=""></p><h2 id="selection-sort"><a class="anchor" href="#selection-sort">#</a> Selection Sort</h2><p>原理是反覆從未排序數列中找出最小值，將它與左邊的數做交換。<br><span class="red">平均時間複雜度為: O (n²)</span></p><figure class="highlight c"><figcaption data-lang="c"><span>PesudoCode</span></figcaption><table><tr><td data-num="1"></td><td><pre><span class="token keyword">void</span> <span class="token function">selectionsort</span><span class="token punctuation">(</span><span class="token keyword">int</span> n<span class="token punctuation">,</span> keytype S<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="2"></td><td><pre>    index i<span class="token punctuation">,</span> j<span class="token punctuation">,</span> smallest<span class="token punctuation">;</span></pre></td></tr><tr><td data-num="3"></td><td><pre>    <span class="token keyword">for</span> <span class="token punctuation">(</span>i<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">;</span> i<span class="token operator">&lt;=</span>n<span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="4"></td><td><pre>        smallest <span class="token operator">=</span> i<span class="token punctuation">;</span></pre></td></tr><tr><td data-num="5"></td><td><pre>        <span class="token keyword">for</span> <span class="token punctuation">(</span>j<span class="token operator">=</span>i<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">;</span> j<span class="token operator">&lt;=</span>n<span class="token punctuation">;</span> j<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="6"></td><td><pre>            <span class="token keyword">if</span> <span class="token punctuation">(</span>S<span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">&lt;</span> S<span class="token punctuation">[</span>smallest<span class="token punctuation">]</span><span class="token punctuation">)</span> smallest <span class="token operator">=</span> j<span class="token punctuation">;</span></pre></td></tr><tr><td data-num="7"></td><td><pre>        <span class="token punctuation">&#125;</span></pre></td></tr><tr><td data-num="8"></td><td><pre>        exchange S<span class="token punctuation">[</span>i<span class="token punctuation">]</span> amd S<span class="token punctuation">[</span>smallest<span class="token punctuation">]</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="9"></td><td><pre>    <span class="token punctuation">&#125;</span></pre></td></tr><tr><td data-num="10"></td><td><pre><span class="token punctuation">&#125;</span></pre></td></tr></table></figure><h2 id="merge-sort"><a class="anchor" href="#merge-sort">#</a> Merge Sort</h2><p>原理是會先將原始資料分割成兩個資料列，接著再將兩個資料繼續分割成兩個資料列，依此類推，直到無法再分割，也就是每組都只剩下一筆資料時，再兩兩合併各組資料，合併時也會進行該組排序，每次排序都是比較最左邊的資料，將較小的資料加到新的資料列中，依此類推，直到最後合併成一個排序好的資料列為止。</p><h2 id="quick-sort"><a class="anchor" href="#quick-sort">#</a> Quick Sort</h2><p>原理是先從原始資料列中找一個基準值 (Pivot)，接著逐一將資料與基準值比較，小於基準值的資料放在左邊，大於基準值的資料放在右邊，再將兩邊區塊分別再找出基準值，重複前面的步驟，直到排序完為止。</p><figure class="highlight c"><figcaption data-lang="c"><span>PesudoCode</span></figcaption><table><tr><td data-num="1"></td><td><pre><span class="token keyword">void</span> <span class="token function">quicksort</span><span class="token punctuation">(</span>index low<span class="token punctuation">,</span> index high<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="2"></td><td><pre>    index pivotpoint<span class="token punctuation">;</span></pre></td></tr><tr><td data-num="3"></td><td><pre>    <span class="token keyword">if</span> <span class="token punctuation">(</span>high <span class="token operator">></span> low<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="4"></td><td><pre>        <span class="token function">partition</span><span class="token punctuation">(</span>low<span class="token punctuation">,</span> high<span class="token punctuation">,</span> pivotpoint<span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="5"></td><td><pre>        <span class="token function">quicksort</span><span class="token punctuation">(</span>low<span class="token punctuation">,</span> pivotpoint <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="6"></td><td><pre>        <span class="token function">quicksort</span><span class="token punctuation">(</span>pivotpoint <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">,</span> high<span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="7"></td><td><pre>    <span class="token punctuation">&#125;</span></pre></td></tr><tr><td data-num="8"></td><td><pre><span class="token punctuation">&#125;</span></pre></td></tr></table></figure><h2 id="heap-sort"><a class="anchor" href="#heap-sort">#</a> Heap Sort</h2><p><strong>操作流程 (最大堆積為例):</strong></p><ol><li>將陣列轉換最大堆積 (Max Heap)</li><li>將 Root 與最後一個節點交換</li><li>將最後一個節點移除</li><li>將剩餘未排序完的節點重複 1~3 步驟，直到所有節點被移除，即完成排序。</li></ol>]]></content>
+        <content type="html"><![CDATA[<h2 id="insertion-sort"><a class="anchor" href="#insertion-sort">#</a> Insertion Sort</h2><p>原理是逐一將原始資料加入已排序好資料中，並逐一與已排序好的資料作比較，找到對的位置插入。<br><span class="red">平均時間複雜度為: O (n²)</span></p><figure class="highlight c"><figcaption data-lang="c"><span>PseudoCode</span></figcaption><table><tr><td data-num="1"></td><td><pre><span class="token keyword">void</span> <span class="token function">insertionsort</span> <span class="token punctuation">(</span><span class="token keyword">int</span> n<span class="token punctuation">,</span> keytype S<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="2"></td><td><pre>    index i<span class="token punctuation">,</span> j<span class="token punctuation">;</span></pre></td></tr><tr><td data-num="3"></td><td><pre>    keytype x<span class="token punctuation">;</span></pre></td></tr><tr><td data-num="4"></td><td><pre>    <span class="token keyword">for</span> <span class="token punctuation">(</span>i<span class="token operator">=</span><span class="token number">2</span><span class="token punctuation">;</span> i<span class="token operator">&lt;=</span>n<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="5"></td><td><pre>        x <span class="token operator">=</span> S<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="6"></td><td><pre>        j <span class="token operator">=</span> i<span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="7"></td><td><pre>        <span class="token keyword">while</span> <span class="token punctuation">(</span>j <span class="token operator">></span> <span class="token number">0</span> <span class="token operator">&amp;&amp;</span> S<span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">></span> x<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="8"></td><td><pre>            S<span class="token punctuation">[</span>j<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">=</span> S<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="9"></td><td><pre>            j<span class="token operator">--</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="10"></td><td><pre>        <span class="token punctuation">&#125;</span></pre></td></tr><tr><td data-num="11"></td><td><pre>        S<span class="token punctuation">[</span>j<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">=</span> x<span class="token punctuation">;</span></pre></td></tr><tr><td data-num="12"></td><td><pre>    <span class="token punctuation">&#125;</span></pre></td></tr><tr><td data-num="13"></td><td><pre><span class="token punctuation">&#125;</span></pre></td></tr></table></figure><p><img data-src="https://miro.medium.com/v2/resize:fit:1012/1*JP-wURjwf4k23U2G3GNQDw.gif" alt=""></p><h2 id="selection-sort"><a class="anchor" href="#selection-sort">#</a> Selection Sort</h2><p>原理是反覆從未排序數列中找出最小值，將它與左邊的數做交換。<br><span class="red">平均時間複雜度為: O (n²)</span></p><figure class="highlight c"><figcaption data-lang="c"><span>PesudoCode</span></figcaption><table><tr><td data-num="1"></td><td><pre><span class="token keyword">void</span> <span class="token function">selectionsort</span><span class="token punctuation">(</span><span class="token keyword">int</span> n<span class="token punctuation">,</span> keytype S<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="2"></td><td><pre>    index i<span class="token punctuation">,</span> j<span class="token punctuation">,</span> smallest<span class="token punctuation">;</span></pre></td></tr><tr><td data-num="3"></td><td><pre>    <span class="token keyword">for</span> <span class="token punctuation">(</span>i<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">;</span> i<span class="token operator">&lt;=</span>n<span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="4"></td><td><pre>        smallest <span class="token operator">=</span> i<span class="token punctuation">;</span></pre></td></tr><tr><td data-num="5"></td><td><pre>        <span class="token keyword">for</span> <span class="token punctuation">(</span>j<span class="token operator">=</span>i<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">;</span> j<span class="token operator">&lt;=</span>n<span class="token punctuation">;</span> j<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="6"></td><td><pre>            <span class="token keyword">if</span> <span class="token punctuation">(</span>S<span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">&lt;</span> S<span class="token punctuation">[</span>smallest<span class="token punctuation">]</span><span class="token punctuation">)</span> smallest <span class="token operator">=</span> j<span class="token punctuation">;</span></pre></td></tr><tr><td data-num="7"></td><td><pre>        <span class="token punctuation">&#125;</span></pre></td></tr><tr><td data-num="8"></td><td><pre>        exchange S<span class="token punctuation">[</span>i<span class="token punctuation">]</span> amd S<span class="token punctuation">[</span>smallest<span class="token punctuation">]</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="9"></td><td><pre>    <span class="token punctuation">&#125;</span></pre></td></tr><tr><td data-num="10"></td><td><pre><span class="token punctuation">&#125;</span></pre></td></tr></table></figure><p><img data-src="https://www.google.com/url?sa=i&amp;url=http%3A%2F%2Fwww.michaelfxu.com%2Falgorithm%2520series%2Falgorithms-with-python-pt1%2F&amp;psig=AOvVaw00z3rJF9PubjfyIwUlly1S&amp;ust=1684475099616000&amp;source=images&amp;cd=vfe&amp;ved=0CBEQjRxqFwoTCJCYnvGU_v4CFQAAAAAdAAAAABAE.gif" alt=""></p><h2 id="merge-sort"><a class="anchor" href="#merge-sort">#</a> Merge Sort</h2><p>原理是會先將原始資料分割成兩個資料列，接著再將兩個資料繼續分割成兩個資料列，依此類推，直到無法再分割，也就是每組都只剩下一筆資料時，再兩兩合併各組資料，合併時也會進行該組排序，每次排序都是比較最左邊的資料，將較小的資料加到新的資料列中，依此類推，直到最後合併成一個排序好的資料列為止。</p><h2 id="quick-sort"><a class="anchor" href="#quick-sort">#</a> Quick Sort</h2><p>原理是先從原始資料列中找一個基準值 (Pivot)，接著逐一將資料與基準值比較，小於基準值的資料放在左邊，大於基準值的資料放在右邊，再將兩邊區塊分別再找出基準值，重複前面的步驟，直到排序完為止。</p><figure class="highlight c"><figcaption data-lang="c"><span>PesudoCode</span></figcaption><table><tr><td data-num="1"></td><td><pre><span class="token keyword">void</span> <span class="token function">quicksort</span><span class="token punctuation">(</span>index low<span class="token punctuation">,</span> index high<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="2"></td><td><pre>    index pivotpoint<span class="token punctuation">;</span></pre></td></tr><tr><td data-num="3"></td><td><pre>    <span class="token keyword">if</span> <span class="token punctuation">(</span>high <span class="token operator">></span> low<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="4"></td><td><pre>        <span class="token function">partition</span><span class="token punctuation">(</span>low<span class="token punctuation">,</span> high<span class="token punctuation">,</span> pivotpoint<span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="5"></td><td><pre>        <span class="token function">quicksort</span><span class="token punctuation">(</span>low<span class="token punctuation">,</span> pivotpoint <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="6"></td><td><pre>        <span class="token function">quicksort</span><span class="token punctuation">(</span>pivotpoint <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">,</span> high<span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="7"></td><td><pre>    <span class="token punctuation">&#125;</span></pre></td></tr><tr><td data-num="8"></td><td><pre><span class="token punctuation">&#125;</span></pre></td></tr></table></figure><h2 id="heap-sort"><a class="anchor" href="#heap-sort">#</a> Heap Sort</h2><p><strong>操作流程 (最大堆積為例):</strong></p><ol><li>將陣列轉換最大堆積 (Max Heap)</li><li>將 Root 與最後一個節點交換</li><li>將最後一個節點移除</li><li>將剩餘未排序完的節點重複 1~3 步驟，直到所有節點被移除，即完成排序。</li></ol>]]></content>
       
       
       <categories>
@@ -475,9 +475,9 @@
             
             <tag> Array </tag>
             
-            <tag> Matrix </tag>
-            
             <tag> Simulation </tag>
+            
+            <tag> Matrix </tag>
             
             <tag> Medium </tag>
             
@@ -547,9 +547,9 @@
             
             <tag> Array </tag>
             
-            <tag> Matrix </tag>
-            
             <tag> Simulation </tag>
+            
+            <tag> Matrix </tag>
             
             <tag> Medium </tag>
             
@@ -901,9 +901,9 @@
             
             <tag> Array </tag>
             
-            <tag> Binary Search </tag>
-            
             <tag> Hard </tag>
+            
+            <tag> Binary Search </tag>
             
             <tag> Binary Indexed  Tree </tag>
             
@@ -1173,11 +1173,11 @@
             
             <tag> Array </tag>
             
+            <tag> Hard </tag>
+            
             <tag> Depth-First Search </tag>
             
             <tag> Breadth-First Search </tag>
-            
-            <tag> Hard </tag>
             
         </tags>
       
@@ -1266,11 +1266,11 @@
       
         <tags>
             
-            <tag> UVA </tag>
-            
             <tag> Star1 </tag>
             
             <tag> CPE </tag>
+            
+            <tag> UVA </tag>
             
         </tags>
       
@@ -1609,9 +1609,9 @@
             
             <tag> Leetcode </tag>
             
-            <tag> Dynamic Programming </tag>
-            
             <tag> Hard </tag>
+            
+            <tag> Dynamic Programming </tag>
             
         </tags>
       
@@ -1640,11 +1640,11 @@
       
         <tags>
             
-            <tag> UVA </tag>
-            
             <tag> Star1 </tag>
             
             <tag> CPE </tag>
+            
+            <tag> UVA </tag>
             
         </tags>
       
@@ -1702,11 +1702,11 @@
       
         <tags>
             
-            <tag> UVA </tag>
-            
             <tag> Star1 </tag>
             
             <tag> CPE </tag>
+            
+            <tag> UVA </tag>
             
         </tags>
       
@@ -1739,9 +1739,9 @@
             
             <tag> Array </tag>
             
-            <tag> Dynamic Programming </tag>
-            
             <tag> Hard </tag>
+            
+            <tag> Dynamic Programming </tag>
             
         </tags>
       
@@ -1770,11 +1770,11 @@
       
         <tags>
             
-            <tag> UVA </tag>
-            
             <tag> Star1 </tag>
             
             <tag> CPE </tag>
+            
+            <tag> UVA </tag>
             
         </tags>
       
@@ -1803,11 +1803,11 @@
       
         <tags>
             
-            <tag> UVA </tag>
-            
             <tag> Star1 </tag>
             
             <tag> CPE </tag>
+            
+            <tag> UVA </tag>
             
         </tags>
       
@@ -1871,13 +1871,13 @@
             
             <tag> Medium </tag>
             
-            <tag> Tree </tag>
-            
             <tag> Depth-First Search </tag>
             
-            <tag> Binary Tree </tag>
-            
             <tag> Breadth-First Search </tag>
+            
+            <tag> Tree </tag>
+            
+            <tag> Binary Tree </tag>
             
         </tags>
       
@@ -1968,11 +1968,11 @@
       
         <tags>
             
-            <tag> UVA </tag>
-            
             <tag> Star1 </tag>
             
             <tag> CPE </tag>
+            
+            <tag> UVA </tag>
             
         </tags>
       
@@ -2154,11 +2154,11 @@
             
             <tag> Medium </tag>
             
+            <tag> Depth-First Search </tag>
+            
             <tag> Dynamic Programming </tag>
             
             <tag> Tree </tag>
-            
-            <tag> Depth-First Search </tag>
             
             <tag> Binary Tree </tag>
             
@@ -2282,11 +2282,11 @@
       
         <tags>
             
-            <tag> UVA </tag>
-            
             <tag> Star1 </tag>
             
             <tag> CPE </tag>
+            
+            <tag> UVA </tag>
             
         </tags>
       
