@@ -10,10 +10,128 @@
         </author>
         <description>This is a note blog</description>
         <language>en</language>
-        <pubDate>Fri, 19 May 2023 14:13:20 +0800</pubDate>
-        <lastBuildDate>Fri, 19 May 2023 14:13:20 +0800</lastBuildDate>
+        <pubDate>Tue, 23 May 2023 14:33:10 +0800</pubDate>
+        <lastBuildDate>Tue, 23 May 2023 14:33:10 +0800</lastBuildDate>
         <category term="筆記" />
         <category term=" note" />
+        <item>
+            <guid isPermalink="true">https://chienikao.github.io/2023/05/23/SystemSoftware/Ch03_Loaders_and_Linkers/</guid>
+            <title>Ch03 - Loaders and Linkers</title>
+            <link>https://chienikao.github.io/2023/05/23/SystemSoftware/Ch03_Loaders_and_Linkers/</link>
+            <category term="SystemSoftware" scheme="https://chienikao.github.io/categories/SystemSoftware/" />
+            <category term="System Software" scheme="https://chienikao.github.io/tags/System-Software/" />
+            <category term="Assembler" scheme="https://chienikao.github.io/tags/Assembler/" />
+            <pubDate>Tue, 23 May 2023 14:33:10 +0800</pubDate>
+            <description><![CDATA[ &lt;h2 id=&#34;introduction&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#introduction&#34;&gt;#&lt;/a&gt; Introduction&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;A loader is a system program that performs the &lt;span class=&#34;red&#34;&gt;loading&lt;/span&gt; function. Many loaders also support &lt;span class=&#34;red&#34;&gt;relocation&lt;/span&gt; and &lt;span class=&#34;red&#34;&gt;linking&lt;/span&gt;.&lt;/li&gt;
+&lt;li&gt;Some systems have a &lt;span class=&#34;red&#34;&gt;linker&lt;/span&gt; to perform the linking operations and a separate loader to handle relocation and loading.&lt;/li&gt;
+&lt;li&gt;In most cases all the program translators (ex. assemblers and compilers) on a particular system produce object programs in the same format. Thus one system loader or linker can be used regardless of the original source programming language.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;basic-loader-functions&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#basic-loader-functions&#34;&gt;#&lt;/a&gt; Basic Loader Functions&lt;/h2&gt;
+&lt;h3 id=&#34;design-of-an-absolute-loader&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#design-of-an-absolute-loader&#34;&gt;#&lt;/a&gt; Design of an Absolute Loader&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;An absolute loader does not need to perform such functions as linking and program relocation, its operation is very simple. &lt;strong&gt;All functions are accomplished in a single pass&lt;/strong&gt;.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;When the  &lt;code&gt;End&lt;/code&gt;  record is encountered, the loader jumps to the specified address to begin execution of the loaded program.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;span class=&#34;yellow&#34;&gt;從多少開始&lt;/span&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;span class=&#34;green&#34;&gt;每行的 T 的起點都要確認，不是每行都直接接下去，有變數的地方會跳&lt;/span&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;span class=&#34;red&#34;&gt;中間的 xx xxxxx…xxxx 是變數 (包含 array)，沒有常數 (常數是有值的)&lt;/span&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;img data-src=&#34;https://imgur.com/4i8nWYr.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;a-simple-bootstrap-loader&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#a-simple-bootstrap-loader&#34;&gt;#&lt;/a&gt; A simple Bootstrap Loader&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;When a computer is first turned on or restarted, a special type of absolute loader, called a &lt;span class=&#34;red&#34;&gt;bootstrap loader&lt;/span&gt;, is executed.&lt;/li&gt;
+&lt;li&gt;The bootstrap loads the first program to be run by the computer — usually an operating system.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;machine-dependent-loader-features&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#machine-dependent-loader-features&#34;&gt;#&lt;/a&gt; Machine-Dependent Loader Features&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;The absolute loader is certainly simple and efficient; however, this scheme has several potential disadvantage.
+&lt;ul&gt;
+&lt;li&gt;Writing absolute programs makes it difficult to use subroutine libraries efficiently.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;relocation&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#relocation&#34;&gt;#&lt;/a&gt; Relocation&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Loaders that allow for program relocation are called &lt;span class=&#34;red&#34;&gt;relocation loaders&lt;/span&gt; or &lt;span class=&#34;red&#34;&gt;relative loaders&lt;/span&gt;.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;There are two methods for specifying relocation as part of the object program.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Modification record&lt;/strong&gt; (suitable for &lt;strong&gt;SIX/XE&lt;/strong&gt; programs, only some instructions require relocation).&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Relocation by bit mask&lt;/strong&gt; (suitable for direct addressing and fixed instruction format, such as &lt;strong&gt;SIC&lt;/strong&gt; programs; nearly all instructions require relocation, resulting in an object program more than twice as large as the original one.)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Relocation by bit mask&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;There is a &lt;span class=&#34;red&#34;&gt;relocation bit&lt;/span&gt; (1 for relocation) associated with each word of object code (each SIC instruction).&lt;/li&gt;
+&lt;li&gt;The relocation bis are gathered together into a &lt;span class=&#34;red&#34;&gt;bit mask&lt;/span&gt; following the length indicator in each Text record.&lt;/li&gt;
+&lt;li&gt;&lt;img data-src=&#34;https://imgur.com/vMgkPka.png&#34; alt=&#34;&#34;&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;program-linking&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#program-linking&#34;&gt;#&lt;/a&gt; Program Linking&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Relationship between the relocation and linking process.&lt;/li&gt;
+&lt;li&gt;The general approach taken is for the assembler to evaluate as much of the expression as it can. The remaining terms are passed on to the loader via Modificaion records.&lt;br&gt;
+&lt;img data-src=&#34;https://imgur.com/WYixbEw.png&#34; alt=&#34;&#34;&gt;&lt;br&gt;
+&lt;img data-src=&#34;https://imgur.com/juLxmFP.png&#34; alt=&#34;&#34;&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;algorithm-and-data-structure-for-a-linking-loader&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#algorithm-and-data-structure-for-a-linking-loader&#34;&gt;#&lt;/a&gt; Algorithm and Data Structure for a Linking Loader&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;The input to a linking loader consists of a set of object programs (ex. control sections) that are to be linked together.&lt;/li&gt;
+&lt;li&gt;It is possible (and common) for a control section to make an external reference to a symbol whose definition does not appear until later ini this input stream.&lt;/li&gt;
+&lt;li&gt;Thus a linking loader usually makes &lt;span class=&#34;red&#34;&gt;two passes&lt;/span&gt; over its input.
+&lt;ul&gt;
+&lt;li&gt;Pass 1 assigns addresses to all external symbols.&lt;/li&gt;
+&lt;li&gt;Pass 2 performs the actual loading, relocation, and linking.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;The main data structure needed for our linking loader is an &lt;span class=&#34;red&#34;&gt;external symbol table ESTAB&lt;/span&gt;.&lt;/li&gt;
+&lt;li&gt;Two other important variables are &lt;span class=&#34;red&#34;&gt;PROGADDR&lt;/span&gt;(program load address) and &lt;span class=&#34;red&#34;&gt;CSADDR&lt;/span&gt;(control section address).
+&lt;ul&gt;
+&lt;li&gt;The value of PROGADDR is supplied to the loader by the operating system.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Algorithm for Pass 1&lt;/strong&gt;&lt;br&gt;
+Concerned only with Header and Define record types in the control sections.&lt;/p&gt;
+&lt;figure class=&#34;highlight vhdl&#34;&gt;&lt;figcaption data-lang=&#34;VHDL&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token keyword&#34;&gt;begin&lt;/span&gt; 	 &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;get PROGADDR from operating system 	 &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;3&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;set CSADDR &lt;span class=&#34;token keyword&#34;&gt;to&lt;/span&gt; PROGADDR &lt;span class=&#34;token punctuation&#34;&gt;&amp;#123;&lt;/span&gt;&lt;span class=&#34;token keyword&#34;&gt;for&lt;/span&gt; first control section&lt;span class=&#34;token punctuation&#34;&gt;&amp;#125;&lt;/span&gt; 	 &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;4&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token keyword&#34;&gt;while&lt;/span&gt; &lt;span class=&#34;token operator&#34;&gt;not&lt;/span&gt; &lt;span class=&#34;token keyword&#34;&gt;end&lt;/span&gt; &lt;span class=&#34;token keyword&#34;&gt;of&lt;/span&gt; input do 	 &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;5&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;  &lt;span class=&#34;token keyword&#34;&gt;begin&lt;/span&gt; 	 &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;6&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    read &lt;span class=&#34;token keyword&#34;&gt;next&lt;/span&gt; input &lt;span class=&#34;token keyword&#34;&gt;record&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;&amp;#123;&lt;/span&gt;Header &lt;span class=&#34;token keyword&#34;&gt;record&lt;/span&gt; &lt;span class=&#34;token keyword&#34;&gt;for&lt;/span&gt; control section&lt;span class=&#34;token punctuation&#34;&gt;&amp;#125;&lt;/span&gt; 	 &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;7&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;	set CSLTH &lt;span class=&#34;token keyword&#34;&gt;to&lt;/span&gt; control section length 	 &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;8&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;	search ESTAB &lt;span class=&#34;token keyword&#34;&gt;for&lt;/span&gt; control section name 	 &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;9&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;	&lt;span class=&#34;token keyword&#34;&gt;if&lt;/span&gt; found &lt;span class=&#34;token keyword&#34;&gt;then&lt;/span&gt; 	 &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;10&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;	  set error flag &lt;span class=&#34;token punctuation&#34;&gt;&amp;#123;&lt;/span&gt;duplicate external symbol&lt;span class=&#34;token punctuation&#34;&gt;&amp;#125;&lt;/span&gt; 	 &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;11&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;	&lt;span class=&#34;token keyword&#34;&gt;else&lt;/span&gt; 	 &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;12&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;	  enter control section name into ESTAB &lt;span class=&#34;token keyword&#34;&gt;with&lt;/span&gt; value CSADDR &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;13&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;	&lt;span class=&#34;token keyword&#34;&gt;while&lt;/span&gt; &lt;span class=&#34;token keyword&#34;&gt;record&lt;/span&gt; &lt;span class=&#34;token keyword&#34;&gt;type&lt;/span&gt; !&lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; &#39;E&#39; do 	 &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;14&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;	  &lt;span class=&#34;token keyword&#34;&gt;begin&lt;/span&gt; 	 &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;15&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;		read &lt;span class=&#34;token keyword&#34;&gt;next&lt;/span&gt; input &lt;span class=&#34;token keyword&#34;&gt;record&lt;/span&gt; 	 &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;16&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;		&lt;span class=&#34;token keyword&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;token keyword&#34;&gt;record&lt;/span&gt; &lt;span class=&#34;token keyword&#34;&gt;type&lt;/span&gt; &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; &#39;D&#39; &lt;span class=&#34;token keyword&#34;&gt;then&lt;/span&gt; 	 &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;17&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;		  &lt;span class=&#34;token keyword&#34;&gt;for&lt;/span&gt; each symbol &lt;span class=&#34;token keyword&#34;&gt;in&lt;/span&gt; the &lt;span class=&#34;token keyword&#34;&gt;record&lt;/span&gt; do 	 &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;18&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;			&lt;span class=&#34;token keyword&#34;&gt;begin&lt;/span&gt; 	 &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;19&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;			  search ESTAB &lt;span class=&#34;token keyword&#34;&gt;for&lt;/span&gt; symbol name 	 &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;20&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;			  &lt;span class=&#34;token keyword&#34;&gt;if&lt;/span&gt; found &lt;span class=&#34;token keyword&#34;&gt;then&lt;/span&gt; 	 &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;21&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;				set error flag &lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;duplicate external symbol&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt; 	 &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;22&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;			  &lt;span class=&#34;token keyword&#34;&gt;else&lt;/span&gt; 	 &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;23&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;				enter symbol into ESTAB &lt;span class=&#34;token keyword&#34;&gt;with&lt;/span&gt; value 	 &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;24&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;				  &lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;CSADDR &lt;span class=&#34;token operator&#34;&gt;+&lt;/span&gt; indicated address&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt; 	 &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;25&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;			&lt;span class=&#34;token keyword&#34;&gt;end&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;&amp;#123;&lt;/span&gt;&lt;span class=&#34;token keyword&#34;&gt;for&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;&amp;#125;&lt;/span&gt; &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;26&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;	  &lt;span class=&#34;token keyword&#34;&gt;end&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;&amp;#123;&lt;/span&gt;&lt;span class=&#34;token keyword&#34;&gt;while&lt;/span&gt; !&lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; &#39;E&#39;&lt;span class=&#34;token punctuation&#34;&gt;&amp;#125;&lt;/span&gt; 			 &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;27&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    add CSLTH &lt;span class=&#34;token keyword&#34;&gt;to&lt;/span&gt; CSADDR &lt;span class=&#34;token punctuation&#34;&gt;&amp;#123;&lt;/span&gt;starting address &lt;span class=&#34;token keyword&#34;&gt;for&lt;/span&gt; &lt;span class=&#34;token keyword&#34;&gt;next&lt;/span&gt; control section&lt;span class=&#34;token punctuation&#34;&gt;&amp;#125;&lt;/span&gt; 	 &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;28&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;  &lt;span class=&#34;token keyword&#34;&gt;end&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;&amp;#123;&lt;/span&gt;&lt;span class=&#34;token keyword&#34;&gt;while&lt;/span&gt; &lt;span class=&#34;token operator&#34;&gt;not&lt;/span&gt; EOF&lt;span class=&#34;token punctuation&#34;&gt;&amp;#125;&lt;/span&gt; 		 &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;29&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token keyword&#34;&gt;end&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;&amp;#123;&lt;/span&gt;Pass &lt;span class=&#34;token number&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;&amp;#125;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;&lt;strong&gt;Algorithm for Pass 2&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Perform the actual loading, relocation, and linking of the program.&lt;/li&gt;
+&lt;li&gt;The  &lt;code&gt;END&lt;/code&gt;  record for each control section may contain the address of the first instruction in that control section to be executed. The loader takes this as the transfer point to begin execution.
+&lt;ul&gt;
+&lt;li&gt;If more than one control section specifies a transfer address, the loader arbitrarily uses the last one encountered.&lt;/li&gt;
+&lt;li&gt;If no control section contains a transfer address, the loader uses the beginning of the linked program (ex. PROGADDR) as the transfer point.&lt;/li&gt;
+&lt;li&gt;Normally, a transfer address would be placed in the  &lt;code&gt;END&lt;/code&gt;  record for a main program, but not for a subroutine.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;figure class=&#34;highlight vhdl&#34;&gt;&lt;figcaption data-lang=&#34;VHDL&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token keyword&#34;&gt;begin&lt;/span&gt; 	 &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;set CSADDR &lt;span class=&#34;token keyword&#34;&gt;to&lt;/span&gt; PROGADDR 	 &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;3&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;set EXECADDR &lt;span class=&#34;token keyword&#34;&gt;to&lt;/span&gt; PROGADDR 	 &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;4&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token keyword&#34;&gt;while&lt;/span&gt; &lt;span class=&#34;token operator&#34;&gt;not&lt;/span&gt; &lt;span class=&#34;token keyword&#34;&gt;end&lt;/span&gt; &lt;span class=&#34;token keyword&#34;&gt;of&lt;/span&gt; input do 	 &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;5&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;	&lt;span class=&#34;token keyword&#34;&gt;begin&lt;/span&gt; 	 &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;6&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;		read &lt;span class=&#34;token keyword&#34;&gt;next&lt;/span&gt; input &lt;span class=&#34;token keyword&#34;&gt;record&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;&amp;#123;&lt;/span&gt;Header &lt;span class=&#34;token keyword&#34;&gt;record&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;&amp;#125;&lt;/span&gt; 	 &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;7&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;		set CSLTH &lt;span class=&#34;token keyword&#34;&gt;to&lt;/span&gt; control section length 	 &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;8&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;		&lt;span class=&#34;token keyword&#34;&gt;while&lt;/span&gt; &lt;span class=&#34;token keyword&#34;&gt;record&lt;/span&gt; &lt;span class=&#34;token keyword&#34;&gt;type&lt;/span&gt; !&lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; &#39;E&#39; do 		 &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;9&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;			&lt;span class=&#34;token keyword&#34;&gt;begin&lt;/span&gt; 		 &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;10&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;			read &lt;span class=&#34;token keyword&#34;&gt;next&lt;/span&gt; input &lt;span class=&#34;token keyword&#34;&gt;record&lt;/span&gt; 	 &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;11&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;			&lt;span class=&#34;token keyword&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;token keyword&#34;&gt;record&lt;/span&gt; &lt;span class=&#34;token keyword&#34;&gt;type&lt;/span&gt; &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; &#39;T&#39; &lt;span class=&#34;token keyword&#34;&gt;then&lt;/span&gt; 		 &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;12&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;				&lt;span class=&#34;token keyword&#34;&gt;begin&lt;/span&gt; 		 &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;13&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;					&lt;span class=&#34;token punctuation&#34;&gt;&amp;#123;&lt;/span&gt;&lt;span class=&#34;token keyword&#34;&gt;if&lt;/span&gt; object code &lt;span class=&#34;token keyword&#34;&gt;is&lt;/span&gt; &lt;span class=&#34;token keyword&#34;&gt;in&lt;/span&gt; character form&lt;span class=&#34;token punctuation&#34;&gt;,&lt;/span&gt; convert 	 &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;14&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;						into internal representation&lt;span class=&#34;token punctuation&#34;&gt;&amp;#125;&lt;/span&gt; 	 &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;15&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;					move object code from &lt;span class=&#34;token keyword&#34;&gt;record&lt;/span&gt; &lt;span class=&#34;token keyword&#34;&gt;to&lt;/span&gt; location 	 &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;16&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;						&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;CSADDR &lt;span class=&#34;token operator&#34;&gt;+&lt;/span&gt; specified address&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt; 		 &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;17&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;				&lt;span class=&#34;token keyword&#34;&gt;end&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;&amp;#123;&lt;/span&gt;&lt;span class=&#34;token keyword&#34;&gt;if&lt;/span&gt; &#39;T&#39;&lt;span class=&#34;token punctuation&#34;&gt;&amp;#125;&lt;/span&gt; 		 &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;18&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;			&lt;span class=&#34;token keyword&#34;&gt;else&lt;/span&gt; &lt;span class=&#34;token keyword&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;token keyword&#34;&gt;record&lt;/span&gt; &lt;span class=&#34;token keyword&#34;&gt;type&lt;/span&gt; &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; &#39;M&#39; &lt;span class=&#34;token keyword&#34;&gt;then&lt;/span&gt; 	 &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;19&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;				&lt;span class=&#34;token keyword&#34;&gt;begin&lt;/span&gt; 		 &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;20&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;					search ESTAB &lt;span class=&#34;token keyword&#34;&gt;for&lt;/span&gt; modifying symbol name 	 &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;21&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;					&lt;span class=&#34;token keyword&#34;&gt;if&lt;/span&gt; found &lt;span class=&#34;token keyword&#34;&gt;then&lt;/span&gt; 	 &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;22&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;						add &lt;span class=&#34;token operator&#34;&gt;or&lt;/span&gt; subtract symbol value at location 	 &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;23&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;							&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;CSADDR &lt;span class=&#34;token operator&#34;&gt;+&lt;/span&gt; specified address&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt; 	 &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;24&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;					&lt;span class=&#34;token keyword&#34;&gt;else&lt;/span&gt; 		 &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;25&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;						set error flag &lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;undefined external symbol&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt; 	 &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;26&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;				&lt;span class=&#34;token keyword&#34;&gt;end&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;&amp;#123;&lt;/span&gt;&lt;span class=&#34;token keyword&#34;&gt;if&lt;/span&gt; &#39;M&#39; &lt;span class=&#34;token punctuation&#34;&gt;&amp;#125;&lt;/span&gt; 	 &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;27&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;			&lt;span class=&#34;token keyword&#34;&gt;end&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;&amp;#123;&lt;/span&gt;&lt;span class=&#34;token keyword&#34;&gt;while&lt;/span&gt; !&lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; &#39;E&#39; &lt;span class=&#34;token punctuation&#34;&gt;&amp;#125;&lt;/span&gt; 	 &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;28&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;		&lt;span class=&#34;token keyword&#34;&gt;if&lt;/span&gt; an address &lt;span class=&#34;token keyword&#34;&gt;is&lt;/span&gt; specified &lt;span class=&#34;token punctuation&#34;&gt;&amp;#123;&lt;/span&gt;&lt;span class=&#34;token keyword&#34;&gt;in&lt;/span&gt; &lt;span class=&#34;token keyword&#34;&gt;End&lt;/span&gt; &lt;span class=&#34;token keyword&#34;&gt;record&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;&amp;#125;&lt;/span&gt; &lt;span class=&#34;token keyword&#34;&gt;then&lt;/span&gt; 	 &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;29&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;			set EXECADDR &lt;span class=&#34;token keyword&#34;&gt;to&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;CSADDR &lt;span class=&#34;token operator&#34;&gt;+&lt;/span&gt; specified address&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt; 	 &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;30&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;		add CSLTH &lt;span class=&#34;token keyword&#34;&gt;to&lt;/span&gt; CSADDR 	 &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;31&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;	&lt;span class=&#34;token keyword&#34;&gt;end&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;&amp;#123;&lt;/span&gt;&lt;span class=&#34;token keyword&#34;&gt;while&lt;/span&gt; &lt;span class=&#34;token operator&#34;&gt;not&lt;/span&gt; EOF&lt;span class=&#34;token punctuation&#34;&gt;&amp;#125;&lt;/span&gt; 	 &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;32&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;jump &lt;span class=&#34;token keyword&#34;&gt;to&lt;/span&gt; location given by EXECADDR &lt;span class=&#34;token punctuation&#34;&gt;&amp;#123;&lt;/span&gt;&lt;span class=&#34;token keyword&#34;&gt;to&lt;/span&gt; start execution &lt;span class=&#34;token keyword&#34;&gt;of&lt;/span&gt; loaded program&lt;span class=&#34;token punctuation&#34;&gt;&amp;#125;&lt;/span&gt; 	 &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;33&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token keyword&#34;&gt;end&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;&amp;#123;&lt;/span&gt;Pass &lt;span class=&#34;token number&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;&amp;#125;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;ul&gt;
+&lt;li&gt;The algorithm can be made more efficient if a slight change is made in the object program format. This modification involves assigning a &lt;span class=&#34;red&#34;&gt;reference number&lt;/span&gt; to each external symbol referred to in a control section.&lt;/li&gt;
+&lt;li&gt;&lt;img data-src=&#34;https://imgur.com/vOcKl0P.png&#34; alt=&#34;&#34;&gt;&lt;/li&gt;
+&lt;li&gt;The main advantage of this reference-number mechanism is that it avoids multiple searches of ESTAB for the same symbol during the loading of a control section.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;machine-independent-loader-features&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#machine-independent-loader-features&#34;&gt;#&lt;/a&gt; Machine-Independent Loader Features&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;span class=&#34;red&#34;&gt;Automatic library search&lt;/span&gt; handles external references. This feature allows a programmer to use standard subroutines without explicitly including them in the program to be loaded. The routines are automatically retrieved from a library as they are needed during linking.&lt;/li&gt;
+&lt;/ul&gt;
+ ]]></description>
+        </item>
         <item>
             <guid isPermalink="true">https://chienikao.github.io/2023/05/19/Coding/leetcode/Medium/1557%20Minimum%20Number%20of%20Vertices%20to%20Reach%20All%20Nodes/</guid>
             <title>1557. Minimum Number of Vertices to Reach All Nodes</title>
@@ -62,8 +180,8 @@
             <category term="Coding" scheme="https://chienikao.github.io/categories/Coding/" />
             <category term="Leetcode" scheme="https://chienikao.github.io/categories/Coding/Leetcode/" />
             <category term="Medium" scheme="https://chienikao.github.io/categories/Coding/Leetcode/Medium/" />
-            <category term="Leetcode" scheme="https://chienikao.github.io/tags/Leetcode/" />
             <category term="Two Pointers" scheme="https://chienikao.github.io/tags/Two-Pointers/" />
+            <category term="Leetcode" scheme="https://chienikao.github.io/tags/Leetcode/" />
             <category term="Medium" scheme="https://chienikao.github.io/tags/Medium/" />
             <category term="Linked List" scheme="https://chienikao.github.io/tags/Linked-List/" />
             <category term="Stack" scheme="https://chienikao.github.io/tags/Stack/" />
@@ -169,8 +287,8 @@ There is only one node with a twin in the linked list having twin sum of 1 + 100
             <category term="Coding" scheme="https://chienikao.github.io/categories/Coding/" />
             <category term="Leetcode" scheme="https://chienikao.github.io/categories/Coding/Leetcode/" />
             <category term="Easy" scheme="https://chienikao.github.io/categories/Coding/Leetcode/Easy/" />
-            <category term="Leetcode" scheme="https://chienikao.github.io/tags/Leetcode/" />
             <category term="Easy" scheme="https://chienikao.github.io/tags/Easy/" />
+            <category term="Leetcode" scheme="https://chienikao.github.io/tags/Leetcode/" />
             <category term="Typescript" scheme="https://chienikao.github.io/tags/Typescript/" />
             <category term="Promise" scheme="https://chienikao.github.io/tags/Promise/" />
             <category term="Javasscript" scheme="https://chienikao.github.io/tags/Javasscript/" />
@@ -244,8 +362,8 @@ The function immediately throws an error.&lt;/p&gt;
             <category term="Coding" scheme="https://chienikao.github.io/categories/Coding/" />
             <category term="Leetcode" scheme="https://chienikao.github.io/categories/Coding/Leetcode/" />
             <category term="Medium" scheme="https://chienikao.github.io/categories/Coding/Leetcode/Medium/" />
-            <category term="Leetcode" scheme="https://chienikao.github.io/tags/Leetcode/" />
             <category term="Two Pointers" scheme="https://chienikao.github.io/tags/Two-Pointers/" />
+            <category term="Leetcode" scheme="https://chienikao.github.io/tags/Leetcode/" />
             <category term="Medium" scheme="https://chienikao.github.io/tags/Medium/" />
             <category term="Linked List" scheme="https://chienikao.github.io/tags/Linked-List/" />
             <pubDate>Mon, 15 May 2023 11:30:56 +0800</pubDate>
@@ -283,8 +401,8 @@ The function immediately throws an error.&lt;/p&gt;
             <category term="Leetcode" scheme="https://chienikao.github.io/categories/Coding/Leetcode/" />
             <category term="Easy" scheme="https://chienikao.github.io/categories/Coding/Leetcode/Easy/" />
             <category term="Javascript" scheme="https://chienikao.github.io/tags/Javascript/" />
-            <category term="Leetcode" scheme="https://chienikao.github.io/tags/Leetcode/" />
             <category term="Easy" scheme="https://chienikao.github.io/tags/Easy/" />
+            <category term="Leetcode" scheme="https://chienikao.github.io/tags/Leetcode/" />
             <category term="Typescript" scheme="https://chienikao.github.io/tags/Typescript/" />
             <category term="Promise" scheme="https://chienikao.github.io/tags/Promise/" />
             <pubDate>Mon, 15 May 2023 11:29:29 +0800</pubDate>
@@ -463,8 +581,8 @@ fib(5) = 8&lt;br&gt;
             <category term="Leetcode" scheme="https://chienikao.github.io/categories/Coding/Leetcode/" />
             <category term="Easy" scheme="https://chienikao.github.io/categories/Coding/Leetcode/Easy/" />
             <category term="Javascript" scheme="https://chienikao.github.io/tags/Javascript/" />
-            <category term="Leetcode" scheme="https://chienikao.github.io/tags/Leetcode/" />
             <category term="Easy" scheme="https://chienikao.github.io/tags/Easy/" />
+            <category term="Leetcode" scheme="https://chienikao.github.io/tags/Leetcode/" />
             <category term="Typescript" scheme="https://chienikao.github.io/tags/Typescript/" />
             <pubDate>Mon, 15 May 2023 11:08:46 +0800</pubDate>
             <description><![CDATA[ &lt;p&gt;⭐️&lt;/p&gt;
@@ -509,8 +627,8 @@ onceFn(4, 6, 8); // undefined, fn was not called&lt;/p&gt;
             <category term="Medium" scheme="https://chienikao.github.io/categories/Coding/Leetcode/Medium/" />
             <category term="Leetcode" scheme="https://chienikao.github.io/tags/Leetcode/" />
             <category term="Array" scheme="https://chienikao.github.io/tags/Array/" />
-            <category term="Dynamic Programming" scheme="https://chienikao.github.io/tags/Dynamic-Programming/" />
             <category term="Medium" scheme="https://chienikao.github.io/tags/Medium/" />
+            <category term="Dynamic Programming" scheme="https://chienikao.github.io/tags/Dynamic-Programming/" />
             <pubDate>Mon, 15 May 2023 11:05:17 +0800</pubDate>
             <description><![CDATA[ &lt;p&gt;⭐️⭐️&lt;/p&gt;
 &lt;h2 id=&#34;題目敘述&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#題目敘述&#34;&gt;#&lt;/a&gt; &lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly9sZWV0Y29kZS5jb20vcHJvYmxlbXMvc29sdmluZy1xdWVzdGlvbnMtd2l0aC1icmFpbnBvd2VyLw==&#34;&gt;題目敘述&lt;/span&gt;&lt;/h2&gt;
@@ -568,8 +686,8 @@ Total points earned: 2 + 5 = 7. There is no other way to earn 7 or more points.&
             <category term="Medium" scheme="https://chienikao.github.io/categories/Coding/Leetcode/Medium/" />
             <category term="Leetcode" scheme="https://chienikao.github.io/tags/Leetcode/" />
             <category term="Array" scheme="https://chienikao.github.io/tags/Array/" />
-            <category term="Dynamic Programming" scheme="https://chienikao.github.io/tags/Dynamic-Programming/" />
             <category term="Medium" scheme="https://chienikao.github.io/tags/Medium/" />
+            <category term="Dynamic Programming" scheme="https://chienikao.github.io/tags/Dynamic-Programming/" />
             <pubDate>Mon, 15 May 2023 11:01:25 +0800</pubDate>
             <description><![CDATA[ &lt;p&gt;⭐️⭐️&lt;/p&gt;
 &lt;h2 id=&#34;題目敘述&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#題目敘述&#34;&gt;#&lt;/a&gt; &lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly9sZWV0Y29kZS5jb20vcHJvYmxlbXMvdW5jcm9zc2VkLWxpbmVzLw==&#34;&gt;題目敘述&lt;/span&gt;&lt;/h2&gt;
@@ -671,8 +789,8 @@ We cannot draw 3 uncrossed lines, because the line from nums1[1] = 4 to nums2[2]
             <category term="Leetcode" scheme="https://chienikao.github.io/categories/Coding/Leetcode/" />
             <category term="Easy" scheme="https://chienikao.github.io/categories/Coding/Leetcode/Easy/" />
             <category term="Javascript" scheme="https://chienikao.github.io/tags/Javascript/" />
-            <category term="Leetcode" scheme="https://chienikao.github.io/tags/Leetcode/" />
             <category term="Easy" scheme="https://chienikao.github.io/tags/Easy/" />
+            <category term="Leetcode" scheme="https://chienikao.github.io/tags/Leetcode/" />
             <category term="Typescript" scheme="https://chienikao.github.io/tags/Typescript/" />
             <pubDate>Thu, 11 May 2023 09:51:30 +0800</pubDate>
             <description><![CDATA[ &lt;p&gt;⭐️&lt;/p&gt;
@@ -762,8 +880,8 @@ The composition of zero functions is the identity function&lt;/p&gt;
             <category term="Leetcode" scheme="https://chienikao.github.io/categories/Coding/Leetcode/" />
             <category term="Easy" scheme="https://chienikao.github.io/categories/Coding/Leetcode/Easy/" />
             <category term="Javascript" scheme="https://chienikao.github.io/tags/Javascript/" />
-            <category term="Leetcode" scheme="https://chienikao.github.io/tags/Leetcode/" />
             <category term="Easy" scheme="https://chienikao.github.io/tags/Easy/" />
+            <category term="Leetcode" scheme="https://chienikao.github.io/tags/Leetcode/" />
             <category term="Typescript" scheme="https://chienikao.github.io/tags/Typescript/" />
             <pubDate>Wed, 10 May 2023 22:38:35 +0800</pubDate>
             <description><![CDATA[ &lt;p&gt;⭐️&lt;/p&gt;
@@ -867,8 +985,8 @@ init = 25&lt;br&gt;
             <category term="Leetcode" scheme="https://chienikao.github.io/categories/Coding/Leetcode/" />
             <category term="Easy" scheme="https://chienikao.github.io/categories/Coding/Leetcode/Easy/" />
             <category term="Javascript" scheme="https://chienikao.github.io/tags/Javascript/" />
-            <category term="Leetcode" scheme="https://chienikao.github.io/tags/Leetcode/" />
             <category term="Easy" scheme="https://chienikao.github.io/tags/Easy/" />
+            <category term="Leetcode" scheme="https://chienikao.github.io/tags/Leetcode/" />
             <category term="Typescript" scheme="https://chienikao.github.io/tags/Typescript/" />
             <pubDate>Tue, 09 May 2023 10:05:43 +0800</pubDate>
             <description><![CDATA[ &lt;p&gt;⭐️&lt;/p&gt;
@@ -964,50 +1082,6 @@ Falsey values such as 0 should be filtered out&lt;/p&gt;
 &lt;li&gt;&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly9pdGhlbHAuaXRob21lLmNvbS50dy9hcnRpY2xlcy8xMDIyNDQxNw==&#34;&gt;為什麼現在的前端都在用「框架」？&lt;/span&gt;&lt;/li&gt;
 &lt;li&gt;&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly9qaHRudC5ub3Rpb24uc2l0ZS9lODJlNDY0MGY4NGE0OGE5YmQyYjljOGNhMzFmN2UzNA==&#34;&gt;前端框架簡介&lt;/span&gt;&lt;/li&gt;
 &lt;/ul&gt;
- ]]></description>
-        </item>
-        <item>
-            <guid isPermalink="true">https://chienikao.github.io/2023/05/08/Coding/leetcode/Easy/2635%20Apply%20Transform%20Over%20Each%20Element%20in%20Array/</guid>
-            <title>2635. Apply Transform Over Each Element in Array</title>
-            <link>https://chienikao.github.io/2023/05/08/Coding/leetcode/Easy/2635%20Apply%20Transform%20Over%20Each%20Element%20in%20Array/</link>
-            <category term="Coding" scheme="https://chienikao.github.io/categories/Coding/" />
-            <category term="Leetcode" scheme="https://chienikao.github.io/categories/Coding/Leetcode/" />
-            <category term="Easy" scheme="https://chienikao.github.io/categories/Coding/Leetcode/Easy/" />
-            <category term="Javascript" scheme="https://chienikao.github.io/tags/Javascript/" />
-            <category term="Leetcode" scheme="https://chienikao.github.io/tags/Leetcode/" />
-            <category term="Easy" scheme="https://chienikao.github.io/tags/Easy/" />
-            <category term="Typescript" scheme="https://chienikao.github.io/tags/Typescript/" />
-            <pubDate>Mon, 08 May 2023 10:08:30 +0800</pubDate>
-            <description><![CDATA[ &lt;p&gt;⭐️&lt;/p&gt;
-&lt;h2 id=&#34;題目敘述&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#題目敘述&#34;&gt;#&lt;/a&gt; &lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly9sZWV0Y29kZS5jb20vcHJvYmxlbXMvYXBwbHktdHJhbnNmb3JtLW92ZXItZWFjaC1lbGVtZW50LWluLWFycmF5Lz91dG1fY2FtcGFpZ249UG9zdEQ0JmFtcDt1dG1fbWVkaXVtPVBvc3QmYW1wO3V0bV9zb3VyY2U9UG9zdCZhbXA7Z2lvX2xpbmtfaWQ9bm9xYk5Pdjk=&#34;&gt;題目敘述&lt;/span&gt;&lt;/h2&gt;
-&lt;p&gt;Given an integer array  &lt;code&gt;arr&lt;/code&gt;  and a mapping function  &lt;code&gt;fn&lt;/code&gt; , return a new array with a transformation applied to each element.&lt;/p&gt;
-&lt;p&gt;The returned array should be created such that  &lt;code&gt;returnedArray[i] = fn(arr[i], i)&lt;/code&gt; .&lt;/p&gt;
-&lt;p&gt;Please solve it without the built-in  &lt;code&gt;Array.map&lt;/code&gt;  method.&lt;/p&gt;
-&lt;h3 id=&#34;example-1&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#example-1&#34;&gt;#&lt;/a&gt; Example 1&lt;/h3&gt;
-&lt;blockquote&gt;
-&lt;p&gt;&lt;strong&gt;Input:&lt;/strong&gt; arr = [1,2,3], fn = function plusone(n) { return n + 1; }&lt;br&gt;
-&lt;strong&gt;Output:&lt;/strong&gt; [2,3,4]&lt;br&gt;
-&lt;strong&gt;Explanation:&lt;/strong&gt;&lt;br&gt;
-const newArray = map(arr, plusone); // [2,3,4]&lt;br&gt;
-The function increases each value in the array by one.&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h3 id=&#34;example-2&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#example-2&#34;&gt;#&lt;/a&gt; Example 2&lt;/h3&gt;
-&lt;blockquote&gt;
-&lt;p&gt;&lt;strong&gt;Input:&lt;/strong&gt; arr = [1,2,3], fn = function plusI(n, i) { return n + i; }&lt;br&gt;
-&lt;strong&gt;Output:&lt;/strong&gt; [1,3,5]&lt;br&gt;
-&lt;strong&gt;Explanation:&lt;/strong&gt; The function increases each value by the index it resides in.&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h3 id=&#34;example-3&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#example-3&#34;&gt;#&lt;/a&gt; Example 3&lt;/h3&gt;
-&lt;blockquote&gt;
-&lt;p&gt;&lt;strong&gt;Input:&lt;/strong&gt; arr = [10,20,30], fn = function constant() { return 42; }&lt;br&gt;
-&lt;strong&gt;Output:&lt;/strong&gt; [42,42,42]&lt;br&gt;
-&lt;strong&gt;Explanation:&lt;/strong&gt; The function always returns 42.&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h2 id=&#34;solution&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#solution&#34;&gt;#&lt;/a&gt; Solution&lt;/h2&gt;
-&lt;div class=&#34;tab&#34; data-id=&#34;code&#34; data-title=&#34;Javascript&#34;&gt;
-&lt;figure class=&#34;highlight javascript&#34;&gt;&lt;figcaption data-lang=&#34;javascript&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token comment&#34;&gt;/**&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt; * @param &amp;#123;number[]&amp;#125; arr&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;3&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt; * @param &amp;#123;Function&amp;#125; fn&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;4&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt; * @return &amp;#123;number[]&amp;#125;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;5&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt; */&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;6&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token keyword&#34;&gt;var&lt;/span&gt; &lt;span class=&#34;token function-variable function&#34;&gt;map&lt;/span&gt; &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;token keyword&#34;&gt;function&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token parameter&#34;&gt;arr&lt;span class=&#34;token punctuation&#34;&gt;,&lt;/span&gt; fn&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;&amp;#123;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;7&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token keyword&#34;&gt;return&lt;/span&gt; arr&lt;span class=&#34;token punctuation&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;token function&#34;&gt;map&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token parameter&#34;&gt;val&lt;span class=&#34;token punctuation&#34;&gt;,&lt;/span&gt; idx&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;token operator&#34;&gt;=&gt;&lt;/span&gt; val &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;token function&#34;&gt;fn&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;val&lt;span class=&#34;token punctuation&#34;&gt;,&lt;/span&gt; idx&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;8&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token punctuation&#34;&gt;&amp;#125;&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/div&gt;
-&lt;div class=&#34;tab&#34; data-id=&#34;code&#34; data-title=&#34;Typescript&#34;&gt;
-&lt;figure class=&#34;highlight typescript&#34;&gt;&lt;figcaption data-lang=&#34;typescript&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token keyword&#34;&gt;function&lt;/span&gt; &lt;span class=&#34;token function&#34;&gt;map&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;arr&lt;span class=&#34;token operator&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;token builtin&#34;&gt;number&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;token function-variable function&#34;&gt;fn&lt;/span&gt;&lt;span class=&#34;token operator&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;n&lt;span class=&#34;token operator&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;token builtin&#34;&gt;number&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;,&lt;/span&gt; i&lt;span class=&#34;token operator&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;token builtin&#34;&gt;number&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;token operator&#34;&gt;=&gt;&lt;/span&gt; &lt;span class=&#34;token builtin&#34;&gt;number&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;token operator&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;token builtin&#34;&gt;number&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;&amp;#123;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token keyword&#34;&gt;return&lt;/span&gt; arr&lt;span class=&#34;token punctuation&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;token function&#34;&gt;map&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;val&lt;span class=&#34;token operator&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;token builtin&#34;&gt;number&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;,&lt;/span&gt; idx&lt;span class=&#34;token operator&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;token builtin&#34;&gt;number&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;token operator&#34;&gt;=&gt;&lt;/span&gt; val &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;token function&#34;&gt;fn&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;val&lt;span class=&#34;token punctuation&#34;&gt;,&lt;/span&gt; idx&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;3&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token punctuation&#34;&gt;&amp;#125;&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/div&gt;
  ]]></description>
         </item>
     </channel>
