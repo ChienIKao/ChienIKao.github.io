@@ -10,10 +10,600 @@
         </author>
         <description>This is a note blog</description>
         <language>en</language>
-        <pubDate>Tue, 23 May 2023 14:33:10 +0800</pubDate>
-        <lastBuildDate>Tue, 23 May 2023 14:33:10 +0800</lastBuildDate>
+        <pubDate>Tue, 30 May 2023 11:24:45 +0800</pubDate>
+        <lastBuildDate>Tue, 30 May 2023 11:24:45 +0800</lastBuildDate>
         <category term="筆記" />
         <category term=" note" />
+        <item>
+            <guid isPermalink="true">https://chienikao.github.io/2023/05/30/SystemSoftware/Ch04_Macro_Processors/</guid>
+            <title>Ch04 - Macro Processors</title>
+            <link>https://chienikao.github.io/2023/05/30/SystemSoftware/Ch04_Macro_Processors/</link>
+            <category term="SystemSoftware" scheme="https://chienikao.github.io/categories/SystemSoftware/" />
+            <category term="System Software" scheme="https://chienikao.github.io/tags/System-Software/" />
+            <category term="Assembler" scheme="https://chienikao.github.io/tags/Assembler/" />
+            <pubDate>Tue, 30 May 2023 11:24:45 +0800</pubDate>
+            <description><![CDATA[ &lt;h2 id=&#34;introduction&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#introduction&#34;&gt;#&lt;/a&gt; Introduction&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;A &lt;strong&gt;macro&lt;/strong&gt; represent a commonly used group of statements in the source programming language.&lt;/li&gt;
+&lt;li&gt;The macro processor replaces each macro instruction with the corresponding group of source language statements. This is called &lt;strong&gt;expanding&lt;/strong&gt; the macros.&lt;/li&gt;
+&lt;li&gt;When to use macro?
+&lt;ul&gt;
+&lt;li&gt;Suppose that it is necessary to save the contents of all registers before calling a subprogram.&lt;/li&gt;
+&lt;li&gt;On SIC/XE, this would require a sequence of seven instructions ( &lt;code&gt;STA&lt;/code&gt; ,  &lt;code&gt;STB&lt;/code&gt; , etc…).&lt;/li&gt;
+&lt;li&gt;Using a macro instruction, the programmer could simply write one statement like SAVEREGS.&lt;/li&gt;
+&lt;li&gt;A similar macro instruction (perhaps named LOADREGS) could be used to reload the register contents after returning from the subprogram.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;macro-definition-and-expansion&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#macro-definition-and-expansion&#34;&gt;#&lt;/a&gt; Macro Definition and Expansion&lt;/h2&gt;
+&lt;details&gt;&lt;summary&gt;Figure 4.1 Each parameter begins with the character `&amp;`&lt;/summary&gt;&lt;div&gt;
+&lt;pre&gt;&lt;code&gt;Line 		Source statement 	
+		 
+5 		COPY 	START 	0 		COPY FILE FROM 	INPUT TO OUTPUT 	 
+10 		RDBUFF 	MACRO 	&amp;amp;INDEV,&amp;amp;BUFADR,&amp;amp;RECLTH 			 
+15 		.				 
+20 		.	MACRO TO READ RECORD INTO BUFFER 			 
+25 		.				 
+30 			CLEAR 	X 		CLEAR LOOP COUNTER 	 
+35 			CLEAR 	A 	 
+40 			CLEAR 	S 	 
+45 		       +LDT    #4096 		SET MAXIMUM RECORD LENGTH 	 
+50 			TD     =X&#39;&amp;amp;INDEV&#39; 	TEST INPUT DEVICE 	 
+55 			JEQ 	*-3 		LOOP UNTIL READY 	 
+60 			RD     =X&#39;&amp;amp;INDEV&#39; 	READ CHARACTER INTO REG A 	 
+65 			COMPR 	A,S 		TEST FOR END OF RECORD 	 
+70 			JEQ 	*+11 		EXIT LOOP IF EOR 	 
+75 			STCH 	&amp;amp;BUFADR, X 	STORE CHARACTER IN BUFFER 	 
+80 			TIXR 	T 		LOOP UNLESS MAXIMUM LENGTH 	 
+85 			JLT 	*-19 		  HAS BEEN REACHED 	 
+90 			STX 	&amp;amp;RECLTH 	SAVE RECORD LENGTH 	 
+95 			MEND 	 
+100 		WRBUFF 	MACRO 	&amp;amp;OUTDEV , &amp;amp;BUFADR, &amp;amp;RECLTH 	 
+105 		.		 
+110 		.	MACRO TO WRITE RECORD FROM BUFFER 	 
+115 		.		 
+120 			CLEAR 	X CLEAR LOOP COUNTER 	 
+125 			LDT 	&amp;amp;RECLTH 	 
+130 			LDCH 	&amp;amp;BUFADR,X 	GET CHARACTER FROM BUFFER 	 
+135 			TD     =X&#39;&amp;amp;OUTDEV&#39; 	TEST OUTPUT DEVICE 	 
+140 			JEQ 	*-3 		LOOP UNTIL READY 	 
+145 			WD     =X&#39;&amp;amp;OUTDEV&#39; 	WRITE CHARACTER 	 
+150 			TIXR 	T 		LOOP UNTIL ALL CHARACTERS 	 
+155 			JLT 	*-14 		  HAVE BEEN WRITTEN 	 
+160 			MEND 	 
+165 		.	 
+170 		.	MAIN 	PROGRAM 	 
+175 		.	 
+180 		FIRST 	STL 	RETADR 		SAVE RETURN ADDRESS 	 
+190 		CLOOP 	RDBUFF  F1,BUFFER,LENGTH  READ RECORD INTO BUFFER 	 
+195 			LDA 	LENGTH 		TEST FOR END OF FILE 	 
+200 			COMP   #0 	 
+205 			JEQ 	ENDFIL 		EXIT IF EOF FOUND 	 
+210 			WRBUFF 	05,BUFFER,LENGTH  WRITE OUTPUT RECORD 	 
+215 			J 	CLOOP 		LOOP 	 
+220 		ENDFIL 	WRBUFF 	05,EOF,THREE 	INSERT EOF MARKER 	 
+225 			J      @RETADR 		 
+230 		EOF 	BYTE 	C&#39;EOF &#39; 		 
+235 		THREE 	WORD 	3 		 
+240 		RETADR 	RESW 	1 		 
+245 		LENGTH 	RESW 	1 		LENGTH OF RECORD 	 
+250 		BUFFER 	RESB 	4096 		4096-BYTE BUFFER AREA 	 
+255 			END 	FIRST 	
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;&lt;/details&gt;
+&lt;details&gt;&lt;summary&gt;Figure 4.2 The arguments and parameters are associated with one another according to their positions&lt;/summary&gt;&lt;div&gt;
+&lt;pre&gt;&lt;code&gt;Line 		Source statement
+
+5		COPY	START 	0			COPY FILE FROM INPUT TO OUTPUT
+180		FIRST	STL 	RETADR			SAVE RETURN ADDRESS
+190		.CLOOP	RDBUFF 	Fl,BUFFER,LENGTH	READ RECORD INTO BUFFER
+190a		CLOOP	CLEAR 	X			CLEAR LOOP COUNTER
+190b			CLEAR 	A
+190c			CLEAR 	S
+190d		       +LDT    #4096			SET MAXIMUM RECORD LENGTH
+190e			TD     =X&#39;Fl&#39;			TEST INPUT DEVICE
+190f			JEQ 	*-3			LOOP UNTIL READY
+190g			RD     =X&#39;Fl&#39;			READ CHARACTER INTO REG A
+190h			COMPR   A,S			TEST FOR END OF RECORD
+190i			JEQ     *+11			EXIT LOOP IF EOR
+190j			STCH 	BUFFER,X		STORE CHARACTER IN BUFFER
+190k			TIXR 	T			LOOP UNLESS MAXIMUM LENGTH
+190l			JLT 	*-19			  HAS BEEN REACHED
+190m			STX 	LENGTH			SAVE RECORD LENGTH
+195			LDA 	LENGTH			TEST FOR END OF FILE
+200			COMP   #0
+205			JEQ 	ENDFIL			EXIT IF EOF FOUND
+210			WRBUFF  05,BUFFER,LENGTH	WRITE OUTPUT RECORD
+210a			CLEAR 	X			CLEAR LOOP COUNTER
+210b			LDT	LENGTH
+210c			LDCH 	BUFFER, X		GET CHARACTER FROM BUFFER
+210d			TD     =X&#39;05&#39;			TEST OUTPUT DEVICE
+210e			JEQ 	*-3			LOOP UNTIL READY
+210f			WD     =X&#39;05&#39;			WRITE CHARACTER
+210g			TIXR 	T			LOOP UNTIL ALL CHARACTERS
+210h			JLT     *-14			  HAVE BEEN WRITTEN
+215			J 	CLOOP			LOOP
+220		.ENDFIL	WRBUFF  05,EOF,THREE		INSERT EOF MARKER
+220a		ENDFIL	CLEAR 	X			CLEAR LOOP COUNTER
+220b			LDT 	THREE
+220c			LDCH 	EOF, X			GET CHARACTER FROM BUFFER
+220d			TD     =X&#39;05&#39;			TEST OUTPUT DEVICE
+220e			JEQ 	*-3			LOOP UNTIL READY
+220f			WD     =X&#39;05&#39;			WRITE CHARACTER
+220g			TIXR 	T			LOOP UNTIL ALL CHARACTERS
+220h			JLT     *-14			  HAVE BEEN WRITTEN
+225			J      @RETADR
+230		EOF     BYTE    C&#39;EOF&#39;
+235		THREE	WORD	3
+240		RETADR	RESW	1
+245		LENGTH	RESW	1			LENGTH OF RECORD
+250		BUFFER	RESB	4096			4096-BYTE BUFFER AREA
+255			END	FIRST
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;&lt;/details&gt;
+&lt;h2 id=&#34;macro-processor-algorithm-and-data-structures&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#macro-processor-algorithm-and-data-structures&#34;&gt;#&lt;/a&gt; Macro Processor Algorithm and Data Structures&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;It is easy to design a two-pass macro processor in which all macro definitions are processed during the first pass, and all macro invocation statements are expanded during the second pass.
+&lt;ul&gt;
+&lt;li&gt;However, such a two-pass macro processor would not allow the body of one macro instruction to contain definitions of other macros.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;details&gt;&lt;summary&gt;Figure 4.3 Definitions of macros by other macros can be useful in certain cases&lt;/summary&gt;&lt;div&gt;
+&lt;pre&gt;&lt;code&gt;1 		MACROS 	MACRO 		&amp;#123;Defines SIC standard version macros&amp;#125; 	 
+2 		RDBUFF 	MACRO 		&amp;amp;INDEV,&amp;amp;BUFADR,&amp;amp;RECLTH 
+	 		.
+			.		&amp;#123;SIC  standard version&amp;#125; 
+			.	 
+3 			MEND 		&amp;#123;End of RDBUFF&amp;#125; 	 
+4 		WRBUFF 	MACRO 		&amp;amp;OUTDEV,&amp;amp;BUFADR,&amp;amp;RECLTH 
+			.	 
+			.		&amp;#123;SIC  standard version&amp;#125; 
+			.	 
+5 			MEND 		&amp;#123;End of WRBUFF&amp;#125; 
+			.
+			.
+			.	 
+6 			MEND 		&amp;#123;End of MACROS&amp;#125; 
+	 
+					(a) 	 
+
+1 		MACROX 	MACRO 		&amp;#123;Defines SIC/XE macros&amp;#125; 	 
+2 		RDBUFF 	MACRO 		&amp;amp;INDEV,&amp;amp;BUFADR,&amp;amp;RECLTH 
+			.	 
+			.		&amp;#123;SIC/XE version&amp;#125; 
+			.	 
+3 			MEND 		&amp;#123;End of RDBUFF&amp;#125; 	 
+4 		WRBUFF 	MACRO 		&amp;amp;OUTDEV,&amp;amp;BUFADR,&amp;amp;RECLTH 
+			.	 
+			.		&amp;#123;SIC/XE version&amp;#125; 	
+			. 
+5 			MEND 		&amp;#123;End of WRBUFF&amp;#125;
+			.
+			.
+			. 	 
+6 			MEND 		&amp;#123;End of MACROX&amp;#125; 	 
+
+					(b)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;&lt;/details&gt;
+&lt;ul&gt;
+&lt;li&gt;The same program could run on either a standard SIC machine or a SIC/XE machine.&lt;/li&gt;
+&lt;li&gt;The only change required would be the invocation of either MACROS or MACROX&lt;/li&gt;
+&lt;li&gt;Defining MACROS or MACROX does not define RDBUFF and the other macro instructions. These definitions are processed only when an invocation of MACROS or MACROX is expanded&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;data-stucture&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#data-stucture&#34;&gt;#&lt;/a&gt; Data Stucture&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Definition table (DEFTAB)
+&lt;ul&gt;
+&lt;li&gt;Reference to the macro instruction parameters are converted to a positional notation for efficiency in substituting arguments&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Name table (NAMTAB), serving as an index to DEFTAB&lt;/li&gt;
+&lt;li&gt;Argument table (ARGTAB)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img data-src=&#34;https://imgur.com/iow0vUO.png&#34; alt=&#34;Figure 4.4&#34;&gt;&lt;/p&gt;
+&lt;h3 id=&#34;algorithm&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#algorithm&#34;&gt;#&lt;/a&gt; Algorithm&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Algorithm for a one-pass macro processor
+&lt;ul&gt;
+&lt;li&gt;The handling of macro definitions within macros&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;figure class=&#34;highlight vhdl&#34;&gt;&lt;figcaption data-lang=&#34;VHDL&#34;&gt;&lt;span&gt;Figure 4.5&lt;/span&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token keyword&#34;&gt;procedure&lt;/span&gt; DEFINE 		 &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;	&lt;span class=&#34;token keyword&#34;&gt;begin&lt;/span&gt; 		 &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;3&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;		enter macro name into NAMTAB 	 &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;4&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;		enter macro prototype into DEFTAB 	 &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;5&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;		LEVEL &lt;span class=&#34;token operator&#34;&gt;:=&lt;/span&gt; &lt;span class=&#34;token number&#34;&gt;1&lt;/span&gt; 		 &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;6&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;		&lt;span class=&#34;token keyword&#34;&gt;while&lt;/span&gt; LEVEL &lt;span class=&#34;token operator&#34;&gt;&gt;&lt;/span&gt; &lt;span class=&#34;token number&#34;&gt;0&lt;/span&gt; do 	 &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;7&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;			&lt;span class=&#34;token keyword&#34;&gt;begin&lt;/span&gt; 	 &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;8&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;				GETLINE 	 &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;9&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;				&lt;span class=&#34;token keyword&#34;&gt;if&lt;/span&gt; this &lt;span class=&#34;token keyword&#34;&gt;is&lt;/span&gt; &lt;span class=&#34;token operator&#34;&gt;not&lt;/span&gt; a comment line &lt;span class=&#34;token keyword&#34;&gt;then&lt;/span&gt; 	 &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;10&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;					&lt;span class=&#34;token keyword&#34;&gt;begin&lt;/span&gt; 	 &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;11&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;						substitute positional notation &lt;span class=&#34;token keyword&#34;&gt;for&lt;/span&gt; parameters 	 &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;12&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;						enter line into DEFTAB 	 &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;13&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;						&lt;span class=&#34;token keyword&#34;&gt;if&lt;/span&gt; OPCODE &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; &#39;MACRO&#39; &lt;span class=&#34;token keyword&#34;&gt;then&lt;/span&gt; 	 &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;14&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;							LEVEL &lt;span class=&#34;token operator&#34;&gt;:=&lt;/span&gt; LEVEL &lt;span class=&#34;token operator&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;token number&#34;&gt;1&lt;/span&gt; 	 &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;15&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;						&lt;span class=&#34;token keyword&#34;&gt;else&lt;/span&gt; &lt;span class=&#34;token keyword&#34;&gt;if&lt;/span&gt; OPCODE &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; &#39;MEND&#39; &lt;span class=&#34;token keyword&#34;&gt;then&lt;/span&gt; 	 &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;16&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;							LEVEL &lt;span class=&#34;token operator&#34;&gt;:=&lt;/span&gt; LEVEL &lt;span class=&#34;token operator&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;token number&#34;&gt;1&lt;/span&gt; 	 &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;17&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;					&lt;span class=&#34;token keyword&#34;&gt;end&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;&amp;#123;&lt;/span&gt;&lt;span class=&#34;token keyword&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;token operator&#34;&gt;not&lt;/span&gt; comment&lt;span class=&#34;token punctuation&#34;&gt;&amp;#125;&lt;/span&gt; 	 &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;18&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;			&lt;span class=&#34;token keyword&#34;&gt;end&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;&amp;#123;&lt;/span&gt;&lt;span class=&#34;token keyword&#34;&gt;while&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;&amp;#125;&lt;/span&gt; 	 &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;19&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;		store &lt;span class=&#34;token keyword&#34;&gt;in&lt;/span&gt; NAMTAB pointers &lt;span class=&#34;token keyword&#34;&gt;to&lt;/span&gt; beginning &lt;span class=&#34;token operator&#34;&gt;and&lt;/span&gt; &lt;span class=&#34;token keyword&#34;&gt;end&lt;/span&gt; &lt;span class=&#34;token keyword&#34;&gt;of&lt;/span&gt; definition 	 &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;20&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;	&lt;span class=&#34;token keyword&#34;&gt;end&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;&amp;#123;&lt;/span&gt;DEFINE&lt;span class=&#34;token punctuation&#34;&gt;&amp;#125;&lt;/span&gt; &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;21&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;22&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;	 &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;23&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token keyword&#34;&gt;procedure&lt;/span&gt; EXPAND 	 &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;24&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;	&lt;span class=&#34;token keyword&#34;&gt;begin&lt;/span&gt; 	 &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;25&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;		EXPANDING &lt;span class=&#34;token operator&#34;&gt;:=&lt;/span&gt; &lt;span class=&#34;token boolean&#34;&gt;TRUE&lt;/span&gt; 	 &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;26&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;		get first line &lt;span class=&#34;token keyword&#34;&gt;of&lt;/span&gt; macro definition &lt;span class=&#34;token punctuation&#34;&gt;&amp;#123;&lt;/span&gt;prototype&lt;span class=&#34;token punctuation&#34;&gt;&amp;#125;&lt;/span&gt; from DEFTAB 	 &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;27&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;		set up arguments from macro invocation &lt;span class=&#34;token keyword&#34;&gt;in&lt;/span&gt; ARGTAB 	 &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;28&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;		write macro invocation &lt;span class=&#34;token keyword&#34;&gt;to&lt;/span&gt; expanded &lt;span class=&#34;token keyword&#34;&gt;file&lt;/span&gt; as a comment 	 &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;29&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;		&lt;span class=&#34;token keyword&#34;&gt;while&lt;/span&gt; &lt;span class=&#34;token operator&#34;&gt;not&lt;/span&gt; &lt;span class=&#34;token keyword&#34;&gt;end&lt;/span&gt; &lt;span class=&#34;token keyword&#34;&gt;of&lt;/span&gt; macro definition do 	 &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;30&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;			&lt;span class=&#34;token keyword&#34;&gt;begin&lt;/span&gt; 	 &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;31&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;				GETLINE 	 &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;32&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;				PROCESSLINE 	 &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;33&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;			&lt;span class=&#34;token keyword&#34;&gt;end&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;&amp;#123;&lt;/span&gt;&lt;span class=&#34;token keyword&#34;&gt;while&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;&amp;#125;&lt;/span&gt; 	 &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;34&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;		EXPANDING &lt;span class=&#34;token operator&#34;&gt;:=&lt;/span&gt; &lt;span class=&#34;token boolean&#34;&gt;FALSE&lt;/span&gt; 	 &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;35&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;	&lt;span class=&#34;token keyword&#34;&gt;end&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;&amp;#123;&lt;/span&gt;EXPAND&lt;span class=&#34;token punctuation&#34;&gt;&amp;#125;&lt;/span&gt; &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;36&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;37&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;	 &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;38&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token keyword&#34;&gt;procedure&lt;/span&gt; GETLINE 	 &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;39&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;	&lt;span class=&#34;token keyword&#34;&gt;begin&lt;/span&gt; 	 &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;40&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;		&lt;span class=&#34;token keyword&#34;&gt;if&lt;/span&gt; EXPANDING &lt;span class=&#34;token keyword&#34;&gt;then&lt;/span&gt; 	 &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;41&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;			&lt;span class=&#34;token keyword&#34;&gt;begin&lt;/span&gt; 	 &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;42&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;				get &lt;span class=&#34;token keyword&#34;&gt;next&lt;/span&gt; line &lt;span class=&#34;token keyword&#34;&gt;of&lt;/span&gt; macro definition from DEFTAB 	 &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;43&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;				substitute arguments from ARGTAB &lt;span class=&#34;token keyword&#34;&gt;for&lt;/span&gt; positional notation 	 &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;44&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;			&lt;span class=&#34;token keyword&#34;&gt;end&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;&amp;#123;&lt;/span&gt;&lt;span class=&#34;token keyword&#34;&gt;if&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;&amp;#125;&lt;/span&gt; 	 &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;45&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;		&lt;span class=&#34;token keyword&#34;&gt;else&lt;/span&gt; 		 &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;46&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;			read &lt;span class=&#34;token keyword&#34;&gt;next&lt;/span&gt; line from input &lt;span class=&#34;token keyword&#34;&gt;file&lt;/span&gt; 	 &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;47&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;	&lt;span class=&#34;token keyword&#34;&gt;end&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;&amp;#123;&lt;/span&gt;GETLINE&lt;span class=&#34;token punctuation&#34;&gt;&amp;#125;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;ul&gt;
+&lt;li&gt;Most macro processors allow the definitions of commonly used macro instructions to appear in a standard system library, rather than in the source program.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;concatenation-of-macro-parameters&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#concatenation-of-macro-parameters&#34;&gt;#&lt;/a&gt; Concatenation of Macro Parameters&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Suppose that a program contains one series of variables named by the symbols XA1, XA2, XA3…, another series named by XB1, XB2, XB3… If similar processing is to be performed on each series of variables, the programmer might want to incorporate this processing into a macro instruction.&lt;/li&gt;
+&lt;li&gt;The parameter to such a macro instructin could specify the series of variables to be operated on. The macro processor would use this parameter to construct the symbols required in the macro expansion.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;details&gt;&lt;summary&gt;Figure 4.6&lt;/summary&gt;&lt;div&gt;
+&lt;pre&gt;&lt;code&gt;1 	SUM 	MACRO	&amp;amp;ID
+2 		LDA	X&amp;amp;ID--&amp;gt;1
+3 		ADD	X&amp;amp;ID--&amp;gt;2
+4		ADD	X&amp;amp;ID--&amp;gt;3
+5 	   	STA 	X&amp;amp;ID--&amp;gt;S	 	 
+6 		MEND 
+		 
+		(a) 		 
+
+		SUM 	A 	 
+		
+		  |
+		  |
+		 \|/
+
+		LDA 	XAl 	 
+		ADD 	XA2
+		ADD 	XA3
+		STA 	XAS 
+	 
+	        (b)
+ 		 
+		SUM 	BETA 	 
+		
+ 		  |
+		  |
+		 \|/ 
+		
+		LDA 	XBETAl
+		ADD 	XBETA2
+		ADD 	XBETA3
+		STA 	XBETAS 	
+ 
+		(c) 
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;&lt;/details&gt;
+&lt;h2 id=&#34;generation-of-unique-labels&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#generation-of-unique-labels&#34;&gt;#&lt;/a&gt; Generation of Unique Labels&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;It is general not possible for the body of a macro instruction to contain labels of the usual kind. This leads to the use of relative addressing at the source statement level.&lt;/li&gt;
+&lt;li&gt;However, the use of statements like  &lt;code&gt;JLT *-14&lt;/code&gt;  is generally considered to be a poor programming practice&lt;/li&gt;
+&lt;/ul&gt;
+&lt;details&gt;&lt;summary&gt;Figure 4.7 illustrates one technique for generating unique labels within a macro expansion&lt;/summary&gt;&lt;div&gt;
+&lt;p&gt;The character  &lt;code&gt;$&lt;/code&gt;  will be replaced by $XX, where XX is a two-character alphanumeric counter of the number of macro instructions expanded, AA, AB, AC, etc.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;25 	RDBUFF 		MACRO 	&amp;amp;INDEV,&amp;amp;BUFADR,&amp;amp;RECLTH 	 
+30 			CLEAR 	X 		CLEAR LOOP COUNTER 	 
+35 			CLEAR 	A 		 
+40 			CLEAR 	S 		 
+45 	       	       +LDT    #4096 		SET MAXIMUM RECORD LENGTH 	 
+50 	$LOOP 		TD     =X&#39;&amp;amp;INDEV&#39; 	TEST INPUT DEVICE 	 
+55 			JEQ 	$LOOP 		LOOP UNTIL READY 	 
+60 			RD     =X&#39;&amp;amp;INDEV&#39; 	READ CHARACTER INTO REG A 	 
+65 			COMPR 	A,S 		TEST FOR END OF RECORD 	 
+70 			JEQ 	$EXIT 		EXIT LOOP IF EOR 	 
+75 			STCH 	&amp;amp;BUFADR,X 	STORE CHARACTER IN BUFFER 	 
+80 			TIXR 	T 		LOOP UNLESS MAXIMUM LENGTH 	 
+85 			JLT 	$LOOP 		  HAS BEEN REACHED 	 
+90 	$EXIT 		STX 	&amp;amp;RECLTH		SAVE RECORD LENGTH 	 
+95 			MEND 	
+		 
+				(a) 	
+	 
+			RDBUFF 	Fl,BUFFER,LENGTH 
+
+		 
+30 			CLEAR 	X 		CLEAR LOOP COUNTER 		 
+35 			CLEAR 	A 			 
+40 			CLEAR 	S 			 
+45 	      	       +LDT    #4096 		SET MAXIMUM RECORD LENGTH 	 
+50 	$AALOOP 	TD     =X&#39;Fl&#39; 		TEST INPUT DEVICE 		 
+55 			JEQ 	$AALOOP 	LOOP UNTIL READY 	 
+60 			RD     =X&#39;Fl&#39; 		READ CHARACTER INTO REG A 	 
+65 			COMPR 	A,S 		TEST FOR END OF RECORD 	 
+70 			JEQ 	$AAEXIT 	EXIT LOOP IF EOR 	 
+75 			STCH 	BUFFER,X 	STORE CHARACTER IN BUFFER 	 
+80 			TIXR 	T 		LOOP UNLESS MAXIMUM LENGTH 	 
+85 			JLT 	$AALOOP 	  HAS BEEN REACHED 	 
+90 	$AAEXIT 	STX 	LENGTH 		SAVE REJORD LENGTH 
+	 
+				(b)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;&lt;/details&gt;
+&lt;h2 id=&#34;conditional-macro-expansion&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#conditional-macro-expansion&#34;&gt;#&lt;/a&gt; Conditional Macro Expansion&lt;/h2&gt;
+&lt;details&gt;&lt;summary&gt;Figure 4.8&lt;/summary&gt;&lt;div&gt;
+&lt;pre&gt;&lt;code&gt;25 	RDBUFF 		MACRO 	&amp;amp;INDEV, &amp;amp;BUFADR , &amp;amp;RECLTH ,&amp;amp;EOR ,&amp;amp;MAXLTH 	 
+26 			IF 	(&amp;amp;EOR NE &amp;quot;) 	 
+27 	&amp;amp;EORCK 		SET 	1 	 
+28 			ENDIF 		 
+30 			CLEAR 	X 		CLEAR LOOP COUNTER 	 
+35 			CLEAR 	A 	 
+38 			IF 	(&amp;amp;EORCK EQ 1 ) 	 
+40 			LDCH   =X&#39;&amp;amp;EOR&#39; 	SET EOR CHARACTER 	 
+42 			RMO 	A,S 	 
+43 			ENDIF 		 
+44 			IF 	(&amp;amp;MAXLTH EQ &#39;&#39;) 	 
+45 		       +LDT    #4096 		SET MAX LENGTH = 4096 	 
+46 			ELSE 		 
+47 		       +LDT    #&amp;amp;MAXLTH 	SET MAXIMUM RECORD LENGTH 	 
+48 			ENDIF 		 
+50 	$LOOP 		TD     =X&#39;&amp;amp;INDEV&#39; 	TEST INPUT DEVICE 	 
+55 			JEQ 	$LOOP LOOP UNTIL READY 	 
+60 			RD     =X&#39;&amp;amp;INDEV&#39; 	READ CHARACTER INTO REG A 	 
+63 			IF 	(&amp;amp;EORCK EQ 1 ) 		 
+65 			COMPR 	A,S 		TEST FOR END OF RECORD 	 
+70 			JEQ 	$EXIT 		EXIT LOOP IF EOR 	 
+73 			ENDIF 			 
+75 			STCH 	&amp;amp;BUFADR ,X 	STORE CHARACTER IN BUFFER 	 
+80 			TIXR 	T 		LOOP UNLESS MAXIMUM LENGTH 	 
+85 			JLT 	$LOOP 		  HAS BEEN REACHED 	 
+90 	$EXIT 		STX 	&amp;amp;RECLTH 	SAVE RECORD LENGTH 	 
+95 			MEND 
+		 
+				(a) 	 
+
+			RDBUFF 	F3,BUF,RECL,04,2048 
+	 
+30 			CLEAR 	X 		CLEAR LOOP COUNTER 	 
+35 			CLEAR 	A 			 
+40 			LOCH   =X&#39;04&#39; 		SET EOR CHARACTER 	 
+42 			RMO 	A,S 			 
+47 		       +LDT    #2048 		SET MAXIMUM RECORD LENGTH 	 
+50 	$AALOOP 	TD     =X&#39;F3&#39; 		TEST INPUT DEVICE 	 
+55 			JEQ 	$AALOOP 	LOOP UNTIL READY 	 
+60 			RD     =X&#39;F3&#39; 		READ CHARACTER INTO REG A 	 
+65 			COMPR 	A,S 		TEST FOR END OF RECORD 	 
+70 			JEQ 	$AAEXIT 	EXIT LOOP IF EOR 	 
+75 			STCH 	BUF,X 		STORE CHARACTER IN BUFFER 	 
+80 			TIXR 	T 		LOOP UNLESS MAXIMUM LENGTH 	 
+85 			JLT 	$AALOOP 	  HAS BEEN REACHED 	 
+90 	$AAEXIT 	STX 	RECL 		SAVE RECORD LENGTH 	 
+				
+				(b) 
+			?RDBUFF 	OE,BUFFER,LENGTH,,80 
+
+	 
+30 			CLEAR 	X 		CLEAR LOOP COUNTER 	 
+35 			CLEAR 	A 		 
+47 		       +LDT    #80 		SET MAXIMUM RECORD LENGTH 	 
+50 	$ABLOOP 	TD     =X&#39;OE&#39; 		TEST INPUT DEVICE 	 
+55 			JEQ 	$ABLOOP 	LOOP UNTIL READY 	 
+60 			RD     =X&#39;OE&#39; 		READ CHARACTER INTO REG A 	 
+75 			STCH 	BUFFER,X 	STORE CHARACTER IN BUFFER 	 
+80 			TIXR 	T 		LOOP UNLESS MAXIMUM LENGTH 	 
+87 			JLT 	$ABLOOP 	  HAS BEEN REACHED 	 
+90 	$ABEXIT 	STX 	LENGTH 		SAVE RECORD LENGTH
+ 	 
+				(c) 	
+	 
+			RDBUFF 	Fl,BUFF,RLENG,04
+ 		 
+30 			CLEAR 	X 		CLEAR LOOP COUNTER 	 
+35 			CLEAR 	A 		 
+40 			LDCH   =X&#39;04&#39; 		SET EOR CHARACTER 	 
+42 			RMO 	A,S 		 
+45 		       +LDT    #4096 		SET MAX LENGTH = 4096 	 
+50 	$ACLOOP 	TD     =X&#39;Fl&#39; 		TEST INPUT DEVICE 	 
+55 			JEQ 	$ACLOOP 	LOOP UNTIL READY 	 
+60 			RD     =X&#39;Fl&#39; 		READ CHARACTER INTO REG A 	 
+65 			COMPR 	A,S 		TEST FOR END OF RECORD 	 
+70 			JEQ 	$ACEXIT 	EXIT LOOP IF EOR 	 
+75 			STCH 	BUFF, X 	STORE CHARACTER IN BUFFER 	 
+80 			TIXR 	T 		LOOP UNLESS MAXIMUM LENGTH 	 
+85 			JLT 	$ACLOOP 	  HAS BEEN REACHED 	 
+90 	$ACEXIT 	STX 	RLENG 		SAVE RECORD LENGTH 
+	 
+				(d)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;&lt;/details&gt;
+&lt;ul&gt;
+&lt;li&gt;Two additional parameters: &amp;amp;EOR and &amp;amp;MAXLTH for conditional macro expansion&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;IF&lt;/strong&gt; statement&lt;/li&gt;
+&lt;li&gt;Macro processor directive &lt;strong&gt;SET&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;Macro-time variable, beginning with the character &amp;amp; for storing working values during the macro expansion. All such variables are initialized to a value of 0.&lt;/li&gt;
+&lt;li&gt;It is extremely important to understand that the testing of Boolean expression in IF statements occurs at the time macros are expanded, not during program execution.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;details&gt;&lt;summary&gt;Figure 4.9&lt;/summary&gt;&lt;div&gt;
+&lt;pre&gt;&lt;code&gt;25 	RDBUFF 		MACRO 	&amp;amp;INDEV,&amp;amp;BUFADR,&amp;amp;RECLTH,&amp;amp;EOR 	 
+27 	&amp;amp;EORCT 		SET 	%NITEMS(&amp;amp;EOR) 		 
+30 			CLEAR 	X 		CLEAR LOOP COUNTER 	 
+35 			CLEAR 	A 		 
+45 		       +LDT    #4096 		SET MAX LENGTH = 4096 	 
+50 	$LOOP 		TD     =X&#39;&amp;amp;INDEV&#39; 	TEST INPUT DEVICE 	 
+55 			JEQ 	$LOOP 		LOOP UNTIL READY 	 
+60 			RD     =X&#39;&amp;amp;INDEV&#39; 	READ CHARACTER INTO REG A 	 
+63 	&amp;amp;CTR 		SET 	1 		 
+64 			WHILE 	(&amp;amp;CTR LE &amp;amp;EORCT) 	 
+65 			COMP   =X&#39;0000&amp;amp;EOR[&amp;amp;CTR]&#39; 	 
+70 			JEQ 	$EXIT 	 
+71 	&amp;amp;CTR 		SET 	&amp;amp;CTR+l 	 
+73 			ENDW 		 
+75 			STCH 	&amp;amp;BUFADR,X 	STORE CHARACTER IN BUFFER 	 
+80 			TIXR 	T 		LOOP UNLESS MAXIMUM LENGTH 	 
+85 			JLT 	$LOOP 		  HAS BEEN REACHED 	 
+90 	$EXIT 		STX 	&amp;amp;RECLTH 	SAVE RECORD LENGTH 	 
+100 			MEND
+ 		 
+				(a) 	 
+
+			RDBUFF 	F2,BUFFER,LENGTH,(00,03,04) 	 
+
+30 			CLEAR 	X 		CLEAR LOOP COUNTER 	 
+35 			CLEAR 	A 	 
+45 		       +LDT    #4096 		SET MAX LENGTH = 4096 	 
+50 	$AALOOP 	TD     =X&#39;F2&#39; 		TEST INPUT DEVICE 	 
+55 			JEQ 	$AALOOP 	LOOP UNTIL READY 	 
+60 			RD     =X&#39;F2&#39; 		READ CHARACTER INTO REG A 	 
+65 			COMP   =X&#39;000000&#39; 	 
+70 			JEQ 	$AAEXIT 	 
+65 			COMP   =X&#39;000003&#39; 	 
+70 			JEQ 	$AAEXIT 	 
+65 			COMP   =X&#39;000004&#39; 	 
+70 			JEQ 	$AAEXIT 	 
+75 			STCH 	BUFFER,X 	STORE CHARACTER IN BUFFER 	 
+80 			TIXR 	T 		LOOP UNLESS MAXIMUM LENGTH 	 
+85 			JLT 	$AALOOP 	  HAS BEEN REACHED 	 
+90 	$AAEXIT 	STX 	LENGTH 		SAVE RECORD LENGTH 	 
+	
+				(b)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;&lt;/details&gt;
+&lt;ul&gt;
+&lt;li&gt;Looping statement &lt;strong&gt;WHILE&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;A list (00, 03, 04) corresponding to the parameter &amp;amp;EOR&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;%NITEMS&lt;/strong&gt; is a macro processor function that returns as its value the number of members in an argument list&lt;/li&gt;
+&lt;li&gt;&amp;amp;EOR[&amp;amp;CTR]&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;keyword-macro-parameters&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#keyword-macro-parameters&#34;&gt;#&lt;/a&gt; Keyword Macro Parameters&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;With positional parameters, if an argument is to be omitted, the macro invocation statement must contain a null argument (two consecutive commas) to maintain the correct argument positions&lt;/li&gt;
+&lt;li&gt;However, if a macro has a large number of parameters, and only a few of these are given values in a typical invocation, a different form of parameter specification is more useful
+&lt;ul&gt;
+&lt;li&gt;Perhaps an entire operating system is to be generated from a macro invocation. In such cases, most of the parameters may have acceptable default values; the macro invocation specifies only the changes from the default set of values.&lt;/li&gt;
+&lt;li&gt;GENER ,DIRECT,3&lt;/li&gt;
+&lt;li&gt;GENER TYPE=DIRECT, CHANGE=3&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;details&gt;&lt;summary&gt;Figure 4.10&lt;/summary&gt;&lt;div&gt;
+&lt;pre&gt;&lt;code&gt;25 	RDBUFF 		MACRO 	&amp;amp;INDEV=F1,&amp;amp;BUFADR=,&amp;amp;RECLTH=,&amp;amp;EOR=04,&amp;amp;MAXLTH=4096 	 
+26 			IF 	(&amp;amp;EOR NE &amp;quot;) 		 
+27 	&amp;amp;EORCK 		SET 	1 		 
+28 			ENDIF 			 
+30  			CLEAR 	X 		CLEAR LOOP COUNTER 	 
+35 			CLEAR 	A 		 
+38 			IF 	(&amp;amp;EORCK EQ 1) 		 
+40 			LDCH   =X&#39;&amp;amp;EOR&#39; 	SET EOR CHARACTER 	 
+42 			RMO 	A,S 		 
+43 			ENDIF 			 
+47 		       +LDT    #&amp;amp;MAXLTH 	SET MAXIMUM RECORD LENGTH 	 
+50 	$LOOP 		TD     =X&#39;&amp;amp;INDEV&#39; 	TEST INPUT DEVICE 	 
+55 			JEQ 	$LOOP 		LOOP UNTIL READY 	 
+60 			RD     =X&#39;&amp;amp;INDEV&#39; 	READ CHARACTER INTO REG A 	 
+63 			IF 	(&amp;amp;EORCK EQ 1) 		 
+65 			COMPR 	A,S 		TEST FOR END OF RECORD 	 
+70 			JEQ 	$EXIT 		EXIT LOOP IF EOR 	 
+73 			ENDIF 			 
+75 			STCH 	&amp;amp;BUFADR ,X 	STORE CHARACTER IN BUFFER 	 
+80 			TIXR 	T 		LOOP UNLESS MAXIMUM LENGTH 	 
+85 			JLT 	$LOOP 		  HAS BEEN REACHED 	 
+90 	$EXI T 		STX 	&amp;amp;RECLTH 	SAVE RECORD LENGTH 	 
+95 			MEND 
+		 
+				(a) 	 
+	
+			RDBUFF 	BUFADR=BUFFER,RECLTH=LENGTH 
+	 
+30 			CLEAR 	X 		CLEAR LOOP COUNTER 	 
+35 			CLEAR 	A 	 
+40 			LDCH   =X&#39;04&#39; 		SET EOR CHARACTER 	 
+42 			RMO 	A, S 	 
+47 		       +LDT    #4096 		SET MAXIMUM RECORD LENGTH 	 
+50 	$AALOOP 	TD     =X&#39;F1&#39; 		TEST INPUT DEVICE 	 
+55 			JEQ 	$AALOOP 	LOOP UNTIL READY 	 
+60 			RD     =X&#39;F1&#39; 		READ CHARACTER INTO REG A 	 
+65 			COMPR 	A,S 		TEST FOR END OF RECORD 	 
+70 			JEQ 	$AAEXIT 	EXIT LOOP IF EOR 	 
+75 			STCH 	BUFFER,X 	STORE CHARACTER IN BUFFER 	 
+80 			TIXR 	T 		LOOP UNLESS MAXIMUM LENGTH 	 
+85 			JLT 	$AALOOP 	  HAS BEEN REACHED 	 
+90 	$AAEXIT 	STX 	LENGTH 		SAVE RECORD LENGTH 	 
+
+				(b)  	
+			RDBUFF 	RECLTH=LENGTH,BUFADR=BUFFER,EOR=,INDEV=F3 
+	 
+30 			CLEAR 	X 		CLEAR LOOP COUNTER 	 
+35 			CLEAR 	A 		 
+47 		       +LDT    #4096 		SET MAXIMUM RECORD LENGTH 	 
+50 	$ABLOOP 	TD     =X&#39;F3&#39; 		TEST INPUT DEVICE 	 
+55 			JEQ 	$ABLOOP 	LOOP UNTIL READY 	 
+60 			RD     =X&#39;F3&#39; 		READ CHARACTER INTO REG A 	 
+75 			STCH 	BUFFER, X 	STORE CHARACTER IN BUFFER 	 
+80 			TIXR 	T 		LOOP UNLESS MAXIMUM LENGTH 	 
+85 			JLT 	$ABLOOP 	  HAS BEEN REACHED 	 
+90 	$ABEXIT 	STX 	LENGTH 		SAVE RECORD LENGTH
+ 	 
+			(c)  
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;&lt;/details&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Default values&lt;/strong&gt; can simplify the macro definition in many cases
+&lt;ul&gt;
+&lt;li&gt;Figure 4.10(a) and 4.8(a) both provide for setting the maximum record length to 4096 unless a different value is specified by the user.&lt;/li&gt;
+&lt;li&gt;The default value established in Figure 4.10(a) takes care if this automatically&lt;/li&gt;
+&lt;li&gt;In Figure 4.8(a), an IF-ELSE-ENDIF structure is required to accomplish the same thing&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;recursive-macro-expansion&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#recursive-macro-expansion&#34;&gt;#&lt;/a&gt; Recursive Macro Expansion&lt;/h2&gt;
+&lt;details&gt;&lt;summary&gt;Figure 4.11 Nested macro invocation&lt;/summary&gt;&lt;div&gt;
+&lt;pre&gt;&lt;code&gt;10 	RDBUFF 		MACRO 	&amp;amp;BUFADR,&amp;amp;RECLTH,&amp;amp;INDEV 	 
+15 	.				 
+20 	.		MACRO TO READ RECORD INTO BUFFER 	 
+25 	.				 
+30 			CLEAR 	X 		CLEAR LOOP COUNTER 	 
+35 			CLEAR 	A 	 
+40 			CLEAR 	S 	 
+45 		       +LDT    #4096 		SET MAXIMUM RECORD LENGTH 	 
+50 	$LOOP 		RDCHAR 	&amp;amp;INDEV 		READ CHARACTER INTO REG A 	 
+65 			COMPR 	A,S 		TEST FOR END OF RECORD 	 
+70 			JEQ 	$EXIT 		EXIT LOOP IF EOR 	 
+75 			STCH 	&amp;amp;BUFADR,X 	STORE CHARACTER IN BUFFER 	 
+80 			TIXR 	T 		LOOP UNLESS MAXIMUM LENGTH 	 
+85 			JLT 	$LOOP 		  HAS BEEN REACHED 	 
+90 	$EXIT 		STX 	&amp;amp;RECLTH 	SAVE RECORD LENGTH 	 
+95 			MEND 
+	 
+			(a) 	 
+
+5 	RDCHAR 		MACRO 	&amp;amp;IN 	 
+10 	.		 
+15 	.		MACRO TO READ CHARACTER INTO REGISTER A 	 
+20 	.		 
+25 			TD     =X&#39;&amp;amp;IN&#39; 		TEST INPUT DEVICE 	 
+30 			JEQ 	*-3 		LOOP UNTIL READY 	 
+35 			RD     =X&#39;&amp;amp;IN&#39; 		READ CHARACTER 	 
+40 			MEND 
+				 
+			(b) 
+		 
+			RDBUFF 	BUFFER,LENGTH,FI 
+
+			(c)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;&lt;/details&gt;
+&lt;ul&gt;
+&lt;li&gt;When applying the algorithm of Figure 4.5 to the macro invocation statement in Figure 4.11©
+&lt;ul&gt;
+&lt;li&gt;When the end of the definition of RDCHAR was recognized, EXPANDING would be set to FALSE. Thus the macro processor would forget that it had been in the middle of expanding a macro when it encountered the RDCHAR statement&lt;/li&gt;
+&lt;li&gt;The arguments from the original macro invocation (RDBUFF) would be lost because the values in ARGTAB were overwritten with the arguments from the invocation of RDCHAR&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;general-purpose-macro-processors&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#general-purpose-macro-processors&#34;&gt;#&lt;/a&gt; General-Purpose Macro Processors&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;The advantage of a general-purpose approach to macro processing is that the programmer does not need to learn about a different macro facility for each compiler or assembler language.&lt;/li&gt;
+&lt;li&gt;In spite of the advantages noted, there are still relatively few general-purpose macro processors. One of the reasons for this situation is the large number of details that must be dealt with in a real programming language.&lt;/li&gt;
+&lt;li&gt;In a typical programming language, there are several situations in which normal macro parameter substitution should not occur
+&lt;ul&gt;
+&lt;li&gt;For example, comments should usually be ignored by a macro processor.&lt;/li&gt;
+&lt;li&gt;However, each programming language has its own methods for identifying comments.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;With most special-purpose macro processors, macro invocations are very similar in form to statements in the source programming language. This similarity of form tends to make the source program easier to write and read.
+&lt;ul&gt;
+&lt;li&gt;However, it is difficult to achieve with a general-purpose macro processor that is to be used with different programming languages.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;macro-processing-within-language-translators&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#macro-processing-within-language-translators&#34;&gt;#&lt;/a&gt; Macro Processing within Language Translators&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;The macro processors that we have discussed so far might be called &lt;strong&gt;preprocessors&lt;/strong&gt;.
+&lt;ul&gt;
+&lt;li&gt;They process macro definitions and expand macro invocations, producing an expanded version of the source program. This expanded program is then used as input to an assembler or compiler.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;An alternative is combining the macro processing functions with the language translator itself.&lt;/li&gt;
+&lt;li&gt;The simplest method of achieving this sort of combination is a &lt;strong&gt;line-by-line&lt;/strong&gt; macro processor.
+&lt;ul&gt;
+&lt;li&gt;The output lines are passed to the language translator as they are generated (one at a time), instead of being written to an expanded source file.&lt;/li&gt;
+&lt;li&gt;Thus the macro processor operates as a sort of input routine for the assembler or compiler.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+ ]]></description>
+        </item>
         <item>
             <guid isPermalink="true">https://chienikao.github.io/2023/05/23/SystemSoftware/Ch03_Loaders_and_Linkers/</guid>
             <title>Ch03 - Loaders and Linkers</title>
@@ -140,8 +730,8 @@ Concerned only with Header and Define record types in the control sections.&lt;/
             <category term="Leetcode" scheme="https://chienikao.github.io/categories/Coding/Leetcode/" />
             <category term="Medium" scheme="https://chienikao.github.io/categories/Coding/Leetcode/Medium/" />
             <category term="Leetcode" scheme="https://chienikao.github.io/tags/Leetcode/" />
-            <category term="Medium" scheme="https://chienikao.github.io/tags/Medium/" />
             <category term="Graph" scheme="https://chienikao.github.io/tags/Graph/" />
+            <category term="Medium" scheme="https://chienikao.github.io/tags/Medium/" />
             <pubDate>Fri, 19 May 2023 14:13:20 +0800</pubDate>
             <description><![CDATA[ &lt;p&gt;⭐️⭐️&lt;/p&gt;
 &lt;h2 id=&#34;題目敘述&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#題目敘述&#34;&gt;#&lt;/a&gt; &lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly9sZWV0Y29kZS5jb20vcHJvYmxlbXMvbWluaW11bS1udW1iZXItb2YtdmVydGljZXMtdG8tcmVhY2gtYWxsLW5vZGVzLw==&#34;&gt;題目敘述&lt;/span&gt;&lt;/h2&gt;
@@ -180,9 +770,9 @@ Concerned only with Header and Define record types in the control sections.&lt;/
             <category term="Coding" scheme="https://chienikao.github.io/categories/Coding/" />
             <category term="Leetcode" scheme="https://chienikao.github.io/categories/Coding/Leetcode/" />
             <category term="Medium" scheme="https://chienikao.github.io/categories/Coding/Leetcode/Medium/" />
-            <category term="Two Pointers" scheme="https://chienikao.github.io/tags/Two-Pointers/" />
             <category term="Leetcode" scheme="https://chienikao.github.io/tags/Leetcode/" />
             <category term="Medium" scheme="https://chienikao.github.io/tags/Medium/" />
+            <category term="Two Pointers" scheme="https://chienikao.github.io/tags/Two-Pointers/" />
             <category term="Linked List" scheme="https://chienikao.github.io/tags/Linked-List/" />
             <category term="Stack" scheme="https://chienikao.github.io/tags/Stack/" />
             <pubDate>Wed, 17 May 2023 13:51:35 +0800</pubDate>
@@ -287,8 +877,8 @@ There is only one node with a twin in the linked list having twin sum of 1 + 100
             <category term="Coding" scheme="https://chienikao.github.io/categories/Coding/" />
             <category term="Leetcode" scheme="https://chienikao.github.io/categories/Coding/Leetcode/" />
             <category term="Easy" scheme="https://chienikao.github.io/categories/Coding/Leetcode/Easy/" />
-            <category term="Easy" scheme="https://chienikao.github.io/tags/Easy/" />
             <category term="Leetcode" scheme="https://chienikao.github.io/tags/Leetcode/" />
+            <category term="Easy" scheme="https://chienikao.github.io/tags/Easy/" />
             <category term="Typescript" scheme="https://chienikao.github.io/tags/Typescript/" />
             <category term="Promise" scheme="https://chienikao.github.io/tags/Promise/" />
             <category term="Javasscript" scheme="https://chienikao.github.io/tags/Javasscript/" />
@@ -362,9 +952,9 @@ The function immediately throws an error.&lt;/p&gt;
             <category term="Coding" scheme="https://chienikao.github.io/categories/Coding/" />
             <category term="Leetcode" scheme="https://chienikao.github.io/categories/Coding/Leetcode/" />
             <category term="Medium" scheme="https://chienikao.github.io/categories/Coding/Leetcode/Medium/" />
-            <category term="Two Pointers" scheme="https://chienikao.github.io/tags/Two-Pointers/" />
             <category term="Leetcode" scheme="https://chienikao.github.io/tags/Leetcode/" />
             <category term="Medium" scheme="https://chienikao.github.io/tags/Medium/" />
+            <category term="Two Pointers" scheme="https://chienikao.github.io/tags/Two-Pointers/" />
             <category term="Linked List" scheme="https://chienikao.github.io/tags/Linked-List/" />
             <pubDate>Mon, 15 May 2023 11:30:56 +0800</pubDate>
             <description><![CDATA[ &lt;p&gt;⭐️⭐️&lt;/p&gt;
@@ -401,8 +991,8 @@ The function immediately throws an error.&lt;/p&gt;
             <category term="Leetcode" scheme="https://chienikao.github.io/categories/Coding/Leetcode/" />
             <category term="Easy" scheme="https://chienikao.github.io/categories/Coding/Leetcode/Easy/" />
             <category term="Javascript" scheme="https://chienikao.github.io/tags/Javascript/" />
-            <category term="Easy" scheme="https://chienikao.github.io/tags/Easy/" />
             <category term="Leetcode" scheme="https://chienikao.github.io/tags/Leetcode/" />
+            <category term="Easy" scheme="https://chienikao.github.io/tags/Easy/" />
             <category term="Typescript" scheme="https://chienikao.github.io/tags/Typescript/" />
             <category term="Promise" scheme="https://chienikao.github.io/tags/Promise/" />
             <pubDate>Mon, 15 May 2023 11:29:29 +0800</pubDate>
@@ -441,8 +1031,8 @@ console.log(Date.now() - t); // 100&lt;br&gt;
             <category term="Medium" scheme="https://chienikao.github.io/categories/Coding/Leetcode/Medium/" />
             <category term="Javascript" scheme="https://chienikao.github.io/tags/Javascript/" />
             <category term="Leetcode" scheme="https://chienikao.github.io/tags/Leetcode/" />
-            <category term="Typescript" scheme="https://chienikao.github.io/tags/Typescript/" />
             <category term="Medium" scheme="https://chienikao.github.io/tags/Medium/" />
+            <category term="Typescript" scheme="https://chienikao.github.io/tags/Typescript/" />
             <pubDate>Mon, 15 May 2023 11:26:49 +0800</pubDate>
             <description><![CDATA[ &lt;p&gt;⭐️⭐️&lt;/p&gt;
 &lt;h2 id=&#34;題目敘述&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#題目敘述&#34;&gt;#&lt;/a&gt; &lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly9sZWV0Y29kZS5jb20vcHJvYmxlbXMvY3VycnkvP3V0bV9jYW1wYWlnbj1Qb3N0RDEwJmFtcDt1dG1fbWVkaXVtPVBvc3QmYW1wO3V0bV9zb3VyY2U9UG9zdCZhbXA7Z2lvX2xpbmtfaWQ9UVJla3hnam8=&#34;&gt;題目敘述&lt;/span&gt;&lt;/h2&gt;
@@ -506,8 +1096,8 @@ curriedLife() === 42&lt;/p&gt;
             <category term="Medium" scheme="https://chienikao.github.io/categories/Coding/Leetcode/Medium/" />
             <category term="Javascript" scheme="https://chienikao.github.io/tags/Javascript/" />
             <category term="Leetcode" scheme="https://chienikao.github.io/tags/Leetcode/" />
-            <category term="Typescript" scheme="https://chienikao.github.io/tags/Typescript/" />
             <category term="Medium" scheme="https://chienikao.github.io/tags/Medium/" />
+            <category term="Typescript" scheme="https://chienikao.github.io/tags/Typescript/" />
             <pubDate>Mon, 15 May 2023 11:10:27 +0800</pubDate>
             <description><![CDATA[ &lt;p&gt;⭐️⭐️&lt;/p&gt;
 &lt;h2 id=&#34;題目敘述&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#題目敘述&#34;&gt;#&lt;/a&gt; &lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly9sZWV0Y29kZS5jb20vcHJvYmxlbXMvbWVtb2l6ZS9kZXNjcmlwdGlvbi8/dXRtX2NhbXBhaWduPVBvc3REOSZhbXA7dXRtX21lZGl1bT1Qb3N0JmFtcDt1dG1fc291cmNlPVBvc3QmYW1wO2dpb19saW5rX2lkPW5SYkFEVmQ5&#34;&gt;題目敘述&lt;/span&gt;&lt;/h2&gt;
@@ -581,8 +1171,8 @@ fib(5) = 8&lt;br&gt;
             <category term="Leetcode" scheme="https://chienikao.github.io/categories/Coding/Leetcode/" />
             <category term="Easy" scheme="https://chienikao.github.io/categories/Coding/Leetcode/Easy/" />
             <category term="Javascript" scheme="https://chienikao.github.io/tags/Javascript/" />
-            <category term="Easy" scheme="https://chienikao.github.io/tags/Easy/" />
             <category term="Leetcode" scheme="https://chienikao.github.io/tags/Leetcode/" />
+            <category term="Easy" scheme="https://chienikao.github.io/tags/Easy/" />
             <category term="Typescript" scheme="https://chienikao.github.io/tags/Typescript/" />
             <pubDate>Mon, 15 May 2023 11:08:46 +0800</pubDate>
             <description><![CDATA[ &lt;p&gt;⭐️&lt;/p&gt;
@@ -626,9 +1216,9 @@ onceFn(4, 6, 8); // undefined, fn was not called&lt;/p&gt;
             <category term="Leetcode" scheme="https://chienikao.github.io/categories/Coding/Leetcode/" />
             <category term="Medium" scheme="https://chienikao.github.io/categories/Coding/Leetcode/Medium/" />
             <category term="Leetcode" scheme="https://chienikao.github.io/tags/Leetcode/" />
-            <category term="Array" scheme="https://chienikao.github.io/tags/Array/" />
-            <category term="Medium" scheme="https://chienikao.github.io/tags/Medium/" />
             <category term="Dynamic Programming" scheme="https://chienikao.github.io/tags/Dynamic-Programming/" />
+            <category term="Medium" scheme="https://chienikao.github.io/tags/Medium/" />
+            <category term="Array" scheme="https://chienikao.github.io/tags/Array/" />
             <pubDate>Mon, 15 May 2023 11:05:17 +0800</pubDate>
             <description><![CDATA[ &lt;p&gt;⭐️⭐️&lt;/p&gt;
 &lt;h2 id=&#34;題目敘述&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#題目敘述&#34;&gt;#&lt;/a&gt; &lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly9sZWV0Y29kZS5jb20vcHJvYmxlbXMvc29sdmluZy1xdWVzdGlvbnMtd2l0aC1icmFpbnBvd2VyLw==&#34;&gt;題目敘述&lt;/span&gt;&lt;/h2&gt;
@@ -685,9 +1275,9 @@ Total points earned: 2 + 5 = 7. There is no other way to earn 7 or more points.&
             <category term="Leetcode" scheme="https://chienikao.github.io/categories/Coding/Leetcode/" />
             <category term="Medium" scheme="https://chienikao.github.io/categories/Coding/Leetcode/Medium/" />
             <category term="Leetcode" scheme="https://chienikao.github.io/tags/Leetcode/" />
-            <category term="Array" scheme="https://chienikao.github.io/tags/Array/" />
-            <category term="Medium" scheme="https://chienikao.github.io/tags/Medium/" />
             <category term="Dynamic Programming" scheme="https://chienikao.github.io/tags/Dynamic-Programming/" />
+            <category term="Medium" scheme="https://chienikao.github.io/tags/Medium/" />
+            <category term="Array" scheme="https://chienikao.github.io/tags/Array/" />
             <pubDate>Mon, 15 May 2023 11:01:25 +0800</pubDate>
             <description><![CDATA[ &lt;p&gt;⭐️⭐️&lt;/p&gt;
 &lt;h2 id=&#34;題目敘述&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#題目敘述&#34;&gt;#&lt;/a&gt; &lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly9sZWV0Y29kZS5jb20vcHJvYmxlbXMvdW5jcm9zc2VkLWxpbmVzLw==&#34;&gt;題目敘述&lt;/span&gt;&lt;/h2&gt;
@@ -789,8 +1379,8 @@ We cannot draw 3 uncrossed lines, because the line from nums1[1] = 4 to nums2[2]
             <category term="Leetcode" scheme="https://chienikao.github.io/categories/Coding/Leetcode/" />
             <category term="Easy" scheme="https://chienikao.github.io/categories/Coding/Leetcode/Easy/" />
             <category term="Javascript" scheme="https://chienikao.github.io/tags/Javascript/" />
-            <category term="Easy" scheme="https://chienikao.github.io/tags/Easy/" />
             <category term="Leetcode" scheme="https://chienikao.github.io/tags/Leetcode/" />
+            <category term="Easy" scheme="https://chienikao.github.io/tags/Easy/" />
             <category term="Typescript" scheme="https://chienikao.github.io/tags/Typescript/" />
             <pubDate>Thu, 11 May 2023 09:51:30 +0800</pubDate>
             <description><![CDATA[ &lt;p&gt;⭐️&lt;/p&gt;
@@ -842,10 +1432,10 @@ The composition of zero functions is the identity function&lt;/p&gt;
             <category term="Leetcode" scheme="https://chienikao.github.io/categories/Coding/Leetcode/" />
             <category term="Medium" scheme="https://chienikao.github.io/categories/Coding/Leetcode/Medium/" />
             <category term="Leetcode" scheme="https://chienikao.github.io/tags/Leetcode/" />
-            <category term="Array" scheme="https://chienikao.github.io/tags/Array/" />
-            <category term="Simulation" scheme="https://chienikao.github.io/tags/Simulation/" />
-            <category term="Matrix" scheme="https://chienikao.github.io/tags/Matrix/" />
             <category term="Medium" scheme="https://chienikao.github.io/tags/Medium/" />
+            <category term="Array" scheme="https://chienikao.github.io/tags/Array/" />
+            <category term="Matrix" scheme="https://chienikao.github.io/tags/Matrix/" />
+            <category term="Simulation" scheme="https://chienikao.github.io/tags/Simulation/" />
             <pubDate>Wed, 10 May 2023 22:40:49 +0800</pubDate>
             <description><![CDATA[ &lt;p&gt;⭐️⭐️&lt;/p&gt;
 &lt;h2 id=&#34;題目敘述&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#題目敘述&#34;&gt;#&lt;/a&gt; &lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly9sZWV0Y29kZS5jb20vcHJvYmxlbXMvc3BpcmFsLW1hdHJpeC1paS8=&#34;&gt;題目敘述&lt;/span&gt;&lt;/h2&gt;
@@ -880,8 +1470,8 @@ The composition of zero functions is the identity function&lt;/p&gt;
             <category term="Leetcode" scheme="https://chienikao.github.io/categories/Coding/Leetcode/" />
             <category term="Easy" scheme="https://chienikao.github.io/categories/Coding/Leetcode/Easy/" />
             <category term="Javascript" scheme="https://chienikao.github.io/tags/Javascript/" />
-            <category term="Easy" scheme="https://chienikao.github.io/tags/Easy/" />
             <category term="Leetcode" scheme="https://chienikao.github.io/tags/Leetcode/" />
+            <category term="Easy" scheme="https://chienikao.github.io/tags/Easy/" />
             <category term="Typescript" scheme="https://chienikao.github.io/tags/Typescript/" />
             <pubDate>Wed, 10 May 2023 22:38:35 +0800</pubDate>
             <description><![CDATA[ &lt;p&gt;⭐️&lt;/p&gt;
@@ -944,10 +1534,10 @@ init = 25&lt;br&gt;
             <category term="Leetcode" scheme="https://chienikao.github.io/categories/Coding/Leetcode/" />
             <category term="Medium" scheme="https://chienikao.github.io/categories/Coding/Leetcode/Medium/" />
             <category term="Leetcode" scheme="https://chienikao.github.io/tags/Leetcode/" />
-            <category term="Array" scheme="https://chienikao.github.io/tags/Array/" />
-            <category term="Simulation" scheme="https://chienikao.github.io/tags/Simulation/" />
-            <category term="Matrix" scheme="https://chienikao.github.io/tags/Matrix/" />
             <category term="Medium" scheme="https://chienikao.github.io/tags/Medium/" />
+            <category term="Array" scheme="https://chienikao.github.io/tags/Array/" />
+            <category term="Matrix" scheme="https://chienikao.github.io/tags/Matrix/" />
+            <category term="Simulation" scheme="https://chienikao.github.io/tags/Simulation/" />
             <pubDate>Tue, 09 May 2023 10:37:25 +0800</pubDate>
             <description><![CDATA[ &lt;p&gt;⭐️⭐️&lt;/p&gt;
 &lt;h2 id=&#34;題目敘述&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#題目敘述&#34;&gt;#&lt;/a&gt; &lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly9sZWV0Y29kZS5jb20vcHJvYmxlbXMvc3BpcmFsLW1hdHJpeC8=&#34;&gt;題目敘述&lt;/span&gt;&lt;/h2&gt;
@@ -985,8 +1575,8 @@ init = 25&lt;br&gt;
             <category term="Leetcode" scheme="https://chienikao.github.io/categories/Coding/Leetcode/" />
             <category term="Easy" scheme="https://chienikao.github.io/categories/Coding/Leetcode/Easy/" />
             <category term="Javascript" scheme="https://chienikao.github.io/tags/Javascript/" />
-            <category term="Easy" scheme="https://chienikao.github.io/tags/Easy/" />
             <category term="Leetcode" scheme="https://chienikao.github.io/tags/Leetcode/" />
+            <category term="Easy" scheme="https://chienikao.github.io/tags/Easy/" />
             <category term="Typescript" scheme="https://chienikao.github.io/tags/Typescript/" />
             <pubDate>Tue, 09 May 2023 10:05:43 +0800</pubDate>
             <description><![CDATA[ &lt;p&gt;⭐️&lt;/p&gt;
@@ -1030,58 +1620,6 @@ Falsey values such as 0 should be filtered out&lt;/p&gt;
 &amp;#125;;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
- ]]></description>
-        </item>
-        <item>
-            <guid isPermalink="true">https://chienikao.github.io/2023/05/08/Web/Svelte/%E5%89%8D%E7%AB%AF%E6%A1%86%E6%9E%B6%E4%BB%8B%E7%B4%B9/</guid>
-            <title>前端框架介紹</title>
-            <link>https://chienikao.github.io/2023/05/08/Web/Svelte/%E5%89%8D%E7%AB%AF%E6%A1%86%E6%9E%B6%E4%BB%8B%E7%B4%B9/</link>
-            <category term="Web" scheme="https://chienikao.github.io/categories/Web/" />
-            <category term="Svelte" scheme="https://chienikao.github.io/categories/Web/Svelte/" />
-            <category term="Web" scheme="https://chienikao.github.io/tags/Web/" />
-            <category term="Svelte" scheme="https://chienikao.github.io/tags/Svelte/" />
-            <category term="Framework" scheme="https://chienikao.github.io/tags/Framework/" />
-            <category term="Javascript" scheme="https://chienikao.github.io/tags/Javascript/" />
-            <pubDate>Mon, 08 May 2023 14:53:28 +0800</pubDate>
-            <description><![CDATA[ &lt;h2 id=&#34;dom&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#dom&#34;&gt;#&lt;/a&gt; DOM&lt;/h2&gt;
-&lt;h3 id=&#34;簡介&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#簡介&#34;&gt;#&lt;/a&gt; 簡介&lt;/h3&gt;
-&lt;p&gt;DOM (document object model，文件物件模型) 由  &lt;strong&gt;W3C&lt;/strong&gt; (world wide web consortium) 定義，DOM 將 HTML 內的所有 element 定義成&lt;strong&gt;物件&lt;/strong&gt;，並以&lt;strong&gt;樹狀結構&lt;/strong&gt;表示。&lt;/p&gt;
-&lt;p&gt;&lt;img data-src=&#34;https://www.w3schools.com/js/pic_htmltree.gif&#34; alt=&#34;DOM 樹狀結構&#34;&gt;&lt;br&gt;
- DOM 樹狀結構 &lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly93d3cudzNzY2hvb2xzLmNvbS9qcy9qc19odG1sZG9tLmFzcA==&#34;&gt;source&lt;/span&gt;&lt;/p&gt;
-&lt;h3 id=&#34;結構&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#結構&#34;&gt;#&lt;/a&gt; 結構&lt;/h3&gt;
-&lt;p&gt;DOM 的節點大致分為四類：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;Document&lt;/strong&gt;: HTML 文件本身，也就是 root node。&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Element&lt;/strong&gt;: 文件裡的標籤，如  &lt;code&gt;&amp;lt;head&amp;gt;&lt;/code&gt; 、 &lt;code&gt;&amp;lt;body&amp;gt;&lt;/code&gt; 、 &lt;code&gt;&amp;lt;div&amp;gt;&lt;/code&gt;  等。&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Text&lt;/strong&gt;: 被 element 包起來的文字。&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Attribute&lt;/strong&gt;: element 內的屬性。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;將上圖的樹狀結構轉回 HTML 後如下：&lt;/p&gt;
-&lt;figure class=&#34;highlight html&#34;&gt;&lt;figcaption data-lang=&#34;HTML&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token tag&#34;&gt;&lt;span class=&#34;token tag&#34;&gt;&lt;span class=&#34;token punctuation&#34;&gt;&amp;lt;&lt;/span&gt;html&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;&gt;&lt;/span&gt;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token tag&#34;&gt;&lt;span class=&#34;token tag&#34;&gt;&lt;span class=&#34;token punctuation&#34;&gt;&amp;lt;&lt;/span&gt;head&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;&gt;&lt;/span&gt;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;3&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;        &lt;span class=&#34;token tag&#34;&gt;&lt;span class=&#34;token tag&#34;&gt;&lt;span class=&#34;token punctuation&#34;&gt;&amp;lt;&lt;/span&gt;title&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;&gt;&lt;/span&gt;&lt;/span&gt;My title&lt;span class=&#34;token tag&#34;&gt;&lt;span class=&#34;token tag&#34;&gt;&lt;span class=&#34;token punctuation&#34;&gt;&amp;lt;/&lt;/span&gt;title&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;&gt;&lt;/span&gt;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;4&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token tag&#34;&gt;&lt;span class=&#34;token tag&#34;&gt;&lt;span class=&#34;token punctuation&#34;&gt;&amp;lt;/&lt;/span&gt;head&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;&gt;&lt;/span&gt;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;5&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token tag&#34;&gt;&lt;span class=&#34;token tag&#34;&gt;&lt;span class=&#34;token punctuation&#34;&gt;&amp;lt;&lt;/span&gt;body&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;&gt;&lt;/span&gt;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;6&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;        &lt;span class=&#34;token tag&#34;&gt;&lt;span class=&#34;token tag&#34;&gt;&lt;span class=&#34;token punctuation&#34;&gt;&amp;lt;&lt;/span&gt;a&lt;/span&gt; &lt;span class=&#34;token attr-name&#34;&gt;href&lt;/span&gt;&lt;span class=&#34;token attr-value&#34;&gt;&lt;span class=&#34;token punctuation attr-equals&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;&#34;&lt;/span&gt;url&lt;span class=&#34;token punctuation&#34;&gt;&#34;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;&gt;&lt;/span&gt;&lt;/span&gt;My link&lt;span class=&#34;token tag&#34;&gt;&lt;span class=&#34;token tag&#34;&gt;&lt;span class=&#34;token punctuation&#34;&gt;&amp;lt;/&lt;/span&gt;a&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;&gt;&lt;/span&gt;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;7&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;        &lt;span class=&#34;token tag&#34;&gt;&lt;span class=&#34;token tag&#34;&gt;&lt;span class=&#34;token punctuation&#34;&gt;&amp;lt;&lt;/span&gt;h1&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;&gt;&lt;/span&gt;&lt;/span&gt;My header&lt;span class=&#34;token tag&#34;&gt;&lt;span class=&#34;token tag&#34;&gt;&lt;span class=&#34;token punctuation&#34;&gt;&amp;lt;/&lt;/span&gt;h1&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;&gt;&lt;/span&gt;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;8&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token tag&#34;&gt;&lt;span class=&#34;token tag&#34;&gt;&lt;span class=&#34;token punctuation&#34;&gt;&amp;lt;/&lt;/span&gt;body&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;&gt;&lt;/span&gt;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;9&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token tag&#34;&gt;&lt;span class=&#34;token tag&#34;&gt;&lt;span class=&#34;token punctuation&#34;&gt;&amp;lt;/&lt;/span&gt;html&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;&gt;&lt;/span&gt;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;h2 id=&#34;reflow-repaint&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#reflow-repaint&#34;&gt;#&lt;/a&gt; Reflow &amp;amp; Repaint&lt;/h2&gt;
-&lt;p&gt;瀏覽器在呈現出畫面之前，會先解析 HTML 與 CSS 檔並產生 render tree，而 &lt;strong&gt;reflow&lt;/strong&gt; 這個步驟會遍歷 render tree 並計算所有 element 的位置、大小及其他&lt;strong&gt;屬性&lt;/strong&gt;，會消耗大量效能。&lt;strong&gt;Repaint&lt;/strong&gt; 步驟則是將 reflow 計算好的結果輸出到螢幕上，任何可見元素的更改都需要 repaint。&lt;/p&gt;
-&lt;p&gt;可以發現影響效能的關鍵在於 reflow，因此框架的效能優化主要在於減少 reflow 的次數及範圍。&lt;/p&gt;
-&lt;h2 id=&#34;沒有框架的日子&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#沒有框架的日子&#34;&gt;#&lt;/a&gt; 沒有框架的日子&lt;/h2&gt;
-&lt;p&gt;隨著專案規模逐漸增大，程式複雜度不斷上升，直接操作 DOM 的缺點也就逐漸浮出檯面：&lt;/p&gt;
-&lt;h3 id=&#34;難以維護&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#難以維護&#34;&gt;#&lt;/a&gt; 難以維護&lt;/h3&gt;
-&lt;p&gt;HTML、CSS、JavaScript 無法維持原先的各司其職，因為需要透過 JavaScript 處理互動內容，勢必要將結構、樣式寫到 JavaScript 的部份中，也就因此造成架構耦合度提高，程式碼管理困難。&lt;/p&gt;
-&lt;h3 id=&#34;效能低落&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#效能低落&#34;&gt;#&lt;/a&gt; 效能低落&lt;/h3&gt;
-&lt;p&gt;當 DOM 被改變，勢必要觸發整個 Reflow &amp;amp; Repaint 的流程，頻繁的改動觸發重複渲染，便會讓頁面效能被消耗殆盡。&lt;/p&gt;
-&lt;h2 id=&#34;框架的功能&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#框架的功能&#34;&gt;#&lt;/a&gt; 框架的功能&lt;/h2&gt;
-&lt;h3 id=&#34;資料與-ui-分離&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#資料與-ui-分離&#34;&gt;#&lt;/a&gt; 資料與 UI 分離&lt;/h3&gt;
-&lt;p&gt;資料不必寫死在結構裡，可以根據資料變化而改變輸出內容。&lt;/p&gt;
-&lt;h3 id=&#34;模組化的-ui&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#模組化的-ui&#34;&gt;#&lt;/a&gt; 模組化的 UI&lt;/h3&gt;
-&lt;p&gt;一個網站總是會有一些重複出現的元素，例如按鈕、輸入表單、表格、對話框等等，而在現代框架的概念中，我們會把這些重複出現的元素稱為 &lt;strong&gt;組件（Components）&lt;/strong&gt;，每個組件內包含了組件自己需要用的結構、樣式、邏輯。&lt;/p&gt;
-&lt;p&gt;這樣一來，各組件只需要處理組件內的事，外部引用的組件來決定怎麼使用、提供什麼資料給組件，藉由簡單的切分權責，加上前述的由資料決定畫面，就能讓各個組件的任務單一，並且能被重複使用。&lt;/p&gt;
-&lt;h3 id=&#34;提升渲染效能&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#提升渲染效能&#34;&gt;#&lt;/a&gt; 提升渲染效能&lt;/h3&gt;
-&lt;p&gt;如同前述，在複雜的頁面中，如果頻繁透過操作 DOM 的方式改變畫面，可能會造成全頁面的 Reflow 及 Repaint；不過在使用框架時，開發者不用太擔心這個問題。&lt;/p&gt;
-&lt;p&gt;原因是在各主流框架的實作中，幾乎都包含了 Virtual Dom 的概念，也就是用 JavaScript 物件來表達當前的頁面結構；藉由與 UI 分離的資料及 Virtual Dom 之間的關係，當資料變動時，事先計算好這次畫面需要變動的地方，如此一來便能抵銷掉無意義的更動，並重複利用已存在的 DOM 元素；當真的要進行 DOM 更新時，也會一次將所有需要更新的局部組件更新，讓效能的耗損盡可能降低。&lt;/p&gt;
-&lt;h3 id=&#34;豐富的開發者生態圈&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#豐富的開發者生態圈&#34;&gt;#&lt;/a&gt; 豐富的開發者生態圈&lt;/h3&gt;
-&lt;p&gt;選用熱門框架的優點，包含了能參與豐富的開發者生態圈；各大主流框架，在 GitHub 上都能輕鬆的找到數以千計的眾多套件，從基本組件、互動效果，到快速建立整個專案的模板，你想解決的問題也許剛好有別人早已經解決過，如果合適，自然可以從中擷取前人的智慧，更進一步的增進開發效率&lt;/p&gt;
-&lt;h2 id=&#34;參考資料&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#參考資料&#34;&gt;#&lt;/a&gt; 參考資料&lt;/h2&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly9pdGhlbHAuaXRob21lLmNvbS50dy9hcnRpY2xlcy8xMDIyNDQxNw==&#34;&gt;為什麼現在的前端都在用「框架」？&lt;/span&gt;&lt;/li&gt;
-&lt;li&gt;&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly9qaHRudC5ub3Rpb24uc2l0ZS9lODJlNDY0MGY4NGE0OGE5YmQyYjljOGNhMzFmN2UzNA==&#34;&gt;前端框架簡介&lt;/span&gt;&lt;/li&gt;
-&lt;/ul&gt;
  ]]></description>
         </item>
     </channel>

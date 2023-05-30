@@ -1,0 +1,420 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=2"><meta name="theme-color" content="#FFF"><link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png"><link rel="icon" type="image/ico" sizes="32x32" href="/images/favicon.ico"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><link rel="alternate" type="application/rss+xml" title="Nothing is true, everything is permitted" href="https://chienikao.github.io/rss.xml"><link rel="alternate" type="application/atom+xml" title="Nothing is true, everything is permitted" href="https://chienikao.github.io/atom.xml"><link rel="alternate" type="application/json" title="Nothing is true, everything is permitted" href="https://chienikao.github.io/feed.json"><link rel="stylesheet" href="//fonts.googleapis.com/css?family=Mulish:300,300italic,400,400italic,700,700italic%7CFredericka%20the%20Great:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20JP:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20SC:300,300italic,400,400italic,700,700italic%7CInconsolata:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext"><link rel="stylesheet" href="/css/app.css?v=0.2.5"><meta name="keywords" content="System Software,Assembler"><link rel="canonical" href="https://chienikao.github.io/2023/05/30/SystemSoftware/Ch04_Macro_Processors/"><title>Ch04 - Macro Processors - SystemSoftware | ChienI Kao = Nothing is true, everything is permitted</title><meta name="generator" content="Hexo 6.3.0"></head><body itemscope itemtype="http://schema.org/WebPage"><div id="loading"><div class="cat"><div class="body"></div><div class="head"><div class="face"></div></div><div class="foot"><div class="tummy-end"></div><div class="bottom"></div><div class="legs left"></div><div class="legs right"></div></div><div class="paw"><div class="hands left"></div><div class="hands right"></div></div></div></div><div id="container"><header id="header" itemscope itemtype="http://schema.org/WPHeader"><div class="inner"><div id="brand"><div class="pjax"><h1 itemprop="name headline">Ch04 - Macro Processors</h1><div class="meta"><span class="item" title="Created: 2023-05-30 11:24:45"><span class="icon"><i class="ic i-calendar"></i> </span><span class="text">Posted on</span> <time itemprop="dateCreated datePublished" datetime="2023-05-30T11:24:45+08:00">2023-05-30</time> </span><span class="item" title="Symbols count in article"><span class="icon"><i class="ic i-pen"></i> </span><span class="text">Symbols count in article</span> <span>16k</span> <span class="text">words</span> </span><span class="item" title="Reading time"><span class="icon"><i class="ic i-clock"></i> </span><span class="text">Reading time</span> <span>14 mins.</span></span></div></div></div><nav id="nav"><div class="inner"><div class="toggle"><div class="lines" aria-label="Toggle navigation bar"><span class="line"></span> <span class="line"></span> <span class="line"></span></div></div><ul class="menu"><li class="item title"><a href="/" rel="start">ChienI Kao</a></li></ul><ul class="right"><li class="item theme"><i class="ic i-sun"></i></li><li class="item search"><i class="ic i-search"></i></li></ul></div></nav></div><div id="imgs" class="pjax"><ul><li class="item" data-background-image="https://21r000-image.oss-cn-shanghai.aliyuncs.com/pic2021/6833939bly1giciukx8a7j20zk0m8aio.jpg"></li><li class="item" data-background-image="https://21r000-image.oss-cn-shanghai.aliyuncs.com/pic2021/6833939bly1giciub8ja1j20zk0m81ky.jpg"></li><li class="item" data-background-image="https://i.imgur.com/SkuhNI3.jpeg"></li><li class="item" data-background-image="https://21r000-image.oss-cn-shanghai.aliyuncs.com/pic2021/6833939bly1gipetlbztpj20zk0m84qp.jpg"></li><li class="item" data-background-image="https://21r000-image.oss-cn-shanghai.aliyuncs.com/pic2021/6833939bly1giph4lm9i7j20zk0m84qp.jpg"></li><li class="item" data-background-image="https://21r000-image.oss-cn-shanghai.aliyuncs.com/pic2021/6833939bly1giciuja1j1j20zk0m8kjl.jpg"></li></ul></div></header><div id="waves"><svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto"><defs><path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z"/></defs><g class="parallax"><use xlink:href="#gentle-wave" x="48" y="0"/><use xlink:href="#gentle-wave" x="48" y="3"/><use xlink:href="#gentle-wave" x="48" y="5"/><use xlink:href="#gentle-wave" x="48" y="7"/></g></svg></div><main><div class="inner"><div id="main" class="pjax"><div class="article wrap"><div class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList"><i class="ic i-home"></i> <span><a href="/">Home</a></span><i class="ic i-angle-right"></i> <span class="current" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/categories/SystemSoftware/" itemprop="item" rel="index" title="In SystemSoftware"><span itemprop="name">SystemSoftware</span></a><meta itemprop="position" content="1"></span></div><article itemscope itemtype="http://schema.org/Article" class="post block" lang="en"><link itemprop="mainEntityOfPage" href="https://chienikao.github.io/2023/05/30/SystemSoftware/Ch04_Macro_Processors/"><span hidden itemprop="author" itemscope itemtype="http://schema.org/Person"><meta itemprop="image" content="/images/avatar.jpg"><meta itemprop="name" content="ChienI Kao"><meta itemprop="description" content=", This is a note blog"></span><span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization"><meta itemprop="name" content="Nothing is true, everything is permitted"></span><div class="body md" itemprop="articleBody"><h2 id="introduction"><a class="anchor" href="#introduction">#</a> Introduction</h2><ul><li>A <strong>macro</strong> represent a commonly used group of statements in the source programming language.</li><li>The macro processor replaces each macro instruction with the corresponding group of source language statements. This is called <strong>expanding</strong> the macros.</li><li>When to use macro?<ul><li>Suppose that it is necessary to save the contents of all registers before calling a subprogram.</li><li>On SIC/XE, this would require a sequence of seven instructions ( <code>STA</code> , <code>STB</code> , etc…).</li><li>Using a macro instruction, the programmer could simply write one statement like SAVEREGS.</li><li>A similar macro instruction (perhaps named LOADREGS) could be used to reload the register contents after returning from the subprogram.</li></ul></li></ul><h2 id="macro-definition-and-expansion"><a class="anchor" href="#macro-definition-and-expansion">#</a> Macro Definition and Expansion</h2><details><summary>Figure 4.1 Each parameter begins with the character `&`</summary><div><pre><code>Line 		Source statement 	
+		 
+5 		COPY 	START 	0 		COPY FILE FROM 	INPUT TO OUTPUT 	 
+10 		RDBUFF 	MACRO 	&amp;INDEV,&amp;BUFADR,&amp;RECLTH 			 
+15 		.				 
+20 		.	MACRO TO READ RECORD INTO BUFFER 			 
+25 		.				 
+30 			CLEAR 	X 		CLEAR LOOP COUNTER 	 
+35 			CLEAR 	A 	 
+40 			CLEAR 	S 	 
+45 		       +LDT    #4096 		SET MAXIMUM RECORD LENGTH 	 
+50 			TD     =X'&amp;INDEV' 	TEST INPUT DEVICE 	 
+55 			JEQ 	*-3 		LOOP UNTIL READY 	 
+60 			RD     =X'&amp;INDEV' 	READ CHARACTER INTO REG A 	 
+65 			COMPR 	A,S 		TEST FOR END OF RECORD 	 
+70 			JEQ 	*+11 		EXIT LOOP IF EOR 	 
+75 			STCH 	&amp;BUFADR, X 	STORE CHARACTER IN BUFFER 	 
+80 			TIXR 	T 		LOOP UNLESS MAXIMUM LENGTH 	 
+85 			JLT 	*-19 		  HAS BEEN REACHED 	 
+90 			STX 	&amp;RECLTH 	SAVE RECORD LENGTH 	 
+95 			MEND 	 
+100 		WRBUFF 	MACRO 	&amp;OUTDEV , &amp;BUFADR, &amp;RECLTH 	 
+105 		.		 
+110 		.	MACRO TO WRITE RECORD FROM BUFFER 	 
+115 		.		 
+120 			CLEAR 	X CLEAR LOOP COUNTER 	 
+125 			LDT 	&amp;RECLTH 	 
+130 			LDCH 	&amp;BUFADR,X 	GET CHARACTER FROM BUFFER 	 
+135 			TD     =X'&amp;OUTDEV' 	TEST OUTPUT DEVICE 	 
+140 			JEQ 	*-3 		LOOP UNTIL READY 	 
+145 			WD     =X'&amp;OUTDEV' 	WRITE CHARACTER 	 
+150 			TIXR 	T 		LOOP UNTIL ALL CHARACTERS 	 
+155 			JLT 	*-14 		  HAVE BEEN WRITTEN 	 
+160 			MEND 	 
+165 		.	 
+170 		.	MAIN 	PROGRAM 	 
+175 		.	 
+180 		FIRST 	STL 	RETADR 		SAVE RETURN ADDRESS 	 
+190 		CLOOP 	RDBUFF  F1,BUFFER,LENGTH  READ RECORD INTO BUFFER 	 
+195 			LDA 	LENGTH 		TEST FOR END OF FILE 	 
+200 			COMP   #0 	 
+205 			JEQ 	ENDFIL 		EXIT IF EOF FOUND 	 
+210 			WRBUFF 	05,BUFFER,LENGTH  WRITE OUTPUT RECORD 	 
+215 			J 	CLOOP 		LOOP 	 
+220 		ENDFIL 	WRBUFF 	05,EOF,THREE 	INSERT EOF MARKER 	 
+225 			J      @RETADR 		 
+230 		EOF 	BYTE 	C'EOF ' 		 
+235 		THREE 	WORD 	3 		 
+240 		RETADR 	RESW 	1 		 
+245 		LENGTH 	RESW 	1 		LENGTH OF RECORD 	 
+250 		BUFFER 	RESB 	4096 		4096-BYTE BUFFER AREA 	 
+255 			END 	FIRST 	
+</code></pre></div></details><details><summary>Figure 4.2 The arguments and parameters are associated with one another according to their positions</summary><div><pre><code>Line 		Source statement
+
+5		COPY	START 	0			COPY FILE FROM INPUT TO OUTPUT
+180		FIRST	STL 	RETADR			SAVE RETURN ADDRESS
+190		.CLOOP	RDBUFF 	Fl,BUFFER,LENGTH	READ RECORD INTO BUFFER
+190a		CLOOP	CLEAR 	X			CLEAR LOOP COUNTER
+190b			CLEAR 	A
+190c			CLEAR 	S
+190d		       +LDT    #4096			SET MAXIMUM RECORD LENGTH
+190e			TD     =X'Fl'			TEST INPUT DEVICE
+190f			JEQ 	*-3			LOOP UNTIL READY
+190g			RD     =X'Fl'			READ CHARACTER INTO REG A
+190h			COMPR   A,S			TEST FOR END OF RECORD
+190i			JEQ     *+11			EXIT LOOP IF EOR
+190j			STCH 	BUFFER,X		STORE CHARACTER IN BUFFER
+190k			TIXR 	T			LOOP UNLESS MAXIMUM LENGTH
+190l			JLT 	*-19			  HAS BEEN REACHED
+190m			STX 	LENGTH			SAVE RECORD LENGTH
+195			LDA 	LENGTH			TEST FOR END OF FILE
+200			COMP   #0
+205			JEQ 	ENDFIL			EXIT IF EOF FOUND
+210			WRBUFF  05,BUFFER,LENGTH	WRITE OUTPUT RECORD
+210a			CLEAR 	X			CLEAR LOOP COUNTER
+210b			LDT	LENGTH
+210c			LDCH 	BUFFER, X		GET CHARACTER FROM BUFFER
+210d			TD     =X'05'			TEST OUTPUT DEVICE
+210e			JEQ 	*-3			LOOP UNTIL READY
+210f			WD     =X'05'			WRITE CHARACTER
+210g			TIXR 	T			LOOP UNTIL ALL CHARACTERS
+210h			JLT     *-14			  HAVE BEEN WRITTEN
+215			J 	CLOOP			LOOP
+220		.ENDFIL	WRBUFF  05,EOF,THREE		INSERT EOF MARKER
+220a		ENDFIL	CLEAR 	X			CLEAR LOOP COUNTER
+220b			LDT 	THREE
+220c			LDCH 	EOF, X			GET CHARACTER FROM BUFFER
+220d			TD     =X'05'			TEST OUTPUT DEVICE
+220e			JEQ 	*-3			LOOP UNTIL READY
+220f			WD     =X'05'			WRITE CHARACTER
+220g			TIXR 	T			LOOP UNTIL ALL CHARACTERS
+220h			JLT     *-14			  HAVE BEEN WRITTEN
+225			J      @RETADR
+230		EOF     BYTE    C'EOF'
+235		THREE	WORD	3
+240		RETADR	RESW	1
+245		LENGTH	RESW	1			LENGTH OF RECORD
+250		BUFFER	RESB	4096			4096-BYTE BUFFER AREA
+255			END	FIRST
+</code></pre></div></details><h2 id="macro-processor-algorithm-and-data-structures"><a class="anchor" href="#macro-processor-algorithm-and-data-structures">#</a> Macro Processor Algorithm and Data Structures</h2><ul><li>It is easy to design a two-pass macro processor in which all macro definitions are processed during the first pass, and all macro invocation statements are expanded during the second pass.<ul><li>However, such a two-pass macro processor would not allow the body of one macro instruction to contain definitions of other macros.</li></ul></li></ul><details><summary>Figure 4.3 Definitions of macros by other macros can be useful in certain cases</summary><div><pre><code>1 		MACROS 	MACRO 		&#123;Defines SIC standard version macros&#125; 	 
+2 		RDBUFF 	MACRO 		&amp;INDEV,&amp;BUFADR,&amp;RECLTH 
+	 		.
+			.		&#123;SIC  standard version&#125; 
+			.	 
+3 			MEND 		&#123;End of RDBUFF&#125; 	 
+4 		WRBUFF 	MACRO 		&amp;OUTDEV,&amp;BUFADR,&amp;RECLTH 
+			.	 
+			.		&#123;SIC  standard version&#125; 
+			.	 
+5 			MEND 		&#123;End of WRBUFF&#125; 
+			.
+			.
+			.	 
+6 			MEND 		&#123;End of MACROS&#125; 
+	 
+					(a) 	 
+
+1 		MACROX 	MACRO 		&#123;Defines SIC/XE macros&#125; 	 
+2 		RDBUFF 	MACRO 		&amp;INDEV,&amp;BUFADR,&amp;RECLTH 
+			.	 
+			.		&#123;SIC/XE version&#125; 
+			.	 
+3 			MEND 		&#123;End of RDBUFF&#125; 	 
+4 		WRBUFF 	MACRO 		&amp;OUTDEV,&amp;BUFADR,&amp;RECLTH 
+			.	 
+			.		&#123;SIC/XE version&#125; 	
+			. 
+5 			MEND 		&#123;End of WRBUFF&#125;
+			.
+			.
+			. 	 
+6 			MEND 		&#123;End of MACROX&#125; 	 
+
+					(b)
+</code></pre></div></details><ul><li>The same program could run on either a standard SIC machine or a SIC/XE machine.</li><li>The only change required would be the invocation of either MACROS or MACROX</li><li>Defining MACROS or MACROX does not define RDBUFF and the other macro instructions. These definitions are processed only when an invocation of MACROS or MACROX is expanded</li></ul><h3 id="data-stucture"><a class="anchor" href="#data-stucture">#</a> Data Stucture</h3><ul><li>Definition table (DEFTAB)<ul><li>Reference to the macro instruction parameters are converted to a positional notation for efficiency in substituting arguments</li></ul></li><li>Name table (NAMTAB), serving as an index to DEFTAB</li><li>Argument table (ARGTAB)</li></ul><p><img data-src="https://imgur.com/iow0vUO.png" alt="Figure 4.4"></p><h3 id="algorithm"><a class="anchor" href="#algorithm">#</a> Algorithm</h3><ul><li>Algorithm for a one-pass macro processor<ul><li>The handling of macro definitions within macros</li></ul></li></ul><figure class="highlight vhdl"><figcaption data-lang="VHDL"><span>Figure 4.5</span></figcaption><table><tr><td data-num="1"></td><td><pre><span class="token keyword">procedure</span> DEFINE 		 </pre></td></tr><tr><td data-num="2"></td><td><pre>	<span class="token keyword">begin</span> 		 </pre></td></tr><tr><td data-num="3"></td><td><pre>		enter macro name into NAMTAB 	 </pre></td></tr><tr><td data-num="4"></td><td><pre>		enter macro prototype into DEFTAB 	 </pre></td></tr><tr><td data-num="5"></td><td><pre>		LEVEL <span class="token operator">:=</span> <span class="token number">1</span> 		 </pre></td></tr><tr><td data-num="6"></td><td><pre>		<span class="token keyword">while</span> LEVEL <span class="token operator">></span> <span class="token number">0</span> do 	 </pre></td></tr><tr><td data-num="7"></td><td><pre>			<span class="token keyword">begin</span> 	 </pre></td></tr><tr><td data-num="8"></td><td><pre>				GETLINE 	 </pre></td></tr><tr><td data-num="9"></td><td><pre>				<span class="token keyword">if</span> this <span class="token keyword">is</span> <span class="token operator">not</span> a comment line <span class="token keyword">then</span> 	 </pre></td></tr><tr><td data-num="10"></td><td><pre>					<span class="token keyword">begin</span> 	 </pre></td></tr><tr><td data-num="11"></td><td><pre>						substitute positional notation <span class="token keyword">for</span> parameters 	 </pre></td></tr><tr><td data-num="12"></td><td><pre>						enter line into DEFTAB 	 </pre></td></tr><tr><td data-num="13"></td><td><pre>						<span class="token keyword">if</span> OPCODE <span class="token operator">=</span> 'MACRO' <span class="token keyword">then</span> 	 </pre></td></tr><tr><td data-num="14"></td><td><pre>							LEVEL <span class="token operator">:=</span> LEVEL <span class="token operator">+</span> <span class="token number">1</span> 	 </pre></td></tr><tr><td data-num="15"></td><td><pre>						<span class="token keyword">else</span> <span class="token keyword">if</span> OPCODE <span class="token operator">=</span> 'MEND' <span class="token keyword">then</span> 	 </pre></td></tr><tr><td data-num="16"></td><td><pre>							LEVEL <span class="token operator">:=</span> LEVEL <span class="token operator">-</span> <span class="token number">1</span> 	 </pre></td></tr><tr><td data-num="17"></td><td><pre>					<span class="token keyword">end</span> <span class="token punctuation">&#123;</span><span class="token keyword">if</span> <span class="token operator">not</span> comment<span class="token punctuation">&#125;</span> 	 </pre></td></tr><tr><td data-num="18"></td><td><pre>			<span class="token keyword">end</span> <span class="token punctuation">&#123;</span><span class="token keyword">while</span><span class="token punctuation">&#125;</span> 	 </pre></td></tr><tr><td data-num="19"></td><td><pre>		store <span class="token keyword">in</span> NAMTAB pointers <span class="token keyword">to</span> beginning <span class="token operator">and</span> <span class="token keyword">end</span> <span class="token keyword">of</span> definition 	 </pre></td></tr><tr><td data-num="20"></td><td><pre>	<span class="token keyword">end</span> <span class="token punctuation">&#123;</span>DEFINE<span class="token punctuation">&#125;</span> </pre></td></tr><tr><td data-num="21"></td><td><pre></pre></td></tr><tr><td data-num="22"></td><td><pre>	 </pre></td></tr><tr><td data-num="23"></td><td><pre><span class="token keyword">procedure</span> EXPAND 	 </pre></td></tr><tr><td data-num="24"></td><td><pre>	<span class="token keyword">begin</span> 	 </pre></td></tr><tr><td data-num="25"></td><td><pre>		EXPANDING <span class="token operator">:=</span> <span class="token boolean">TRUE</span> 	 </pre></td></tr><tr><td data-num="26"></td><td><pre>		get first line <span class="token keyword">of</span> macro definition <span class="token punctuation">&#123;</span>prototype<span class="token punctuation">&#125;</span> from DEFTAB 	 </pre></td></tr><tr><td data-num="27"></td><td><pre>		set up arguments from macro invocation <span class="token keyword">in</span> ARGTAB 	 </pre></td></tr><tr><td data-num="28"></td><td><pre>		write macro invocation <span class="token keyword">to</span> expanded <span class="token keyword">file</span> as a comment 	 </pre></td></tr><tr><td data-num="29"></td><td><pre>		<span class="token keyword">while</span> <span class="token operator">not</span> <span class="token keyword">end</span> <span class="token keyword">of</span> macro definition do 	 </pre></td></tr><tr><td data-num="30"></td><td><pre>			<span class="token keyword">begin</span> 	 </pre></td></tr><tr><td data-num="31"></td><td><pre>				GETLINE 	 </pre></td></tr><tr><td data-num="32"></td><td><pre>				PROCESSLINE 	 </pre></td></tr><tr><td data-num="33"></td><td><pre>			<span class="token keyword">end</span> <span class="token punctuation">&#123;</span><span class="token keyword">while</span><span class="token punctuation">&#125;</span> 	 </pre></td></tr><tr><td data-num="34"></td><td><pre>		EXPANDING <span class="token operator">:=</span> <span class="token boolean">FALSE</span> 	 </pre></td></tr><tr><td data-num="35"></td><td><pre>	<span class="token keyword">end</span> <span class="token punctuation">&#123;</span>EXPAND<span class="token punctuation">&#125;</span> </pre></td></tr><tr><td data-num="36"></td><td><pre></pre></td></tr><tr><td data-num="37"></td><td><pre>	 </pre></td></tr><tr><td data-num="38"></td><td><pre><span class="token keyword">procedure</span> GETLINE 	 </pre></td></tr><tr><td data-num="39"></td><td><pre>	<span class="token keyword">begin</span> 	 </pre></td></tr><tr><td data-num="40"></td><td><pre>		<span class="token keyword">if</span> EXPANDING <span class="token keyword">then</span> 	 </pre></td></tr><tr><td data-num="41"></td><td><pre>			<span class="token keyword">begin</span> 	 </pre></td></tr><tr><td data-num="42"></td><td><pre>				get <span class="token keyword">next</span> line <span class="token keyword">of</span> macro definition from DEFTAB 	 </pre></td></tr><tr><td data-num="43"></td><td><pre>				substitute arguments from ARGTAB <span class="token keyword">for</span> positional notation 	 </pre></td></tr><tr><td data-num="44"></td><td><pre>			<span class="token keyword">end</span> <span class="token punctuation">&#123;</span><span class="token keyword">if</span><span class="token punctuation">&#125;</span> 	 </pre></td></tr><tr><td data-num="45"></td><td><pre>		<span class="token keyword">else</span> 		 </pre></td></tr><tr><td data-num="46"></td><td><pre>			read <span class="token keyword">next</span> line from input <span class="token keyword">file</span> 	 </pre></td></tr><tr><td data-num="47"></td><td><pre>	<span class="token keyword">end</span> <span class="token punctuation">&#123;</span>GETLINE<span class="token punctuation">&#125;</span></pre></td></tr></table></figure><ul><li>Most macro processors allow the definitions of commonly used macro instructions to appear in a standard system library, rather than in the source program.</li></ul><h2 id="concatenation-of-macro-parameters"><a class="anchor" href="#concatenation-of-macro-parameters">#</a> Concatenation of Macro Parameters</h2><ul><li>Suppose that a program contains one series of variables named by the symbols XA1, XA2, XA3…, another series named by XB1, XB2, XB3… If similar processing is to be performed on each series of variables, the programmer might want to incorporate this processing into a macro instruction.</li><li>The parameter to such a macro instructin could specify the series of variables to be operated on. The macro processor would use this parameter to construct the symbols required in the macro expansion.</li></ul><details><summary>Figure 4.6</summary><div><pre><code>1 	SUM 	MACRO	&amp;ID
+2 		LDA	X&amp;ID--&gt;1
+3 		ADD	X&amp;ID--&gt;2
+4		ADD	X&amp;ID--&gt;3
+5 	   	STA 	X&amp;ID--&gt;S	 	 
+6 		MEND 
+		 
+		(a) 		 
+
+		SUM 	A 	 
+		
+		  |
+		  |
+		 \|/
+
+		LDA 	XAl 	 
+		ADD 	XA2
+		ADD 	XA3
+		STA 	XAS 
+	 
+	        (b)
+ 		 
+		SUM 	BETA 	 
+		
+ 		  |
+		  |
+		 \|/ 
+		
+		LDA 	XBETAl
+		ADD 	XBETA2
+		ADD 	XBETA3
+		STA 	XBETAS 	
+ 
+		(c) 
+</code></pre></div></details><h2 id="generation-of-unique-labels"><a class="anchor" href="#generation-of-unique-labels">#</a> Generation of Unique Labels</h2><ul><li>It is general not possible for the body of a macro instruction to contain labels of the usual kind. This leads to the use of relative addressing at the source statement level.</li><li>However, the use of statements like <code>JLT *-14</code> is generally considered to be a poor programming practice</li></ul><details><summary>Figure 4.7 illustrates one technique for generating unique labels within a macro expansion</summary><div><p>The character <code>$</code> will be replaced by $XX, where XX is a two-character alphanumeric counter of the number of macro instructions expanded, AA, AB, AC, etc.</p><pre><code>25 	RDBUFF 		MACRO 	&amp;INDEV,&amp;BUFADR,&amp;RECLTH 	 
+30 			CLEAR 	X 		CLEAR LOOP COUNTER 	 
+35 			CLEAR 	A 		 
+40 			CLEAR 	S 		 
+45 	       	       +LDT    #4096 		SET MAXIMUM RECORD LENGTH 	 
+50 	$LOOP 		TD     =X'&amp;INDEV' 	TEST INPUT DEVICE 	 
+55 			JEQ 	$LOOP 		LOOP UNTIL READY 	 
+60 			RD     =X'&amp;INDEV' 	READ CHARACTER INTO REG A 	 
+65 			COMPR 	A,S 		TEST FOR END OF RECORD 	 
+70 			JEQ 	$EXIT 		EXIT LOOP IF EOR 	 
+75 			STCH 	&amp;BUFADR,X 	STORE CHARACTER IN BUFFER 	 
+80 			TIXR 	T 		LOOP UNLESS MAXIMUM LENGTH 	 
+85 			JLT 	$LOOP 		  HAS BEEN REACHED 	 
+90 	$EXIT 		STX 	&amp;RECLTH		SAVE RECORD LENGTH 	 
+95 			MEND 	
+		 
+				(a) 	
+	 
+			RDBUFF 	Fl,BUFFER,LENGTH 
+
+		 
+30 			CLEAR 	X 		CLEAR LOOP COUNTER 		 
+35 			CLEAR 	A 			 
+40 			CLEAR 	S 			 
+45 	      	       +LDT    #4096 		SET MAXIMUM RECORD LENGTH 	 
+50 	$AALOOP 	TD     =X'Fl' 		TEST INPUT DEVICE 		 
+55 			JEQ 	$AALOOP 	LOOP UNTIL READY 	 
+60 			RD     =X'Fl' 		READ CHARACTER INTO REG A 	 
+65 			COMPR 	A,S 		TEST FOR END OF RECORD 	 
+70 			JEQ 	$AAEXIT 	EXIT LOOP IF EOR 	 
+75 			STCH 	BUFFER,X 	STORE CHARACTER IN BUFFER 	 
+80 			TIXR 	T 		LOOP UNLESS MAXIMUM LENGTH 	 
+85 			JLT 	$AALOOP 	  HAS BEEN REACHED 	 
+90 	$AAEXIT 	STX 	LENGTH 		SAVE REJORD LENGTH 
+	 
+				(b)
+</code></pre></div></details><h2 id="conditional-macro-expansion"><a class="anchor" href="#conditional-macro-expansion">#</a> Conditional Macro Expansion</h2><details><summary>Figure 4.8</summary><div><pre><code>25 	RDBUFF 		MACRO 	&amp;INDEV, &amp;BUFADR , &amp;RECLTH ,&amp;EOR ,&amp;MAXLTH 	 
+26 			IF 	(&amp;EOR NE &quot;) 	 
+27 	&amp;EORCK 		SET 	1 	 
+28 			ENDIF 		 
+30 			CLEAR 	X 		CLEAR LOOP COUNTER 	 
+35 			CLEAR 	A 	 
+38 			IF 	(&amp;EORCK EQ 1 ) 	 
+40 			LDCH   =X'&amp;EOR' 	SET EOR CHARACTER 	 
+42 			RMO 	A,S 	 
+43 			ENDIF 		 
+44 			IF 	(&amp;MAXLTH EQ '') 	 
+45 		       +LDT    #4096 		SET MAX LENGTH = 4096 	 
+46 			ELSE 		 
+47 		       +LDT    #&amp;MAXLTH 	SET MAXIMUM RECORD LENGTH 	 
+48 			ENDIF 		 
+50 	$LOOP 		TD     =X'&amp;INDEV' 	TEST INPUT DEVICE 	 
+55 			JEQ 	$LOOP LOOP UNTIL READY 	 
+60 			RD     =X'&amp;INDEV' 	READ CHARACTER INTO REG A 	 
+63 			IF 	(&amp;EORCK EQ 1 ) 		 
+65 			COMPR 	A,S 		TEST FOR END OF RECORD 	 
+70 			JEQ 	$EXIT 		EXIT LOOP IF EOR 	 
+73 			ENDIF 			 
+75 			STCH 	&amp;BUFADR ,X 	STORE CHARACTER IN BUFFER 	 
+80 			TIXR 	T 		LOOP UNLESS MAXIMUM LENGTH 	 
+85 			JLT 	$LOOP 		  HAS BEEN REACHED 	 
+90 	$EXIT 		STX 	&amp;RECLTH 	SAVE RECORD LENGTH 	 
+95 			MEND 
+		 
+				(a) 	 
+
+			RDBUFF 	F3,BUF,RECL,04,2048 
+	 
+30 			CLEAR 	X 		CLEAR LOOP COUNTER 	 
+35 			CLEAR 	A 			 
+40 			LOCH   =X'04' 		SET EOR CHARACTER 	 
+42 			RMO 	A,S 			 
+47 		       +LDT    #2048 		SET MAXIMUM RECORD LENGTH 	 
+50 	$AALOOP 	TD     =X'F3' 		TEST INPUT DEVICE 	 
+55 			JEQ 	$AALOOP 	LOOP UNTIL READY 	 
+60 			RD     =X'F3' 		READ CHARACTER INTO REG A 	 
+65 			COMPR 	A,S 		TEST FOR END OF RECORD 	 
+70 			JEQ 	$AAEXIT 	EXIT LOOP IF EOR 	 
+75 			STCH 	BUF,X 		STORE CHARACTER IN BUFFER 	 
+80 			TIXR 	T 		LOOP UNLESS MAXIMUM LENGTH 	 
+85 			JLT 	$AALOOP 	  HAS BEEN REACHED 	 
+90 	$AAEXIT 	STX 	RECL 		SAVE RECORD LENGTH 	 
+				
+				(b) 
+			?RDBUFF 	OE,BUFFER,LENGTH,,80 
+
+	 
+30 			CLEAR 	X 		CLEAR LOOP COUNTER 	 
+35 			CLEAR 	A 		 
+47 		       +LDT    #80 		SET MAXIMUM RECORD LENGTH 	 
+50 	$ABLOOP 	TD     =X'OE' 		TEST INPUT DEVICE 	 
+55 			JEQ 	$ABLOOP 	LOOP UNTIL READY 	 
+60 			RD     =X'OE' 		READ CHARACTER INTO REG A 	 
+75 			STCH 	BUFFER,X 	STORE CHARACTER IN BUFFER 	 
+80 			TIXR 	T 		LOOP UNLESS MAXIMUM LENGTH 	 
+87 			JLT 	$ABLOOP 	  HAS BEEN REACHED 	 
+90 	$ABEXIT 	STX 	LENGTH 		SAVE RECORD LENGTH
+ 	 
+				(c) 	
+	 
+			RDBUFF 	Fl,BUFF,RLENG,04
+ 		 
+30 			CLEAR 	X 		CLEAR LOOP COUNTER 	 
+35 			CLEAR 	A 		 
+40 			LDCH   =X'04' 		SET EOR CHARACTER 	 
+42 			RMO 	A,S 		 
+45 		       +LDT    #4096 		SET MAX LENGTH = 4096 	 
+50 	$ACLOOP 	TD     =X'Fl' 		TEST INPUT DEVICE 	 
+55 			JEQ 	$ACLOOP 	LOOP UNTIL READY 	 
+60 			RD     =X'Fl' 		READ CHARACTER INTO REG A 	 
+65 			COMPR 	A,S 		TEST FOR END OF RECORD 	 
+70 			JEQ 	$ACEXIT 	EXIT LOOP IF EOR 	 
+75 			STCH 	BUFF, X 	STORE CHARACTER IN BUFFER 	 
+80 			TIXR 	T 		LOOP UNLESS MAXIMUM LENGTH 	 
+85 			JLT 	$ACLOOP 	  HAS BEEN REACHED 	 
+90 	$ACEXIT 	STX 	RLENG 		SAVE RECORD LENGTH 
+	 
+				(d)
+</code></pre></div></details><ul><li>Two additional parameters: &amp;EOR and &amp;MAXLTH for conditional macro expansion</li><li><strong>IF</strong> statement</li><li>Macro processor directive <strong>SET</strong></li><li>Macro-time variable, beginning with the character &amp; for storing working values during the macro expansion. All such variables are initialized to a value of 0.</li><li>It is extremely important to understand that the testing of Boolean expression in IF statements occurs at the time macros are expanded, not during program execution.</li></ul><details><summary>Figure 4.9</summary><div><pre><code>25 	RDBUFF 		MACRO 	&amp;INDEV,&amp;BUFADR,&amp;RECLTH,&amp;EOR 	 
+27 	&amp;EORCT 		SET 	%NITEMS(&amp;EOR) 		 
+30 			CLEAR 	X 		CLEAR LOOP COUNTER 	 
+35 			CLEAR 	A 		 
+45 		       +LDT    #4096 		SET MAX LENGTH = 4096 	 
+50 	$LOOP 		TD     =X'&amp;INDEV' 	TEST INPUT DEVICE 	 
+55 			JEQ 	$LOOP 		LOOP UNTIL READY 	 
+60 			RD     =X'&amp;INDEV' 	READ CHARACTER INTO REG A 	 
+63 	&amp;CTR 		SET 	1 		 
+64 			WHILE 	(&amp;CTR LE &amp;EORCT) 	 
+65 			COMP   =X'0000&amp;EOR[&amp;CTR]' 	 
+70 			JEQ 	$EXIT 	 
+71 	&amp;CTR 		SET 	&amp;CTR+l 	 
+73 			ENDW 		 
+75 			STCH 	&amp;BUFADR,X 	STORE CHARACTER IN BUFFER 	 
+80 			TIXR 	T 		LOOP UNLESS MAXIMUM LENGTH 	 
+85 			JLT 	$LOOP 		  HAS BEEN REACHED 	 
+90 	$EXIT 		STX 	&amp;RECLTH 	SAVE RECORD LENGTH 	 
+100 			MEND
+ 		 
+				(a) 	 
+
+			RDBUFF 	F2,BUFFER,LENGTH,(00,03,04) 	 
+
+30 			CLEAR 	X 		CLEAR LOOP COUNTER 	 
+35 			CLEAR 	A 	 
+45 		       +LDT    #4096 		SET MAX LENGTH = 4096 	 
+50 	$AALOOP 	TD     =X'F2' 		TEST INPUT DEVICE 	 
+55 			JEQ 	$AALOOP 	LOOP UNTIL READY 	 
+60 			RD     =X'F2' 		READ CHARACTER INTO REG A 	 
+65 			COMP   =X'000000' 	 
+70 			JEQ 	$AAEXIT 	 
+65 			COMP   =X'000003' 	 
+70 			JEQ 	$AAEXIT 	 
+65 			COMP   =X'000004' 	 
+70 			JEQ 	$AAEXIT 	 
+75 			STCH 	BUFFER,X 	STORE CHARACTER IN BUFFER 	 
+80 			TIXR 	T 		LOOP UNLESS MAXIMUM LENGTH 	 
+85 			JLT 	$AALOOP 	  HAS BEEN REACHED 	 
+90 	$AAEXIT 	STX 	LENGTH 		SAVE RECORD LENGTH 	 
+	
+				(b)
+</code></pre></div></details><ul><li>Looping statement <strong>WHILE</strong></li><li>A list (00, 03, 04) corresponding to the parameter &amp;EOR</li><li><strong>%NITEMS</strong> is a macro processor function that returns as its value the number of members in an argument list</li><li>&amp;EOR[&amp;CTR]</li></ul><h2 id="keyword-macro-parameters"><a class="anchor" href="#keyword-macro-parameters">#</a> Keyword Macro Parameters</h2><ul><li>With positional parameters, if an argument is to be omitted, the macro invocation statement must contain a null argument (two consecutive commas) to maintain the correct argument positions</li><li>However, if a macro has a large number of parameters, and only a few of these are given values in a typical invocation, a different form of parameter specification is more useful<ul><li>Perhaps an entire operating system is to be generated from a macro invocation. In such cases, most of the parameters may have acceptable default values; the macro invocation specifies only the changes from the default set of values.</li><li>GENER ,DIRECT,3</li><li>GENER TYPE=DIRECT, CHANGE=3</li></ul></li></ul><details><summary>Figure 4.10</summary><div><pre><code>25 	RDBUFF 		MACRO 	&amp;INDEV=F1,&amp;BUFADR=,&amp;RECLTH=,&amp;EOR=04,&amp;MAXLTH=4096 	 
+26 			IF 	(&amp;EOR NE &quot;) 		 
+27 	&amp;EORCK 		SET 	1 		 
+28 			ENDIF 			 
+30  			CLEAR 	X 		CLEAR LOOP COUNTER 	 
+35 			CLEAR 	A 		 
+38 			IF 	(&amp;EORCK EQ 1) 		 
+40 			LDCH   =X'&amp;EOR' 	SET EOR CHARACTER 	 
+42 			RMO 	A,S 		 
+43 			ENDIF 			 
+47 		       +LDT    #&amp;MAXLTH 	SET MAXIMUM RECORD LENGTH 	 
+50 	$LOOP 		TD     =X'&amp;INDEV' 	TEST INPUT DEVICE 	 
+55 			JEQ 	$LOOP 		LOOP UNTIL READY 	 
+60 			RD     =X'&amp;INDEV' 	READ CHARACTER INTO REG A 	 
+63 			IF 	(&amp;EORCK EQ 1) 		 
+65 			COMPR 	A,S 		TEST FOR END OF RECORD 	 
+70 			JEQ 	$EXIT 		EXIT LOOP IF EOR 	 
+73 			ENDIF 			 
+75 			STCH 	&amp;BUFADR ,X 	STORE CHARACTER IN BUFFER 	 
+80 			TIXR 	T 		LOOP UNLESS MAXIMUM LENGTH 	 
+85 			JLT 	$LOOP 		  HAS BEEN REACHED 	 
+90 	$EXI T 		STX 	&amp;RECLTH 	SAVE RECORD LENGTH 	 
+95 			MEND 
+		 
+				(a) 	 
+	
+			RDBUFF 	BUFADR=BUFFER,RECLTH=LENGTH 
+	 
+30 			CLEAR 	X 		CLEAR LOOP COUNTER 	 
+35 			CLEAR 	A 	 
+40 			LDCH   =X'04' 		SET EOR CHARACTER 	 
+42 			RMO 	A, S 	 
+47 		       +LDT    #4096 		SET MAXIMUM RECORD LENGTH 	 
+50 	$AALOOP 	TD     =X'F1' 		TEST INPUT DEVICE 	 
+55 			JEQ 	$AALOOP 	LOOP UNTIL READY 	 
+60 			RD     =X'F1' 		READ CHARACTER INTO REG A 	 
+65 			COMPR 	A,S 		TEST FOR END OF RECORD 	 
+70 			JEQ 	$AAEXIT 	EXIT LOOP IF EOR 	 
+75 			STCH 	BUFFER,X 	STORE CHARACTER IN BUFFER 	 
+80 			TIXR 	T 		LOOP UNLESS MAXIMUM LENGTH 	 
+85 			JLT 	$AALOOP 	  HAS BEEN REACHED 	 
+90 	$AAEXIT 	STX 	LENGTH 		SAVE RECORD LENGTH 	 
+
+				(b)  	
+			RDBUFF 	RECLTH=LENGTH,BUFADR=BUFFER,EOR=,INDEV=F3 
+	 
+30 			CLEAR 	X 		CLEAR LOOP COUNTER 	 
+35 			CLEAR 	A 		 
+47 		       +LDT    #4096 		SET MAXIMUM RECORD LENGTH 	 
+50 	$ABLOOP 	TD     =X'F3' 		TEST INPUT DEVICE 	 
+55 			JEQ 	$ABLOOP 	LOOP UNTIL READY 	 
+60 			RD     =X'F3' 		READ CHARACTER INTO REG A 	 
+75 			STCH 	BUFFER, X 	STORE CHARACTER IN BUFFER 	 
+80 			TIXR 	T 		LOOP UNLESS MAXIMUM LENGTH 	 
+85 			JLT 	$ABLOOP 	  HAS BEEN REACHED 	 
+90 	$ABEXIT 	STX 	LENGTH 		SAVE RECORD LENGTH
+ 	 
+			(c)  
+</code></pre></div></details><ul><li><strong>Default values</strong> can simplify the macro definition in many cases<ul><li>Figure 4.10(a) and 4.8(a) both provide for setting the maximum record length to 4096 unless a different value is specified by the user.</li><li>The default value established in Figure 4.10(a) takes care if this automatically</li><li>In Figure 4.8(a), an IF-ELSE-ENDIF structure is required to accomplish the same thing</li></ul></li></ul><h2 id="recursive-macro-expansion"><a class="anchor" href="#recursive-macro-expansion">#</a> Recursive Macro Expansion</h2><details><summary>Figure 4.11 Nested macro invocation</summary><div><pre><code>10 	RDBUFF 		MACRO 	&amp;BUFADR,&amp;RECLTH,&amp;INDEV 	 
+15 	.				 
+20 	.		MACRO TO READ RECORD INTO BUFFER 	 
+25 	.				 
+30 			CLEAR 	X 		CLEAR LOOP COUNTER 	 
+35 			CLEAR 	A 	 
+40 			CLEAR 	S 	 
+45 		       +LDT    #4096 		SET MAXIMUM RECORD LENGTH 	 
+50 	$LOOP 		RDCHAR 	&amp;INDEV 		READ CHARACTER INTO REG A 	 
+65 			COMPR 	A,S 		TEST FOR END OF RECORD 	 
+70 			JEQ 	$EXIT 		EXIT LOOP IF EOR 	 
+75 			STCH 	&amp;BUFADR,X 	STORE CHARACTER IN BUFFER 	 
+80 			TIXR 	T 		LOOP UNLESS MAXIMUM LENGTH 	 
+85 			JLT 	$LOOP 		  HAS BEEN REACHED 	 
+90 	$EXIT 		STX 	&amp;RECLTH 	SAVE RECORD LENGTH 	 
+95 			MEND 
+	 
+			(a) 	 
+
+5 	RDCHAR 		MACRO 	&amp;IN 	 
+10 	.		 
+15 	.		MACRO TO READ CHARACTER INTO REGISTER A 	 
+20 	.		 
+25 			TD     =X'&amp;IN' 		TEST INPUT DEVICE 	 
+30 			JEQ 	*-3 		LOOP UNTIL READY 	 
+35 			RD     =X'&amp;IN' 		READ CHARACTER 	 
+40 			MEND 
+				 
+			(b) 
+		 
+			RDBUFF 	BUFFER,LENGTH,FI 
+
+			(c)
+</code></pre></div></details><ul><li>When applying the algorithm of Figure 4.5 to the macro invocation statement in Figure 4.11©<ul><li>When the end of the definition of RDCHAR was recognized, EXPANDING would be set to FALSE. Thus the macro processor would forget that it had been in the middle of expanding a macro when it encountered the RDCHAR statement</li><li>The arguments from the original macro invocation (RDBUFF) would be lost because the values in ARGTAB were overwritten with the arguments from the invocation of RDCHAR</li></ul></li></ul><h2 id="general-purpose-macro-processors"><a class="anchor" href="#general-purpose-macro-processors">#</a> General-Purpose Macro Processors</h2><ul><li>The advantage of a general-purpose approach to macro processing is that the programmer does not need to learn about a different macro facility for each compiler or assembler language.</li><li>In spite of the advantages noted, there are still relatively few general-purpose macro processors. One of the reasons for this situation is the large number of details that must be dealt with in a real programming language.</li><li>In a typical programming language, there are several situations in which normal macro parameter substitution should not occur<ul><li>For example, comments should usually be ignored by a macro processor.</li><li>However, each programming language has its own methods for identifying comments.</li></ul></li><li>With most special-purpose macro processors, macro invocations are very similar in form to statements in the source programming language. This similarity of form tends to make the source program easier to write and read.<ul><li>However, it is difficult to achieve with a general-purpose macro processor that is to be used with different programming languages.</li></ul></li></ul><h2 id="macro-processing-within-language-translators"><a class="anchor" href="#macro-processing-within-language-translators">#</a> Macro Processing within Language Translators</h2><ul><li>The macro processors that we have discussed so far might be called <strong>preprocessors</strong>.<ul><li>They process macro definitions and expand macro invocations, producing an expanded version of the source program. This expanded program is then used as input to an assembler or compiler.</li></ul></li><li>An alternative is combining the macro processing functions with the language translator itself.</li><li>The simplest method of achieving this sort of combination is a <strong>line-by-line</strong> macro processor.<ul><li>The output lines are passed to the language translator as they are generated (one at a time), instead of being written to an expanded source file.</li><li>Thus the macro processor operates as a sort of input routine for the assembler or compiler.</li></ul></li></ul><div class="tags"><a href="/tags/System-Software/" rel="tag"><i class="ic i-tag"></i> System Software</a> <a href="/tags/Assembler/" rel="tag"><i class="ic i-tag"></i> Assembler</a></div></div><footer><div class="meta"><span class="item"><span class="icon"><i class="ic i-calendar-check"></i> </span><span class="text">Edited on</span> <time title="Modified: 2023-05-30 23:56:46" itemprop="dateModified" datetime="2023-05-30T23:56:46+08:00">2023-05-30</time></span></div><div id="copyright"><ul><li class="author"><strong>Post author: </strong>ChienI Kao <i class="ic i-at"><em>@</em></i>Nothing is true, everything is permitted</li><li class="link"><strong>Post link: </strong><a href="https://chienikao.github.io/2023/05/30/SystemSoftware/Ch04_Macro_Processors/" title="Ch04 - Macro Processors">https://chienikao.github.io/2023/05/30/SystemSoftware/Ch04_Macro_Processors/</a></li><li class="license"><strong>Copyright Notice: </strong>All articles in this blog are licensed under <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9kZWVkLnpo"><i class="ic i-creative-commons"><em>(CC)</em></i>BY-NC-SA</span> unless stating additionally.</li></ul></div></footer></article></div><div class="post-nav"><div class="item left"><a href="/2023/05/23/SystemSoftware/Ch03_Loaders_and_Linkers/" itemprop="url" rel="prev" data-background-image="https:&#x2F;&#x2F;21r000-image.oss-cn-shanghai.aliyuncs.com&#x2F;pic2021&#x2F;6833939bly1giciub8ja1j20zk0m81ky.jpg" title="Ch03 - Loaders and Linkers"><span class="type">Previous Post</span> <span class="category"><i class="ic i-flag"></i> SystemSoftware</span><h3>Ch03 - Loaders and Linkers</h3></a></div><div class="item right"></div></div><div class="wrap" id="comments"></div></div><div id="sidebar"><div class="inner"><div class="panels"><div class="inner"><div class="contents panel pjax" data-title="Contents"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#introduction"><span class="toc-number">1.</span> <span class="toc-text">Introduction</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#macro-definition-and-expansion"><span class="toc-number">2.</span> <span class="toc-text">Macro Definition and Expansion</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#macro-processor-algorithm-and-data-structures"><span class="toc-number">3.</span> <span class="toc-text">Macro Processor Algorithm and Data Structures</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#data-stucture"><span class="toc-number">3.1.</span> <span class="toc-text">Data Stucture</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#algorithm"><span class="toc-number">3.2.</span> <span class="toc-text">Algorithm</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#concatenation-of-macro-parameters"><span class="toc-number">4.</span> <span class="toc-text">Concatenation of Macro Parameters</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#generation-of-unique-labels"><span class="toc-number">5.</span> <span class="toc-text">Generation of Unique Labels</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#conditional-macro-expansion"><span class="toc-number">6.</span> <span class="toc-text">Conditional Macro Expansion</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#keyword-macro-parameters"><span class="toc-number">7.</span> <span class="toc-text">Keyword Macro Parameters</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#recursive-macro-expansion"><span class="toc-number">8.</span> <span class="toc-text">Recursive Macro Expansion</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#general-purpose-macro-processors"><span class="toc-number">9.</span> <span class="toc-text">General-Purpose Macro Processors</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#macro-processing-within-language-translators"><span class="toc-number">10.</span> <span class="toc-text">Macro Processing within Language Translators</span></a></li></ol></div><div class="related panel pjax" data-title="Related"><ul><li><a href="/2023/04/23/SystemSoftware/Appendix_A/" rel="bookmark" title="Appendix A">Appendix A</a></li><li><a href="/2023/04/24/SystemSoftware/Ch01_Background/" rel="bookmark" title="Ch01 - Background">Ch01 - Background</a></li><li><a href="/2023/04/25/SystemSoftware/Ch01_example/" rel="bookmark" title="Ch01 - Example">Ch01 - Example</a></li><li><a href="/2023/04/26/SystemSoftware/Ch02_Assembler/" rel="bookmark" title="Ch02 - Assemblers">Ch02 - Assemblers</a></li><li><a href="/2023/04/27/SystemSoftware/Ch02_example/" rel="bookmark" title="Ch02 - Example">Ch02 - Example</a></li><li><a href="/2023/05/23/SystemSoftware/Ch03_Loaders_and_Linkers/" rel="bookmark" title="Ch03 - Loaders and Linkers">Ch03 - Loaders and Linkers</a></li><li class="active"><a href="/2023/05/30/SystemSoftware/Ch04_Macro_Processors/" rel="bookmark" title="Ch04 - Macro Processors">Ch04 - Macro Processors</a></li></ul></div><div class="overview panel" data-title="Overview"><div class="author" itemprop="author" itemscope itemtype="http://schema.org/Person"><img class="image" itemprop="image" alt="ChienI Kao" data-src="/images/avatar.jpg"><p class="name" itemprop="name">ChienI Kao</p><div class="description" itemprop="description">This is a note blog</div></div><nav class="state"><div class="item posts"><a href="/archives/"><span class="count">72</span> <span class="name">posts</span></a></div><div class="item categories"><a href="/categories/"><span class="count">18</span> <span class="name">categories</span></a></div><div class="item tags"><a href="/tags/"><span class="count">61</span> <span class="name">tags</span></a></div></nav><div class="social"><span class="exturl item github" data-url="aHR0cHM6Ly9naXRodWIuY29tL0NoaWVuSUthby9DaGllbklLYW8uZ2l0aHViLmlv" title="https:&#x2F;&#x2F;github.com&#x2F;ChienIKao&#x2F;ChienIKao.github.io"><i class="ic i-github"></i></span> <span class="exturl item email" data-url="bWFpbHRvOmFsZW45MTEwMThAZ21haWwuY29t" title="mailto:alen911018@gmail.com"><i class="ic i-envelope"></i></span> <span class="exturl item instagram" data-url="aHR0cHM6Ly9pbnN0YWdyYW0uY29tL2NoaWVuaV8xMDE4" title="https:&#x2F;&#x2F;instagram.com&#x2F;chieni_1018"><i class="ic i-instagram"></i></span></div><ul class="menu"><li class="item"><a href="/" rel="section"><i class="ic i-home"></i>Home</a></li><li class="item dropdown"><a href="javascript:void(0);"><i class="ic i-feather"></i>Posts</a><ul class="submenu"><li class="item"><a href="/archives/" rel="section"><i class="ic i-list-alt"></i>Archives</a></li><li class="item"><a href="/categories/" rel="section"><i class="ic i-th"></i>Categories</a></li><li class="item"><a href="/tags/" rel="section"><i class="ic i-tags"></i>Tags</a></li></ul></li></ul></div></div></div><ul id="quick"><li class="prev pjax"></li><li class="up"><i class="ic i-arrow-up"></i></li><li class="down"><i class="ic i-arrow-down"></i></li><li class="next pjax"></li><li class="percent"></li></ul></div></div><div class="dimmer"></div></div></main><footer id="footer"><div class="inner"><div class="widgets"><div class="rpost pjax"><h2>Random Posts</h2><ul><li class="item"><div class="breadcrumb"><a href="/categories/Coding/" title="In Coding">Coding</a> <i class="ic i-angle-right"></i> <a href="/categories/Coding/Leetcode/" title="In Leetcode">Leetcode</a> <i class="ic i-angle-right"></i> <a href="/categories/Coding/Leetcode/Medium/" title="In Medium">Medium</a></div><span><a href="/2023/05/10/Coding/leetcode/Medium/59%20Spiral%20Matrix%20II/" title="59. Spiral Matrix II">59. Spiral Matrix II</a></span></li><li class="item"><div class="breadcrumb"><a href="/categories/Coding/" title="In Coding">Coding</a> <i class="ic i-angle-right"></i> <a href="/categories/Coding/UVA/" title="In UVA">UVA</a> <i class="ic i-angle-right"></i> <a href="/categories/Coding/UVA/Star1/" title="In Star1">Star1</a></div><span><a href="/2023/04/20/Coding/uva/Star1/uva%20499/" title="uva 499 - What’s The Frequency, Kenneth?">uva 499 - What’s The Frequency, Kenneth?</a></span></li><li class="item"><div class="breadcrumb"><a href="/categories/Coding/" title="In Coding">Coding</a> <i class="ic i-angle-right"></i> <a href="/categories/Coding/Leetcode/" title="In Leetcode">Leetcode</a> <i class="ic i-angle-right"></i> <a href="/categories/Coding/Leetcode/Hard/" title="In Hard">Hard</a></div><span><a href="/2023/04/28/Coding/leetcode/Hard/839%20Similar%20String%20Groups/" title="839. Similar String Groups">839. Similar String Groups</a></span></li><li class="item"><div class="breadcrumb"><a href="/categories/Web/" title="In Web">Web</a> <i class="ic i-angle-right"></i> <a href="/categories/Web/CSS/" title="In CSS">CSS</a></div><span><a href="/2023/04/19/Web/CSS/CSS%20-%20Transition/" title="CSS - Transition">CSS - Transition</a></span></li><li class="item"><div class="breadcrumb"><a href="/categories/Coding/" title="In Coding">Coding</a> <i class="ic i-angle-right"></i> <a href="/categories/Coding/Leetcode/" title="In Leetcode">Leetcode</a> <i class="ic i-angle-right"></i> <a href="/categories/Coding/Leetcode/Medium/" title="In Medium">Medium</a></div><span><a href="/2023/05/15/Coding/leetcode/Medium/2632%20Curry/" title="2632. Curry">2632. Curry</a></span></li><li class="item"><div class="breadcrumb"><a href="/categories/SystemSoftware/" title="In SystemSoftware">SystemSoftware</a></div><span><a href="/2023/04/26/SystemSoftware/Ch02_Assembler/" title="Ch02 - Assemblers">Ch02 - Assemblers</a></span></li><li class="item"><div class="breadcrumb"><a href="/categories/Algorithm/" title="In Algorithm">Algorithm</a></div><span><a href="/2023/05/11/Algorithm/Ch07%20Sorting/" title="Ch07. Sorting">Ch07. Sorting</a></span></li><li class="item"><div class="breadcrumb"><a href="/categories/Coding/" title="In Coding">Coding</a> <i class="ic i-angle-right"></i> <a href="/categories/Coding/Leetcode/" title="In Leetcode">Leetcode</a> <i class="ic i-angle-right"></i> <a href="/categories/Coding/Leetcode/Easy/" title="In Easy">Easy</a></div><span><a href="/2023/05/07/Coding/leetcode/Easy/2620%20Counter/" title="2620. Counter">2620. Counter</a></span></li><li class="item"><div class="breadcrumb"><a href="/categories/Web/" title="In Web">Web</a> <i class="ic i-angle-right"></i> <a href="/categories/Web/HTML/" title="In HTML">HTML</a></div><span><a href="/2023/04/19/Web/HTML/HTML%20-%20Forms/" title="HTML - Forms">HTML - Forms</a></span></li><li class="item"><div class="breadcrumb"><a href="/categories/Web/" title="In Web">Web</a> <i class="ic i-angle-right"></i> <a href="/categories/Web/CSS/" title="In CSS">CSS</a></div><span><a href="/2023/04/19/Web/CSS/CSS%20-%20Float/" title="CSS - Float">CSS - Float</a></span></li></ul></div><div><h2>Recent Comments</h2><ul class="leancloud-recent-comment"></ul></div></div><div class="status"><div class="copyright">&copy; <span itemprop="copyrightYear">2023</span> <span class="with-love"><i class="ic i-ChienI Kao"></i> </span><span class="author" itemprop="copyrightHolder">ChienI Kao @ ChienI Kao</span></div><div class="count"><span class="post-meta-item-icon"><i class="ic i-chart-area"></i> </span><span title="Symbols count total">191k words</span> <span class="post-meta-divider">|</span> <span class="post-meta-item-icon"><i class="ic i-coffee"></i> </span><span title="Reading time total">2:53</span></div><div class="powered-by">Powered by <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & Theme.<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2FtZWhpbWUvaGV4by10aGVtZS1zaG9rYQ==">Shoka</span></div></div></div></footer></div><script data-config type="text/javascript">var LOCAL={path:"2023/05/30/SystemSoftware/Ch04_Macro_Processors/",favicon:{show:"（●´3｀●）Goooood",hide:"(´Д｀)Booooom"},search:{placeholder:"Search for Posts",empty:"We didn't find any results for the search: ${query}",stats:"${hits} results found in ${time} ms"},valine:!0,fancybox:!0,copyright:'Copied to clipboard successfully! <br> All articles in this blog are licensed under <i class="ic i-creative-commons"></i>BY-NC-SA.',ignores:[function(e){return e.includes("#")},function(e){return new RegExp(LOCAL.path+"$").test(e)}]}</script><script src="https://cdn.polyfill.io/v2/polyfill.js"></script><script src="//cdn.jsdelivr.net/combine/npm/pace-js@1.0.2/pace.min.js,npm/pjax@0.2.8/pjax.min.js,npm/whatwg-fetch@3.4.0/dist/fetch.umd.min.js,npm/animejs@3.2.0/lib/anime.min.js,npm/algoliasearch@4/dist/algoliasearch-lite.umd.js,npm/instantsearch.js@4/dist/instantsearch.production.min.js,npm/lozad@1/dist/lozad.min.js,npm/quicklink@2/dist/quicklink.umd.js"></script><script src="/js/app.js?v=0.2.5"></script></body></html>
