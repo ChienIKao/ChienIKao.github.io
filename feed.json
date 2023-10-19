@@ -53,8 +53,8 @@
                 "Leetcode",
                 "Medium",
                 "Leetcode",
-                "Medium",
-                "Graph"
+                "Graph",
+                "Medium"
             ]
         },
         {
@@ -68,8 +68,8 @@
                 "Leetcode",
                 "Medium",
                 "Leetcode",
-                "Two Pointers",
                 "Medium",
+                "Two Pointers",
                 "Linked List",
                 "Stack"
             ]
@@ -118,8 +118,8 @@
                 "Leetcode",
                 "Medium",
                 "Leetcode",
-                "Two Pointers",
                 "Medium",
+                "Two Pointers",
                 "Linked List"
             ]
         },
@@ -152,8 +152,8 @@
                 "Medium",
                 "Javascript",
                 "Leetcode",
-                "Typescript",
-                "Medium"
+                "Medium",
+                "Typescript"
             ]
         },
         {
@@ -168,8 +168,8 @@
                 "Medium",
                 "Javascript",
                 "Leetcode",
-                "Typescript",
-                "Medium"
+                "Medium",
+                "Typescript"
             ]
         },
         {
@@ -199,9 +199,9 @@
                 "Leetcode",
                 "Medium",
                 "Leetcode",
+                "Dynamic Programming",
                 "Array",
-                "Medium",
-                "Dynamic Programming"
+                "Medium"
             ]
         },
         {
@@ -215,9 +215,9 @@
                 "Leetcode",
                 "Medium",
                 "Leetcode",
+                "Dynamic Programming",
                 "Array",
-                "Medium",
-                "Dynamic Programming"
+                "Medium"
             ]
         },
         {
@@ -273,9 +273,9 @@
                 "Medium",
                 "Leetcode",
                 "Array",
+                "Medium",
                 "Matrix",
-                "Simulation",
-                "Medium"
+                "Simulation"
             ]
         },
         {
@@ -306,9 +306,9 @@
                 "Medium",
                 "Leetcode",
                 "Array",
+                "Medium",
                 "Matrix",
-                "Simulation",
-                "Medium"
+                "Simulation"
             ]
         }
     ]

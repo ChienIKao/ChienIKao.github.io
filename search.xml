@@ -107,9 +107,9 @@
             
             <tag> Leetcode </tag>
             
-            <tag> Medium </tag>
-            
             <tag> Graph </tag>
+            
+            <tag> Medium </tag>
             
         </tags>
       
@@ -140,9 +140,9 @@
             
             <tag> Leetcode </tag>
             
-            <tag> Two Pointers </tag>
-            
             <tag> Medium </tag>
+            
+            <tag> Two Pointers </tag>
             
             <tag> Linked List </tag>
             
@@ -249,9 +249,9 @@
             
             <tag> Leetcode </tag>
             
-            <tag> Two Pointers </tag>
-            
             <tag> Medium </tag>
+            
+            <tag> Two Pointers </tag>
             
             <tag> Linked List </tag>
             
@@ -323,9 +323,9 @@
             
             <tag> Leetcode </tag>
             
-            <tag> Typescript </tag>
-            
             <tag> Medium </tag>
+            
+            <tag> Typescript </tag>
             
         </tags>
       
@@ -358,9 +358,9 @@
             
             <tag> Leetcode </tag>
             
-            <tag> Typescript </tag>
-            
             <tag> Medium </tag>
+            
+            <tag> Typescript </tag>
             
         </tags>
       
@@ -426,11 +426,11 @@
             
             <tag> Leetcode </tag>
             
+            <tag> Dynamic Programming </tag>
+            
             <tag> Array </tag>
             
             <tag> Medium </tag>
-            
-            <tag> Dynamic Programming </tag>
             
         </tags>
       
@@ -461,11 +461,11 @@
             
             <tag> Leetcode </tag>
             
+            <tag> Dynamic Programming </tag>
+            
             <tag> Array </tag>
             
             <tag> Medium </tag>
-            
-            <tag> Dynamic Programming </tag>
             
         </tags>
       
@@ -589,11 +589,11 @@
             
             <tag> Array </tag>
             
+            <tag> Medium </tag>
+            
             <tag> Matrix </tag>
             
             <tag> Simulation </tag>
-            
-            <tag> Medium </tag>
             
         </tags>
       
@@ -661,11 +661,11 @@
             
             <tag> Array </tag>
             
+            <tag> Medium </tag>
+            
             <tag> Matrix </tag>
             
             <tag> Simulation </tag>
-            
-            <tag> Medium </tag>
             
         </tags>
       
@@ -799,9 +799,9 @@
             
             <tag> Leetcode </tag>
             
-            <tag> Easy </tag>
-            
             <tag> Array </tag>
+            
+            <tag> Easy </tag>
             
             <tag> Matrix </tag>
             
@@ -873,11 +873,11 @@
             
             <tag> Array </tag>
             
-            <tag> Two Pointers </tag>
+            <tag> Binary Search </tag>
             
             <tag> Medium </tag>
             
-            <tag> Binary Search </tag>
+            <tag> Two Pointers </tag>
             
         </tags>
       
@@ -1013,11 +1013,11 @@
             
             <tag> Leetcode </tag>
             
+            <tag> Hard </tag>
+            
             <tag> Array </tag>
             
             <tag> Binary Search </tag>
-            
-            <tag> Hard </tag>
             
             <tag> Binary Indexed  Tree </tag>
             
@@ -1112,9 +1112,9 @@
             
             <tag> Leetcode </tag>
             
-            <tag> Easy </tag>
-            
             <tag> Array </tag>
+            
+            <tag> Easy </tag>
             
             <tag> Hash Table </tag>
             
@@ -1147,9 +1147,9 @@
             
             <tag> Leetcode </tag>
             
-            <tag> Easy </tag>
-            
             <tag> Array </tag>
+            
+            <tag> Easy </tag>
             
             <tag> Math </tag>
             
@@ -1184,9 +1184,9 @@
             
             <tag> Leetcode </tag>
             
-            <tag> Easy </tag>
-            
             <tag> Array </tag>
+            
+            <tag> Easy </tag>
             
         </tags>
       
@@ -1219,9 +1219,9 @@
             
             <tag> Leetcode </tag>
             
-            <tag> Graph </tag>
-            
             <tag> Hard </tag>
+            
+            <tag> Graph </tag>
             
         </tags>
       
@@ -1285,13 +1285,13 @@
             
             <tag> Leetcode </tag>
             
+            <tag> Hard </tag>
+            
             <tag> Array </tag>
             
             <tag> Depth-First Search </tag>
             
             <tag> Breadth-First Search </tag>
-            
-            <tag> Hard </tag>
             
         </tags>
       
@@ -1320,9 +1320,9 @@
             
             <tag> Leetcode </tag>
             
-            <tag> Math </tag>
-            
             <tag> Medium </tag>
+            
+            <tag> Math </tag>
             
             <tag> Brainteaser </tag>
             
@@ -1539,11 +1539,11 @@
             
             <tag> Leetcode </tag>
             
+            <tag> Medium </tag>
+            
             <tag> Heap (Priority Queue) </tag>
             
             <tag> Hash Table </tag>
-            
-            <tag> Medium </tag>
             
             <tag> Design </tag>
             
@@ -1634,9 +1634,9 @@
             
             <tag> Leetcode </tag>
             
-            <tag> Easy </tag>
-            
             <tag> Array </tag>
+            
+            <tag> Easy </tag>
             
             <tag> Heap (Priority Queue) </tag>
             
@@ -1723,9 +1723,9 @@
             
             <tag> Leetcode </tag>
             
-            <tag> Dynamic Programming </tag>
-            
             <tag> Hard </tag>
+            
+            <tag> Dynamic Programming </tag>
             
         </tags>
       
@@ -1851,11 +1851,11 @@
             
             <tag> Leetcode </tag>
             
-            <tag> Array </tag>
+            <tag> Hard </tag>
             
             <tag> Dynamic Programming </tag>
             
-            <tag> Hard </tag>
+            <tag> Array </tag>
             
         </tags>
       
@@ -1985,13 +1985,13 @@
             
             <tag> Medium </tag>
             
-            <tag> Tree </tag>
-            
             <tag> Depth-First Search </tag>
             
-            <tag> Binary Tree </tag>
-            
             <tag> Breadth-First Search </tag>
+            
+            <tag> Tree </tag>
+            
+            <tag> Binary Tree </tag>
             
         </tags>
       
@@ -2266,13 +2266,13 @@
             
             <tag> Leetcode </tag>
             
-            <tag> Medium </tag>
-            
             <tag> Dynamic Programming </tag>
             
-            <tag> Tree </tag>
+            <tag> Medium </tag>
             
             <tag> Depth-First Search </tag>
+            
+            <tag> Tree </tag>
             
             <tag> Binary Tree </tag>
             
@@ -2343,39 +2343,6 @@
     
     
     <entry>
-      <title>1768. Merge Strings Alternately</title>
-      <link href="/2023/04/18/Coding/leetcode/Easy/1768%20Merge%20Strings%20Alternately/"/>
-      <url>/2023/04/18/Coding/leetcode/Easy/1768%20Merge%20Strings%20Alternately/</url>
-      
-        <content type="html"><![CDATA[<p>⭐️</p><h2 id="題目敘述"><a class="anchor" href="#題目敘述">#</a> <span class="exturl" data-url="aHR0cHM6Ly9sZWV0Y29kZS5jb20vcHJvYmxlbXMvbWVyZ2Utc3RyaW5ncy1hbHRlcm5hdGVseS8=">題目敘述</span></h2><p>You are given two strings  <code>word1</code>  and  <code>word2</code> . Merge the strings by adding letters in alternating order, starting with  <code>word1</code> . If a string is longer than the other, append the additional letters onto the end of the merged string.</p><p>Return <em>the merged string</em>.</p><h3 id="example-1"><a class="anchor" href="#example-1">#</a> Example 1</h3><blockquote><p><strong>Input</strong>: word1 = “abc”, word2 = “pqr”<br><strong>Output</strong>: “apbqcr”<br><strong>Explanation</strong>: The merged string will be merged as so:<br>word1:  a   b   c<br>word2:    p   q   r<br>merged: a p b q c r</p></blockquote><h3 id="example-2"><a class="anchor" href="#example-2">#</a> Example 2</h3><blockquote><p><strong>Input</strong>: word1 = “ab”, word2 = “pqrs”<br><strong>Output</strong>: “apbqrs”<br><strong>Explanation</strong>: Notice that as word2 is longer, “rs” is appended to the end.<br>word1:  a   b<br>word2:    p   q   r   s<br>merged: a p b q   r   s</p></blockquote><h3 id="example-3"><a class="anchor" href="#example-3">#</a> Example 3</h3><blockquote><p><strong>Input</strong>: word1 = “abcd”, word2 = “pq”<br><strong>Output</strong>: “apbqcd”<br><strong>Explanation</strong>: Notice that as word1 is longer, “cd” is appended to the end.<br>word1:  a   b   c   d<br>word2:    p   q<br>merged: a p b q c   d</p></blockquote><h2 id="程式碼"><a class="anchor" href="#程式碼">#</a> 程式碼</h2><div class="tab" data-id="code" data-title="cpp"><figure class="highlight cpp"><figcaption data-lang="C++"></figcaption><table><tr><td data-num="1"></td><td><pre><span class="token keyword">class</span> <span class="token class-name">Solution</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="2"></td><td><pre><span class="token keyword">public</span><span class="token operator">:</span></pre></td></tr><tr><td data-num="3"></td><td><pre>    string <span class="token function">mergeAlternately</span><span class="token punctuation">(</span>string word1<span class="token punctuation">,</span> string word2<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="4"></td><td><pre>       string res <span class="token operator">=</span> <span class="token string">""</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="5"></td><td><pre>       <span class="token keyword">int</span> m <span class="token operator">=</span> word1<span class="token punctuation">.</span><span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> n <span class="token operator">=</span> word2<span class="token punctuation">.</span><span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> </pre></td></tr><tr><td data-num="6"></td><td><pre>       <span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">,</span> j <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="7"></td><td><pre>       <span class="token keyword">while</span> <span class="token punctuation">(</span>i <span class="token operator">&lt;</span> m <span class="token operator">&amp;&amp;</span> j <span class="token operator">&lt;</span> n<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="8"></td><td><pre>           res <span class="token operator">+=</span> word1<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="9"></td><td><pre>           i<span class="token operator">++</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="10"></td><td><pre>           res <span class="token operator">+=</span> word2<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="11"></td><td><pre>           j<span class="token operator">++</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="12"></td><td><pre>       <span class="token punctuation">&#125;</span></pre></td></tr><tr><td data-num="13"></td><td><pre>       <span class="token keyword">if</span> <span class="token punctuation">(</span>i <span class="token operator">!=</span> m<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="14"></td><td><pre>           <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token punctuation">;</span> i<span class="token operator">&lt;</span>m<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> res <span class="token operator">+=</span> word1<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="15"></td><td><pre>       <span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="16"></td><td><pre>           <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token punctuation">;</span> j<span class="token operator">&lt;</span>n<span class="token punctuation">;</span> j<span class="token operator">++</span><span class="token punctuation">)</span> res <span class="token operator">+=</span> word2<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="17"></td><td><pre>       <span class="token punctuation">&#125;</span></pre></td></tr><tr><td data-num="18"></td><td><pre>       <span class="token keyword">return</span> res<span class="token punctuation">;</span></pre></td></tr><tr><td data-num="19"></td><td><pre>    <span class="token punctuation">&#125;</span></pre></td></tr><tr><td data-num="20"></td><td><pre><span class="token punctuation">&#125;</span><span class="token punctuation">;</span></pre></td></tr></table></figure></div><div class="tab" data-id="code" data-title="python"><figure class="highlight python"><figcaption data-lang="python"></figcaption><table><tr><td data-num="1"></td><td><pre><span class="token keyword">class</span> <span class="token class-name">Solution</span><span class="token punctuation">:</span></pre></td></tr><tr><td data-num="2"></td><td><pre>    <span class="token keyword">def</span> <span class="token function">mergeAlternately</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> word1<span class="token punctuation">:</span> <span class="token builtin">str</span><span class="token punctuation">,</span> word2<span class="token punctuation">:</span> <span class="token builtin">str</span><span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">></span> <span class="token builtin">str</span><span class="token punctuation">:</span></pre></td></tr><tr><td data-num="3"></td><td><pre>        m<span class="token punctuation">,</span> n <span class="token operator">=</span> <span class="token builtin">len</span><span class="token punctuation">(</span>word1<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token builtin">len</span><span class="token punctuation">(</span>word2<span class="token punctuation">)</span></pre></td></tr><tr><td data-num="4"></td><td><pre>        res <span class="token operator">=</span> <span class="token string">""</span></pre></td></tr><tr><td data-num="5"></td><td><pre>        i<span class="token punctuation">,</span> j <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span></pre></td></tr><tr><td data-num="6"></td><td><pre>        <span class="token keyword">while</span> i <span class="token operator">&lt;</span> m <span class="token keyword">and</span> j <span class="token operator">&lt;</span> n<span class="token punctuation">:</span></pre></td></tr><tr><td data-num="7"></td><td><pre>            res <span class="token operator">+=</span> word1<span class="token punctuation">[</span>i<span class="token punctuation">]</span></pre></td></tr><tr><td data-num="8"></td><td><pre>            i <span class="token operator">+=</span> <span class="token number">1</span></pre></td></tr><tr><td data-num="9"></td><td><pre>            res <span class="token operator">+=</span> word2<span class="token punctuation">[</span>j<span class="token punctuation">]</span></pre></td></tr><tr><td data-num="10"></td><td><pre>            j <span class="token operator">+=</span> <span class="token number">1</span></pre></td></tr><tr><td data-num="11"></td><td><pre>        <span class="token keyword">if</span> i <span class="token operator">!=</span> m<span class="token punctuation">:</span></pre></td></tr><tr><td data-num="12"></td><td><pre>            <span class="token keyword">while</span> i <span class="token operator">&lt;</span> m<span class="token punctuation">:</span></pre></td></tr><tr><td data-num="13"></td><td><pre>                res <span class="token operator">+=</span> word1<span class="token punctuation">[</span>i<span class="token punctuation">]</span></pre></td></tr><tr><td data-num="14"></td><td><pre>                i <span class="token operator">+=</span> <span class="token number">1</span></pre></td></tr><tr><td data-num="15"></td><td><pre>        <span class="token keyword">else</span> <span class="token punctuation">:</span></pre></td></tr><tr><td data-num="16"></td><td><pre>            <span class="token keyword">while</span> j <span class="token operator">&lt;</span> n<span class="token punctuation">:</span></pre></td></tr><tr><td data-num="17"></td><td><pre>                res <span class="token operator">+=</span> word2<span class="token punctuation">[</span>j<span class="token punctuation">]</span></pre></td></tr><tr><td data-num="18"></td><td><pre>                j <span class="token operator">+=</span> <span class="token number">1</span></pre></td></tr><tr><td data-num="19"></td><td><pre>        <span class="token keyword">return</span> res</pre></td></tr></table></figure></div><div class="tab" data-id="code" data-title="java"><figure class="highlight java"><figcaption data-lang="java"></figcaption><table><tr><td data-num="1"></td><td><pre><span class="token keyword">class</span> <span class="token class-name">Solution</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="2"></td><td><pre>    <span class="token keyword">public</span> <span class="token class-name">String</span> <span class="token function">mergeAlternately</span><span class="token punctuation">(</span><span class="token class-name">String</span> word1<span class="token punctuation">,</span> <span class="token class-name">String</span> word2<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="3"></td><td><pre>        <span class="token class-name">String</span> res <span class="token operator">=</span> <span class="token string">""</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="4"></td><td><pre>        <span class="token keyword">int</span> m <span class="token operator">=</span> word1<span class="token punctuation">.</span><span class="token function">length</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> n <span class="token operator">=</span> word2<span class="token punctuation">.</span><span class="token function">length</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="5"></td><td><pre>        <span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">,</span> j <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="6"></td><td><pre>        <span class="token keyword">while</span> <span class="token punctuation">(</span>i <span class="token operator">&lt;</span> m <span class="token operator">&amp;&amp;</span> j <span class="token operator">&lt;</span> n<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="7"></td><td><pre>            res <span class="token operator">+=</span> word1<span class="token punctuation">.</span><span class="token function">charAt</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="8"></td><td><pre>            i<span class="token operator">++</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="9"></td><td><pre>            res <span class="token operator">+=</span> word2<span class="token punctuation">.</span><span class="token function">charAt</span><span class="token punctuation">(</span>j<span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="10"></td><td><pre>            j<span class="token operator">++</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="11"></td><td><pre>        <span class="token punctuation">&#125;</span></pre></td></tr><tr><td data-num="12"></td><td><pre>        <span class="token keyword">if</span> <span class="token punctuation">(</span>i <span class="token operator">!=</span> m<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="13"></td><td><pre>            <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span>m<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> res <span class="token operator">+=</span> word1<span class="token punctuation">.</span><span class="token function">charAt</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="14"></td><td><pre>        <span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="15"></td><td><pre>            <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token punctuation">;</span> j<span class="token operator">&lt;</span>n<span class="token punctuation">;</span> j<span class="token operator">++</span><span class="token punctuation">)</span> res <span class="token operator">+=</span> word2<span class="token punctuation">.</span><span class="token function">charAt</span><span class="token punctuation">(</span>j<span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="16"></td><td><pre>        <span class="token punctuation">&#125;</span></pre></td></tr><tr><td data-num="17"></td><td><pre>        <span class="token keyword">return</span> res<span class="token punctuation">;</span></pre></td></tr><tr><td data-num="18"></td><td><pre>    <span class="token punctuation">&#125;</span></pre></td></tr><tr><td data-num="19"></td><td><pre><span class="token punctuation">&#125;</span></pre></td></tr></table></figure></div>]]></content>
-      
-      
-      <categories>
-          
-          <category> Coding </category>
-          
-          <category> Leetcode </category>
-          
-          <category> Easy </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> String </tag>
-            
-            <tag> Easy </tag>
-            
-            <tag> Two Pointers </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>uva 1587 - Box</title>
       <link href="/2023/04/18/Coding/uva/Star1/uva%201587/"/>
       <url>/2023/04/18/Coding/uva/Star1/uva%201587/</url>
@@ -2401,6 +2368,39 @@
             <tag> CPE </tag>
             
             <tag> UVA </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>1768. Merge Strings Alternately</title>
+      <link href="/2023/04/18/Coding/leetcode/Easy/1768%20Merge%20Strings%20Alternately/"/>
+      <url>/2023/04/18/Coding/leetcode/Easy/1768%20Merge%20Strings%20Alternately/</url>
+      
+        <content type="html"><![CDATA[<p>⭐️</p><h2 id="題目敘述"><a class="anchor" href="#題目敘述">#</a> <span class="exturl" data-url="aHR0cHM6Ly9sZWV0Y29kZS5jb20vcHJvYmxlbXMvbWVyZ2Utc3RyaW5ncy1hbHRlcm5hdGVseS8=">題目敘述</span></h2><p>You are given two strings  <code>word1</code>  and  <code>word2</code> . Merge the strings by adding letters in alternating order, starting with  <code>word1</code> . If a string is longer than the other, append the additional letters onto the end of the merged string.</p><p>Return <em>the merged string</em>.</p><h3 id="example-1"><a class="anchor" href="#example-1">#</a> Example 1</h3><blockquote><p><strong>Input</strong>: word1 = “abc”, word2 = “pqr”<br><strong>Output</strong>: “apbqcr”<br><strong>Explanation</strong>: The merged string will be merged as so:<br>word1:  a   b   c<br>word2:    p   q   r<br>merged: a p b q c r</p></blockquote><h3 id="example-2"><a class="anchor" href="#example-2">#</a> Example 2</h3><blockquote><p><strong>Input</strong>: word1 = “ab”, word2 = “pqrs”<br><strong>Output</strong>: “apbqrs”<br><strong>Explanation</strong>: Notice that as word2 is longer, “rs” is appended to the end.<br>word1:  a   b<br>word2:    p   q   r   s<br>merged: a p b q   r   s</p></blockquote><h3 id="example-3"><a class="anchor" href="#example-3">#</a> Example 3</h3><blockquote><p><strong>Input</strong>: word1 = “abcd”, word2 = “pq”<br><strong>Output</strong>: “apbqcd”<br><strong>Explanation</strong>: Notice that as word1 is longer, “cd” is appended to the end.<br>word1:  a   b   c   d<br>word2:    p   q<br>merged: a p b q c   d</p></blockquote><h2 id="程式碼"><a class="anchor" href="#程式碼">#</a> 程式碼</h2><div class="tab" data-id="code" data-title="cpp"><figure class="highlight cpp"><figcaption data-lang="C++"></figcaption><table><tr><td data-num="1"></td><td><pre><span class="token keyword">class</span> <span class="token class-name">Solution</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="2"></td><td><pre><span class="token keyword">public</span><span class="token operator">:</span></pre></td></tr><tr><td data-num="3"></td><td><pre>    string <span class="token function">mergeAlternately</span><span class="token punctuation">(</span>string word1<span class="token punctuation">,</span> string word2<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="4"></td><td><pre>       string res <span class="token operator">=</span> <span class="token string">""</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="5"></td><td><pre>       <span class="token keyword">int</span> m <span class="token operator">=</span> word1<span class="token punctuation">.</span><span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> n <span class="token operator">=</span> word2<span class="token punctuation">.</span><span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> </pre></td></tr><tr><td data-num="6"></td><td><pre>       <span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">,</span> j <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="7"></td><td><pre>       <span class="token keyword">while</span> <span class="token punctuation">(</span>i <span class="token operator">&lt;</span> m <span class="token operator">&amp;&amp;</span> j <span class="token operator">&lt;</span> n<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="8"></td><td><pre>           res <span class="token operator">+=</span> word1<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="9"></td><td><pre>           i<span class="token operator">++</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="10"></td><td><pre>           res <span class="token operator">+=</span> word2<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="11"></td><td><pre>           j<span class="token operator">++</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="12"></td><td><pre>       <span class="token punctuation">&#125;</span></pre></td></tr><tr><td data-num="13"></td><td><pre>       <span class="token keyword">if</span> <span class="token punctuation">(</span>i <span class="token operator">!=</span> m<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="14"></td><td><pre>           <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token punctuation">;</span> i<span class="token operator">&lt;</span>m<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> res <span class="token operator">+=</span> word1<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="15"></td><td><pre>       <span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="16"></td><td><pre>           <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token punctuation">;</span> j<span class="token operator">&lt;</span>n<span class="token punctuation">;</span> j<span class="token operator">++</span><span class="token punctuation">)</span> res <span class="token operator">+=</span> word2<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="17"></td><td><pre>       <span class="token punctuation">&#125;</span></pre></td></tr><tr><td data-num="18"></td><td><pre>       <span class="token keyword">return</span> res<span class="token punctuation">;</span></pre></td></tr><tr><td data-num="19"></td><td><pre>    <span class="token punctuation">&#125;</span></pre></td></tr><tr><td data-num="20"></td><td><pre><span class="token punctuation">&#125;</span><span class="token punctuation">;</span></pre></td></tr></table></figure></div><div class="tab" data-id="code" data-title="python"><figure class="highlight python"><figcaption data-lang="python"></figcaption><table><tr><td data-num="1"></td><td><pre><span class="token keyword">class</span> <span class="token class-name">Solution</span><span class="token punctuation">:</span></pre></td></tr><tr><td data-num="2"></td><td><pre>    <span class="token keyword">def</span> <span class="token function">mergeAlternately</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> word1<span class="token punctuation">:</span> <span class="token builtin">str</span><span class="token punctuation">,</span> word2<span class="token punctuation">:</span> <span class="token builtin">str</span><span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">></span> <span class="token builtin">str</span><span class="token punctuation">:</span></pre></td></tr><tr><td data-num="3"></td><td><pre>        m<span class="token punctuation">,</span> n <span class="token operator">=</span> <span class="token builtin">len</span><span class="token punctuation">(</span>word1<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token builtin">len</span><span class="token punctuation">(</span>word2<span class="token punctuation">)</span></pre></td></tr><tr><td data-num="4"></td><td><pre>        res <span class="token operator">=</span> <span class="token string">""</span></pre></td></tr><tr><td data-num="5"></td><td><pre>        i<span class="token punctuation">,</span> j <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span></pre></td></tr><tr><td data-num="6"></td><td><pre>        <span class="token keyword">while</span> i <span class="token operator">&lt;</span> m <span class="token keyword">and</span> j <span class="token operator">&lt;</span> n<span class="token punctuation">:</span></pre></td></tr><tr><td data-num="7"></td><td><pre>            res <span class="token operator">+=</span> word1<span class="token punctuation">[</span>i<span class="token punctuation">]</span></pre></td></tr><tr><td data-num="8"></td><td><pre>            i <span class="token operator">+=</span> <span class="token number">1</span></pre></td></tr><tr><td data-num="9"></td><td><pre>            res <span class="token operator">+=</span> word2<span class="token punctuation">[</span>j<span class="token punctuation">]</span></pre></td></tr><tr><td data-num="10"></td><td><pre>            j <span class="token operator">+=</span> <span class="token number">1</span></pre></td></tr><tr><td data-num="11"></td><td><pre>        <span class="token keyword">if</span> i <span class="token operator">!=</span> m<span class="token punctuation">:</span></pre></td></tr><tr><td data-num="12"></td><td><pre>            <span class="token keyword">while</span> i <span class="token operator">&lt;</span> m<span class="token punctuation">:</span></pre></td></tr><tr><td data-num="13"></td><td><pre>                res <span class="token operator">+=</span> word1<span class="token punctuation">[</span>i<span class="token punctuation">]</span></pre></td></tr><tr><td data-num="14"></td><td><pre>                i <span class="token operator">+=</span> <span class="token number">1</span></pre></td></tr><tr><td data-num="15"></td><td><pre>        <span class="token keyword">else</span> <span class="token punctuation">:</span></pre></td></tr><tr><td data-num="16"></td><td><pre>            <span class="token keyword">while</span> j <span class="token operator">&lt;</span> n<span class="token punctuation">:</span></pre></td></tr><tr><td data-num="17"></td><td><pre>                res <span class="token operator">+=</span> word2<span class="token punctuation">[</span>j<span class="token punctuation">]</span></pre></td></tr><tr><td data-num="18"></td><td><pre>                j <span class="token operator">+=</span> <span class="token number">1</span></pre></td></tr><tr><td data-num="19"></td><td><pre>        <span class="token keyword">return</span> res</pre></td></tr></table></figure></div><div class="tab" data-id="code" data-title="java"><figure class="highlight java"><figcaption data-lang="java"></figcaption><table><tr><td data-num="1"></td><td><pre><span class="token keyword">class</span> <span class="token class-name">Solution</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="2"></td><td><pre>    <span class="token keyword">public</span> <span class="token class-name">String</span> <span class="token function">mergeAlternately</span><span class="token punctuation">(</span><span class="token class-name">String</span> word1<span class="token punctuation">,</span> <span class="token class-name">String</span> word2<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="3"></td><td><pre>        <span class="token class-name">String</span> res <span class="token operator">=</span> <span class="token string">""</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="4"></td><td><pre>        <span class="token keyword">int</span> m <span class="token operator">=</span> word1<span class="token punctuation">.</span><span class="token function">length</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> n <span class="token operator">=</span> word2<span class="token punctuation">.</span><span class="token function">length</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="5"></td><td><pre>        <span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">,</span> j <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="6"></td><td><pre>        <span class="token keyword">while</span> <span class="token punctuation">(</span>i <span class="token operator">&lt;</span> m <span class="token operator">&amp;&amp;</span> j <span class="token operator">&lt;</span> n<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="7"></td><td><pre>            res <span class="token operator">+=</span> word1<span class="token punctuation">.</span><span class="token function">charAt</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="8"></td><td><pre>            i<span class="token operator">++</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="9"></td><td><pre>            res <span class="token operator">+=</span> word2<span class="token punctuation">.</span><span class="token function">charAt</span><span class="token punctuation">(</span>j<span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="10"></td><td><pre>            j<span class="token operator">++</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="11"></td><td><pre>        <span class="token punctuation">&#125;</span></pre></td></tr><tr><td data-num="12"></td><td><pre>        <span class="token keyword">if</span> <span class="token punctuation">(</span>i <span class="token operator">!=</span> m<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="13"></td><td><pre>            <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span>m<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> res <span class="token operator">+=</span> word1<span class="token punctuation">.</span><span class="token function">charAt</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="14"></td><td><pre>        <span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="15"></td><td><pre>            <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token punctuation">;</span> j<span class="token operator">&lt;</span>n<span class="token punctuation">;</span> j<span class="token operator">++</span><span class="token punctuation">)</span> res <span class="token operator">+=</span> word2<span class="token punctuation">.</span><span class="token function">charAt</span><span class="token punctuation">(</span>j<span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="16"></td><td><pre>        <span class="token punctuation">&#125;</span></pre></td></tr><tr><td data-num="17"></td><td><pre>        <span class="token keyword">return</span> res<span class="token punctuation">;</span></pre></td></tr><tr><td data-num="18"></td><td><pre>    <span class="token punctuation">&#125;</span></pre></td></tr><tr><td data-num="19"></td><td><pre><span class="token punctuation">&#125;</span></pre></td></tr></table></figure></div>]]></content>
+      
+      
+      <categories>
+          
+          <category> Coding </category>
+          
+          <category> Leetcode </category>
+          
+          <category> Easy </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> String </tag>
+            
+            <tag> Easy </tag>
+            
+            <tag> Two Pointers </tag>
             
         </tags>
       

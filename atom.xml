@@ -908,8 +908,8 @@ Concerned only with Header and Define record types in the control sections.&lt;/
         <category term="Leetcode" scheme="https://chienikao.github.io/categories/Coding/Leetcode/" />
         <category term="Medium" scheme="https://chienikao.github.io/categories/Coding/Leetcode/Medium/" />
         <category term="Leetcode" scheme="https://chienikao.github.io/tags/Leetcode/" />
-        <category term="Medium" scheme="https://chienikao.github.io/tags/Medium/" />
         <category term="Graph" scheme="https://chienikao.github.io/tags/Graph/" />
+        <category term="Medium" scheme="https://chienikao.github.io/tags/Medium/" />
         <updated>2023-05-19T06:13:20.000Z</updated>
     </entry>
     <entry>
@@ -969,8 +969,8 @@ There is only one node with a twin in the linked list having twin sum of 1 + 100
         <category term="Leetcode" scheme="https://chienikao.github.io/categories/Coding/Leetcode/" />
         <category term="Medium" scheme="https://chienikao.github.io/categories/Coding/Leetcode/Medium/" />
         <category term="Leetcode" scheme="https://chienikao.github.io/tags/Leetcode/" />
-        <category term="Two Pointers" scheme="https://chienikao.github.io/tags/Two-Pointers/" />
         <category term="Medium" scheme="https://chienikao.github.io/tags/Medium/" />
+        <category term="Two Pointers" scheme="https://chienikao.github.io/tags/Two-Pointers/" />
         <category term="Linked List" scheme="https://chienikao.github.io/tags/Linked-List/" />
         <category term="Stack" scheme="https://chienikao.github.io/tags/Stack/" />
         <updated>2023-05-17T05:51:35.000Z</updated>
@@ -1127,8 +1127,8 @@ The function immediately throws an error.&lt;/p&gt;
         <category term="Leetcode" scheme="https://chienikao.github.io/categories/Coding/Leetcode/" />
         <category term="Medium" scheme="https://chienikao.github.io/categories/Coding/Leetcode/Medium/" />
         <category term="Leetcode" scheme="https://chienikao.github.io/tags/Leetcode/" />
-        <category term="Two Pointers" scheme="https://chienikao.github.io/tags/Two-Pointers/" />
         <category term="Medium" scheme="https://chienikao.github.io/tags/Medium/" />
+        <category term="Two Pointers" scheme="https://chienikao.github.io/tags/Two-Pointers/" />
         <category term="Linked List" scheme="https://chienikao.github.io/tags/Linked-List/" />
         <updated>2023-05-15T03:30:56.000Z</updated>
     </entry>
@@ -1232,8 +1232,8 @@ curriedLife() === 42&lt;/p&gt;
         <category term="Medium" scheme="https://chienikao.github.io/categories/Coding/Leetcode/Medium/" />
         <category term="Javascript" scheme="https://chienikao.github.io/tags/Javascript/" />
         <category term="Leetcode" scheme="https://chienikao.github.io/tags/Leetcode/" />
-        <category term="Typescript" scheme="https://chienikao.github.io/tags/Typescript/" />
         <category term="Medium" scheme="https://chienikao.github.io/tags/Medium/" />
+        <category term="Typescript" scheme="https://chienikao.github.io/tags/Typescript/" />
         <updated>2023-05-15T03:26:49.000Z</updated>
     </entry>
     <entry>
@@ -1308,8 +1308,8 @@ fib(5) = 8&lt;br&gt;
         <category term="Medium" scheme="https://chienikao.github.io/categories/Coding/Leetcode/Medium/" />
         <category term="Javascript" scheme="https://chienikao.github.io/tags/Javascript/" />
         <category term="Leetcode" scheme="https://chienikao.github.io/tags/Leetcode/" />
-        <category term="Typescript" scheme="https://chienikao.github.io/tags/Typescript/" />
         <category term="Medium" scheme="https://chienikao.github.io/tags/Medium/" />
+        <category term="Typescript" scheme="https://chienikao.github.io/tags/Typescript/" />
         <updated>2023-05-15T03:10:27.000Z</updated>
     </entry>
     <entry>
@@ -1411,9 +1411,9 @@ Total points earned: 2 + 5 = 7. There is no other way to earn 7 or more points.&
         <category term="Leetcode" scheme="https://chienikao.github.io/categories/Coding/Leetcode/" />
         <category term="Medium" scheme="https://chienikao.github.io/categories/Coding/Leetcode/Medium/" />
         <category term="Leetcode" scheme="https://chienikao.github.io/tags/Leetcode/" />
+        <category term="Dynamic Programming" scheme="https://chienikao.github.io/tags/Dynamic-Programming/" />
         <category term="Array" scheme="https://chienikao.github.io/tags/Array/" />
         <category term="Medium" scheme="https://chienikao.github.io/tags/Medium/" />
-        <category term="Dynamic Programming" scheme="https://chienikao.github.io/tags/Dynamic-Programming/" />
         <updated>2023-05-15T03:05:17.000Z</updated>
     </entry>
     <entry>
@@ -1474,9 +1474,9 @@ We cannot draw 3 uncrossed lines, because the line from nums1[1] = 4 to nums2[2]
         <category term="Leetcode" scheme="https://chienikao.github.io/categories/Coding/Leetcode/" />
         <category term="Medium" scheme="https://chienikao.github.io/categories/Coding/Leetcode/Medium/" />
         <category term="Leetcode" scheme="https://chienikao.github.io/tags/Leetcode/" />
+        <category term="Dynamic Programming" scheme="https://chienikao.github.io/tags/Dynamic-Programming/" />
         <category term="Array" scheme="https://chienikao.github.io/tags/Array/" />
         <category term="Medium" scheme="https://chienikao.github.io/tags/Medium/" />
-        <category term="Dynamic Programming" scheme="https://chienikao.github.io/tags/Dynamic-Programming/" />
         <updated>2023-05-15T03:01:25.000Z</updated>
     </entry>
     <entry>
@@ -1606,9 +1606,9 @@ The composition of zero functions is the identity function&lt;/p&gt;
         <category term="Medium" scheme="https://chienikao.github.io/categories/Coding/Leetcode/Medium/" />
         <category term="Leetcode" scheme="https://chienikao.github.io/tags/Leetcode/" />
         <category term="Array" scheme="https://chienikao.github.io/tags/Array/" />
+        <category term="Medium" scheme="https://chienikao.github.io/tags/Medium/" />
         <category term="Matrix" scheme="https://chienikao.github.io/tags/Matrix/" />
         <category term="Simulation" scheme="https://chienikao.github.io/tags/Simulation/" />
-        <category term="Medium" scheme="https://chienikao.github.io/tags/Medium/" />
         <updated>2023-05-10T14:40:49.000Z</updated>
     </entry>
     <entry>
@@ -1711,9 +1711,9 @@ init = 25&lt;br&gt;
         <category term="Medium" scheme="https://chienikao.github.io/categories/Coding/Leetcode/Medium/" />
         <category term="Leetcode" scheme="https://chienikao.github.io/tags/Leetcode/" />
         <category term="Array" scheme="https://chienikao.github.io/tags/Array/" />
+        <category term="Medium" scheme="https://chienikao.github.io/tags/Medium/" />
         <category term="Matrix" scheme="https://chienikao.github.io/tags/Matrix/" />
         <category term="Simulation" scheme="https://chienikao.github.io/tags/Simulation/" />
-        <category term="Medium" scheme="https://chienikao.github.io/tags/Medium/" />
         <updated>2023-05-09T02:37:25.000Z</updated>
     </entry>
 </feed>
