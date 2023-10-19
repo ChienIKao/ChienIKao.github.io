@@ -13,119 +13,42 @@
     <category term=" note" />
     <entry>
         <id>https://chienikao.github.io/2023/10/19/free5gc/</id>
-        <title>free5gc</title>
+        <title>Free5GC 啟動腳本</title>
         <link rel="alternate" href="https://chienikao.github.io/2023/10/19/free5gc/"/>
         <content type="html">&lt;h2 id=&#34;使用-ssh-連線虛擬機&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#使用-ssh-連線虛擬機&#34;&gt;#&lt;/a&gt; 使用 ssh 連線虛擬機&lt;/h2&gt;
 &lt;h3 id=&#34;如何查看你的主機-ip&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#如何查看你的主機-ip&#34;&gt;#&lt;/a&gt; 如何查看你的主機 ip&lt;/h3&gt;
 &lt;p&gt;在你的虛擬機輸入以下指令&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash=&#34;&gt;ifconfig
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img data-src=&#34;https://hackmd.io/_uploads/BkxfuiRWp.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;figure class=&#34;highlight bash&#34;&gt;&lt;figcaption data-lang=&#34;bash&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token function&#34;&gt;ifconfig&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;&lt;img data-src=&#34;https://imgur.com/KVoZU0e.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
 &lt;h3 id=&#34;ssh-連線&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#ssh-連線&#34;&gt;#&lt;/a&gt; ssh 連線&lt;/h3&gt;
 &lt;p&gt;開啟你的 Powershell 輸入以下指令&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash=&#34;&gt;ssh [你的帳號]@[你的主機ip]
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;例如&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash=&#34;&gt;ssh alen911018@192.168.56.102
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;輸入密碼即連線成功&lt;/p&gt;
-&lt;p&gt;![](&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly9oYWNrbWQuaW8vX3VwbG9hZHMvcnlzX0tzUlpwLnBuZw==&#34;&gt;https://hackmd.io/_uploads/rys_KsRZp.png&lt;/span&gt; =800x)&lt;/p&gt;
+&lt;figure class=&#34;highlight bash&#34;&gt;&lt;figcaption data-lang=&#34;bash&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token function&#34;&gt;ssh&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;[&lt;/span&gt;你的帳號&lt;span class=&#34;token punctuation&#34;&gt;]&lt;/span&gt;@&lt;span class=&#34;token punctuation&#34;&gt;[&lt;/span&gt;你的主機ip&lt;span class=&#34;token punctuation&#34;&gt;]&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;例如&lt;/p&gt;
+&lt;figure class=&#34;highlight bash&#34;&gt;&lt;figcaption data-lang=&#34;bash&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token function&#34;&gt;ssh&lt;/span&gt; alen911018@192.168.56.102&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;輸入密碼即連線成功&lt;/p&gt;
+&lt;p&gt;&lt;img data-src=&#34;https://imgur.com/nEmUiYW.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
 &lt;h2 id=&#34;free5gc&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#free5gc&#34;&gt;#&lt;/a&gt; Free5GC&lt;/h2&gt;
 &lt;h3 id=&#34;建立-runsh-檔案&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#建立-runsh-檔案&#34;&gt;#&lt;/a&gt; 建立 &lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cDovL3J1bi5zaA==&#34;&gt;run.sh&lt;/span&gt; 檔案&lt;/h3&gt;
 &lt;p&gt;開啟你的 free5gc 虛擬機，輸入以下指令&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash=&#34;&gt;sudo vim run.sh
-&lt;/code&gt;&lt;/pre&gt;
-&lt;h3 id=&#34;在-vim-中編輯&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#在-vim-中編輯&#34;&gt;#&lt;/a&gt; 在 vim 中編輯&lt;/h3&gt;
+&lt;figure class=&#34;highlight bash&#34;&gt;&lt;figcaption data-lang=&#34;bash&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token function&#34;&gt;sudo&lt;/span&gt; &lt;span class=&#34;token function&#34;&gt;vim&lt;/span&gt; run.sh&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;h3 id=&#34;在-vim-中編輯&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#在-vim-中編輯&#34;&gt;#&lt;/a&gt; 在 vim 中編輯&lt;/h3&gt;
 &lt;ol&gt;
 &lt;li&gt;按下 &lt;kbd&gt;i&lt;/kbd&gt;，螢幕左下角要顯示  &lt;code&gt;-- INSERT --&lt;/code&gt; 。&lt;/li&gt;
 &lt;li&gt;打入以下程式碼 (若你是在 Powershell 編輯，可以直接 &lt;kbd&gt;ctl&lt;/kbd&gt; + &lt;kbd&gt;c&lt;/kbd&gt; , &lt;kbd&gt;ctl&lt;/kbd&gt; + &lt;kbd&gt;v&lt;/kbd&gt;貼上)。&lt;/li&gt;
 &lt;/ol&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash=&#34;&gt;#!/bin/bash
-
-echo [你的密碼] | sudo -S iptables -t nat -A POSTROUTING -o enp0s3 -j MASQUERADE
-
-SESSION=&amp;quot;free5gc&amp;quot;
-WINDOW=&amp;quot;$SESSION:main&amp;quot;
-
-# 刪除現有的 tmux
-tmux kill-session -t $SESSION
-
-# 建立 session
-tmux new-session -d -s $SESSION
-
-# window 重命名
-tmux rename-window -t $SESSION:0 &amp;quot;main&amp;quot;
-
-# 傳送指令
-tmux send-keys -t $WINDOW &amp;quot;echo [你的密碼] | sudo -S ls&amp;quot; C-m
-tmux send-keys -t $WINDOW &amp;quot;cd ~/free5gc/&amp;quot; C-m
-tmux send-keys -t $WINDOW &amp;quot;./force_kill.sh&amp;quot; C-m
-tmux send-keys -t $WINDOW &amp;quot;./run.sh&amp;quot; C-m
-
-# 分割 pane
-tmux split-pane -h -t $WINDOW
-
-# 傳送命令
-tmux send-keys &amp;quot;cd ~/free5gc/webconsole/&amp;quot; C-m
-tmux send-keys &amp;quot;go run server.go&amp;quot; C-m
-
-# attach session
-tmux a -t $SESSION
-&lt;/code&gt;&lt;/pre&gt;
-&lt;ol start=&#34;3&#34;&gt;
+&lt;figure class=&#34;highlight bash&#34;&gt;&lt;figcaption data-lang=&#34;bash&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token shebang important&#34;&gt;#!/bin/bash&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;3&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token builtin class-name&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;[&lt;/span&gt;你的密碼&lt;span class=&#34;token punctuation&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;token operator&#34;&gt;|&lt;/span&gt; &lt;span class=&#34;token function&#34;&gt;sudo&lt;/span&gt; &lt;span class=&#34;token parameter variable&#34;&gt;-S&lt;/span&gt; iptables &lt;span class=&#34;token parameter variable&#34;&gt;-t&lt;/span&gt; nat &lt;span class=&#34;token parameter variable&#34;&gt;-A&lt;/span&gt; POSTROUTING &lt;span class=&#34;token parameter variable&#34;&gt;-o&lt;/span&gt; enp0s3 &lt;span class=&#34;token parameter variable&#34;&gt;-j&lt;/span&gt; MASQUERADE&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;4&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;5&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token assign-left variable&#34;&gt;&lt;span class=&#34;token environment constant&#34;&gt;SESSION&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;token string&#34;&gt;&#34;free5gc&#34;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;6&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token assign-left variable&#34;&gt;WINDOW&lt;/span&gt;&lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;token string&#34;&gt;&#34;&lt;span class=&#34;token environment constant&#34;&gt;$SESSION&lt;/span&gt;:main&#34;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;7&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;8&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token comment&#34;&gt;# 刪除現有的 tmux&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;9&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;tmux kill-session &lt;span class=&#34;token parameter variable&#34;&gt;-t&lt;/span&gt; &lt;span class=&#34;token environment constant&#34;&gt;$SESSION&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;10&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;11&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token comment&#34;&gt;# 建立 session&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;12&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;tmux new-session &lt;span class=&#34;token parameter variable&#34;&gt;-d&lt;/span&gt; &lt;span class=&#34;token parameter variable&#34;&gt;-s&lt;/span&gt; &lt;span class=&#34;token environment constant&#34;&gt;$SESSION&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;13&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;14&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token comment&#34;&gt;# window 重命名&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;15&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;tmux rename-window &lt;span class=&#34;token parameter variable&#34;&gt;-t&lt;/span&gt; &lt;span class=&#34;token environment constant&#34;&gt;$SESSION&lt;/span&gt;:0 &lt;span class=&#34;token string&#34;&gt;&#34;main&#34;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;16&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;17&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token comment&#34;&gt;# 傳送指令&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;18&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;tmux send-keys &lt;span class=&#34;token parameter variable&#34;&gt;-t&lt;/span&gt; &lt;span class=&#34;token variable&#34;&gt;$WINDOW&lt;/span&gt; &lt;span class=&#34;token string&#34;&gt;&#34;echo [你的密碼] | sudo -S ls&#34;&lt;/span&gt; C-m&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;19&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;tmux send-keys &lt;span class=&#34;token parameter variable&#34;&gt;-t&lt;/span&gt; &lt;span class=&#34;token variable&#34;&gt;$WINDOW&lt;/span&gt; &lt;span class=&#34;token string&#34;&gt;&#34;cd ~/free5gc/&#34;&lt;/span&gt; C-m&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;20&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;tmux send-keys &lt;span class=&#34;token parameter variable&#34;&gt;-t&lt;/span&gt; &lt;span class=&#34;token variable&#34;&gt;$WINDOW&lt;/span&gt; &lt;span class=&#34;token string&#34;&gt;&#34;./force_kill.sh&#34;&lt;/span&gt; C-m&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;21&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;tmux send-keys &lt;span class=&#34;token parameter variable&#34;&gt;-t&lt;/span&gt; &lt;span class=&#34;token variable&#34;&gt;$WINDOW&lt;/span&gt; &lt;span class=&#34;token string&#34;&gt;&#34;./run.sh&#34;&lt;/span&gt; C-m&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;22&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;23&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token comment&#34;&gt;# 分割 pane&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;24&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;tmux split-pane &lt;span class=&#34;token parameter variable&#34;&gt;-h&lt;/span&gt; &lt;span class=&#34;token parameter variable&#34;&gt;-t&lt;/span&gt; &lt;span class=&#34;token variable&#34;&gt;$WINDOW&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;25&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;26&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token comment&#34;&gt;# 傳送命令&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;27&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;tmux send-keys &lt;span class=&#34;token string&#34;&gt;&#34;cd ~/free5gc/webconsole/&#34;&lt;/span&gt; C-m&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;28&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;tmux send-keys &lt;span class=&#34;token string&#34;&gt;&#34;go run server.go&#34;&lt;/span&gt; C-m&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;29&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;30&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token comment&#34;&gt;# attach session&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;31&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;tmux a &lt;span class=&#34;token parameter variable&#34;&gt;-t&lt;/span&gt; &lt;span class=&#34;token environment constant&#34;&gt;$SESSION&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;ol start=&#34;3&#34;&gt;
 &lt;li&gt;按下 &lt;kbd&gt;esc&lt;/kbd&gt; 再按下 &lt;kbd&gt;shift&lt;/kbd&gt; + &lt;kbd&gt;;&lt;/kbd&gt; (就是 &lt;kbd&gt;:&lt;/kbd&gt; 的意思)。&lt;/li&gt;
 &lt;li&gt;輸入  &lt;code&gt;wq&lt;/code&gt; , 按下 &lt;kbd&gt;Enter&lt;/kbd&gt; 存檔並離開。&lt;/li&gt;
 &lt;/ol&gt;
 &lt;div class=&#34;note danger&#34;&gt;
-&lt;p&gt;&lt;strong&gt;NOTE&lt;/strong&gt;: [你的密碼] 部分要改成你的密碼。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;NOTE&lt;/strong&gt;: [你的密碼] 部分要改成你的密碼。(中括號  &lt;code&gt;[]&lt;/code&gt;  不用加)&lt;/p&gt;
 &lt;/div&gt;
 &lt;h3 id=&#34;執行-runsh&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#執行-runsh&#34;&gt;#&lt;/a&gt; 執行 &lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cDovL3J1bi5zaA==&#34;&gt;run.sh&lt;/span&gt;&lt;/h3&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash=&#34;&gt;sh ./run.sh
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;或是把腳本檔案加上執行權限，就可以直接執行腳本，不需要透過  &lt;code&gt;sh&lt;/code&gt;  指令&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash=&#34;&gt;sudo chmod +x ./run.sh
-./run.sh
-&lt;/code&gt;&lt;/pre&gt;
-&lt;h1 id=&#34;free5gc-啟動腳本&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#free5gc-啟動腳本&#34;&gt;#&lt;/a&gt; Free5GC 啟動腳本&lt;/h1&gt;
-&lt;h2 id=&#34;ueransim&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#ueransim&#34;&gt;#&lt;/a&gt; UERANSIM&lt;/h2&gt;
+&lt;figure class=&#34;highlight bash&#34;&gt;&lt;figcaption data-lang=&#34;bash&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token function&#34;&gt;sh&lt;/span&gt; ./run.sh&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;或是把腳本檔案加上執行權限，就可以直接執行腳本，不需要透過  &lt;code&gt;sh&lt;/code&gt;  指令&lt;/p&gt;
+&lt;figure class=&#34;highlight bash&#34;&gt;&lt;figcaption data-lang=&#34;bash&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token function&#34;&gt;sudo&lt;/span&gt; &lt;span class=&#34;token function&#34;&gt;chmod&lt;/span&gt; +x ./run.sh&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;./run.sh&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;h2 id=&#34;ueransim&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#ueransim&#34;&gt;#&lt;/a&gt; UERANSIM&lt;/h2&gt;
 &lt;h3 id=&#34;建立-runsh-檔案-2&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#建立-runsh-檔案-2&#34;&gt;#&lt;/a&gt; 建立 &lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cDovL3J1bi5zaA==&#34;&gt;run.sh&lt;/span&gt; 檔案&lt;/h3&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash=&#34;&gt;sudo vim run.sh
-&lt;/code&gt;&lt;/pre&gt;
-&lt;h3 id=&#34;在-vim-中編輯-2&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#在-vim-中編輯-2&#34;&gt;#&lt;/a&gt; 在 vim 中編輯&lt;/h3&gt;
+&lt;figure class=&#34;highlight bash&#34;&gt;&lt;figcaption data-lang=&#34;bash&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token function&#34;&gt;sudo&lt;/span&gt; &lt;span class=&#34;token function&#34;&gt;vim&lt;/span&gt; run.sh&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;h3 id=&#34;在-vim-中編輯-2&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#在-vim-中編輯-2&#34;&gt;#&lt;/a&gt; 在 vim 中編輯&lt;/h3&gt;
 &lt;ol&gt;
 &lt;li&gt;按下 &lt;kbd&gt;i&lt;/kbd&gt;，螢幕左下角要顯示  &lt;code&gt;-- INSERT --&lt;/code&gt; 。&lt;/li&gt;
 &lt;li&gt;打入以下程式碼 (若你是在 Powershell 編輯，可以直接 &lt;kbd&gt;ctl&lt;/kbd&gt; + &lt;kbd&gt;c&lt;/kbd&gt; , &lt;kbd&gt;ctl&lt;/kbd&gt; + &lt;kbd&gt;v&lt;/kbd&gt; 貼上)。&lt;/li&gt;
 &lt;/ol&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash=&#34;&gt;#!/bin/bash
-
-SESSION=&amp;quot;ueransim&amp;quot;
-WINDOW=&amp;quot;$SESSION:main&amp;quot;
-
-# 刪除現有的 tmux
-tmux kill-session -t $SESSION
-
-# 建立 session
-tmux new-session -d -s $SESSION # -d: detach
-
-# window 重命名
-tmux rename-window -t $SESSION:0 &amp;quot;main&amp;quot;
-
-# 傳送命令
-tmux send-keys -t $WINDOW &#39;cd ~/UERANSIM/build/&#39; C-m # cd ~/UERANSIM/build/
-tmux send-keys -t $WINDOW &#39;./nr-gnb -c ../config/free5gc-gnb.yaml&#39; C-m
-
-# 水平分割 pane
-tmux split-window -h -t $WINDOW
-
-# 傳送命令
-tmux send-keys -t $WINDOW &amp;quot;echo [你的密碼] | sudo -S ls&amp;quot; C-m
-tmux send-keys -t $WINDOW &#39;cd ~/UERANSIM/build&#39; C-m
-tmux send-keys -t $WINDOW &#39;sudo ./nr-ue -c ../config/free5gc-ue.yaml&#39; C-m
-
-sleep 5
-sh ./ping.sh
-&lt;/code&gt;&lt;/pre&gt;
-&lt;ol start=&#34;3&#34;&gt;
+&lt;figure class=&#34;highlight bash&#34;&gt;&lt;figcaption data-lang=&#34;bash&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token shebang important&#34;&gt;#!/bin/bash&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;3&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token assign-left variable&#34;&gt;&lt;span class=&#34;token environment constant&#34;&gt;SESSION&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;token string&#34;&gt;&#34;ueransim&#34;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;4&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token assign-left variable&#34;&gt;WINDOW&lt;/span&gt;&lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;token string&#34;&gt;&#34;&lt;span class=&#34;token environment constant&#34;&gt;$SESSION&lt;/span&gt;:main&#34;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;5&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;6&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token comment&#34;&gt;# 刪除現有的 tmux&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;7&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;tmux kill-session &lt;span class=&#34;token parameter variable&#34;&gt;-t&lt;/span&gt; &lt;span class=&#34;token environment constant&#34;&gt;$SESSION&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;8&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;9&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token comment&#34;&gt;# 建立 session&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;10&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;tmux new-session &lt;span class=&#34;token parameter variable&#34;&gt;-d&lt;/span&gt; &lt;span class=&#34;token parameter variable&#34;&gt;-s&lt;/span&gt; &lt;span class=&#34;token environment constant&#34;&gt;$SESSION&lt;/span&gt; &lt;span class=&#34;token comment&#34;&gt;# -d: detach&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;11&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;12&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token comment&#34;&gt;# window 重命名&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;13&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;tmux rename-window &lt;span class=&#34;token parameter variable&#34;&gt;-t&lt;/span&gt; &lt;span class=&#34;token environment constant&#34;&gt;$SESSION&lt;/span&gt;:0 &lt;span class=&#34;token string&#34;&gt;&#34;main&#34;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;14&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;15&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token comment&#34;&gt;# 傳送命令&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;16&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;tmux send-keys &lt;span class=&#34;token parameter variable&#34;&gt;-t&lt;/span&gt; &lt;span class=&#34;token variable&#34;&gt;$WINDOW&lt;/span&gt; &lt;span class=&#34;token string&#34;&gt;&#39;cd ~/UERANSIM/build/&#39;&lt;/span&gt; C-m &lt;span class=&#34;token comment&#34;&gt;# cd ~/UERANSIM/build/&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;17&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;tmux send-keys &lt;span class=&#34;token parameter variable&#34;&gt;-t&lt;/span&gt; &lt;span class=&#34;token variable&#34;&gt;$WINDOW&lt;/span&gt; &lt;span class=&#34;token string&#34;&gt;&#39;./nr-gnb -c ../config/free5gc-gnb.yaml&#39;&lt;/span&gt; C-m&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;18&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;19&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token comment&#34;&gt;# 水平分割 pane&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;20&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;tmux split-window &lt;span class=&#34;token parameter variable&#34;&gt;-h&lt;/span&gt; &lt;span class=&#34;token parameter variable&#34;&gt;-t&lt;/span&gt; &lt;span class=&#34;token variable&#34;&gt;$WINDOW&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;21&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;22&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token comment&#34;&gt;# 傳送命令&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;23&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;tmux send-keys &lt;span class=&#34;token parameter variable&#34;&gt;-t&lt;/span&gt; &lt;span class=&#34;token variable&#34;&gt;$WINDOW&lt;/span&gt; &lt;span class=&#34;token string&#34;&gt;&#34;echo [你的密碼] | sudo -S ls&#34;&lt;/span&gt; C-m&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;24&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;tmux send-keys &lt;span class=&#34;token parameter variable&#34;&gt;-t&lt;/span&gt; &lt;span class=&#34;token variable&#34;&gt;$WINDOW&lt;/span&gt; &lt;span class=&#34;token string&#34;&gt;&#39;cd ~/UERANSIM/build&#39;&lt;/span&gt; C-m&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;25&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;tmux send-keys &lt;span class=&#34;token parameter variable&#34;&gt;-t&lt;/span&gt; &lt;span class=&#34;token variable&#34;&gt;$WINDOW&lt;/span&gt; &lt;span class=&#34;token string&#34;&gt;&#39;sudo ./nr-ue -c ../config/free5gc-ue.yaml&#39;&lt;/span&gt; C-m&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;26&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;27&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token function&#34;&gt;sleep&lt;/span&gt; &lt;span class=&#34;token number&#34;&gt;5&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;28&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token function&#34;&gt;sh&lt;/span&gt; ./ping.sh&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;ol start=&#34;3&#34;&gt;
 &lt;li&gt;按下 &lt;kbd&gt;esc&lt;/kbd&gt; 再按下 &lt;kbd&gt;shift&lt;/kbd&gt; + &lt;kbd&gt;;&lt;/kbd&gt; (就是 &lt;kbd&gt;:&lt;/kbd&gt; 的意思)。&lt;/li&gt;
 &lt;li&gt;輸入  &lt;code&gt;wq&lt;/code&gt; , 按下 &lt;kbd&gt;Enter&lt;/kbd&gt; 存檔並離開。&lt;/li&gt;
 &lt;/ol&gt;
@@ -133,18 +56,9 @@ sh ./ping.sh
 &lt;p&gt;&lt;strong&gt;NOTE&lt;/strong&gt;: [你的密碼] 部分要改成你的密碼。 (中括號  &lt;code&gt;[]&lt;/code&gt;  不用加)&lt;/p&gt;
 &lt;/div&gt;
 &lt;h3 id=&#34;建立-pingsh-檔案&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#建立-pingsh-檔案&#34;&gt;#&lt;/a&gt; 建立 &lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cDovL3Bpbmcuc2g=&#34;&gt;ping.sh&lt;/span&gt; 檔案&lt;/h3&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash=&#34;&gt;sudo vim ping.sh
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;同前面使用 vim 的方法複製以下內容&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash=&#34;&gt;#!/bin/bash
-
-echo 0000 | sudo -S ip route add default dev uesimtun0
-ping -c 8 -I uesimtun0 google.com
-&lt;/code&gt;&lt;/pre&gt;
-&lt;h3 id=&#34;執行-runsh-2&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#執行-runsh-2&#34;&gt;#&lt;/a&gt; 執行 &lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cDovL3J1bi5zaA==&#34;&gt;run.sh&lt;/span&gt;&lt;/h3&gt;
-&lt;pre&gt;&lt;code class=&#34;language-bash=&#34;&gt;sh ./run.sh
-&lt;/code&gt;&lt;/pre&gt;
-</content>
+&lt;figure class=&#34;highlight bash&#34;&gt;&lt;figcaption data-lang=&#34;bash&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token function&#34;&gt;sudo&lt;/span&gt; &lt;span class=&#34;token function&#34;&gt;vim&lt;/span&gt; ping.sh&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;同前面使用 vim 的方法複製以下內容&lt;/p&gt;
+&lt;figure class=&#34;highlight bash&#34;&gt;&lt;figcaption data-lang=&#34;bash&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token shebang important&#34;&gt;#!/bin/bash&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;3&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token builtin class-name&#34;&gt;echo&lt;/span&gt; 0000 &lt;span class=&#34;token operator&#34;&gt;|&lt;/span&gt; &lt;span class=&#34;token function&#34;&gt;sudo&lt;/span&gt; &lt;span class=&#34;token parameter variable&#34;&gt;-S&lt;/span&gt; &lt;span class=&#34;token function&#34;&gt;ip&lt;/span&gt; route &lt;span class=&#34;token function&#34;&gt;add&lt;/span&gt; default dev uesimtun0&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;4&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token function&#34;&gt;ping&lt;/span&gt; &lt;span class=&#34;token parameter variable&#34;&gt;-c&lt;/span&gt; &lt;span class=&#34;token number&#34;&gt;8&lt;/span&gt; &lt;span class=&#34;token parameter variable&#34;&gt;-I&lt;/span&gt; uesimtun0 google.com&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;h3 id=&#34;執行-runsh-2&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#執行-runsh-2&#34;&gt;#&lt;/a&gt; 執行 &lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cDovL3J1bi5zaA==&#34;&gt;run.sh&lt;/span&gt;&lt;/h3&gt;
+&lt;figure class=&#34;highlight bash&#34;&gt;&lt;figcaption data-lang=&#34;bash&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token function&#34;&gt;sh&lt;/span&gt; ./run.sh&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;</content>
         <category term="網路管理與分析" scheme="https://chienikao.github.io/categories/%E7%B6%B2%E8%B7%AF%E7%AE%A1%E7%90%86%E8%88%87%E5%88%86%E6%9E%90/" />
         <category term="網路管理與分析" scheme="https://chienikao.github.io/tags/%E7%B6%B2%E8%B7%AF%E7%AE%A1%E7%90%86%E8%88%87%E5%88%86%E6%9E%90/" />
         <category term="free5gc" scheme="https://chienikao.github.io/tags/free5gc/" />
@@ -1498,8 +1412,8 @@ Total points earned: 2 + 5 = 7. There is no other way to earn 7 or more points.&
         <category term="Medium" scheme="https://chienikao.github.io/categories/Coding/Leetcode/Medium/" />
         <category term="Leetcode" scheme="https://chienikao.github.io/tags/Leetcode/" />
         <category term="Array" scheme="https://chienikao.github.io/tags/Array/" />
-        <category term="Dynamic Programming" scheme="https://chienikao.github.io/tags/Dynamic-Programming/" />
         <category term="Medium" scheme="https://chienikao.github.io/tags/Medium/" />
+        <category term="Dynamic Programming" scheme="https://chienikao.github.io/tags/Dynamic-Programming/" />
         <updated>2023-05-15T03:05:17.000Z</updated>
     </entry>
     <entry>
@@ -1561,8 +1475,8 @@ We cannot draw 3 uncrossed lines, because the line from nums1[1] = 4 to nums2[2]
         <category term="Medium" scheme="https://chienikao.github.io/categories/Coding/Leetcode/Medium/" />
         <category term="Leetcode" scheme="https://chienikao.github.io/tags/Leetcode/" />
         <category term="Array" scheme="https://chienikao.github.io/tags/Array/" />
-        <category term="Dynamic Programming" scheme="https://chienikao.github.io/tags/Dynamic-Programming/" />
         <category term="Medium" scheme="https://chienikao.github.io/tags/Medium/" />
+        <category term="Dynamic Programming" scheme="https://chienikao.github.io/tags/Dynamic-Programming/" />
         <updated>2023-05-15T03:01:25.000Z</updated>
     </entry>
     <entry>

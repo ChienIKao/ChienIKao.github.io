@@ -4,11 +4,11 @@
   
     
     <entry>
-      <title>free5gc</title>
+      <title>Free5GC 啟動腳本</title>
       <link href="/2023/10/19/free5gc/"/>
       <url>/2023/10/19/free5gc/</url>
       
-        <content type="html"><![CDATA[<h2 id="使用-ssh-連線虛擬機"><a class="anchor" href="#使用-ssh-連線虛擬機">#</a> 使用 ssh 連線虛擬機</h2><h3 id="如何查看你的主機-ip"><a class="anchor" href="#如何查看你的主機-ip">#</a> 如何查看你的主機 ip</h3><p>在你的虛擬機輸入以下指令</p><pre><code class="language-bash=">ifconfig</code></pre><p><img data-src="https://hackmd.io/_uploads/BkxfuiRWp.png" alt=""></p><h3 id="ssh-連線"><a class="anchor" href="#ssh-連線">#</a> ssh 連線</h3><p>開啟你的 Powershell 輸入以下指令</p><pre><code class="language-bash=">ssh [你的帳號]@[你的主機ip]</code></pre><p>例如</p><pre><code class="language-bash=">ssh alen911018@192.168.56.102</code></pre><p>輸入密碼即連線成功</p><p>![](<span class="exturl" data-url="aHR0cHM6Ly9oYWNrbWQuaW8vX3VwbG9hZHMvcnlzX0tzUlpwLnBuZw==">https://hackmd.io/_uploads/rys_KsRZp.png</span> =800x)</p><h2 id="free5gc"><a class="anchor" href="#free5gc">#</a> Free5GC</h2><h3 id="建立-runsh-檔案"><a class="anchor" href="#建立-runsh-檔案">#</a> 建立 <span class="exturl" data-url="aHR0cDovL3J1bi5zaA==">run.sh</span> 檔案</h3><p>開啟你的 free5gc 虛擬機，輸入以下指令</p><pre><code class="language-bash=">sudo vim run.sh</code></pre><h3 id="在-vim-中編輯"><a class="anchor" href="#在-vim-中編輯">#</a> 在 vim 中編輯</h3><ol><li>按下 <kbd>i</kbd>，螢幕左下角要顯示  <code>-- INSERT --</code> 。</li><li>打入以下程式碼 (若你是在 Powershell 編輯，可以直接 <kbd>ctl</kbd> + <kbd>c</kbd> , <kbd>ctl</kbd> + <kbd>v</kbd>貼上)。</li></ol><pre><code class="language-bash=">#!/bin/bashecho [你的密碼] | sudo -S iptables -t nat -A POSTROUTING -o enp0s3 -j MASQUERADESESSION=&quot;free5gc&quot;WINDOW=&quot;$SESSION:main&quot;# 刪除現有的 tmuxtmux kill-session -t $SESSION# 建立 sessiontmux new-session -d -s $SESSION# window 重命名tmux rename-window -t $SESSION:0 &quot;main&quot;# 傳送指令tmux send-keys -t $WINDOW &quot;echo [你的密碼] | sudo -S ls&quot; C-mtmux send-keys -t $WINDOW &quot;cd ~/free5gc/&quot; C-mtmux send-keys -t $WINDOW &quot;./force_kill.sh&quot; C-mtmux send-keys -t $WINDOW &quot;./run.sh&quot; C-m# 分割 panetmux split-pane -h -t $WINDOW# 傳送命令tmux send-keys &quot;cd ~/free5gc/webconsole/&quot; C-mtmux send-keys &quot;go run server.go&quot; C-m# attach sessiontmux a -t $SESSION</code></pre><ol start="3"><li>按下 <kbd>esc</kbd> 再按下 <kbd>shift</kbd> + <kbd>;</kbd> (就是 <kbd>:</kbd> 的意思)。</li><li>輸入  <code>wq</code> , 按下 <kbd>Enter</kbd> 存檔並離開。</li></ol><div class="note danger"><p><strong>NOTE</strong>: [你的密碼] 部分要改成你的密碼。</p></div><h3 id="執行-runsh"><a class="anchor" href="#執行-runsh">#</a> 執行 <span class="exturl" data-url="aHR0cDovL3J1bi5zaA==">run.sh</span></h3><pre><code class="language-bash=">sh ./run.sh</code></pre><p>或是把腳本檔案加上執行權限，就可以直接執行腳本，不需要透過  <code>sh</code>  指令</p><pre><code class="language-bash=">sudo chmod +x ./run.sh./run.sh</code></pre><h1 id="free5gc-啟動腳本"><a class="anchor" href="#free5gc-啟動腳本">#</a> Free5GC 啟動腳本</h1><h2 id="ueransim"><a class="anchor" href="#ueransim">#</a> UERANSIM</h2><h3 id="建立-runsh-檔案-2"><a class="anchor" href="#建立-runsh-檔案-2">#</a> 建立 <span class="exturl" data-url="aHR0cDovL3J1bi5zaA==">run.sh</span> 檔案</h3><pre><code class="language-bash=">sudo vim run.sh</code></pre><h3 id="在-vim-中編輯-2"><a class="anchor" href="#在-vim-中編輯-2">#</a> 在 vim 中編輯</h3><ol><li>按下 <kbd>i</kbd>，螢幕左下角要顯示  <code>-- INSERT --</code> 。</li><li>打入以下程式碼 (若你是在 Powershell 編輯，可以直接 <kbd>ctl</kbd> + <kbd>c</kbd> , <kbd>ctl</kbd> + <kbd>v</kbd> 貼上)。</li></ol><pre><code class="language-bash=">#!/bin/bashSESSION=&quot;ueransim&quot;WINDOW=&quot;$SESSION:main&quot;# 刪除現有的 tmuxtmux kill-session -t $SESSION# 建立 sessiontmux new-session -d -s $SESSION # -d: detach# window 重命名tmux rename-window -t $SESSION:0 &quot;main&quot;# 傳送命令tmux send-keys -t $WINDOW 'cd ~/UERANSIM/build/' C-m # cd ~/UERANSIM/build/tmux send-keys -t $WINDOW './nr-gnb -c ../config/free5gc-gnb.yaml' C-m# 水平分割 panetmux split-window -h -t $WINDOW# 傳送命令tmux send-keys -t $WINDOW &quot;echo [你的密碼] | sudo -S ls&quot; C-mtmux send-keys -t $WINDOW 'cd ~/UERANSIM/build' C-mtmux send-keys -t $WINDOW 'sudo ./nr-ue -c ../config/free5gc-ue.yaml' C-msleep 5sh ./ping.sh</code></pre><ol start="3"><li>按下 <kbd>esc</kbd> 再按下 <kbd>shift</kbd> + <kbd>;</kbd> (就是 <kbd>:</kbd> 的意思)。</li><li>輸入  <code>wq</code> , 按下 <kbd>Enter</kbd> 存檔並離開。</li></ol><div class="note danger"><p><strong>NOTE</strong>: [你的密碼] 部分要改成你的密碼。 (中括號  <code>[]</code>  不用加)</p></div><h3 id="建立-pingsh-檔案"><a class="anchor" href="#建立-pingsh-檔案">#</a> 建立 <span class="exturl" data-url="aHR0cDovL3Bpbmcuc2g=">ping.sh</span> 檔案</h3><pre><code class="language-bash=">sudo vim ping.sh</code></pre><p>同前面使用 vim 的方法複製以下內容</p><pre><code class="language-bash=">#!/bin/bashecho 0000 | sudo -S ip route add default dev uesimtun0ping -c 8 -I uesimtun0 google.com</code></pre><h3 id="執行-runsh-2"><a class="anchor" href="#執行-runsh-2">#</a> 執行 <span class="exturl" data-url="aHR0cDovL3J1bi5zaA==">run.sh</span></h3><pre><code class="language-bash=">sh ./run.sh</code></pre>]]></content>
+        <content type="html"><![CDATA[<h2 id="使用-ssh-連線虛擬機"><a class="anchor" href="#使用-ssh-連線虛擬機">#</a> 使用 ssh 連線虛擬機</h2><h3 id="如何查看你的主機-ip"><a class="anchor" href="#如何查看你的主機-ip">#</a> 如何查看你的主機 ip</h3><p>在你的虛擬機輸入以下指令</p><figure class="highlight bash"><figcaption data-lang="bash"></figcaption><table><tr><td data-num="1"></td><td><pre><span class="token function">ifconfig</span></pre></td></tr></table></figure><p><img data-src="https://imgur.com/KVoZU0e.png" alt=""></p><h3 id="ssh-連線"><a class="anchor" href="#ssh-連線">#</a> ssh 連線</h3><p>開啟你的 Powershell 輸入以下指令</p><figure class="highlight bash"><figcaption data-lang="bash"></figcaption><table><tr><td data-num="1"></td><td><pre><span class="token function">ssh</span> <span class="token punctuation">[</span>你的帳號<span class="token punctuation">]</span>@<span class="token punctuation">[</span>你的主機ip<span class="token punctuation">]</span></pre></td></tr></table></figure><p>例如</p><figure class="highlight bash"><figcaption data-lang="bash"></figcaption><table><tr><td data-num="1"></td><td><pre><span class="token function">ssh</span> alen911018@192.168.56.102</pre></td></tr></table></figure><p>輸入密碼即連線成功</p><p><img data-src="https://imgur.com/nEmUiYW.png" alt=""></p><h2 id="free5gc"><a class="anchor" href="#free5gc">#</a> Free5GC</h2><h3 id="建立-runsh-檔案"><a class="anchor" href="#建立-runsh-檔案">#</a> 建立 <span class="exturl" data-url="aHR0cDovL3J1bi5zaA==">run.sh</span> 檔案</h3><p>開啟你的 free5gc 虛擬機，輸入以下指令</p><figure class="highlight bash"><figcaption data-lang="bash"></figcaption><table><tr><td data-num="1"></td><td><pre><span class="token function">sudo</span> <span class="token function">vim</span> run.sh</pre></td></tr></table></figure><h3 id="在-vim-中編輯"><a class="anchor" href="#在-vim-中編輯">#</a> 在 vim 中編輯</h3><ol><li>按下 <kbd>i</kbd>，螢幕左下角要顯示  <code>-- INSERT --</code> 。</li><li>打入以下程式碼 (若你是在 Powershell 編輯，可以直接 <kbd>ctl</kbd> + <kbd>c</kbd> , <kbd>ctl</kbd> + <kbd>v</kbd>貼上)。</li></ol><figure class="highlight bash"><figcaption data-lang="bash"></figcaption><table><tr><td data-num="1"></td><td><pre><span class="token shebang important">#!/bin/bash</span></pre></td></tr><tr><td data-num="2"></td><td><pre></pre></td></tr><tr><td data-num="3"></td><td><pre><span class="token builtin class-name">echo</span> <span class="token punctuation">[</span>你的密碼<span class="token punctuation">]</span> <span class="token operator">|</span> <span class="token function">sudo</span> <span class="token parameter variable">-S</span> iptables <span class="token parameter variable">-t</span> nat <span class="token parameter variable">-A</span> POSTROUTING <span class="token parameter variable">-o</span> enp0s3 <span class="token parameter variable">-j</span> MASQUERADE</pre></td></tr><tr><td data-num="4"></td><td><pre></pre></td></tr><tr><td data-num="5"></td><td><pre><span class="token assign-left variable"><span class="token environment constant">SESSION</span></span><span class="token operator">=</span><span class="token string">"free5gc"</span></pre></td></tr><tr><td data-num="6"></td><td><pre><span class="token assign-left variable">WINDOW</span><span class="token operator">=</span><span class="token string">"<span class="token environment constant">$SESSION</span>:main"</span></pre></td></tr><tr><td data-num="7"></td><td><pre></pre></td></tr><tr><td data-num="8"></td><td><pre><span class="token comment"># 刪除現有的 tmux</span></pre></td></tr><tr><td data-num="9"></td><td><pre>tmux kill-session <span class="token parameter variable">-t</span> <span class="token environment constant">$SESSION</span></pre></td></tr><tr><td data-num="10"></td><td><pre></pre></td></tr><tr><td data-num="11"></td><td><pre><span class="token comment"># 建立 session</span></pre></td></tr><tr><td data-num="12"></td><td><pre>tmux new-session <span class="token parameter variable">-d</span> <span class="token parameter variable">-s</span> <span class="token environment constant">$SESSION</span></pre></td></tr><tr><td data-num="13"></td><td><pre></pre></td></tr><tr><td data-num="14"></td><td><pre><span class="token comment"># window 重命名</span></pre></td></tr><tr><td data-num="15"></td><td><pre>tmux rename-window <span class="token parameter variable">-t</span> <span class="token environment constant">$SESSION</span>:0 <span class="token string">"main"</span></pre></td></tr><tr><td data-num="16"></td><td><pre></pre></td></tr><tr><td data-num="17"></td><td><pre><span class="token comment"># 傳送指令</span></pre></td></tr><tr><td data-num="18"></td><td><pre>tmux send-keys <span class="token parameter variable">-t</span> <span class="token variable">$WINDOW</span> <span class="token string">"echo [你的密碼] | sudo -S ls"</span> C-m</pre></td></tr><tr><td data-num="19"></td><td><pre>tmux send-keys <span class="token parameter variable">-t</span> <span class="token variable">$WINDOW</span> <span class="token string">"cd ~/free5gc/"</span> C-m</pre></td></tr><tr><td data-num="20"></td><td><pre>tmux send-keys <span class="token parameter variable">-t</span> <span class="token variable">$WINDOW</span> <span class="token string">"./force_kill.sh"</span> C-m</pre></td></tr><tr><td data-num="21"></td><td><pre>tmux send-keys <span class="token parameter variable">-t</span> <span class="token variable">$WINDOW</span> <span class="token string">"./run.sh"</span> C-m</pre></td></tr><tr><td data-num="22"></td><td><pre></pre></td></tr><tr><td data-num="23"></td><td><pre><span class="token comment"># 分割 pane</span></pre></td></tr><tr><td data-num="24"></td><td><pre>tmux split-pane <span class="token parameter variable">-h</span> <span class="token parameter variable">-t</span> <span class="token variable">$WINDOW</span></pre></td></tr><tr><td data-num="25"></td><td><pre></pre></td></tr><tr><td data-num="26"></td><td><pre><span class="token comment"># 傳送命令</span></pre></td></tr><tr><td data-num="27"></td><td><pre>tmux send-keys <span class="token string">"cd ~/free5gc/webconsole/"</span> C-m</pre></td></tr><tr><td data-num="28"></td><td><pre>tmux send-keys <span class="token string">"go run server.go"</span> C-m</pre></td></tr><tr><td data-num="29"></td><td><pre></pre></td></tr><tr><td data-num="30"></td><td><pre><span class="token comment"># attach session</span></pre></td></tr><tr><td data-num="31"></td><td><pre>tmux a <span class="token parameter variable">-t</span> <span class="token environment constant">$SESSION</span></pre></td></tr></table></figure><ol start="3"><li>按下 <kbd>esc</kbd> 再按下 <kbd>shift</kbd> + <kbd>;</kbd> (就是 <kbd>:</kbd> 的意思)。</li><li>輸入  <code>wq</code> , 按下 <kbd>Enter</kbd> 存檔並離開。</li></ol><div class="note danger"><p><strong>NOTE</strong>: [你的密碼] 部分要改成你的密碼。(中括號  <code>[]</code>  不用加)</p></div><h3 id="執行-runsh"><a class="anchor" href="#執行-runsh">#</a> 執行 <span class="exturl" data-url="aHR0cDovL3J1bi5zaA==">run.sh</span></h3><figure class="highlight bash"><figcaption data-lang="bash"></figcaption><table><tr><td data-num="1"></td><td><pre><span class="token function">sh</span> ./run.sh</pre></td></tr></table></figure><p>或是把腳本檔案加上執行權限，就可以直接執行腳本，不需要透過  <code>sh</code>  指令</p><figure class="highlight bash"><figcaption data-lang="bash"></figcaption><table><tr><td data-num="1"></td><td><pre><span class="token function">sudo</span> <span class="token function">chmod</span> +x ./run.sh</pre></td></tr><tr><td data-num="2"></td><td><pre>./run.sh</pre></td></tr></table></figure><h2 id="ueransim"><a class="anchor" href="#ueransim">#</a> UERANSIM</h2><h3 id="建立-runsh-檔案-2"><a class="anchor" href="#建立-runsh-檔案-2">#</a> 建立 <span class="exturl" data-url="aHR0cDovL3J1bi5zaA==">run.sh</span> 檔案</h3><figure class="highlight bash"><figcaption data-lang="bash"></figcaption><table><tr><td data-num="1"></td><td><pre><span class="token function">sudo</span> <span class="token function">vim</span> run.sh</pre></td></tr></table></figure><h3 id="在-vim-中編輯-2"><a class="anchor" href="#在-vim-中編輯-2">#</a> 在 vim 中編輯</h3><ol><li>按下 <kbd>i</kbd>，螢幕左下角要顯示  <code>-- INSERT --</code> 。</li><li>打入以下程式碼 (若你是在 Powershell 編輯，可以直接 <kbd>ctl</kbd> + <kbd>c</kbd> , <kbd>ctl</kbd> + <kbd>v</kbd> 貼上)。</li></ol><figure class="highlight bash"><figcaption data-lang="bash"></figcaption><table><tr><td data-num="1"></td><td><pre><span class="token shebang important">#!/bin/bash</span></pre></td></tr><tr><td data-num="2"></td><td><pre></pre></td></tr><tr><td data-num="3"></td><td><pre><span class="token assign-left variable"><span class="token environment constant">SESSION</span></span><span class="token operator">=</span><span class="token string">"ueransim"</span></pre></td></tr><tr><td data-num="4"></td><td><pre><span class="token assign-left variable">WINDOW</span><span class="token operator">=</span><span class="token string">"<span class="token environment constant">$SESSION</span>:main"</span></pre></td></tr><tr><td data-num="5"></td><td><pre></pre></td></tr><tr><td data-num="6"></td><td><pre><span class="token comment"># 刪除現有的 tmux</span></pre></td></tr><tr><td data-num="7"></td><td><pre>tmux kill-session <span class="token parameter variable">-t</span> <span class="token environment constant">$SESSION</span></pre></td></tr><tr><td data-num="8"></td><td><pre></pre></td></tr><tr><td data-num="9"></td><td><pre><span class="token comment"># 建立 session</span></pre></td></tr><tr><td data-num="10"></td><td><pre>tmux new-session <span class="token parameter variable">-d</span> <span class="token parameter variable">-s</span> <span class="token environment constant">$SESSION</span> <span class="token comment"># -d: detach</span></pre></td></tr><tr><td data-num="11"></td><td><pre></pre></td></tr><tr><td data-num="12"></td><td><pre><span class="token comment"># window 重命名</span></pre></td></tr><tr><td data-num="13"></td><td><pre>tmux rename-window <span class="token parameter variable">-t</span> <span class="token environment constant">$SESSION</span>:0 <span class="token string">"main"</span></pre></td></tr><tr><td data-num="14"></td><td><pre></pre></td></tr><tr><td data-num="15"></td><td><pre><span class="token comment"># 傳送命令</span></pre></td></tr><tr><td data-num="16"></td><td><pre>tmux send-keys <span class="token parameter variable">-t</span> <span class="token variable">$WINDOW</span> <span class="token string">'cd ~/UERANSIM/build/'</span> C-m <span class="token comment"># cd ~/UERANSIM/build/</span></pre></td></tr><tr><td data-num="17"></td><td><pre>tmux send-keys <span class="token parameter variable">-t</span> <span class="token variable">$WINDOW</span> <span class="token string">'./nr-gnb -c ../config/free5gc-gnb.yaml'</span> C-m</pre></td></tr><tr><td data-num="18"></td><td><pre></pre></td></tr><tr><td data-num="19"></td><td><pre><span class="token comment"># 水平分割 pane</span></pre></td></tr><tr><td data-num="20"></td><td><pre>tmux split-window <span class="token parameter variable">-h</span> <span class="token parameter variable">-t</span> <span class="token variable">$WINDOW</span></pre></td></tr><tr><td data-num="21"></td><td><pre></pre></td></tr><tr><td data-num="22"></td><td><pre><span class="token comment"># 傳送命令</span></pre></td></tr><tr><td data-num="23"></td><td><pre>tmux send-keys <span class="token parameter variable">-t</span> <span class="token variable">$WINDOW</span> <span class="token string">"echo [你的密碼] | sudo -S ls"</span> C-m</pre></td></tr><tr><td data-num="24"></td><td><pre>tmux send-keys <span class="token parameter variable">-t</span> <span class="token variable">$WINDOW</span> <span class="token string">'cd ~/UERANSIM/build'</span> C-m</pre></td></tr><tr><td data-num="25"></td><td><pre>tmux send-keys <span class="token parameter variable">-t</span> <span class="token variable">$WINDOW</span> <span class="token string">'sudo ./nr-ue -c ../config/free5gc-ue.yaml'</span> C-m</pre></td></tr><tr><td data-num="26"></td><td><pre></pre></td></tr><tr><td data-num="27"></td><td><pre><span class="token function">sleep</span> <span class="token number">5</span></pre></td></tr><tr><td data-num="28"></td><td><pre><span class="token function">sh</span> ./ping.sh</pre></td></tr></table></figure><ol start="3"><li>按下 <kbd>esc</kbd> 再按下 <kbd>shift</kbd> + <kbd>;</kbd> (就是 <kbd>:</kbd> 的意思)。</li><li>輸入  <code>wq</code> , 按下 <kbd>Enter</kbd> 存檔並離開。</li></ol><div class="note danger"><p><strong>NOTE</strong>: [你的密碼] 部分要改成你的密碼。 (中括號  <code>[]</code>  不用加)</p></div><h3 id="建立-pingsh-檔案"><a class="anchor" href="#建立-pingsh-檔案">#</a> 建立 <span class="exturl" data-url="aHR0cDovL3Bpbmcuc2g=">ping.sh</span> 檔案</h3><figure class="highlight bash"><figcaption data-lang="bash"></figcaption><table><tr><td data-num="1"></td><td><pre><span class="token function">sudo</span> <span class="token function">vim</span> ping.sh</pre></td></tr></table></figure><p>同前面使用 vim 的方法複製以下內容</p><figure class="highlight bash"><figcaption data-lang="bash"></figcaption><table><tr><td data-num="1"></td><td><pre><span class="token shebang important">#!/bin/bash</span></pre></td></tr><tr><td data-num="2"></td><td><pre></pre></td></tr><tr><td data-num="3"></td><td><pre><span class="token builtin class-name">echo</span> 0000 <span class="token operator">|</span> <span class="token function">sudo</span> <span class="token parameter variable">-S</span> <span class="token function">ip</span> route <span class="token function">add</span> default dev uesimtun0</pre></td></tr><tr><td data-num="4"></td><td><pre><span class="token function">ping</span> <span class="token parameter variable">-c</span> <span class="token number">8</span> <span class="token parameter variable">-I</span> uesimtun0 google.com</pre></td></tr></table></figure><h3 id="執行-runsh-2"><a class="anchor" href="#執行-runsh-2">#</a> 執行 <span class="exturl" data-url="aHR0cDovL3J1bi5zaA==">run.sh</span></h3><figure class="highlight bash"><figcaption data-lang="bash"></figcaption><table><tr><td data-num="1"></td><td><pre><span class="token function">sh</span> ./run.sh</pre></td></tr></table></figure>]]></content>
       
       
       <categories>
@@ -428,9 +428,9 @@
             
             <tag> Array </tag>
             
-            <tag> Dynamic Programming </tag>
-            
             <tag> Medium </tag>
+            
+            <tag> Dynamic Programming </tag>
             
         </tags>
       
@@ -463,9 +463,9 @@
             
             <tag> Array </tag>
             
-            <tag> Dynamic Programming </tag>
-            
             <tag> Medium </tag>
+            
+            <tag> Dynamic Programming </tag>
             
         </tags>
       
@@ -1015,9 +1015,9 @@
             
             <tag> Array </tag>
             
-            <tag> Hard </tag>
-            
             <tag> Binary Search </tag>
+            
+            <tag> Hard </tag>
             
             <tag> Binary Indexed  Tree </tag>
             
@@ -1219,9 +1219,9 @@
             
             <tag> Leetcode </tag>
             
-            <tag> Hard </tag>
-            
             <tag> Graph </tag>
+            
+            <tag> Hard </tag>
             
         </tags>
       
@@ -1248,9 +1248,9 @@
             
             <tag> Algorithm </tag>
             
-            <tag> Data Structure </tag>
-            
             <tag> Union Find </tag>
+            
+            <tag> Data Structure </tag>
             
         </tags>
       
@@ -1287,11 +1287,11 @@
             
             <tag> Array </tag>
             
-            <tag> Hard </tag>
-            
             <tag> Depth-First Search </tag>
             
             <tag> Breadth-First Search </tag>
+            
+            <tag> Hard </tag>
             
         </tags>
       
@@ -1380,11 +1380,11 @@
       
         <tags>
             
-            <tag> UVA </tag>
-            
             <tag> Star1 </tag>
             
             <tag> CPE </tag>
+            
+            <tag> UVA </tag>
             
         </tags>
       
@@ -1754,11 +1754,11 @@
       
         <tags>
             
-            <tag> UVA </tag>
-            
             <tag> Star1 </tag>
             
             <tag> CPE </tag>
+            
+            <tag> UVA </tag>
             
         </tags>
       
@@ -1816,11 +1816,11 @@
       
         <tags>
             
-            <tag> UVA </tag>
-            
             <tag> Star1 </tag>
             
             <tag> CPE </tag>
+            
+            <tag> UVA </tag>
             
         </tags>
       
@@ -1884,11 +1884,11 @@
       
         <tags>
             
-            <tag> UVA </tag>
-            
             <tag> Star1 </tag>
             
             <tag> CPE </tag>
+            
+            <tag> UVA </tag>
             
         </tags>
       
@@ -1917,11 +1917,11 @@
       
         <tags>
             
-            <tag> UVA </tag>
-            
             <tag> Star1 </tag>
             
             <tag> CPE </tag>
+            
+            <tag> UVA </tag>
             
         </tags>
       
@@ -1985,13 +1985,13 @@
             
             <tag> Medium </tag>
             
-            <tag> Depth-First Search </tag>
-            
-            <tag> Breadth-First Search </tag>
-            
             <tag> Tree </tag>
             
+            <tag> Depth-First Search </tag>
+            
             <tag> Binary Tree </tag>
+            
+            <tag> Breadth-First Search </tag>
             
         </tags>
       
@@ -2082,11 +2082,11 @@
       
         <tags>
             
-            <tag> UVA </tag>
-            
             <tag> Star1 </tag>
             
             <tag> CPE </tag>
+            
+            <tag> UVA </tag>
             
         </tags>
       
@@ -2266,13 +2266,13 @@
             
             <tag> Leetcode </tag>
             
-            <tag> Dynamic Programming </tag>
-            
             <tag> Medium </tag>
             
-            <tag> Depth-First Search </tag>
+            <tag> Dynamic Programming </tag>
             
             <tag> Tree </tag>
+            
+            <tag> Depth-First Search </tag>
             
             <tag> Binary Tree </tag>
             
@@ -2396,11 +2396,11 @@
       
         <tags>
             
-            <tag> UVA </tag>
-            
             <tag> Star1 </tag>
             
             <tag> CPE </tag>
+            
+            <tag> UVA </tag>
             
         </tags>
       
