@@ -8,9 +8,148 @@
     <author>
       <name>ChienI Kao</name>
     </author>
-    <updated>2023-05-30T03:24:45.000Z</updated>
+    <updated>2023-10-19T15:33:38.000Z</updated>
     <category term="筆記" />
     <category term=" note" />
+    <entry>
+        <id>https://chienikao.github.io/2023/10/19/free5gc/</id>
+        <title>free5gc</title>
+        <link rel="alternate" href="https://chienikao.github.io/2023/10/19/free5gc/"/>
+        <content type="html">&lt;h2 id=&#34;使用-ssh-連線虛擬機&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#使用-ssh-連線虛擬機&#34;&gt;#&lt;/a&gt; 使用 ssh 連線虛擬機&lt;/h2&gt;
+&lt;h3 id=&#34;如何查看你的主機-ip&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#如何查看你的主機-ip&#34;&gt;#&lt;/a&gt; 如何查看你的主機 ip&lt;/h3&gt;
+&lt;p&gt;在你的虛擬機輸入以下指令&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash=&#34;&gt;ifconfig
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img data-src=&#34;https://hackmd.io/_uploads/BkxfuiRWp.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;h3 id=&#34;ssh-連線&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#ssh-連線&#34;&gt;#&lt;/a&gt; ssh 連線&lt;/h3&gt;
+&lt;p&gt;開啟你的 Powershell 輸入以下指令&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash=&#34;&gt;ssh [你的帳號]@[你的主機ip]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;例如&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash=&#34;&gt;ssh alen911018@192.168.56.102
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;輸入密碼即連線成功&lt;/p&gt;
+&lt;p&gt;![](&lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly9oYWNrbWQuaW8vX3VwbG9hZHMvcnlzX0tzUlpwLnBuZw==&#34;&gt;https://hackmd.io/_uploads/rys_KsRZp.png&lt;/span&gt; =800x)&lt;/p&gt;
+&lt;h2 id=&#34;free5gc&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#free5gc&#34;&gt;#&lt;/a&gt; Free5GC&lt;/h2&gt;
+&lt;h3 id=&#34;建立-runsh-檔案&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#建立-runsh-檔案&#34;&gt;#&lt;/a&gt; 建立 &lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cDovL3J1bi5zaA==&#34;&gt;run.sh&lt;/span&gt; 檔案&lt;/h3&gt;
+&lt;p&gt;開啟你的 free5gc 虛擬機，輸入以下指令&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash=&#34;&gt;sudo vim run.sh
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;在-vim-中編輯&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#在-vim-中編輯&#34;&gt;#&lt;/a&gt; 在 vim 中編輯&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;按下 &lt;kbd&gt;i&lt;/kbd&gt;，螢幕左下角要顯示  &lt;code&gt;-- INSERT --&lt;/code&gt; 。&lt;/li&gt;
+&lt;li&gt;打入以下程式碼 (若你是在 Powershell 編輯，可以直接 &lt;kbd&gt;ctl&lt;/kbd&gt; + &lt;kbd&gt;c&lt;/kbd&gt; , &lt;kbd&gt;ctl&lt;/kbd&gt; + &lt;kbd&gt;v&lt;/kbd&gt;貼上)。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash=&#34;&gt;#!/bin/bash
+
+echo [你的密碼] | sudo -S iptables -t nat -A POSTROUTING -o enp0s3 -j MASQUERADE
+
+SESSION=&amp;quot;free5gc&amp;quot;
+WINDOW=&amp;quot;$SESSION:main&amp;quot;
+
+# 刪除現有的 tmux
+tmux kill-session -t $SESSION
+
+# 建立 session
+tmux new-session -d -s $SESSION
+
+# window 重命名
+tmux rename-window -t $SESSION:0 &amp;quot;main&amp;quot;
+
+# 傳送指令
+tmux send-keys -t $WINDOW &amp;quot;echo [你的密碼] | sudo -S ls&amp;quot; C-m
+tmux send-keys -t $WINDOW &amp;quot;cd ~/free5gc/&amp;quot; C-m
+tmux send-keys -t $WINDOW &amp;quot;./force_kill.sh&amp;quot; C-m
+tmux send-keys -t $WINDOW &amp;quot;./run.sh&amp;quot; C-m
+
+# 分割 pane
+tmux split-pane -h -t $WINDOW
+
+# 傳送命令
+tmux send-keys &amp;quot;cd ~/free5gc/webconsole/&amp;quot; C-m
+tmux send-keys &amp;quot;go run server.go&amp;quot; C-m
+
+# attach session
+tmux a -t $SESSION
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ol start=&#34;3&#34;&gt;
+&lt;li&gt;按下 &lt;kbd&gt;esc&lt;/kbd&gt; 再按下 &lt;kbd&gt;shift&lt;/kbd&gt; + &lt;kbd&gt;;&lt;/kbd&gt; (就是 &lt;kbd&gt;:&lt;/kbd&gt; 的意思)。&lt;/li&gt;
+&lt;li&gt;輸入  &lt;code&gt;wq&lt;/code&gt; , 按下 &lt;kbd&gt;Enter&lt;/kbd&gt; 存檔並離開。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&#34;note danger&#34;&gt;
+&lt;p&gt;&lt;strong&gt;NOTE&lt;/strong&gt;: [你的密碼] 部分要改成你的密碼。&lt;/p&gt;
+&lt;/div&gt;
+&lt;h3 id=&#34;執行-runsh&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#執行-runsh&#34;&gt;#&lt;/a&gt; 執行 &lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cDovL3J1bi5zaA==&#34;&gt;run.sh&lt;/span&gt;&lt;/h3&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash=&#34;&gt;sh ./run.sh
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;或是把腳本檔案加上執行權限，就可以直接執行腳本，不需要透過  &lt;code&gt;sh&lt;/code&gt;  指令&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash=&#34;&gt;sudo chmod +x ./run.sh
+./run.sh
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h1 id=&#34;free5gc-啟動腳本&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#free5gc-啟動腳本&#34;&gt;#&lt;/a&gt; Free5GC 啟動腳本&lt;/h1&gt;
+&lt;h2 id=&#34;ueransim&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#ueransim&#34;&gt;#&lt;/a&gt; UERANSIM&lt;/h2&gt;
+&lt;h3 id=&#34;建立-runsh-檔案-2&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#建立-runsh-檔案-2&#34;&gt;#&lt;/a&gt; 建立 &lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cDovL3J1bi5zaA==&#34;&gt;run.sh&lt;/span&gt; 檔案&lt;/h3&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash=&#34;&gt;sudo vim run.sh
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;在-vim-中編輯-2&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#在-vim-中編輯-2&#34;&gt;#&lt;/a&gt; 在 vim 中編輯&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;按下 &lt;kbd&gt;i&lt;/kbd&gt;，螢幕左下角要顯示  &lt;code&gt;-- INSERT --&lt;/code&gt; 。&lt;/li&gt;
+&lt;li&gt;打入以下程式碼 (若你是在 Powershell 編輯，可以直接 &lt;kbd&gt;ctl&lt;/kbd&gt; + &lt;kbd&gt;c&lt;/kbd&gt; , &lt;kbd&gt;ctl&lt;/kbd&gt; + &lt;kbd&gt;v&lt;/kbd&gt; 貼上)。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash=&#34;&gt;#!/bin/bash
+
+SESSION=&amp;quot;ueransim&amp;quot;
+WINDOW=&amp;quot;$SESSION:main&amp;quot;
+
+# 刪除現有的 tmux
+tmux kill-session -t $SESSION
+
+# 建立 session
+tmux new-session -d -s $SESSION # -d: detach
+
+# window 重命名
+tmux rename-window -t $SESSION:0 &amp;quot;main&amp;quot;
+
+# 傳送命令
+tmux send-keys -t $WINDOW &#39;cd ~/UERANSIM/build/&#39; C-m # cd ~/UERANSIM/build/
+tmux send-keys -t $WINDOW &#39;./nr-gnb -c ../config/free5gc-gnb.yaml&#39; C-m
+
+# 水平分割 pane
+tmux split-window -h -t $WINDOW
+
+# 傳送命令
+tmux send-keys -t $WINDOW &amp;quot;echo [你的密碼] | sudo -S ls&amp;quot; C-m
+tmux send-keys -t $WINDOW &#39;cd ~/UERANSIM/build&#39; C-m
+tmux send-keys -t $WINDOW &#39;sudo ./nr-ue -c ../config/free5gc-ue.yaml&#39; C-m
+
+sleep 5
+sh ./ping.sh
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ol start=&#34;3&#34;&gt;
+&lt;li&gt;按下 &lt;kbd&gt;esc&lt;/kbd&gt; 再按下 &lt;kbd&gt;shift&lt;/kbd&gt; + &lt;kbd&gt;;&lt;/kbd&gt; (就是 &lt;kbd&gt;:&lt;/kbd&gt; 的意思)。&lt;/li&gt;
+&lt;li&gt;輸入  &lt;code&gt;wq&lt;/code&gt; , 按下 &lt;kbd&gt;Enter&lt;/kbd&gt; 存檔並離開。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&#34;note danger&#34;&gt;
+&lt;p&gt;&lt;strong&gt;NOTE&lt;/strong&gt;: [你的密碼] 部分要改成你的密碼。 (中括號  &lt;code&gt;[]&lt;/code&gt;  不用加)&lt;/p&gt;
+&lt;/div&gt;
+&lt;h3 id=&#34;建立-pingsh-檔案&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#建立-pingsh-檔案&#34;&gt;#&lt;/a&gt; 建立 &lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cDovL3Bpbmcuc2g=&#34;&gt;ping.sh&lt;/span&gt; 檔案&lt;/h3&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash=&#34;&gt;sudo vim ping.sh
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;同前面使用 vim 的方法複製以下內容&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash=&#34;&gt;#!/bin/bash
+
+echo 0000 | sudo -S ip route add default dev uesimtun0
+ping -c 8 -I uesimtun0 google.com
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&#34;執行-runsh-2&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#執行-runsh-2&#34;&gt;#&lt;/a&gt; 執行 &lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cDovL3J1bi5zaA==&#34;&gt;run.sh&lt;/span&gt;&lt;/h3&gt;
+&lt;pre&gt;&lt;code class=&#34;language-bash=&#34;&gt;sh ./run.sh
+&lt;/code&gt;&lt;/pre&gt;
+</content>
+        <category term="網路管理與分析" scheme="https://chienikao.github.io/categories/%E7%B6%B2%E8%B7%AF%E7%AE%A1%E7%90%86%E8%88%87%E5%88%86%E6%9E%90/" />
+        <category term="網路管理與分析" scheme="https://chienikao.github.io/tags/%E7%B6%B2%E8%B7%AF%E7%AE%A1%E7%90%86%E8%88%87%E5%88%86%E6%9E%90/" />
+        <category term="free5gc" scheme="https://chienikao.github.io/tags/free5gc/" />
+        <updated>2023-10-19T15:33:38.000Z</updated>
+    </entry>
     <entry>
         <id>https://chienikao.github.io/2023/05/30/SystemSoftware/Ch04_Macro_Processors/</id>
         <title>Ch04 - Macro Processors</title>
@@ -594,7 +733,106 @@
 &lt;li&gt;Thus the macro processor operates as a sort of input routine for the assembler or compiler.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
+&lt;li&gt;This line-by-line approach has several advantages.
+&lt;ul&gt;
+&lt;li&gt;It avoids making an extra pass over the source program, so it can be more efficient.&lt;/li&gt;
+&lt;li&gt;Some of the data structures required by the macro processor and the language translator can be combine.
+&lt;ul&gt;
+&lt;li&gt;ex. OPTAB in an assembler and NAMTAB in the macro processor could be implemented in the same table.&lt;/li&gt;
 &lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;implement-example&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#implement-example&#34;&gt;#&lt;/a&gt; Implement Example&lt;/h2&gt;
+&lt;h3 id=&#34;masm-macro-processor&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#masm-macro-processor&#34;&gt;#&lt;/a&gt; MASM Macro Processor&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;The macro processor of MASM is integrated with Pass 1 of the assembler.&lt;/li&gt;
+&lt;li&gt;Macro may be redefined during a program. The new definition of the macro simply replaces the first one.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;details&gt;&lt;summary&gt;Figure 4.12 Conditional assembly statements.&lt;/summary&gt;&lt;div&gt;
+&lt;ul&gt;
+&lt;li&gt;Line 2 declare that &lt;strong&gt;EXIT&lt;/strong&gt; is a local label. When the macro is expanded, each local label is replaced by a unique name.&lt;/li&gt;
+&lt;li&gt;The &lt;strong&gt;.ERR&lt;/strong&gt; on line 6 signals to MASM that an error has been detected, and the &lt;strong&gt;EXITM&lt;/strong&gt; directs MASM to terminate the expansion of the macro.&lt;/li&gt;
+&lt;li&gt;The comment on line 9, which begins with  &lt;code&gt;;;&lt;/code&gt;  is a &lt;strong&gt;macro comment&lt;/strong&gt;.&lt;/li&gt;
+&lt;li&gt;The comment on line 10, which begins with  &lt;code&gt;;&lt;/code&gt;  is an ordinary &lt;strong&gt;assembler language comment&lt;/strong&gt;. It is included as part of the macro expansion.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code&gt;1 	ABSDIF 		MACRO 	OP1,OP2,SIZE 			 
+2 			LOCAL 	EXIT 			 
+3 			IFNB 	&amp;lt;SIZE&amp;gt;  	;; IF SIZE IS NOT BLANK 	 
+4 			IFDIF 	&amp;lt;SIZE&amp;gt;,&amp;lt;E&amp;gt;  	;; THEN IT MUST BE E 	 
+5 			; ERROR -- SIZE MUST BE E OR BLANK 		 
+6 			.ERR 				 
+7 			EXITM 				 
+8 			ENDIF 			;; END OF IFDIF 	 
+9 			ENDIF 			;; END OF IFNB 	 
+10 			MOV 	SIZE&amp;amp;AX,OP1 	; COMPUTE ABSOLUTE DIFFERENCE 	 
+11 			SUB 	SIZE&amp;amp;AX,OP2 	;; SUBTRACT OP2 FROM OP1 	 
+12 			JNS 	EXIT 		;; EXIT IF RESULT GE 0 	 
+13 			NEG 	SIZE&amp;amp;AX     	;; OTHERWI SE CHANGE SIGN 	 
+14 	EXIT: 			 
+15 			ENDM 
+		 
+					(a) 	 
+
+			ABSDIF 	J,K 	 
+		           |
+		  	   |
+		 	  \|/ 		
+ 		 
+			MOV 	AX,J 		; COMPUTE ABSOLUTE DIFFERENCE 	 
+			SUB 	AX,K 	 
+			JNS 	??0000 	 
+			NEG 	AX 	 
+	??0000: 			 
+
+					(b) 	 
+
+			ABSDIF 	M,N,E 	 
+
+		           |
+		  	   |
+		 	  \|/ 
+		 		 
+			MOV 	EAX,M 		; COMPUTE ABSOLUTE DIFFERENCE 	 
+			SUB 	EAX,N 	 
+			JNS 	??0001 	 
+			NEG 	EAX 	 
+	??0001: 
+			 
+					(e) 	 
+		
+			ABSDIF 	P,Q,X 	
+
+		           |
+		  	   |
+		 	  \|/  
+
+			; ERROR -- SIZE MUST BE E OR BLANK
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;&lt;/details&gt;
+&lt;details&gt;&lt;summary&gt;Figure 4.13 Iteration statements.&lt;/summary&gt;&lt;div&gt;
+&lt;pre&gt;&lt;code&gt;?1 	NODE 		MACRO 	NAME 	 
+2 			IRP 	S,&amp;lt;&#39;LEFT&#39;,&#39;DATA&#39;,&#39;RIGHT&#39;&amp;gt; 	 
+3 	NAME&amp;amp;S 		DW	0 	 
+4 			ENDM 			;; END OF IRP 	 
+5 			ENDM  			;; END OF MACRO 	 
+
+					(a) 	 
+
+			NODE 	X 	 
+
+		          |
+		  	  |
+		         \|/  
+ 	 
+	XLEFT 		DW 	0 	 
+	XDATA 		DW	0 	 
+	XRIGHT 		DW 	0 
+	 
+					(b)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;&lt;/details&gt;
 </content>
         <category term="SystemSoftware" scheme="https://chienikao.github.io/categories/SystemSoftware/" />
         <category term="System Software" scheme="https://chienikao.github.io/tags/System-Software/" />
@@ -756,8 +994,8 @@ Concerned only with Header and Define record types in the control sections.&lt;/
         <category term="Leetcode" scheme="https://chienikao.github.io/categories/Coding/Leetcode/" />
         <category term="Medium" scheme="https://chienikao.github.io/categories/Coding/Leetcode/Medium/" />
         <category term="Leetcode" scheme="https://chienikao.github.io/tags/Leetcode/" />
-        <category term="Graph" scheme="https://chienikao.github.io/tags/Graph/" />
         <category term="Medium" scheme="https://chienikao.github.io/tags/Medium/" />
+        <category term="Graph" scheme="https://chienikao.github.io/tags/Graph/" />
         <updated>2023-05-19T06:13:20.000Z</updated>
     </entry>
     <entry>
@@ -817,8 +1055,8 @@ There is only one node with a twin in the linked list having twin sum of 1 + 100
         <category term="Leetcode" scheme="https://chienikao.github.io/categories/Coding/Leetcode/" />
         <category term="Medium" scheme="https://chienikao.github.io/categories/Coding/Leetcode/Medium/" />
         <category term="Leetcode" scheme="https://chienikao.github.io/tags/Leetcode/" />
-        <category term="Medium" scheme="https://chienikao.github.io/tags/Medium/" />
         <category term="Two Pointers" scheme="https://chienikao.github.io/tags/Two-Pointers/" />
+        <category term="Medium" scheme="https://chienikao.github.io/tags/Medium/" />
         <category term="Linked List" scheme="https://chienikao.github.io/tags/Linked-List/" />
         <category term="Stack" scheme="https://chienikao.github.io/tags/Stack/" />
         <updated>2023-05-17T05:51:35.000Z</updated>
@@ -975,8 +1213,8 @@ The function immediately throws an error.&lt;/p&gt;
         <category term="Leetcode" scheme="https://chienikao.github.io/categories/Coding/Leetcode/" />
         <category term="Medium" scheme="https://chienikao.github.io/categories/Coding/Leetcode/Medium/" />
         <category term="Leetcode" scheme="https://chienikao.github.io/tags/Leetcode/" />
-        <category term="Medium" scheme="https://chienikao.github.io/tags/Medium/" />
         <category term="Two Pointers" scheme="https://chienikao.github.io/tags/Two-Pointers/" />
+        <category term="Medium" scheme="https://chienikao.github.io/tags/Medium/" />
         <category term="Linked List" scheme="https://chienikao.github.io/tags/Linked-List/" />
         <updated>2023-05-15T03:30:56.000Z</updated>
     </entry>
@@ -1080,8 +1318,8 @@ curriedLife() === 42&lt;/p&gt;
         <category term="Medium" scheme="https://chienikao.github.io/categories/Coding/Leetcode/Medium/" />
         <category term="Javascript" scheme="https://chienikao.github.io/tags/Javascript/" />
         <category term="Leetcode" scheme="https://chienikao.github.io/tags/Leetcode/" />
-        <category term="Medium" scheme="https://chienikao.github.io/tags/Medium/" />
         <category term="Typescript" scheme="https://chienikao.github.io/tags/Typescript/" />
+        <category term="Medium" scheme="https://chienikao.github.io/tags/Medium/" />
         <updated>2023-05-15T03:26:49.000Z</updated>
     </entry>
     <entry>
@@ -1156,8 +1394,8 @@ fib(5) = 8&lt;br&gt;
         <category term="Medium" scheme="https://chienikao.github.io/categories/Coding/Leetcode/Medium/" />
         <category term="Javascript" scheme="https://chienikao.github.io/tags/Javascript/" />
         <category term="Leetcode" scheme="https://chienikao.github.io/tags/Leetcode/" />
-        <category term="Medium" scheme="https://chienikao.github.io/tags/Medium/" />
         <category term="Typescript" scheme="https://chienikao.github.io/tags/Typescript/" />
+        <category term="Medium" scheme="https://chienikao.github.io/tags/Medium/" />
         <updated>2023-05-15T03:10:27.000Z</updated>
     </entry>
     <entry>
@@ -1259,9 +1497,9 @@ Total points earned: 2 + 5 = 7. There is no other way to earn 7 or more points.&
         <category term="Leetcode" scheme="https://chienikao.github.io/categories/Coding/Leetcode/" />
         <category term="Medium" scheme="https://chienikao.github.io/categories/Coding/Leetcode/Medium/" />
         <category term="Leetcode" scheme="https://chienikao.github.io/tags/Leetcode/" />
+        <category term="Array" scheme="https://chienikao.github.io/tags/Array/" />
         <category term="Dynamic Programming" scheme="https://chienikao.github.io/tags/Dynamic-Programming/" />
         <category term="Medium" scheme="https://chienikao.github.io/tags/Medium/" />
-        <category term="Array" scheme="https://chienikao.github.io/tags/Array/" />
         <updated>2023-05-15T03:05:17.000Z</updated>
     </entry>
     <entry>
@@ -1322,9 +1560,9 @@ We cannot draw 3 uncrossed lines, because the line from nums1[1] = 4 to nums2[2]
         <category term="Leetcode" scheme="https://chienikao.github.io/categories/Coding/Leetcode/" />
         <category term="Medium" scheme="https://chienikao.github.io/categories/Coding/Leetcode/Medium/" />
         <category term="Leetcode" scheme="https://chienikao.github.io/tags/Leetcode/" />
+        <category term="Array" scheme="https://chienikao.github.io/tags/Array/" />
         <category term="Dynamic Programming" scheme="https://chienikao.github.io/tags/Dynamic-Programming/" />
         <category term="Medium" scheme="https://chienikao.github.io/tags/Medium/" />
-        <category term="Array" scheme="https://chienikao.github.io/tags/Array/" />
         <updated>2023-05-15T03:01:25.000Z</updated>
     </entry>
     <entry>
@@ -1453,10 +1691,10 @@ The composition of zero functions is the identity function&lt;/p&gt;
         <category term="Leetcode" scheme="https://chienikao.github.io/categories/Coding/Leetcode/" />
         <category term="Medium" scheme="https://chienikao.github.io/categories/Coding/Leetcode/Medium/" />
         <category term="Leetcode" scheme="https://chienikao.github.io/tags/Leetcode/" />
-        <category term="Medium" scheme="https://chienikao.github.io/tags/Medium/" />
         <category term="Array" scheme="https://chienikao.github.io/tags/Array/" />
         <category term="Matrix" scheme="https://chienikao.github.io/tags/Matrix/" />
         <category term="Simulation" scheme="https://chienikao.github.io/tags/Simulation/" />
+        <category term="Medium" scheme="https://chienikao.github.io/tags/Medium/" />
         <updated>2023-05-10T14:40:49.000Z</updated>
     </entry>
     <entry>
@@ -1558,65 +1796,10 @@ init = 25&lt;br&gt;
         <category term="Leetcode" scheme="https://chienikao.github.io/categories/Coding/Leetcode/" />
         <category term="Medium" scheme="https://chienikao.github.io/categories/Coding/Leetcode/Medium/" />
         <category term="Leetcode" scheme="https://chienikao.github.io/tags/Leetcode/" />
-        <category term="Medium" scheme="https://chienikao.github.io/tags/Medium/" />
         <category term="Array" scheme="https://chienikao.github.io/tags/Array/" />
         <category term="Matrix" scheme="https://chienikao.github.io/tags/Matrix/" />
         <category term="Simulation" scheme="https://chienikao.github.io/tags/Simulation/" />
+        <category term="Medium" scheme="https://chienikao.github.io/tags/Medium/" />
         <updated>2023-05-09T02:37:25.000Z</updated>
-    </entry>
-    <entry>
-        <id>https://chienikao.github.io/2023/05/09/Coding/leetcode/Easy/2634%20Filter%20Elements%20from%20Array/</id>
-        <title>2634. Filter Elements from Array</title>
-        <link rel="alternate" href="https://chienikao.github.io/2023/05/09/Coding/leetcode/Easy/2634%20Filter%20Elements%20from%20Array/"/>
-        <content type="html">&lt;p&gt;⭐️&lt;/p&gt;
-&lt;h2 id=&#34;題目敘述&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#題目敘述&#34;&gt;#&lt;/a&gt; &lt;span class=&#34;exturl&#34; data-url=&#34;aHR0cHM6Ly9sZWV0Y29kZS5jb20vcHJvYmxlbXMvZmlsdGVyLWVsZW1lbnRzLWZyb20tYXJyYXkvZGVzY3JpcHRpb24vP3V0bV9jYW1wYWlnbj1Qb3N0RDUmYW1wO3V0bV9tZWRpdW09UG9zdCZhbXA7dXRtX3NvdXJjZT1Qb3N0JmFtcDtnaW9fbGlua19pZD1hOWE1VlpyOQ==&#34;&gt;題目敘述&lt;/span&gt;&lt;/h2&gt;
-&lt;p&gt;Given an integer array  &lt;code&gt;arr&lt;/code&gt;  and a filtering function  &lt;code&gt;fn&lt;/code&gt; , return a new array with a fewer or equal number of elements.&lt;/p&gt;
-&lt;p&gt;The returned array should only contain elements where  &lt;code&gt;fn(arr[i], i)&lt;/code&gt;  evaluated to a truthy value.&lt;/p&gt;
-&lt;p&gt;Please solve it without the built-in  &lt;code&gt;Array.filter&lt;/code&gt;  method.&lt;/p&gt;
-&lt;h3 id=&#34;example-1&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#example-1&#34;&gt;#&lt;/a&gt; Example 1&lt;/h3&gt;
-&lt;blockquote&gt;
-&lt;p&gt;&lt;strong&gt;Input&lt;/strong&gt;: arr = [0,10,20,30], fn = function greaterThan10(n) { return n &amp;gt; 10; }&lt;br&gt;
-&lt;strong&gt;Output&lt;/strong&gt;: [20,30]&lt;br&gt;
-&lt;strong&gt;Explanation&lt;/strong&gt;:&lt;br&gt;
-const newArray = filter(arr, fn); // [20, 30]&lt;br&gt;
-The function filters out values that are not greater than 10&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h3 id=&#34;example-2&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#example-2&#34;&gt;#&lt;/a&gt; Example 2&lt;/h3&gt;
-&lt;blockquote&gt;
-&lt;p&gt;&lt;strong&gt;Input&lt;/strong&gt;: arr = [1,2,3], fn = function firstIndex(n, i) { return i === 0; }&lt;br&gt;
-&lt;strong&gt;Output&lt;/strong&gt;: [1]&lt;br&gt;
-&lt;strong&gt;Explanation&lt;/strong&gt;:&lt;br&gt;
-fn can also accept the index of each element&lt;br&gt;
-In this case, the function removes elements not at index 0&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h3 id=&#34;example-3&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#example-3&#34;&gt;#&lt;/a&gt; Example 3&lt;/h3&gt;
-&lt;blockquote&gt;
-&lt;p&gt;&lt;strong&gt;Input&lt;/strong&gt;: arr = [-2,-1,0,1,2], fn = function plusOne(n) { return n + 1 }&lt;br&gt;
-&lt;strong&gt;Output&lt;/strong&gt;: [-2,0,1,2]&lt;br&gt;
-&lt;strong&gt;Explanation&lt;/strong&gt;:&lt;br&gt;
-Falsey values such as 0 should be filtered out&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h2 id=&#34;solution&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#solution&#34;&gt;#&lt;/a&gt; Solution&lt;/h2&gt;
-&lt;div class=&#34;tab&#34; data-id=&#34;code&#34; data-title=&#34;Javascript&#34;&gt;
-&lt;figure class=&#34;highlight javascript&#34;&gt;&lt;figcaption data-lang=&#34;javascript&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token comment&#34;&gt;/**&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt; * @param &amp;#123;number[]&amp;#125; arr&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;3&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt; * @param &amp;#123;Function&amp;#125; fn&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;4&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt; * @return &amp;#123;number[]&amp;#125;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;5&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt; */&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;6&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token keyword&#34;&gt;var&lt;/span&gt; &lt;span class=&#34;token function-variable function&#34;&gt;filter&lt;/span&gt; &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;token keyword&#34;&gt;function&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token parameter&#34;&gt;arr&lt;span class=&#34;token punctuation&#34;&gt;,&lt;/span&gt; fn&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;&amp;#123;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;7&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token keyword&#34;&gt;const&lt;/span&gt; res &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;8&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token keyword&#34;&gt;for&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token keyword&#34;&gt;let&lt;/span&gt; i&lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;token number&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt; i&lt;span class=&#34;token operator&#34;&gt;&amp;lt;&lt;/span&gt;arr&lt;span class=&#34;token punctuation&#34;&gt;.&lt;/span&gt;length&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt; i&lt;span class=&#34;token operator&#34;&gt;++&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;&amp;#123;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;9&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;        &lt;span class=&#34;token keyword&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token function&#34;&gt;fn&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;arr&lt;span class=&#34;token punctuation&#34;&gt;[&lt;/span&gt;i&lt;span class=&#34;token punctuation&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;,&lt;/span&gt; i&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt; res&lt;span class=&#34;token punctuation&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;token function&#34;&gt;push&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;arr&lt;span class=&#34;token punctuation&#34;&gt;[&lt;/span&gt;i&lt;span class=&#34;token punctuation&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;10&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token punctuation&#34;&gt;&amp;#125;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;11&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token keyword&#34;&gt;return&lt;/span&gt; res&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;12&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token punctuation&#34;&gt;&amp;#125;&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/div&gt;
-&lt;div class=&#34;tab&#34; data-id=&#34;code&#34; data-title=&#34;Typescript&#34;&gt;
-&lt;pre&gt;&lt;code class=&#34;language-Typescript&#34;&gt;function filter(arr: number[], fn: (n: number, i: number) =&amp;gt; any): number[] &amp;#123;
-    const res = [];
-    for (let i=0; i&amp;lt;arr.length; i++) &amp;#123;
-        if (fn(arr[i], i)) res.push(arr[i]);
-    &amp;#125;
-    return res;
-&amp;#125;;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-</content>
-        <category term="Coding" scheme="https://chienikao.github.io/categories/Coding/" />
-        <category term="Leetcode" scheme="https://chienikao.github.io/categories/Coding/Leetcode/" />
-        <category term="Easy" scheme="https://chienikao.github.io/categories/Coding/Leetcode/Easy/" />
-        <category term="Javascript" scheme="https://chienikao.github.io/tags/Javascript/" />
-        <category term="Leetcode" scheme="https://chienikao.github.io/tags/Leetcode/" />
-        <category term="Easy" scheme="https://chienikao.github.io/tags/Easy/" />
-        <category term="Typescript" scheme="https://chienikao.github.io/tags/Typescript/" />
-        <updated>2023-05-09T02:05:43.000Z</updated>
     </entry>
 </feed>
