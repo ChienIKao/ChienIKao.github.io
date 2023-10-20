@@ -560,9 +560,9 @@
             
             <tag> Array </tag>
             
-            <tag> Matrix </tag>
-            
             <tag> Simulation </tag>
+            
+            <tag> Matrix </tag>
             
             <tag> Medium </tag>
             
@@ -632,9 +632,9 @@
             
             <tag> Array </tag>
             
-            <tag> Matrix </tag>
-            
             <tag> Simulation </tag>
+            
+            <tag> Matrix </tag>
             
             <tag> Medium </tag>
             
@@ -1954,11 +1954,11 @@
             
             <tag> Leetcode </tag>
             
-            <tag> Medium </tag>
-            
             <tag> Depth-First Search </tag>
             
             <tag> Breadth-First Search </tag>
+            
+            <tag> Medium </tag>
             
             <tag> Tree </tag>
             
@@ -2239,9 +2239,9 @@
             
             <tag> Dynamic Programming </tag>
             
-            <tag> Medium </tag>
-            
             <tag> Depth-First Search </tag>
+            
+            <tag> Medium </tag>
             
             <tag> Tree </tag>
             
