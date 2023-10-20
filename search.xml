@@ -5,8 +5,8 @@
     
     <entry>
       <title>Free5GC 啟動腳本</title>
-      <link href="/2023/10/19/free5gc/"/>
-      <url>/2023/10/19/free5gc/</url>
+      <link href="/2023/10/19/%E7%B6%B2%E8%B7%AF%E7%AE%A1%E7%90%86%E8%88%87%E5%88%86%E6%9E%90/free5gc/"/>
+      <url>/2023/10/19/%E7%B6%B2%E8%B7%AF%E7%AE%A1%E7%90%86%E8%88%87%E5%88%86%E6%9E%90/free5gc/</url>
       
         <content type="html"><![CDATA[<h2 id="使用-ssh-連線虛擬機"><a class="anchor" href="#使用-ssh-連線虛擬機">#</a> 使用 ssh 連線虛擬機</h2><h3 id="如何查看你的主機-ip"><a class="anchor" href="#如何查看你的主機-ip">#</a> 如何查看你的主機 ip</h3><p>在你的虛擬機輸入以下指令</p><figure class="highlight bash"><figcaption data-lang="bash"></figcaption><table><tr><td data-num="1"></td><td><pre><span class="token function">ifconfig</span></pre></td></tr></table></figure><p><img data-src="https://imgur.com/KVoZU0e.png" alt=""></p><h3 id="ssh-連線"><a class="anchor" href="#ssh-連線">#</a> ssh 連線</h3><p>開啟你的 Powershell 輸入以下指令</p><figure class="highlight bash"><figcaption data-lang="bash"></figcaption><table><tr><td data-num="1"></td><td><pre><span class="token function">ssh</span> <span class="token punctuation">[</span>你的帳號<span class="token punctuation">]</span>@<span class="token punctuation">[</span>你的主機ip<span class="token punctuation">]</span></pre></td></tr></table></figure><p>例如</p><figure class="highlight bash"><figcaption data-lang="bash"></figcaption><table><tr><td data-num="1"></td><td><pre><span class="token function">ssh</span> alen911018@192.168.56.102</pre></td></tr></table></figure><p>輸入密碼即連線成功</p><p><img data-src="https://imgur.com/nEmUiYW.png" alt=""></p><h2 id="free5gc"><a class="anchor" href="#free5gc">#</a> Free5GC</h2><h3 id="建立-runsh-檔案"><a class="anchor" href="#建立-runsh-檔案">#</a> 建立 <span class="exturl" data-url="aHR0cDovL3J1bi5zaA==">run.sh</span> 檔案</h3><p>開啟你的 free5gc 虛擬機，輸入以下指令</p><figure class="highlight bash"><figcaption data-lang="bash"></figcaption><table><tr><td data-num="1"></td><td><pre><span class="token function">sudo</span> <span class="token function">vim</span> run.sh</pre></td></tr></table></figure><h3 id="在-vim-中編輯"><a class="anchor" href="#在-vim-中編輯">#</a> 在 vim 中編輯</h3><ol><li>按下 <kbd>i</kbd>，螢幕左下角要顯示  <code>-- INSERT --</code> 。</li><li>打入以下程式碼 (若你是在 Powershell 編輯，可以直接 <kbd>ctl</kbd> + <kbd>c</kbd> , <kbd>ctl</kbd> + <kbd>v</kbd>貼上)。</li></ol><figure class="highlight bash"><figcaption data-lang="bash"></figcaption><table><tr><td data-num="1"></td><td><pre><span class="token shebang important">#!/bin/bash</span></pre></td></tr><tr><td data-num="2"></td><td><pre></pre></td></tr><tr><td data-num="3"></td><td><pre><span class="token builtin class-name">echo</span> <span class="token punctuation">[</span>你的密碼<span class="token punctuation">]</span> <span class="token operator">|</span> <span class="token function">sudo</span> <span class="token parameter variable">-S</span> iptables <span class="token parameter variable">-t</span> nat <span class="token parameter variable">-A</span> POSTROUTING <span class="token parameter variable">-o</span> enp0s3 <span class="token parameter variable">-j</span> MASQUERADE</pre></td></tr><tr><td data-num="4"></td><td><pre></pre></td></tr><tr><td data-num="5"></td><td><pre><span class="token assign-left variable"><span class="token environment constant">SESSION</span></span><span class="token operator">=</span><span class="token string">"free5gc"</span></pre></td></tr><tr><td data-num="6"></td><td><pre><span class="token assign-left variable">WINDOW</span><span class="token operator">=</span><span class="token string">"<span class="token environment constant">$SESSION</span>:main"</span></pre></td></tr><tr><td data-num="7"></td><td><pre></pre></td></tr><tr><td data-num="8"></td><td><pre><span class="token comment"># 刪除現有的 tmux</span></pre></td></tr><tr><td data-num="9"></td><td><pre>tmux kill-session <span class="token parameter variable">-t</span> <span class="token environment constant">$SESSION</span></pre></td></tr><tr><td data-num="10"></td><td><pre></pre></td></tr><tr><td data-num="11"></td><td><pre><span class="token comment"># 建立 session</span></pre></td></tr><tr><td data-num="12"></td><td><pre>tmux new-session <span class="token parameter variable">-d</span> <span class="token parameter variable">-s</span> <span class="token environment constant">$SESSION</span></pre></td></tr><tr><td data-num="13"></td><td><pre></pre></td></tr><tr><td data-num="14"></td><td><pre><span class="token comment"># window 重命名</span></pre></td></tr><tr><td data-num="15"></td><td><pre>tmux rename-window <span class="token parameter variable">-t</span> <span class="token environment constant">$SESSION</span>:0 <span class="token string">"main"</span></pre></td></tr><tr><td data-num="16"></td><td><pre></pre></td></tr><tr><td data-num="17"></td><td><pre><span class="token comment"># 傳送指令</span></pre></td></tr><tr><td data-num="18"></td><td><pre>tmux send-keys <span class="token parameter variable">-t</span> <span class="token variable">$WINDOW</span> <span class="token string">"echo [你的密碼] | sudo -S ls"</span> C-m</pre></td></tr><tr><td data-num="19"></td><td><pre>tmux send-keys <span class="token parameter variable">-t</span> <span class="token variable">$WINDOW</span> <span class="token string">"cd ~/free5gc/"</span> C-m</pre></td></tr><tr><td data-num="20"></td><td><pre>tmux send-keys <span class="token parameter variable">-t</span> <span class="token variable">$WINDOW</span> <span class="token string">"./force_kill.sh"</span> C-m</pre></td></tr><tr><td data-num="21"></td><td><pre>tmux send-keys <span class="token parameter variable">-t</span> <span class="token variable">$WINDOW</span> <span class="token string">"./run.sh"</span> C-m</pre></td></tr><tr><td data-num="22"></td><td><pre></pre></td></tr><tr><td data-num="23"></td><td><pre><span class="token comment"># 分割 pane</span></pre></td></tr><tr><td data-num="24"></td><td><pre>tmux split-pane <span class="token parameter variable">-h</span> <span class="token parameter variable">-t</span> <span class="token variable">$WINDOW</span></pre></td></tr><tr><td data-num="25"></td><td><pre></pre></td></tr><tr><td data-num="26"></td><td><pre><span class="token comment"># 傳送命令</span></pre></td></tr><tr><td data-num="27"></td><td><pre>tmux send-keys <span class="token string">"cd ~/free5gc/webconsole/"</span> C-m</pre></td></tr><tr><td data-num="28"></td><td><pre>tmux send-keys <span class="token string">"go run server.go"</span> C-m</pre></td></tr><tr><td data-num="29"></td><td><pre></pre></td></tr><tr><td data-num="30"></td><td><pre><span class="token comment"># attach session</span></pre></td></tr><tr><td data-num="31"></td><td><pre>tmux a <span class="token parameter variable">-t</span> <span class="token environment constant">$SESSION</span></pre></td></tr></table></figure><ol start="3"><li>按下 <kbd>esc</kbd> 再按下 <kbd>shift</kbd> + <kbd>;</kbd> (就是 <kbd>:</kbd> 的意思)。</li><li>輸入  <code>wq</code> , 按下 <kbd>Enter</kbd> 存檔並離開。</li></ol><div class="note danger"><p><strong>NOTE</strong>: [你的密碼] 部分要改成你的密碼。(中括號  <code>[]</code>  不用加)</p></div><h3 id="執行-runsh"><a class="anchor" href="#執行-runsh">#</a> 執行 <span class="exturl" data-url="aHR0cDovL3J1bi5zaA==">run.sh</span></h3><figure class="highlight bash"><figcaption data-lang="bash"></figcaption><table><tr><td data-num="1"></td><td><pre><span class="token function">sh</span> ./run.sh</pre></td></tr></table></figure><p>或是把腳本檔案加上執行權限，就可以直接執行腳本，不需要透過  <code>sh</code>  指令</p><figure class="highlight bash"><figcaption data-lang="bash"></figcaption><table><tr><td data-num="1"></td><td><pre><span class="token function">sudo</span> <span class="token function">chmod</span> +x ./run.sh</pre></td></tr><tr><td data-num="2"></td><td><pre>./run.sh</pre></td></tr></table></figure><h2 id="ueransim"><a class="anchor" href="#ueransim">#</a> UERANSIM</h2><h3 id="建立-runsh-檔案-2"><a class="anchor" href="#建立-runsh-檔案-2">#</a> 建立 <span class="exturl" data-url="aHR0cDovL3J1bi5zaA==">run.sh</span> 檔案</h3><figure class="highlight bash"><figcaption data-lang="bash"></figcaption><table><tr><td data-num="1"></td><td><pre><span class="token function">sudo</span> <span class="token function">vim</span> run.sh</pre></td></tr></table></figure><h3 id="在-vim-中編輯-2"><a class="anchor" href="#在-vim-中編輯-2">#</a> 在 vim 中編輯</h3><ol><li>按下 <kbd>i</kbd>，螢幕左下角要顯示  <code>-- INSERT --</code> 。</li><li>打入以下程式碼 (若你是在 Powershell 編輯，可以直接 <kbd>ctl</kbd> + <kbd>c</kbd> , <kbd>ctl</kbd> + <kbd>v</kbd> 貼上)。</li></ol><figure class="highlight bash"><figcaption data-lang="bash"></figcaption><table><tr><td data-num="1"></td><td><pre><span class="token shebang important">#!/bin/bash</span></pre></td></tr><tr><td data-num="2"></td><td><pre></pre></td></tr><tr><td data-num="3"></td><td><pre><span class="token assign-left variable"><span class="token environment constant">SESSION</span></span><span class="token operator">=</span><span class="token string">"ueransim"</span></pre></td></tr><tr><td data-num="4"></td><td><pre><span class="token assign-left variable">WINDOW</span><span class="token operator">=</span><span class="token string">"<span class="token environment constant">$SESSION</span>:main"</span></pre></td></tr><tr><td data-num="5"></td><td><pre></pre></td></tr><tr><td data-num="6"></td><td><pre><span class="token comment"># 刪除現有的 tmux</span></pre></td></tr><tr><td data-num="7"></td><td><pre>tmux kill-session <span class="token parameter variable">-t</span> <span class="token environment constant">$SESSION</span></pre></td></tr><tr><td data-num="8"></td><td><pre></pre></td></tr><tr><td data-num="9"></td><td><pre><span class="token comment"># 建立 session</span></pre></td></tr><tr><td data-num="10"></td><td><pre>tmux new-session <span class="token parameter variable">-d</span> <span class="token parameter variable">-s</span> <span class="token environment constant">$SESSION</span> <span class="token comment"># -d: detach</span></pre></td></tr><tr><td data-num="11"></td><td><pre></pre></td></tr><tr><td data-num="12"></td><td><pre><span class="token comment"># window 重命名</span></pre></td></tr><tr><td data-num="13"></td><td><pre>tmux rename-window <span class="token parameter variable">-t</span> <span class="token environment constant">$SESSION</span>:0 <span class="token string">"main"</span></pre></td></tr><tr><td data-num="14"></td><td><pre></pre></td></tr><tr><td data-num="15"></td><td><pre><span class="token comment"># 傳送命令</span></pre></td></tr><tr><td data-num="16"></td><td><pre>tmux send-keys <span class="token parameter variable">-t</span> <span class="token variable">$WINDOW</span> <span class="token string">'cd ~/UERANSIM/build/'</span> C-m <span class="token comment"># cd ~/UERANSIM/build/</span></pre></td></tr><tr><td data-num="17"></td><td><pre>tmux send-keys <span class="token parameter variable">-t</span> <span class="token variable">$WINDOW</span> <span class="token string">'./nr-gnb -c ../config/free5gc-gnb.yaml'</span> C-m</pre></td></tr><tr><td data-num="18"></td><td><pre></pre></td></tr><tr><td data-num="19"></td><td><pre><span class="token comment"># 水平分割 pane</span></pre></td></tr><tr><td data-num="20"></td><td><pre>tmux split-window <span class="token parameter variable">-h</span> <span class="token parameter variable">-t</span> <span class="token variable">$WINDOW</span></pre></td></tr><tr><td data-num="21"></td><td><pre></pre></td></tr><tr><td data-num="22"></td><td><pre><span class="token comment"># 傳送命令</span></pre></td></tr><tr><td data-num="23"></td><td><pre>tmux send-keys <span class="token parameter variable">-t</span> <span class="token variable">$WINDOW</span> <span class="token string">"echo [你的密碼] | sudo -S ls"</span> C-m</pre></td></tr><tr><td data-num="24"></td><td><pre>tmux send-keys <span class="token parameter variable">-t</span> <span class="token variable">$WINDOW</span> <span class="token string">'cd ~/UERANSIM/build'</span> C-m</pre></td></tr><tr><td data-num="25"></td><td><pre>tmux send-keys <span class="token parameter variable">-t</span> <span class="token variable">$WINDOW</span> <span class="token string">'sudo ./nr-ue -c ../config/free5gc-ue.yaml'</span> C-m</pre></td></tr><tr><td data-num="26"></td><td><pre></pre></td></tr><tr><td data-num="27"></td><td><pre><span class="token function">sleep</span> <span class="token number">5</span></pre></td></tr><tr><td data-num="28"></td><td><pre><span class="token function">sh</span> ./ping.sh</pre></td></tr></table></figure><ol start="3"><li>按下 <kbd>esc</kbd> 再按下 <kbd>shift</kbd> + <kbd>;</kbd> (就是 <kbd>:</kbd> 的意思)。</li><li>輸入  <code>wq</code> , 按下 <kbd>Enter</kbd> 存檔並離開。</li></ol><div class="note danger"><p><strong>NOTE</strong>: [你的密碼] 部分要改成你的密碼。 (中括號  <code>[]</code>  不用加)</p></div><h3 id="建立-pingsh-檔案"><a class="anchor" href="#建立-pingsh-檔案">#</a> 建立 <span class="exturl" data-url="aHR0cDovL3Bpbmcuc2g=">ping.sh</span> 檔案</h3><figure class="highlight bash"><figcaption data-lang="bash"></figcaption><table><tr><td data-num="1"></td><td><pre><span class="token function">sudo</span> <span class="token function">vim</span> ping.sh</pre></td></tr></table></figure><p>同前面使用 vim 的方法複製以下內容</p><figure class="highlight bash"><figcaption data-lang="bash"></figcaption><table><tr><td data-num="1"></td><td><pre><span class="token shebang important">#!/bin/bash</span></pre></td></tr><tr><td data-num="2"></td><td><pre></pre></td></tr><tr><td data-num="3"></td><td><pre><span class="token builtin class-name">echo</span> 0000 <span class="token operator">|</span> <span class="token function">sudo</span> <span class="token parameter variable">-S</span> <span class="token function">ip</span> route <span class="token function">add</span> default dev uesimtun0</pre></td></tr><tr><td data-num="4"></td><td><pre><span class="token function">ping</span> <span class="token parameter variable">-c</span> <span class="token number">8</span> <span class="token parameter variable">-I</span> uesimtun0 google.com</pre></td></tr></table></figure><h3 id="執行-runsh-2"><a class="anchor" href="#執行-runsh-2">#</a> 執行 <span class="exturl" data-url="aHR0cDovL3J1bi5zaA==">run.sh</span></h3><figure class="highlight bash"><figcaption data-lang="bash"></figcaption><table><tr><td data-num="1"></td><td><pre><span class="token function">sh</span> ./run.sh</pre></td></tr></table></figure>]]></content>
       
@@ -107,9 +107,9 @@
             
             <tag> Leetcode </tag>
             
-            <tag> Graph </tag>
-            
             <tag> Medium </tag>
+            
+            <tag> Graph </tag>
             
         </tags>
       
@@ -140,9 +140,9 @@
             
             <tag> Leetcode </tag>
             
-            <tag> Medium </tag>
-            
             <tag> Two Pointers </tag>
+            
+            <tag> Medium </tag>
             
             <tag> Linked List </tag>
             
@@ -249,9 +249,9 @@
             
             <tag> Leetcode </tag>
             
-            <tag> Medium </tag>
-            
             <tag> Two Pointers </tag>
+            
+            <tag> Medium </tag>
             
             <tag> Linked List </tag>
             
@@ -323,9 +323,9 @@
             
             <tag> Leetcode </tag>
             
-            <tag> Medium </tag>
-            
             <tag> Typescript </tag>
+            
+            <tag> Medium </tag>
             
         </tags>
       
@@ -358,9 +358,9 @@
             
             <tag> Leetcode </tag>
             
-            <tag> Medium </tag>
-            
             <tag> Typescript </tag>
+            
+            <tag> Medium </tag>
             
         </tags>
       
@@ -426,9 +426,9 @@
             
             <tag> Leetcode </tag>
             
-            <tag> Dynamic Programming </tag>
-            
             <tag> Array </tag>
+            
+            <tag> Dynamic Programming </tag>
             
             <tag> Medium </tag>
             
@@ -461,40 +461,11 @@
             
             <tag> Leetcode </tag>
             
-            <tag> Dynamic Programming </tag>
-            
             <tag> Array </tag>
             
+            <tag> Dynamic Programming </tag>
+            
             <tag> Medium </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>C++ - fstream</title>
-      <link href="/2023/05/11/programming/CPP/cpp%20file/"/>
-      <url>/2023/05/11/programming/CPP/cpp%20file/</url>
-      
-        <content type="html"><![CDATA[]]></content>
-      
-      
-      <categories>
-          
-          <category> Programming </category>
-          
-          <category> CPP </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> C/C++ </tag>
-            
-            <tag> fstream </tag>
             
         </tags>
       
@@ -589,11 +560,11 @@
             
             <tag> Array </tag>
             
-            <tag> Medium </tag>
-            
             <tag> Matrix </tag>
             
             <tag> Simulation </tag>
+            
+            <tag> Medium </tag>
             
         </tags>
       
@@ -661,11 +632,11 @@
             
             <tag> Array </tag>
             
-            <tag> Medium </tag>
-            
             <tag> Matrix </tag>
             
             <tag> Simulation </tag>
+            
+            <tag> Medium </tag>
             
         </tags>
       
@@ -799,9 +770,9 @@
             
             <tag> Leetcode </tag>
             
-            <tag> Array </tag>
-            
             <tag> Easy </tag>
+            
+            <tag> Array </tag>
             
             <tag> Matrix </tag>
             
@@ -873,11 +844,11 @@
             
             <tag> Array </tag>
             
+            <tag> Two Pointers </tag>
+            
             <tag> Binary Search </tag>
             
             <tag> Medium </tag>
-            
-            <tag> Two Pointers </tag>
             
         </tags>
       
@@ -1013,9 +984,9 @@
             
             <tag> Leetcode </tag>
             
-            <tag> Hard </tag>
-            
             <tag> Array </tag>
+            
+            <tag> Hard </tag>
             
             <tag> Binary Search </tag>
             
@@ -1112,9 +1083,9 @@
             
             <tag> Leetcode </tag>
             
-            <tag> Array </tag>
-            
             <tag> Easy </tag>
+            
+            <tag> Array </tag>
             
             <tag> Hash Table </tag>
             
@@ -1147,9 +1118,9 @@
             
             <tag> Leetcode </tag>
             
-            <tag> Array </tag>
-            
             <tag> Easy </tag>
+            
+            <tag> Array </tag>
             
             <tag> Math </tag>
             
@@ -1184,9 +1155,9 @@
             
             <tag> Leetcode </tag>
             
-            <tag> Array </tag>
-            
             <tag> Easy </tag>
+            
+            <tag> Array </tag>
             
         </tags>
       
@@ -1285,9 +1256,9 @@
             
             <tag> Leetcode </tag>
             
-            <tag> Hard </tag>
-            
             <tag> Array </tag>
+            
+            <tag> Hard </tag>
             
             <tag> Depth-First Search </tag>
             
@@ -1320,9 +1291,9 @@
             
             <tag> Leetcode </tag>
             
-            <tag> Medium </tag>
-            
             <tag> Math </tag>
+            
+            <tag> Medium </tag>
             
             <tag> Brainteaser </tag>
             
@@ -1539,9 +1510,9 @@
             
             <tag> Leetcode </tag>
             
-            <tag> Medium </tag>
-            
             <tag> Heap (Priority Queue) </tag>
+            
+            <tag> Medium </tag>
             
             <tag> Hash Table </tag>
             
@@ -1634,9 +1605,9 @@
             
             <tag> Leetcode </tag>
             
-            <tag> Array </tag>
-            
             <tag> Easy </tag>
+            
+            <tag> Array </tag>
             
             <tag> Heap (Priority Queue) </tag>
             
@@ -1723,9 +1694,9 @@
             
             <tag> Leetcode </tag>
             
-            <tag> Hard </tag>
-            
             <tag> Dynamic Programming </tag>
+            
+            <tag> Hard </tag>
             
         </tags>
       
@@ -1851,11 +1822,11 @@
             
             <tag> Leetcode </tag>
             
-            <tag> Hard </tag>
+            <tag> Array </tag>
             
             <tag> Dynamic Programming </tag>
             
-            <tag> Array </tag>
+            <tag> Hard </tag>
             
         </tags>
       
@@ -2182,37 +2153,6 @@
     
     
     <entry>
-      <title>CSS - Float</title>
-      <link href="/2023/04/19/Web/CSS/CSS%20-%20Float/"/>
-      <url>/2023/04/19/Web/CSS/CSS%20-%20Float/</url>
-      
-        <content type="html"><![CDATA[<h2 id="float"><a class="anchor" href="#float">#</a> Float</h2><p><code>float</code>  用於定位和格式化內容。例如讓圖像浮動到容器的左側。</p><div class="note danger no-icon"><p><strong>Float contains following values:</strong></p><ul><li><code>left</code>  - 讓元素浮動到容器的左側。</li><li><code>right</code>  - 讓元素浮動到容器的右側。</li><li><code>none</code>  - Default value, 元素不浮動。</li><li><code>inherit</code>  - 繼承父元素的浮動值。</li></ul></div><figure class="highlight css"><figcaption data-lang="CSS"><span>Example - float: right</span><span class="exturl" data-url="aHR0cHM6Ly93d3cudzNzY2hvb2xzLmNvbS9jc3MvdHJ5aXQuYXNwP2ZpbGVuYW1lPXRyeWNzc19sYXlvdXRfZmxvYXQ=">link</span></figcaption><table><tr><td data-num="1"></td><td><pre><span class="token selector">img</span> <span class="token punctuation">&#123;</span><span class="token property">float</span><span class="token punctuation">:</span> right<span class="token punctuation">&#125;</span></pre></td></tr></table></figure><h3 id="float-next-to-each-other"><a class="anchor" href="#float-next-to-each-other">#</a> Float Next to Each Other</h3><p>運用  <code>float: left</code>  我們也可以讓元素水平排列。</p><figure class="highlight css"><figcaption data-lang="CSS"><span>Example</span><span class="exturl" data-url="aHR0cHM6Ly93d3cudzNzY2hvb2xzLmNvbS9jc3MvdHJ5aXQuYXNwP2ZpbGVuYW1lPXRyeWNzc19sYXlvdXRfZmxvYXQz">link</span></figcaption><table><tr><td data-num="1"></td><td><pre><span class="token selector">div</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="2"></td><td><pre>  <span class="token property">float</span><span class="token punctuation">:</span> left<span class="token punctuation">;</span></pre></td></tr><tr><td data-num="3"></td><td><pre>  <span class="token property">padding</span><span class="token punctuation">:</span> 15px<span class="token punctuation">;</span></pre></td></tr><tr><td data-num="4"></td><td><pre><span class="token punctuation">&#125;</span></pre></td></tr><tr><td data-num="5"></td><td><pre><span class="token selector">.div1</span> <span class="token punctuation">&#123;</span><span class="token property">background</span><span class="token punctuation">:</span> red<span class="token punctuation">;</span><span class="token punctuation">&#125;</span></pre></td></tr><tr><td data-num="6"></td><td><pre><span class="token selector">.div2</span> <span class="token punctuation">&#123;</span><span class="token property">background</span><span class="token punctuation">:</span> yellow<span class="token punctuation">;</span><span class="token punctuation">&#125;</span></pre></td></tr><tr><td data-num="7"></td><td><pre><span class="token selector">.div3</span> <span class="token punctuation">&#123;</span><span class="token property">background</span><span class="token punctuation">:</span> green<span class="token punctuation">;</span><span class="token punctuation">&#125;</span></pre></td></tr></table></figure><h2 id="clear"><a class="anchor" href="#clear">#</a> Clear</h2><p><code>clear</code>  指定浮動元素旁邊的元素應該發生什麼。</p><div class="note danger no-icon"><p><strong>Clear contains following values:</strong></p><ul><li><code>none</code>  - Default value, 元素不會被推到左側或右側元素下方。</li><li><code>left</code>  - 元素被推到<strong>左浮動</strong>元素下方。</li><li><code>right</code>  - 元素被推到<strong>右浮動</strong>元素下方。</li><li><code>both</code>  - 元素被推到<strong>左右浮動</strong>元素下方。</li><li><code>inherit</code> - 從其父元素<strong>繼承</strong>清除值。</li></ul></div><p>當我們要清除浮動時，<strong>應將清除值與浮動值匹配:</strong> 如果元素向左浮動，則應向左清除。</p><figure class="highlight css"><figcaption data-lang="CSS"><span>Example</span><span class="exturl" data-url="aHR0cHM6Ly93d3cudzNzY2hvb2xzLmNvbS9jc3MvdHJ5aXQuYXNwP2ZpbGVuYW1lPXRyeWNzc19sYXlvdXRfY2xlYXI=">link</span></figcaption><table><tr><td data-num="1"></td><td><pre><span class="token selector">div1</span> <span class="token punctuation">&#123;</span><span class="token property">float</span><span class="token punctuation">:</span> left<span class="token punctuation">;</span><span class="token punctuation">&#125;</span></pre></td></tr><tr><td data-num="2"></td><td><pre><span class="token selector">div2</span> <span class="token punctuation">&#123;</span><span class="token property">clear</span><span class="token punctuation">:</span> left<span class="token punctuation">;</span><span class="token punctuation">&#125;</span></pre></td></tr></table></figure><h3 id="the-clearfix-hack"><a class="anchor" href="#the-clearfix-hack">#</a> The clearfix Hack</h3><p>如果浮動的元素高於容器時，將會超出邊界，我們可以用<font> <code>overflow: auto</code> </font>來修正。</p><figure class="highlight css"><figcaption data-lang="CSS"><span>Example</span><span class="exturl" data-url="aHR0cHM6Ly93d3cudzNzY2hvb2xzLmNvbS9jc3MvdHJ5aXQuYXNwP2ZpbGVuYW1lPXRyeWNzc19sYXlvdXRfY2xlYXJmaXg=">link</span></figcaption><table><tr><td data-num="1"></td><td><pre><span class="token selector">.clearfix</span> <span class="token punctuation">&#123;</span><span class="token property">overflow</span><span class="token punctuation">:</span> auto<span class="token punctuation">;</span><span class="token punctuation">&#125;</span></pre></td></tr></table></figure><p>而現在較多人用的是以下的代碼。</p><figure class="highlight css"><figcaption data-lang="CSS"><span>Example</span><span class="exturl" data-url="aHR0cHM6Ly93d3cudzNzY2hvb2xzLmNvbS9jc3MvdHJ5aXQuYXNwP2ZpbGVuYW1lPXRyeWNzc19sYXlvdXRfY2xlYXJmaXgy">link</span></figcaption><table><tr><td data-num="1"></td><td><pre><span class="token selector">.clearfix::after</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="2"></td><td><pre>    <span class="token property">content</span><span class="token punctuation">:</span> <span class="token string">""</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="3"></td><td><pre>    <span class="token property">clear</span><span class="token punctuation">:</span> both<span class="token punctuation">;</span></pre></td></tr><tr><td data-num="4"></td><td><pre>    <span class="token property">display</span><span class="token punctuation">:</span> table<span class="token punctuation">;</span></pre></td></tr><tr><td data-num="5"></td><td><pre><span class="token punctuation">&#125;</span></pre></td></tr></table></figure><div class="links"><div class="item" title="About clearfix hack" style="--block-color:#ccc;"><span class="exturl image" data-url="aHR0cHM6Ly93d3cucHJvZ3JhbWZhcm1lci5jb20vYXJ0aWNsZXMvc3R5bGUvY3NzLWZsb2F0LWFuZC1mbGV4" data-background-image="/images/404.png"></span>          <div class="info">          <span class="exturl title" data-url="aHR0cHM6Ly93d3cucHJvZ3JhbWZhcm1lci5jb20vYXJ0aWNsZXMvc3R5bGUvY3NzLWZsb2F0LWFuZC1mbGV4">About clearfix hack</span>          <p class="desc">https://www.programfarmer.com/articles/style/css-float-and-flex</p>          </div></div></div>]]></content>
-      
-      
-      <categories>
-          
-          <category> Web </category>
-          
-          <category> CSS </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> Web </tag>
-            
-            <tag> CSS </tag>
-            
-            <tag> Float </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>HTML - Forms</title>
       <link href="/2023/04/19/Web/HTML/HTML%20-%20Forms/"/>
       <url>/2023/04/19/Web/HTML/HTML%20-%20Forms/</url>
@@ -2236,6 +2176,37 @@
             <tag> HTML </tag>
             
             <tag> Forms </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>CSS - Float</title>
+      <link href="/2023/04/19/Web/CSS/CSS%20-%20Float/"/>
+      <url>/2023/04/19/Web/CSS/CSS%20-%20Float/</url>
+      
+        <content type="html"><![CDATA[<h2 id="float"><a class="anchor" href="#float">#</a> Float</h2><p><code>float</code>  用於定位和格式化內容。例如讓圖像浮動到容器的左側。</p><div class="note danger no-icon"><p><strong>Float contains following values:</strong></p><ul><li><code>left</code>  - 讓元素浮動到容器的左側。</li><li><code>right</code>  - 讓元素浮動到容器的右側。</li><li><code>none</code>  - Default value, 元素不浮動。</li><li><code>inherit</code>  - 繼承父元素的浮動值。</li></ul></div><figure class="highlight css"><figcaption data-lang="CSS"><span>Example - float: right</span><span class="exturl" data-url="aHR0cHM6Ly93d3cudzNzY2hvb2xzLmNvbS9jc3MvdHJ5aXQuYXNwP2ZpbGVuYW1lPXRyeWNzc19sYXlvdXRfZmxvYXQ=">link</span></figcaption><table><tr><td data-num="1"></td><td><pre><span class="token selector">img</span> <span class="token punctuation">&#123;</span><span class="token property">float</span><span class="token punctuation">:</span> right<span class="token punctuation">&#125;</span></pre></td></tr></table></figure><h3 id="float-next-to-each-other"><a class="anchor" href="#float-next-to-each-other">#</a> Float Next to Each Other</h3><p>運用  <code>float: left</code>  我們也可以讓元素水平排列。</p><figure class="highlight css"><figcaption data-lang="CSS"><span>Example</span><span class="exturl" data-url="aHR0cHM6Ly93d3cudzNzY2hvb2xzLmNvbS9jc3MvdHJ5aXQuYXNwP2ZpbGVuYW1lPXRyeWNzc19sYXlvdXRfZmxvYXQz">link</span></figcaption><table><tr><td data-num="1"></td><td><pre><span class="token selector">div</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="2"></td><td><pre>  <span class="token property">float</span><span class="token punctuation">:</span> left<span class="token punctuation">;</span></pre></td></tr><tr><td data-num="3"></td><td><pre>  <span class="token property">padding</span><span class="token punctuation">:</span> 15px<span class="token punctuation">;</span></pre></td></tr><tr><td data-num="4"></td><td><pre><span class="token punctuation">&#125;</span></pre></td></tr><tr><td data-num="5"></td><td><pre><span class="token selector">.div1</span> <span class="token punctuation">&#123;</span><span class="token property">background</span><span class="token punctuation">:</span> red<span class="token punctuation">;</span><span class="token punctuation">&#125;</span></pre></td></tr><tr><td data-num="6"></td><td><pre><span class="token selector">.div2</span> <span class="token punctuation">&#123;</span><span class="token property">background</span><span class="token punctuation">:</span> yellow<span class="token punctuation">;</span><span class="token punctuation">&#125;</span></pre></td></tr><tr><td data-num="7"></td><td><pre><span class="token selector">.div3</span> <span class="token punctuation">&#123;</span><span class="token property">background</span><span class="token punctuation">:</span> green<span class="token punctuation">;</span><span class="token punctuation">&#125;</span></pre></td></tr></table></figure><h2 id="clear"><a class="anchor" href="#clear">#</a> Clear</h2><p><code>clear</code>  指定浮動元素旁邊的元素應該發生什麼。</p><div class="note danger no-icon"><p><strong>Clear contains following values:</strong></p><ul><li><code>none</code>  - Default value, 元素不會被推到左側或右側元素下方。</li><li><code>left</code>  - 元素被推到<strong>左浮動</strong>元素下方。</li><li><code>right</code>  - 元素被推到<strong>右浮動</strong>元素下方。</li><li><code>both</code>  - 元素被推到<strong>左右浮動</strong>元素下方。</li><li><code>inherit</code> - 從其父元素<strong>繼承</strong>清除值。</li></ul></div><p>當我們要清除浮動時，<strong>應將清除值與浮動值匹配:</strong> 如果元素向左浮動，則應向左清除。</p><figure class="highlight css"><figcaption data-lang="CSS"><span>Example</span><span class="exturl" data-url="aHR0cHM6Ly93d3cudzNzY2hvb2xzLmNvbS9jc3MvdHJ5aXQuYXNwP2ZpbGVuYW1lPXRyeWNzc19sYXlvdXRfY2xlYXI=">link</span></figcaption><table><tr><td data-num="1"></td><td><pre><span class="token selector">div1</span> <span class="token punctuation">&#123;</span><span class="token property">float</span><span class="token punctuation">:</span> left<span class="token punctuation">;</span><span class="token punctuation">&#125;</span></pre></td></tr><tr><td data-num="2"></td><td><pre><span class="token selector">div2</span> <span class="token punctuation">&#123;</span><span class="token property">clear</span><span class="token punctuation">:</span> left<span class="token punctuation">;</span><span class="token punctuation">&#125;</span></pre></td></tr></table></figure><h3 id="the-clearfix-hack"><a class="anchor" href="#the-clearfix-hack">#</a> The clearfix Hack</h3><p>如果浮動的元素高於容器時，將會超出邊界，我們可以用<font> <code>overflow: auto</code> </font>來修正。</p><figure class="highlight css"><figcaption data-lang="CSS"><span>Example</span><span class="exturl" data-url="aHR0cHM6Ly93d3cudzNzY2hvb2xzLmNvbS9jc3MvdHJ5aXQuYXNwP2ZpbGVuYW1lPXRyeWNzc19sYXlvdXRfY2xlYXJmaXg=">link</span></figcaption><table><tr><td data-num="1"></td><td><pre><span class="token selector">.clearfix</span> <span class="token punctuation">&#123;</span><span class="token property">overflow</span><span class="token punctuation">:</span> auto<span class="token punctuation">;</span><span class="token punctuation">&#125;</span></pre></td></tr></table></figure><p>而現在較多人用的是以下的代碼。</p><figure class="highlight css"><figcaption data-lang="CSS"><span>Example</span><span class="exturl" data-url="aHR0cHM6Ly93d3cudzNzY2hvb2xzLmNvbS9jc3MvdHJ5aXQuYXNwP2ZpbGVuYW1lPXRyeWNzc19sYXlvdXRfY2xlYXJmaXgy">link</span></figcaption><table><tr><td data-num="1"></td><td><pre><span class="token selector">.clearfix::after</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="2"></td><td><pre>    <span class="token property">content</span><span class="token punctuation">:</span> <span class="token string">""</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="3"></td><td><pre>    <span class="token property">clear</span><span class="token punctuation">:</span> both<span class="token punctuation">;</span></pre></td></tr><tr><td data-num="4"></td><td><pre>    <span class="token property">display</span><span class="token punctuation">:</span> table<span class="token punctuation">;</span></pre></td></tr><tr><td data-num="5"></td><td><pre><span class="token punctuation">&#125;</span></pre></td></tr></table></figure><div class="links"><div class="item" title="About clearfix hack" style="--block-color:#ccc;"><span class="exturl image" data-url="aHR0cHM6Ly93d3cucHJvZ3JhbWZhcm1lci5jb20vYXJ0aWNsZXMvc3R5bGUvY3NzLWZsb2F0LWFuZC1mbGV4" data-background-image="/images/404.png"></span>          <div class="info">          <span class="exturl title" data-url="aHR0cHM6Ly93d3cucHJvZ3JhbWZhcm1lci5jb20vYXJ0aWNsZXMvc3R5bGUvY3NzLWZsb2F0LWFuZC1mbGV4">About clearfix hack</span>          <p class="desc">https://www.programfarmer.com/articles/style/css-float-and-flex</p>          </div></div></div>]]></content>
+      
+      
+      <categories>
+          
+          <category> Web </category>
+          
+          <category> CSS </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Web </tag>
+            
+            <tag> CSS </tag>
+            
+            <tag> Float </tag>
             
         </tags>
       
@@ -2343,39 +2314,6 @@
     
     
     <entry>
-      <title>uva 1587 - Box</title>
-      <link href="/2023/04/18/Coding/uva/Star1/uva%201587/"/>
-      <url>/2023/04/18/Coding/uva/Star1/uva%201587/</url>
-      
-        <content type="html"><![CDATA[<p>⭐️</p><p><strong>Time limit: 3.000 seconds</strong></p><h2 id="題目連結"><a class="anchor" href="#題目連結">#</a> 題目連結</h2><ul><li><span class="exturl" data-url="aHR0cHM6Ly96ZXJvanVkZ2UudHcvU2hvd1Byb2JsZW0/cHJvYmxlbWlkPWU1MzQ=">ZeroJudge</span></li><li><span class="exturl" data-url="aHR0cHM6Ly9vbmxpbmVqdWRnZS5vcmcvZXh0ZXJuYWwvMTUvcDE1ODcucGRm">題目連結</span></li><li><span class="exturl" data-url="aHR0cHM6Ly9vbmxpbmVqdWRnZS5vcmcvaW5kZXgucGhwP29wdGlvbj1jb21fb25saW5lanVkZ2UmYW1wO0l0ZW1pZD04JmFtcDtjYXRlZ29yeT00NDgmYW1wO3BhZ2U9c2hvd19wcm9ibGVtJmFtcDtwcm9ibGVtPTQ0NjI=">Online Judge</span></li><li><span class="exturl" data-url="aHR0cHM6Ly93d3cudWRlYnVnLmNvbS9VVmEvMTU4Nw==">uDebug</span></li></ul><h2 id="解題技巧"><a class="anchor" href="#解題技巧">#</a> 解題技巧</h2><h2 id="solution"><a class="anchor" href="#solution">#</a> Solution</h2><p><span class="exturl" data-url="aHR0cHM6Ly9kb2NzLmdvb2dsZS5jb20vc3ByZWFkc2hlZXRzL2QvMWo3NEdFQ2ZuTTBMM042TEpwNEY0Q2FfLXljY3hFNlJpaWp0YmZDLWRNamcvZWRpdD91c3A9c2hhcmluZw==">解題 / 紀錄</span></p><figure class="highlight cpp"><figcaption data-lang="C++"></figcaption><table><tr><td data-num="1"></td><td><pre><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span></pre></td></tr><tr><td data-num="2"></td><td><pre><span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span></pre></td></tr><tr><td data-num="3"></td><td><pre></pre></td></tr><tr><td data-num="4"></td><td><pre><span class="token keyword">struct</span> <span class="token class-name">Box</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="5"></td><td><pre>    <span class="token keyword">int</span> wid<span class="token punctuation">,</span> hgt<span class="token punctuation">;</span></pre></td></tr><tr><td data-num="6"></td><td><pre><span class="token punctuation">&#125;</span> box<span class="token punctuation">[</span><span class="token number">6</span><span class="token punctuation">]</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="7"></td><td><pre></pre></td></tr><tr><td data-num="8"></td><td><pre><span class="token keyword">bool</span> <span class="token function">cmp</span><span class="token punctuation">(</span>Box a<span class="token punctuation">,</span> Box b<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="9"></td><td><pre>    <span class="token keyword">if</span> <span class="token punctuation">(</span>a<span class="token punctuation">.</span>wid <span class="token operator">!=</span> b<span class="token punctuation">.</span>wid<span class="token punctuation">)</span> <span class="token keyword">return</span> a<span class="token punctuation">.</span>wid <span class="token operator">&lt;</span> b<span class="token punctuation">.</span>wid<span class="token punctuation">;</span></pre></td></tr><tr><td data-num="10"></td><td><pre>    <span class="token keyword">return</span> a<span class="token punctuation">.</span>hgt <span class="token operator">&lt;</span> b<span class="token punctuation">.</span>hgt<span class="token punctuation">;</span></pre></td></tr><tr><td data-num="11"></td><td><pre><span class="token punctuation">&#125;</span></pre></td></tr><tr><td data-num="12"></td><td><pre></pre></td></tr><tr><td data-num="13"></td><td><pre><span class="token keyword">int</span> <span class="token function">main</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="14"></td><td><pre>    <span class="token keyword">int</span> w<span class="token punctuation">,</span> h<span class="token punctuation">;</span></pre></td></tr><tr><td data-num="15"></td><td><pre>    <span class="token keyword">while</span> <span class="token punctuation">(</span>cin <span class="token operator">>></span> w <span class="token operator">>></span> h<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="16"></td><td><pre>        box<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">.</span>wid <span class="token operator">=</span> <span class="token function">min</span><span class="token punctuation">(</span>w<span class="token punctuation">,</span> h<span class="token punctuation">)</span><span class="token punctuation">,</span> box<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">.</span>hgt <span class="token operator">=</span> <span class="token function">max</span><span class="token punctuation">(</span>w<span class="token punctuation">,</span> h<span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="17"></td><td><pre>        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">;</span> i<span class="token operator">&lt;</span><span class="token number">6</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="18"></td><td><pre>            cin <span class="token operator">>></span> w <span class="token operator">>></span> h<span class="token punctuation">;</span></pre></td></tr><tr><td data-num="19"></td><td><pre>            box<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">.</span>wid <span class="token operator">=</span> <span class="token function">min</span><span class="token punctuation">(</span>w<span class="token punctuation">,</span> h<span class="token punctuation">)</span><span class="token punctuation">,</span> box<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">.</span>hgt <span class="token operator">=</span> <span class="token function">max</span><span class="token punctuation">(</span>w<span class="token punctuation">,</span> h<span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="20"></td><td><pre>        <span class="token punctuation">&#125;</span></pre></td></tr><tr><td data-num="21"></td><td><pre>        <span class="token function">sort</span><span class="token punctuation">(</span>box<span class="token punctuation">,</span> box <span class="token operator">+</span> <span class="token number">6</span><span class="token punctuation">,</span> cmp<span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="22"></td><td><pre>        <span class="token keyword">if</span> <span class="token punctuation">(</span>box<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">.</span>wid <span class="token operator">==</span> box<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">.</span>wid <span class="token operator">&amp;&amp;</span> box<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">.</span>wid <span class="token operator">==</span> box<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">.</span>wid <span class="token operator">&amp;&amp;</span> box<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">.</span>wid <span class="token operator">==</span> box<span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">]</span><span class="token punctuation">.</span>wid <span class="token operator">&amp;&amp;</span></pre></td></tr><tr><td data-num="23"></td><td><pre>            box<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">.</span>hgt <span class="token operator">==</span> box<span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">]</span><span class="token punctuation">.</span>hgt <span class="token operator">&amp;&amp;</span> box<span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">]</span><span class="token punctuation">.</span>hgt <span class="token operator">==</span> box<span class="token punctuation">[</span><span class="token number">4</span><span class="token punctuation">]</span><span class="token punctuation">.</span>hgt <span class="token operator">&amp;&amp;</span> box<span class="token punctuation">[</span><span class="token number">4</span><span class="token punctuation">]</span><span class="token punctuation">.</span>hgt <span class="token operator">==</span> box<span class="token punctuation">[</span><span class="token number">5</span><span class="token punctuation">]</span><span class="token punctuation">.</span>hgt <span class="token operator">&amp;&amp;</span></pre></td></tr><tr><td data-num="24"></td><td><pre>            box<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">.</span>hgt <span class="token operator">==</span> box<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">.</span>hgt <span class="token operator">&amp;&amp;</span> box<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">.</span>hgt <span class="token operator">==</span> box<span class="token punctuation">[</span><span class="token number">4</span><span class="token punctuation">]</span><span class="token punctuation">.</span>wid <span class="token operator">&amp;&amp;</span> box<span class="token punctuation">[</span><span class="token number">4</span><span class="token punctuation">]</span><span class="token punctuation">.</span>wid <span class="token operator">==</span> box<span class="token punctuation">[</span><span class="token number">5</span><span class="token punctuation">]</span><span class="token punctuation">.</span>wid<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="25"></td><td><pre>            cout <span class="token operator">&lt;&lt;</span> <span class="token string">"POSSIBLE\n"</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="26"></td><td><pre>        <span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="27"></td><td><pre>            cout <span class="token operator">&lt;&lt;</span> <span class="token string">"IMPOSSIBLE\n"</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="28"></td><td><pre>        <span class="token punctuation">&#125;</span></pre></td></tr><tr><td data-num="29"></td><td><pre>    <span class="token punctuation">&#125;</span></pre></td></tr><tr><td data-num="30"></td><td><pre><span class="token punctuation">&#125;</span></pre></td></tr></table></figure>]]></content>
-      
-      
-      <categories>
-          
-          <category> Coding </category>
-          
-          <category> UVA </category>
-          
-          <category> Star1 </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> Star1 </tag>
-            
-            <tag> CPE </tag>
-            
-            <tag> UVA </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>1768. Merge Strings Alternately</title>
       <link href="/2023/04/18/Coding/leetcode/Easy/1768%20Merge%20Strings%20Alternately/"/>
       <url>/2023/04/18/Coding/leetcode/Easy/1768%20Merge%20Strings%20Alternately/</url>
@@ -2401,6 +2339,39 @@
             <tag> Easy </tag>
             
             <tag> Two Pointers </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>uva 1587 - Box</title>
+      <link href="/2023/04/18/Coding/uva/Star1/uva%201587/"/>
+      <url>/2023/04/18/Coding/uva/Star1/uva%201587/</url>
+      
+        <content type="html"><![CDATA[<p>⭐️</p><p><strong>Time limit: 3.000 seconds</strong></p><h2 id="題目連結"><a class="anchor" href="#題目連結">#</a> 題目連結</h2><ul><li><span class="exturl" data-url="aHR0cHM6Ly96ZXJvanVkZ2UudHcvU2hvd1Byb2JsZW0/cHJvYmxlbWlkPWU1MzQ=">ZeroJudge</span></li><li><span class="exturl" data-url="aHR0cHM6Ly9vbmxpbmVqdWRnZS5vcmcvZXh0ZXJuYWwvMTUvcDE1ODcucGRm">題目連結</span></li><li><span class="exturl" data-url="aHR0cHM6Ly9vbmxpbmVqdWRnZS5vcmcvaW5kZXgucGhwP29wdGlvbj1jb21fb25saW5lanVkZ2UmYW1wO0l0ZW1pZD04JmFtcDtjYXRlZ29yeT00NDgmYW1wO3BhZ2U9c2hvd19wcm9ibGVtJmFtcDtwcm9ibGVtPTQ0NjI=">Online Judge</span></li><li><span class="exturl" data-url="aHR0cHM6Ly93d3cudWRlYnVnLmNvbS9VVmEvMTU4Nw==">uDebug</span></li></ul><h2 id="解題技巧"><a class="anchor" href="#解題技巧">#</a> 解題技巧</h2><h2 id="solution"><a class="anchor" href="#solution">#</a> Solution</h2><p><span class="exturl" data-url="aHR0cHM6Ly9kb2NzLmdvb2dsZS5jb20vc3ByZWFkc2hlZXRzL2QvMWo3NEdFQ2ZuTTBMM042TEpwNEY0Q2FfLXljY3hFNlJpaWp0YmZDLWRNamcvZWRpdD91c3A9c2hhcmluZw==">解題 / 紀錄</span></p><figure class="highlight cpp"><figcaption data-lang="C++"></figcaption><table><tr><td data-num="1"></td><td><pre><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;bits/stdc++.h></span></span></pre></td></tr><tr><td data-num="2"></td><td><pre><span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span></pre></td></tr><tr><td data-num="3"></td><td><pre></pre></td></tr><tr><td data-num="4"></td><td><pre><span class="token keyword">struct</span> <span class="token class-name">Box</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="5"></td><td><pre>    <span class="token keyword">int</span> wid<span class="token punctuation">,</span> hgt<span class="token punctuation">;</span></pre></td></tr><tr><td data-num="6"></td><td><pre><span class="token punctuation">&#125;</span> box<span class="token punctuation">[</span><span class="token number">6</span><span class="token punctuation">]</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="7"></td><td><pre></pre></td></tr><tr><td data-num="8"></td><td><pre><span class="token keyword">bool</span> <span class="token function">cmp</span><span class="token punctuation">(</span>Box a<span class="token punctuation">,</span> Box b<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="9"></td><td><pre>    <span class="token keyword">if</span> <span class="token punctuation">(</span>a<span class="token punctuation">.</span>wid <span class="token operator">!=</span> b<span class="token punctuation">.</span>wid<span class="token punctuation">)</span> <span class="token keyword">return</span> a<span class="token punctuation">.</span>wid <span class="token operator">&lt;</span> b<span class="token punctuation">.</span>wid<span class="token punctuation">;</span></pre></td></tr><tr><td data-num="10"></td><td><pre>    <span class="token keyword">return</span> a<span class="token punctuation">.</span>hgt <span class="token operator">&lt;</span> b<span class="token punctuation">.</span>hgt<span class="token punctuation">;</span></pre></td></tr><tr><td data-num="11"></td><td><pre><span class="token punctuation">&#125;</span></pre></td></tr><tr><td data-num="12"></td><td><pre></pre></td></tr><tr><td data-num="13"></td><td><pre><span class="token keyword">int</span> <span class="token function">main</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="14"></td><td><pre>    <span class="token keyword">int</span> w<span class="token punctuation">,</span> h<span class="token punctuation">;</span></pre></td></tr><tr><td data-num="15"></td><td><pre>    <span class="token keyword">while</span> <span class="token punctuation">(</span>cin <span class="token operator">>></span> w <span class="token operator">>></span> h<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="16"></td><td><pre>        box<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">.</span>wid <span class="token operator">=</span> <span class="token function">min</span><span class="token punctuation">(</span>w<span class="token punctuation">,</span> h<span class="token punctuation">)</span><span class="token punctuation">,</span> box<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">.</span>hgt <span class="token operator">=</span> <span class="token function">max</span><span class="token punctuation">(</span>w<span class="token punctuation">,</span> h<span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="17"></td><td><pre>        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">;</span> i<span class="token operator">&lt;</span><span class="token number">6</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="18"></td><td><pre>            cin <span class="token operator">>></span> w <span class="token operator">>></span> h<span class="token punctuation">;</span></pre></td></tr><tr><td data-num="19"></td><td><pre>            box<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">.</span>wid <span class="token operator">=</span> <span class="token function">min</span><span class="token punctuation">(</span>w<span class="token punctuation">,</span> h<span class="token punctuation">)</span><span class="token punctuation">,</span> box<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">.</span>hgt <span class="token operator">=</span> <span class="token function">max</span><span class="token punctuation">(</span>w<span class="token punctuation">,</span> h<span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="20"></td><td><pre>        <span class="token punctuation">&#125;</span></pre></td></tr><tr><td data-num="21"></td><td><pre>        <span class="token function">sort</span><span class="token punctuation">(</span>box<span class="token punctuation">,</span> box <span class="token operator">+</span> <span class="token number">6</span><span class="token punctuation">,</span> cmp<span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="22"></td><td><pre>        <span class="token keyword">if</span> <span class="token punctuation">(</span>box<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">.</span>wid <span class="token operator">==</span> box<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">.</span>wid <span class="token operator">&amp;&amp;</span> box<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">.</span>wid <span class="token operator">==</span> box<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">.</span>wid <span class="token operator">&amp;&amp;</span> box<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">.</span>wid <span class="token operator">==</span> box<span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">]</span><span class="token punctuation">.</span>wid <span class="token operator">&amp;&amp;</span></pre></td></tr><tr><td data-num="23"></td><td><pre>            box<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">.</span>hgt <span class="token operator">==</span> box<span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">]</span><span class="token punctuation">.</span>hgt <span class="token operator">&amp;&amp;</span> box<span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">]</span><span class="token punctuation">.</span>hgt <span class="token operator">==</span> box<span class="token punctuation">[</span><span class="token number">4</span><span class="token punctuation">]</span><span class="token punctuation">.</span>hgt <span class="token operator">&amp;&amp;</span> box<span class="token punctuation">[</span><span class="token number">4</span><span class="token punctuation">]</span><span class="token punctuation">.</span>hgt <span class="token operator">==</span> box<span class="token punctuation">[</span><span class="token number">5</span><span class="token punctuation">]</span><span class="token punctuation">.</span>hgt <span class="token operator">&amp;&amp;</span></pre></td></tr><tr><td data-num="24"></td><td><pre>            box<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">.</span>hgt <span class="token operator">==</span> box<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">.</span>hgt <span class="token operator">&amp;&amp;</span> box<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">.</span>hgt <span class="token operator">==</span> box<span class="token punctuation">[</span><span class="token number">4</span><span class="token punctuation">]</span><span class="token punctuation">.</span>wid <span class="token operator">&amp;&amp;</span> box<span class="token punctuation">[</span><span class="token number">4</span><span class="token punctuation">]</span><span class="token punctuation">.</span>wid <span class="token operator">==</span> box<span class="token punctuation">[</span><span class="token number">5</span><span class="token punctuation">]</span><span class="token punctuation">.</span>wid<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="25"></td><td><pre>            cout <span class="token operator">&lt;&lt;</span> <span class="token string">"POSSIBLE\n"</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="26"></td><td><pre>        <span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="27"></td><td><pre>            cout <span class="token operator">&lt;&lt;</span> <span class="token string">"IMPOSSIBLE\n"</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="28"></td><td><pre>        <span class="token punctuation">&#125;</span></pre></td></tr><tr><td data-num="29"></td><td><pre>    <span class="token punctuation">&#125;</span></pre></td></tr><tr><td data-num="30"></td><td><pre><span class="token punctuation">&#125;</span></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> Coding </category>
+          
+          <category> UVA </category>
+          
+          <category> Star1 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Star1 </tag>
+            
+            <tag> CPE </tag>
+            
+            <tag> UVA </tag>
             
         </tags>
       

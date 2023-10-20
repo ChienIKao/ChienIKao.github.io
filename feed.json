@@ -7,8 +7,8 @@
     "home_page_url": "https://chienikao.github.io",
     "items": [
         {
-            "id": "https://chienikao.github.io/2023/10/19/free5gc/",
-            "url": "https://chienikao.github.io/2023/10/19/free5gc/",
+            "id": "https://chienikao.github.io/2023/10/19/%E7%B6%B2%E8%B7%AF%E7%AE%A1%E7%90%86%E8%88%87%E5%88%86%E6%9E%90/free5gc/",
+            "url": "https://chienikao.github.io/2023/10/19/%E7%B6%B2%E8%B7%AF%E7%AE%A1%E7%90%86%E8%88%87%E5%88%86%E6%9E%90/free5gc/",
             "title": "Free5GC 啟動腳本",
             "date_published": "2023-10-19T15:33:38.000Z",
             "content_html": "<h2 id=\"使用-ssh-連線虛擬機\"><a class=\"anchor\" href=\"#使用-ssh-連線虛擬機\">#</a> 使用 ssh 連線虛擬機</h2>\n<h3 id=\"如何查看你的主機-ip\"><a class=\"anchor\" href=\"#如何查看你的主機-ip\">#</a> 如何查看你的主機 ip</h3>\n<p>在你的虛擬機輸入以下指令</p>\n<figure class=\"highlight bash\"><figcaption data-lang=\"bash\"></figcaption><table><tr><td data-num=\"1\"></td><td><pre><span class=\"token function\">ifconfig</span></pre></td></tr></table></figure><p><img data-src=\"https://imgur.com/KVoZU0e.png\" alt=\"\"></p>\n<h3 id=\"ssh-連線\"><a class=\"anchor\" href=\"#ssh-連線\">#</a> ssh 連線</h3>\n<p>開啟你的 Powershell 輸入以下指令</p>\n<figure class=\"highlight bash\"><figcaption data-lang=\"bash\"></figcaption><table><tr><td data-num=\"1\"></td><td><pre><span class=\"token function\">ssh</span> <span class=\"token punctuation\">[</span>你的帳號<span class=\"token punctuation\">]</span>@<span class=\"token punctuation\">[</span>你的主機ip<span class=\"token punctuation\">]</span></pre></td></tr></table></figure><p>例如</p>\n<figure class=\"highlight bash\"><figcaption data-lang=\"bash\"></figcaption><table><tr><td data-num=\"1\"></td><td><pre><span class=\"token function\">ssh</span> alen911018@192.168.56.102</pre></td></tr></table></figure><p>輸入密碼即連線成功</p>\n<p><img data-src=\"https://imgur.com/nEmUiYW.png\" alt=\"\"></p>\n<h2 id=\"free5gc\"><a class=\"anchor\" href=\"#free5gc\">#</a> Free5GC</h2>\n<h3 id=\"建立-runsh-檔案\"><a class=\"anchor\" href=\"#建立-runsh-檔案\">#</a> 建立 <span class=\"exturl\" data-url=\"aHR0cDovL3J1bi5zaA==\">run.sh</span> 檔案</h3>\n<p>開啟你的 free5gc 虛擬機，輸入以下指令</p>\n<figure class=\"highlight bash\"><figcaption data-lang=\"bash\"></figcaption><table><tr><td data-num=\"1\"></td><td><pre><span class=\"token function\">sudo</span> <span class=\"token function\">vim</span> run.sh</pre></td></tr></table></figure><h3 id=\"在-vim-中編輯\"><a class=\"anchor\" href=\"#在-vim-中編輯\">#</a> 在 vim 中編輯</h3>\n<ol>\n<li>按下 <kbd>i</kbd>，螢幕左下角要顯示  <code>-- INSERT --</code> 。</li>\n<li>打入以下程式碼 (若你是在 Powershell 編輯，可以直接 <kbd>ctl</kbd> + <kbd>c</kbd> , <kbd>ctl</kbd> + <kbd>v</kbd>貼上)。</li>\n</ol>\n<figure class=\"highlight bash\"><figcaption data-lang=\"bash\"></figcaption><table><tr><td data-num=\"1\"></td><td><pre><span class=\"token shebang important\">#!/bin/bash</span></pre></td></tr><tr><td data-num=\"2\"></td><td><pre></pre></td></tr><tr><td data-num=\"3\"></td><td><pre><span class=\"token builtin class-name\">echo</span> <span class=\"token punctuation\">[</span>你的密碼<span class=\"token punctuation\">]</span> <span class=\"token operator\">|</span> <span class=\"token function\">sudo</span> <span class=\"token parameter variable\">-S</span> iptables <span class=\"token parameter variable\">-t</span> nat <span class=\"token parameter variable\">-A</span> POSTROUTING <span class=\"token parameter variable\">-o</span> enp0s3 <span class=\"token parameter variable\">-j</span> MASQUERADE</pre></td></tr><tr><td data-num=\"4\"></td><td><pre></pre></td></tr><tr><td data-num=\"5\"></td><td><pre><span class=\"token assign-left variable\"><span class=\"token environment constant\">SESSION</span></span><span class=\"token operator\">=</span><span class=\"token string\">\"free5gc\"</span></pre></td></tr><tr><td data-num=\"6\"></td><td><pre><span class=\"token assign-left variable\">WINDOW</span><span class=\"token operator\">=</span><span class=\"token string\">\"<span class=\"token environment constant\">$SESSION</span>:main\"</span></pre></td></tr><tr><td data-num=\"7\"></td><td><pre></pre></td></tr><tr><td data-num=\"8\"></td><td><pre><span class=\"token comment\"># 刪除現有的 tmux</span></pre></td></tr><tr><td data-num=\"9\"></td><td><pre>tmux kill-session <span class=\"token parameter variable\">-t</span> <span class=\"token environment constant\">$SESSION</span></pre></td></tr><tr><td data-num=\"10\"></td><td><pre></pre></td></tr><tr><td data-num=\"11\"></td><td><pre><span class=\"token comment\"># 建立 session</span></pre></td></tr><tr><td data-num=\"12\"></td><td><pre>tmux new-session <span class=\"token parameter variable\">-d</span> <span class=\"token parameter variable\">-s</span> <span class=\"token environment constant\">$SESSION</span></pre></td></tr><tr><td data-num=\"13\"></td><td><pre></pre></td></tr><tr><td data-num=\"14\"></td><td><pre><span class=\"token comment\"># window 重命名</span></pre></td></tr><tr><td data-num=\"15\"></td><td><pre>tmux rename-window <span class=\"token parameter variable\">-t</span> <span class=\"token environment constant\">$SESSION</span>:0 <span class=\"token string\">\"main\"</span></pre></td></tr><tr><td data-num=\"16\"></td><td><pre></pre></td></tr><tr><td data-num=\"17\"></td><td><pre><span class=\"token comment\"># 傳送指令</span></pre></td></tr><tr><td data-num=\"18\"></td><td><pre>tmux send-keys <span class=\"token parameter variable\">-t</span> <span class=\"token variable\">$WINDOW</span> <span class=\"token string\">\"echo [你的密碼] | sudo -S ls\"</span> C-m</pre></td></tr><tr><td data-num=\"19\"></td><td><pre>tmux send-keys <span class=\"token parameter variable\">-t</span> <span class=\"token variable\">$WINDOW</span> <span class=\"token string\">\"cd ~/free5gc/\"</span> C-m</pre></td></tr><tr><td data-num=\"20\"></td><td><pre>tmux send-keys <span class=\"token parameter variable\">-t</span> <span class=\"token variable\">$WINDOW</span> <span class=\"token string\">\"./force_kill.sh\"</span> C-m</pre></td></tr><tr><td data-num=\"21\"></td><td><pre>tmux send-keys <span class=\"token parameter variable\">-t</span> <span class=\"token variable\">$WINDOW</span> <span class=\"token string\">\"./run.sh\"</span> C-m</pre></td></tr><tr><td data-num=\"22\"></td><td><pre></pre></td></tr><tr><td data-num=\"23\"></td><td><pre><span class=\"token comment\"># 分割 pane</span></pre></td></tr><tr><td data-num=\"24\"></td><td><pre>tmux split-pane <span class=\"token parameter variable\">-h</span> <span class=\"token parameter variable\">-t</span> <span class=\"token variable\">$WINDOW</span></pre></td></tr><tr><td data-num=\"25\"></td><td><pre></pre></td></tr><tr><td data-num=\"26\"></td><td><pre><span class=\"token comment\"># 傳送命令</span></pre></td></tr><tr><td data-num=\"27\"></td><td><pre>tmux send-keys <span class=\"token string\">\"cd ~/free5gc/webconsole/\"</span> C-m</pre></td></tr><tr><td data-num=\"28\"></td><td><pre>tmux send-keys <span class=\"token string\">\"go run server.go\"</span> C-m</pre></td></tr><tr><td data-num=\"29\"></td><td><pre></pre></td></tr><tr><td data-num=\"30\"></td><td><pre><span class=\"token comment\"># attach session</span></pre></td></tr><tr><td data-num=\"31\"></td><td><pre>tmux a <span class=\"token parameter variable\">-t</span> <span class=\"token environment constant\">$SESSION</span></pre></td></tr></table></figure><ol start=\"3\">\n<li>按下 <kbd>esc</kbd> 再按下 <kbd>shift</kbd> + <kbd>;</kbd> (就是 <kbd>:</kbd> 的意思)。</li>\n<li>輸入  <code>wq</code> , 按下 <kbd>Enter</kbd> 存檔並離開。</li>\n</ol>\n<div class=\"note danger\">\n<p><strong>NOTE</strong>: [你的密碼] 部分要改成你的密碼。(中括號  <code>[]</code>  不用加)</p>\n</div>\n<h3 id=\"執行-runsh\"><a class=\"anchor\" href=\"#執行-runsh\">#</a> 執行 <span class=\"exturl\" data-url=\"aHR0cDovL3J1bi5zaA==\">run.sh</span></h3>\n<figure class=\"highlight bash\"><figcaption data-lang=\"bash\"></figcaption><table><tr><td data-num=\"1\"></td><td><pre><span class=\"token function\">sh</span> ./run.sh</pre></td></tr></table></figure><p>或是把腳本檔案加上執行權限，就可以直接執行腳本，不需要透過  <code>sh</code>  指令</p>\n<figure class=\"highlight bash\"><figcaption data-lang=\"bash\"></figcaption><table><tr><td data-num=\"1\"></td><td><pre><span class=\"token function\">sudo</span> <span class=\"token function\">chmod</span> +x ./run.sh</pre></td></tr><tr><td data-num=\"2\"></td><td><pre>./run.sh</pre></td></tr></table></figure><h2 id=\"ueransim\"><a class=\"anchor\" href=\"#ueransim\">#</a> UERANSIM</h2>\n<h3 id=\"建立-runsh-檔案-2\"><a class=\"anchor\" href=\"#建立-runsh-檔案-2\">#</a> 建立 <span class=\"exturl\" data-url=\"aHR0cDovL3J1bi5zaA==\">run.sh</span> 檔案</h3>\n<figure class=\"highlight bash\"><figcaption data-lang=\"bash\"></figcaption><table><tr><td data-num=\"1\"></td><td><pre><span class=\"token function\">sudo</span> <span class=\"token function\">vim</span> run.sh</pre></td></tr></table></figure><h3 id=\"在-vim-中編輯-2\"><a class=\"anchor\" href=\"#在-vim-中編輯-2\">#</a> 在 vim 中編輯</h3>\n<ol>\n<li>按下 <kbd>i</kbd>，螢幕左下角要顯示  <code>-- INSERT --</code> 。</li>\n<li>打入以下程式碼 (若你是在 Powershell 編輯，可以直接 <kbd>ctl</kbd> + <kbd>c</kbd> , <kbd>ctl</kbd> + <kbd>v</kbd> 貼上)。</li>\n</ol>\n<figure class=\"highlight bash\"><figcaption data-lang=\"bash\"></figcaption><table><tr><td data-num=\"1\"></td><td><pre><span class=\"token shebang important\">#!/bin/bash</span></pre></td></tr><tr><td data-num=\"2\"></td><td><pre></pre></td></tr><tr><td data-num=\"3\"></td><td><pre><span class=\"token assign-left variable\"><span class=\"token environment constant\">SESSION</span></span><span class=\"token operator\">=</span><span class=\"token string\">\"ueransim\"</span></pre></td></tr><tr><td data-num=\"4\"></td><td><pre><span class=\"token assign-left variable\">WINDOW</span><span class=\"token operator\">=</span><span class=\"token string\">\"<span class=\"token environment constant\">$SESSION</span>:main\"</span></pre></td></tr><tr><td data-num=\"5\"></td><td><pre></pre></td></tr><tr><td data-num=\"6\"></td><td><pre><span class=\"token comment\"># 刪除現有的 tmux</span></pre></td></tr><tr><td data-num=\"7\"></td><td><pre>tmux kill-session <span class=\"token parameter variable\">-t</span> <span class=\"token environment constant\">$SESSION</span></pre></td></tr><tr><td data-num=\"8\"></td><td><pre></pre></td></tr><tr><td data-num=\"9\"></td><td><pre><span class=\"token comment\"># 建立 session</span></pre></td></tr><tr><td data-num=\"10\"></td><td><pre>tmux new-session <span class=\"token parameter variable\">-d</span> <span class=\"token parameter variable\">-s</span> <span class=\"token environment constant\">$SESSION</span> <span class=\"token comment\"># -d: detach</span></pre></td></tr><tr><td data-num=\"11\"></td><td><pre></pre></td></tr><tr><td data-num=\"12\"></td><td><pre><span class=\"token comment\"># window 重命名</span></pre></td></tr><tr><td data-num=\"13\"></td><td><pre>tmux rename-window <span class=\"token parameter variable\">-t</span> <span class=\"token environment constant\">$SESSION</span>:0 <span class=\"token string\">\"main\"</span></pre></td></tr><tr><td data-num=\"14\"></td><td><pre></pre></td></tr><tr><td data-num=\"15\"></td><td><pre><span class=\"token comment\"># 傳送命令</span></pre></td></tr><tr><td data-num=\"16\"></td><td><pre>tmux send-keys <span class=\"token parameter variable\">-t</span> <span class=\"token variable\">$WINDOW</span> <span class=\"token string\">'cd ~/UERANSIM/build/'</span> C-m <span class=\"token comment\"># cd ~/UERANSIM/build/</span></pre></td></tr><tr><td data-num=\"17\"></td><td><pre>tmux send-keys <span class=\"token parameter variable\">-t</span> <span class=\"token variable\">$WINDOW</span> <span class=\"token string\">'./nr-gnb -c ../config/free5gc-gnb.yaml'</span> C-m</pre></td></tr><tr><td data-num=\"18\"></td><td><pre></pre></td></tr><tr><td data-num=\"19\"></td><td><pre><span class=\"token comment\"># 水平分割 pane</span></pre></td></tr><tr><td data-num=\"20\"></td><td><pre>tmux split-window <span class=\"token parameter variable\">-h</span> <span class=\"token parameter variable\">-t</span> <span class=\"token variable\">$WINDOW</span></pre></td></tr><tr><td data-num=\"21\"></td><td><pre></pre></td></tr><tr><td data-num=\"22\"></td><td><pre><span class=\"token comment\"># 傳送命令</span></pre></td></tr><tr><td data-num=\"23\"></td><td><pre>tmux send-keys <span class=\"token parameter variable\">-t</span> <span class=\"token variable\">$WINDOW</span> <span class=\"token string\">\"echo [你的密碼] | sudo -S ls\"</span> C-m</pre></td></tr><tr><td data-num=\"24\"></td><td><pre>tmux send-keys <span class=\"token parameter variable\">-t</span> <span class=\"token variable\">$WINDOW</span> <span class=\"token string\">'cd ~/UERANSIM/build'</span> C-m</pre></td></tr><tr><td data-num=\"25\"></td><td><pre>tmux send-keys <span class=\"token parameter variable\">-t</span> <span class=\"token variable\">$WINDOW</span> <span class=\"token string\">'sudo ./nr-ue -c ../config/free5gc-ue.yaml'</span> C-m</pre></td></tr><tr><td data-num=\"26\"></td><td><pre></pre></td></tr><tr><td data-num=\"27\"></td><td><pre><span class=\"token function\">sleep</span> <span class=\"token number\">5</span></pre></td></tr><tr><td data-num=\"28\"></td><td><pre><span class=\"token function\">sh</span> ./ping.sh</pre></td></tr></table></figure><ol start=\"3\">\n<li>按下 <kbd>esc</kbd> 再按下 <kbd>shift</kbd> + <kbd>;</kbd> (就是 <kbd>:</kbd> 的意思)。</li>\n<li>輸入  <code>wq</code> , 按下 <kbd>Enter</kbd> 存檔並離開。</li>\n</ol>\n<div class=\"note danger\">\n<p><strong>NOTE</strong>: [你的密碼] 部分要改成你的密碼。 (中括號  <code>[]</code>  不用加)</p>\n</div>\n<h3 id=\"建立-pingsh-檔案\"><a class=\"anchor\" href=\"#建立-pingsh-檔案\">#</a> 建立 <span class=\"exturl\" data-url=\"aHR0cDovL3Bpbmcuc2g=\">ping.sh</span> 檔案</h3>\n<figure class=\"highlight bash\"><figcaption data-lang=\"bash\"></figcaption><table><tr><td data-num=\"1\"></td><td><pre><span class=\"token function\">sudo</span> <span class=\"token function\">vim</span> ping.sh</pre></td></tr></table></figure><p>同前面使用 vim 的方法複製以下內容</p>\n<figure class=\"highlight bash\"><figcaption data-lang=\"bash\"></figcaption><table><tr><td data-num=\"1\"></td><td><pre><span class=\"token shebang important\">#!/bin/bash</span></pre></td></tr><tr><td data-num=\"2\"></td><td><pre></pre></td></tr><tr><td data-num=\"3\"></td><td><pre><span class=\"token builtin class-name\">echo</span> 0000 <span class=\"token operator\">|</span> <span class=\"token function\">sudo</span> <span class=\"token parameter variable\">-S</span> <span class=\"token function\">ip</span> route <span class=\"token function\">add</span> default dev uesimtun0</pre></td></tr><tr><td data-num=\"4\"></td><td><pre><span class=\"token function\">ping</span> <span class=\"token parameter variable\">-c</span> <span class=\"token number\">8</span> <span class=\"token parameter variable\">-I</span> uesimtun0 google.com</pre></td></tr></table></figure><h3 id=\"執行-runsh-2\"><a class=\"anchor\" href=\"#執行-runsh-2\">#</a> 執行 <span class=\"exturl\" data-url=\"aHR0cDovL3J1bi5zaA==\">run.sh</span></h3>\n<figure class=\"highlight bash\"><figcaption data-lang=\"bash\"></figcaption><table><tr><td data-num=\"1\"></td><td><pre><span class=\"token function\">sh</span> ./run.sh</pre></td></tr></table></figure>",
@@ -53,8 +53,8 @@
                 "Leetcode",
                 "Medium",
                 "Leetcode",
-                "Graph",
-                "Medium"
+                "Medium",
+                "Graph"
             ]
         },
         {
@@ -68,8 +68,8 @@
                 "Leetcode",
                 "Medium",
                 "Leetcode",
-                "Medium",
                 "Two Pointers",
+                "Medium",
                 "Linked List",
                 "Stack"
             ]
@@ -118,8 +118,8 @@
                 "Leetcode",
                 "Medium",
                 "Leetcode",
-                "Medium",
                 "Two Pointers",
+                "Medium",
                 "Linked List"
             ]
         },
@@ -152,8 +152,8 @@
                 "Medium",
                 "Javascript",
                 "Leetcode",
-                "Medium",
-                "Typescript"
+                "Typescript",
+                "Medium"
             ]
         },
         {
@@ -168,8 +168,8 @@
                 "Medium",
                 "Javascript",
                 "Leetcode",
-                "Medium",
-                "Typescript"
+                "Typescript",
+                "Medium"
             ]
         },
         {
@@ -199,8 +199,8 @@
                 "Leetcode",
                 "Medium",
                 "Leetcode",
-                "Dynamic Programming",
                 "Array",
+                "Dynamic Programming",
                 "Medium"
             ]
         },
@@ -215,22 +215,9 @@
                 "Leetcode",
                 "Medium",
                 "Leetcode",
-                "Dynamic Programming",
                 "Array",
+                "Dynamic Programming",
                 "Medium"
-            ]
-        },
-        {
-            "id": "https://chienikao.github.io/2023/05/11/programming/CPP/cpp%20file/",
-            "url": "https://chienikao.github.io/2023/05/11/programming/CPP/cpp%20file/",
-            "title": "C++ - fstream",
-            "date_published": "2023-05-11T07:04:17.000Z",
-            "content_html": "",
-            "tags": [
-                "Programming",
-                "CPP",
-                "C/C++",
-                "fstream"
             ]
         },
         {
@@ -273,9 +260,9 @@
                 "Medium",
                 "Leetcode",
                 "Array",
-                "Medium",
                 "Matrix",
-                "Simulation"
+                "Simulation",
+                "Medium"
             ]
         },
         {
@@ -306,9 +293,25 @@
                 "Medium",
                 "Leetcode",
                 "Array",
-                "Medium",
                 "Matrix",
-                "Simulation"
+                "Simulation",
+                "Medium"
+            ]
+        },
+        {
+            "id": "https://chienikao.github.io/2023/05/09/Coding/leetcode/Easy/2634%20Filter%20Elements%20from%20Array/",
+            "url": "https://chienikao.github.io/2023/05/09/Coding/leetcode/Easy/2634%20Filter%20Elements%20from%20Array/",
+            "title": "2634. Filter Elements from Array",
+            "date_published": "2023-05-09T02:05:43.000Z",
+            "content_html": "<p>⭐️</p>\n<h2 id=\"題目敘述\"><a class=\"anchor\" href=\"#題目敘述\">#</a> <span class=\"exturl\" data-url=\"aHR0cHM6Ly9sZWV0Y29kZS5jb20vcHJvYmxlbXMvZmlsdGVyLWVsZW1lbnRzLWZyb20tYXJyYXkvZGVzY3JpcHRpb24vP3V0bV9jYW1wYWlnbj1Qb3N0RDUmYW1wO3V0bV9tZWRpdW09UG9zdCZhbXA7dXRtX3NvdXJjZT1Qb3N0JmFtcDtnaW9fbGlua19pZD1hOWE1VlpyOQ==\">題目敘述</span></h2>\n<p>Given an integer array  <code>arr</code>  and a filtering function  <code>fn</code> , return a new array with a fewer or equal number of elements.</p>\n<p>The returned array should only contain elements where  <code>fn(arr[i], i)</code>  evaluated to a truthy value.</p>\n<p>Please solve it without the built-in  <code>Array.filter</code>  method.</p>\n<h3 id=\"example-1\"><a class=\"anchor\" href=\"#example-1\">#</a> Example 1</h3>\n<blockquote>\n<p><strong>Input</strong>: arr = [0,10,20,30], fn = function greaterThan10(n) { return n &gt; 10; }<br>\n<strong>Output</strong>: [20,30]<br>\n<strong>Explanation</strong>:<br>\nconst newArray = filter(arr, fn); // [20, 30]<br>\nThe function filters out values that are not greater than 10</p>\n</blockquote>\n<h3 id=\"example-2\"><a class=\"anchor\" href=\"#example-2\">#</a> Example 2</h3>\n<blockquote>\n<p><strong>Input</strong>: arr = [1,2,3], fn = function firstIndex(n, i) { return i === 0; }<br>\n<strong>Output</strong>: [1]<br>\n<strong>Explanation</strong>:<br>\nfn can also accept the index of each element<br>\nIn this case, the function removes elements not at index 0</p>\n</blockquote>\n<h3 id=\"example-3\"><a class=\"anchor\" href=\"#example-3\">#</a> Example 3</h3>\n<blockquote>\n<p><strong>Input</strong>: arr = [-2,-1,0,1,2], fn = function plusOne(n) { return n + 1 }<br>\n<strong>Output</strong>: [-2,0,1,2]<br>\n<strong>Explanation</strong>:<br>\nFalsey values such as 0 should be filtered out</p>\n</blockquote>\n<h2 id=\"solution\"><a class=\"anchor\" href=\"#solution\">#</a> Solution</h2>\n<div class=\"tab\" data-id=\"code\" data-title=\"Javascript\">\n<figure class=\"highlight javascript\"><figcaption data-lang=\"javascript\"></figcaption><table><tr><td data-num=\"1\"></td><td><pre><span class=\"token comment\">/**</pre></td></tr><tr><td data-num=\"2\"></td><td><pre> * @param &#123;number[]&#125; arr</pre></td></tr><tr><td data-num=\"3\"></td><td><pre> * @param &#123;Function&#125; fn</pre></td></tr><tr><td data-num=\"4\"></td><td><pre> * @return &#123;number[]&#125;</pre></td></tr><tr><td data-num=\"5\"></td><td><pre> */</span></pre></td></tr><tr><td data-num=\"6\"></td><td><pre><span class=\"token keyword\">var</span> <span class=\"token function-variable function\">filter</span> <span class=\"token operator\">=</span> <span class=\"token keyword\">function</span><span class=\"token punctuation\">(</span><span class=\"token parameter\">arr<span class=\"token punctuation\">,</span> fn</span><span class=\"token punctuation\">)</span> <span class=\"token punctuation\">&#123;</span></pre></td></tr><tr><td data-num=\"7\"></td><td><pre>    <span class=\"token keyword\">const</span> res <span class=\"token operator\">=</span> <span class=\"token punctuation\">[</span><span class=\"token punctuation\">]</span><span class=\"token punctuation\">;</span></pre></td></tr><tr><td data-num=\"8\"></td><td><pre>    <span class=\"token keyword\">for</span> <span class=\"token punctuation\">(</span><span class=\"token keyword\">let</span> i<span class=\"token operator\">=</span><span class=\"token number\">0</span><span class=\"token punctuation\">;</span> i<span class=\"token operator\">&lt;</span>arr<span class=\"token punctuation\">.</span>length<span class=\"token punctuation\">;</span> i<span class=\"token operator\">++</span><span class=\"token punctuation\">)</span> <span class=\"token punctuation\">&#123;</span></pre></td></tr><tr><td data-num=\"9\"></td><td><pre>        <span class=\"token keyword\">if</span> <span class=\"token punctuation\">(</span><span class=\"token function\">fn</span><span class=\"token punctuation\">(</span>arr<span class=\"token punctuation\">[</span>i<span class=\"token punctuation\">]</span><span class=\"token punctuation\">,</span> i<span class=\"token punctuation\">)</span><span class=\"token punctuation\">)</span> res<span class=\"token punctuation\">.</span><span class=\"token function\">push</span><span class=\"token punctuation\">(</span>arr<span class=\"token punctuation\">[</span>i<span class=\"token punctuation\">]</span><span class=\"token punctuation\">)</span><span class=\"token punctuation\">;</span></pre></td></tr><tr><td data-num=\"10\"></td><td><pre>    <span class=\"token punctuation\">&#125;</span></pre></td></tr><tr><td data-num=\"11\"></td><td><pre>    <span class=\"token keyword\">return</span> res<span class=\"token punctuation\">;</span></pre></td></tr><tr><td data-num=\"12\"></td><td><pre><span class=\"token punctuation\">&#125;</span><span class=\"token punctuation\">;</span></pre></td></tr></table></figure></div>\n<div class=\"tab\" data-id=\"code\" data-title=\"Typescript\">\n<pre><code class=\"language-Typescript\">function filter(arr: number[], fn: (n: number, i: number) =&gt; any): number[] &#123;\n    const res = [];\n    for (let i=0; i&lt;arr.length; i++) &#123;\n        if (fn(arr[i], i)) res.push(arr[i]);\n    &#125;\n    return res;\n&#125;;\n</code></pre>\n</div>\n",
+            "tags": [
+                "Coding",
+                "Leetcode",
+                "Easy",
+                "Javascript",
+                "Leetcode",
+                "Easy",
+                "Typescript"
             ]
         }
     ]
