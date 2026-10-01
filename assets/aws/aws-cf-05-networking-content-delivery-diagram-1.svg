@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="700" height="380" viewBox="0 0 700 380" xmlns="http://www.w3.org/2000/svg">
+          <text x="350" y="26" text-anchor="middle" font-family="JetBrains Mono" font-size="12" fill="#565B52">Internet</text>
+          <line x1="350" y1="34" x2="350" y2="66" stroke="#1C201D" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+          <defs>
+            <marker id="arrowhead" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+              <path d="M2 1L8 5L2 9" fill="none" stroke="#1C201D" stroke-width="1.5"/>
+            </marker>
+          </defs>
+          <rect x="40" y="68" width="620" height="290" rx="18" fill="#F7F5EF" stroke="#24325C" stroke-width="1.2"/>
+          <text x="60" y="96" font-family="IBM Plex Sans" font-weight="700" font-size="14" fill="#24325C">VPC (10.0.0.0/16)</text>
+          <text x="60" y="114" font-family="IBM Plex Sans" font-size="11.5" fill="#565B52">Internet Gateway 連接於此</text>
+
+          <rect x="70" y="140" width="270" height="190" rx="12" fill="#E1EEEB" stroke="#12665A" stroke-width="1"/>
+          <text x="90" y="168" font-family="IBM Plex Sans" font-weight="700" font-size="14" fill="#12665A">公有子網路 Public Subnet</text>
+          <text x="90" y="188" font-family="IBM Plex Sans" font-size="11.5" fill="#565B52">可直接連網際網路</text>
+          <rect x="90" y="206" width="230" height="42" rx="8" fill="#fff" stroke="#B7D6CE"/>
+          <text x="205" y="231" text-anchor="middle" font-family="JetBrains Mono" font-size="12" fill="#12665A">Web 伺服器 (EC2)</text>
+          <rect x="90" y="258" width="230" height="42" rx="8" fill="#fff" stroke="#B7D6CE"/>
+          <text x="205" y="283" text-anchor="middle" font-family="JetBrains Mono" font-size="12" fill="#12665A">NAT Gateway</text>
+
+          <rect x="360" y="140" width="270" height="190" rx="12" fill="#E7EAF2" stroke="#24325C" stroke-width="1"/>
+          <text x="380" y="168" font-family="IBM Plex Sans" font-weight="700" font-size="14" fill="#24325C">私有子網路 Private Subnet</text>
+          <text x="380" y="188" font-family="IBM Plex Sans" font-size="11.5" fill="#565B52">外部無法直接存取</text>
+          <rect x="380" y="206" width="230" height="42" rx="8" fill="#fff" stroke="#C4CADC"/>
+          <text x="495" y="231" text-anchor="middle" font-family="JetBrains Mono" font-size="12" fill="#24325C">資料庫 (RDS)</text>
+          <rect x="380" y="258" width="230" height="42" rx="8" fill="#fff" stroke="#C4CADC"/>
+          <text x="495" y="283" text-anchor="middle" font-family="JetBrains Mono" font-size="12" fill="#24325C">內部應用伺服器</text>
+        </svg>
